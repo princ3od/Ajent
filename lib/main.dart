@@ -1,3 +1,4 @@
+import 'package:ajent/app/modules/auth/auth_page.dart';
 import 'package:ajent/app/modules/home/home_page.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       getPages: AppPages.pages,
-      initialRoute: Routes.HOME,
+      initialRoute: Routes.AUTH,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: AuthPage(),
     );
   }
 }
