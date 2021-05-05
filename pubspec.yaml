@@ -85,5 +85,5 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_native_splash:
-  color: "#ffffff"
-  image: "assets/images/demo.png"
+  color: "#e74b32"
+  image: "assets/images/ajent_logo.png"
