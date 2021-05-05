@@ -35,6 +35,7 @@ dependencies:
   firebase_storage: ^8.0.5
   #---------------
   flutter_native_splash: ^1.1.8+4
+  flutter_launcher_icons: ^0.9.0
   lottie: ^1.0.1
   flutter_signin_button: ^2.0.0
 dev_dependencies:
@@ -87,3 +88,7 @@ flutter:
 flutter_native_splash:
   color: "#e74b32"
   image: "assets/images/ajent_logo.png"
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/ajent_logo.png"
