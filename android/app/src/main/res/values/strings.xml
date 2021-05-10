@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ajent</string>
+<string name="facebook_app_id">370157601063104</string> <string name="fb_login_protocol_scheme">fb370157601063104</string>
+</resources>
