@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,6 +15,7 @@ class AuthenticService {
 
   Future<FirebaseApp> initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
+    FirebaseAuth.instance.setLanguageCode("vn");
     _firebaseAuth = FirebaseAuth.instance;
     _googleSignIn = GoogleSignIn();
     await Future.delayed(Duration(seconds: 1));
@@ -84,5 +87,46 @@ class AuthenticService {
   Future signOutFacebook() async {
     await FacebookAuth.instance.logOut();
     await _firebaseAuth.signOut();
+  }
+
+  Future verifyPhoneNumber(
+      String phone,
+      Function onCompleted,
+      Function onFailed,
+      Function(String) onSent,
+      Function(String) onTimeOut) async {
+    try {
+      await _firebaseAuth.verifyPhoneNumber(
+        timeout: Duration(seconds: 60),
+        phoneNumber: phone,
+        verificationCompleted: null,
+        verificationFailed: (e) {
+          onFailed();
+        },
+        codeSent: (verifiedID, _) {
+          onSent(verifiedID);
+        },
+        codeAutoRetrievalTimeout: (verifiedID) {
+          onTimeOut(verifiedID);
+        },
+      );
+    } catch (e) {
+      //
+    }
+  }
+
+  Future<User> signInByPhone(String verificationID, String code) async {
+    User user;
+    try {
+      final AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationID,
+        smsCode: code,
+      );
+
+      user = (await _firebaseAuth.signInWithCredential(credential)).user;
+    } catch (e) {
+      return null;
+    }
+    return user;
   }
 }

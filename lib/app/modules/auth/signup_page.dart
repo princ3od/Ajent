@@ -1,8 +1,10 @@
+import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
 class SignupPage extends StatelessWidget {
+  final AuthController controller = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +41,35 @@ class SignupPage extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: Material(child: TextField()),
+                child: Material(
+                  color: Colors.transparent,
+                  child: Column(
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: TextField(
+                            controller: controller.txtPhoneNumber,
+                          )),
+                      ElevatedButton(
+                          onPressed: () {
+                            controller.loginWithPhone();
+                          },
+                          child: Text("Gửi")),
+                      Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: TextField(
+                            controller: controller.txtCode,
+                          )),
+                      ElevatedButton(
+                          onPressed: () {
+                            controller.verifyCode();
+                          },
+                          child: Text("Xác thực")),
+                    ],
+                  ),
+                ),
               ),
-              Expanded(flex: 2, child: Material())
+              //Expanded(flex: 1, child: Material())
             ],
           ),
         ),
