@@ -1,6 +1,7 @@
-import 'package:ajent/app/modules/auth/auth_page.dart';
-import 'package:ajent/app/modules/home/home_page.dart';
+import 'package:ajent/app/modules/splash/splash_binding.dart';
 import 'package:ajent/routes/pages.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,11 +17,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Ajent",
       getPages: AppPages.pages,
-      initialRoute: Routes.AUTH,
+      initialRoute: Routes.SPLASH,
+      initialBinding: SplashBinding(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AuthPage(),
     );
   }
 }
