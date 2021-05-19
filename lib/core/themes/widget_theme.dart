@@ -17,3 +17,24 @@ final ButtonStyle outlinedButtonStyle = OutlinedButton.styleFrom(
   padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
   side: BorderSide(color: Colors.black),
 );
+
+final InputDecoration searchTextfieldDecoration = InputDecoration(
+  hintText: "Tìm kiếm",
+  contentPadding: EdgeInsets.fromLTRB(5, 2, 10, 2),
+  fillColor: Colors.grey.shade200,
+  filled: true,
+  isDense: true,
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide.none,
+    borderRadius: BorderRadius.circular(20.0),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide.none,
+    borderRadius: BorderRadius.circular(20.0),
+  ),
+  prefixIcon: Icon(
+    Icons.search,
+    color: Colors.grey,
+    size: 20,
+  ),
+);
