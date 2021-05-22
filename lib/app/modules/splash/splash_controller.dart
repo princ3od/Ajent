@@ -16,16 +16,16 @@ class SplashController extends GetxController {
     loadInfor.value = "Khởi tạo kết nối với server...";
     await AuthenticService.instance.initializeFirebase();
     loadInfor.value = "Một chút nữa...";
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 200));
     timeDilation = 2.5;
     loadInfor.value = "Xong rồi!";
     isLoading.value = false;
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 200));
     if (AuthenticService.instance.getCurrentUser() == null) {
       await Get.offNamed(Routes.WELCOME);
     } else {
       loadInfor.value = "Chào mừng bạn quay lại!";
-      await Future.delayed(Duration(milliseconds: 800));
+      await Future.delayed(Duration(milliseconds: 300));
       await Get.offNamed(Routes.HOME);
     }
   }

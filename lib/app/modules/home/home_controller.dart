@@ -1,21 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomeController extends GetxController {
   var tabpageIndex = 0.obs;
   var isOnMain = true.obs;
+  var childTabIndex = 0.obs;
   PageController pageController = PageController();
-  PageController homePageController = PageController(initialPage: 1);
+  PanelController panelController = PanelController();
   @override
   onInit() {
     super.onInit();
   }
 
-  onPageChanged(int index) {
-    tabpageIndex.value = index;
+  oncChildTabChanged(int index) {
+    childTabIndex.value = index;
   }
 
-  onHomePageChange(int index) {
-    isOnMain.value = (index == 1);
+  onPageChanged(int index) {
+    if (!panelController.isPanelOpen) {
+      panelController.open();
+    }
+    tabpageIndex.value = index;
   }
 }

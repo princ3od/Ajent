@@ -28,17 +28,18 @@ dependencies:
   get: ^4.1.4 # getX 
 
   # firebase things
-  firebase_core: ^1.1.0
-  firebase_auth: ^1.1.2
+  firebase_core: ^1.2.0
+  firebase_auth: ^1.2.0
   google_sign_in: ^5.0.2
-  cloud_firestore: ^1.0.7
-  firebase_storage: ^8.0.5
+  cloud_firestore: ^2.2.0
+  firebase_storage: ^8.1.0
   flutter_facebook_auth: ^3.3.3+1
   #---------------
   flutter_native_splash: ^1.1.8+4
   flutter_launcher_icons: ^0.9.0
-  lottie: ^1.0.1
-  flutter_signin_button: ^2.0.0
+  bubble_tab_indicator: ^0.1.6
+  sliding_up_panel: ^2.0.0+1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class LearningTab extends StatelessWidget {
+class SuggestionChildTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Learning"));
+    return Container();
   }
 }
