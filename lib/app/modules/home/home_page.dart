@@ -1,5 +1,6 @@
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
+import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -53,7 +54,9 @@ class HomePage extends StatelessWidget {
                               width: double.infinity,
                               height: 40,
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.toNamed(Routes.PROFILE);
+                                },
                                 child: Text("Thông tin cá nhân"),
                                 style: outlinedButtonStyle,
                               ),

@@ -18,6 +18,25 @@ final ButtonStyle outlinedButtonStyle = OutlinedButton.styleFrom(
   side: BorderSide(color: Colors.black),
 );
 
+final ButtonStyle whiteButtonStyle = ElevatedButton.styleFrom(
+  primary: Colors.white,
+  onPrimary: Colors.black,
+  padding: EdgeInsets.fromLTRB(50, 12, 50, 12),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+  textStyle: TextStyle(
+    fontSize: 14,
+  ),
+);
+
+final ButtonStyle orangeButtonStyle = ElevatedButton.styleFrom(
+  primary: primaryColor,
+  padding: EdgeInsets.fromLTRB(50, 12, 50, 12),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+  textStyle: TextStyle(
+    fontSize: 14,
+  ),
+);
+
 final InputDecoration searchTextfieldDecoration = InputDecoration(
   hintText: "Tìm kiếm",
   contentPadding: EdgeInsets.fromLTRB(5, 2, 10, 2),

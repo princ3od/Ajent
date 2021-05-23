@@ -4,6 +4,7 @@ import 'package:ajent/app/modules/auth/signup_page.dart';
 import 'package:ajent/app/modules/auth/welcome_page.dart';
 import 'package:ajent/app/modules/home/home_binding.dart';
 import 'package:ajent/app/modules/home/home_page.dart';
+import 'package:ajent/app/modules/my_profile/my_profile_page.dart';
 import 'package:ajent/app/modules/splash/splash_binding.dart';
 import 'package:ajent/app/modules/splash/splash_page.dart';
 import 'package:get/get.dart';
@@ -25,5 +26,6 @@ abstract class AppPages {
       page: () => SignupPage(),
       binding: AuthBinding(),
     ),
+    GetPage(name: Routes.PROFILE, page: () => MyProfilePage()),
   ];
 }
