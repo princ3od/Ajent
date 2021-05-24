@@ -57,3 +57,9 @@ final InputDecoration searchTextfieldDecoration = InputDecoration(
     size: 20,
   ),
 );
+
+final InputDecoration primaryTextFieldDecoration = InputDecoration(
+  focusedBorder: UnderlineInputBorder(
+    borderSide: BorderSide(color: primaryColor)
+  ),
+);

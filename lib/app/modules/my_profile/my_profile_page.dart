@@ -22,42 +22,61 @@ class _MyProfilePageState extends State<MyProfilePage> {
         ),
         title: Text("Tùy chỉnh thông tin cá nhân", style: TextStyle(color: Colors.black, fontSize: 16),),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: CircleAvatar(
-                backgroundImage: AssetImage("assets/images/demo.png"),
-                radius: 40.0,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/demo.png"),
+                  radius: 40.0,
+                ),
               ),
-            ),
-            SizedBox(height: 20,),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text("Đổi ảnh"),
-                style: whiteButtonStyle,
-              ),
-            ),
-            SizedBox(height: 20,),
-            Text("Họ và tên"),
-            SizedBox(height: 20,),
-            Text("Email"),
-            SizedBox(height: 20,),
-            Text("Số điện thoại"),
-            SizedBox(height: 20,),
-            Text("Bằng cấp, trình độ"),
-            SizedBox(height: 20,),
-            Center(
-              child: ElevatedButton(
+              SizedBox(height: 20,),
+              Center(
+                child: ElevatedButton(
                   onPressed: () {},
-                  child: Text("Lưu"),
-                style: orangeButtonStyle,
+                  child: Text("Đổi ảnh"),
+                  style: whiteButtonStyle,
+                ),
               ),
-            )
-          ],
+              SizedBox(height: 20,),
+              Text("Họ và tên"),
+              TextField(
+                decoration: primaryTextFieldDecoration,
+                cursorColor: primaryColor,
+              ),
+              SizedBox(height: 20,),
+              Text("Email"),
+              TextField(
+                decoration: primaryTextFieldDecoration,
+                cursorColor: primaryColor,
+              ),
+              SizedBox(height: 20,),
+              Text("Số điện thoại"),
+              TextField(
+                decoration: primaryTextFieldDecoration,
+                cursorColor: primaryColor,
+                keyboardType: TextInputType.phone,
+              ),
+              SizedBox(height: 20,),
+              Text("Bằng cấp, trình độ"),
+              TextField(
+                decoration: primaryTextFieldDecoration,
+                cursorColor: primaryColor,
+              ),
+              SizedBox(height: 20,),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Lưu"),
+                  style: orangeButtonStyle,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
