@@ -2,6 +2,8 @@ import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class MyProfilePage extends StatefulWidget {
   @override
@@ -43,7 +45,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 ),
               ),
               SizedBox(height: 20,),
-              Text("Họ và tên"),
+              Text("Họ và tên",style:GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,

@@ -39,6 +39,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.0
   bubble_tab_indicator: ^0.1.6
   sliding_up_panel: ^2.0.0+1
+  google_fonts: ^2.1.0
   
 dev_dependencies:
   flutter_test:
