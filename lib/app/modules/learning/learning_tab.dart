@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 
 class LearningTab extends StatelessWidget {
+  final LearningController controller =
+      Get.put<LearningController>(LearningController());
   @override
   Widget build(BuildContext context) {
     return Column(

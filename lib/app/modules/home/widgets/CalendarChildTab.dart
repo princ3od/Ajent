@@ -14,31 +14,30 @@ class CalendarChildTab extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
             child: TabBar(
-                onTap: (index) {
-                  print(index);
-                },
-                unselectedLabelColor: Colors.black,
-                unselectedLabelStyle: TextStyle(fontSize: 10.5),
-                labelColor: Colors.black,
-                labelStyle:
-                    TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                indicator: BubbleTabIndicator(
-                  //indicatorHeight: 30.0,
-                  indicatorColor: primaryColor,
-                  tabBarIndicatorSize: TabBarIndicatorSize.label,
-                  insets: const EdgeInsets.symmetric(horizontal: 2.0),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: -6.0),
-                ),
-                tabs: [
-                  Text("T2"),
-                  Text("T3"),
-                  Text("T4"),
-                  Text("T5"),
-                  Text("T6"),
-                  Text("T7"),
-                  Text("CN"),
-                ]),
+              onTap: (index) {
+                print(index);
+              },
+              unselectedLabelColor: Colors.black,
+              unselectedLabelStyle: TextStyle(fontSize: 10.5),
+              labelColor: Colors.black,
+              labelStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              indicator: BubbleTabIndicator(
+                //indicatorHeight: 30.0,
+                indicatorColor: primaryColor,
+                tabBarIndicatorSize: TabBarIndicatorSize.label,
+                insets: const EdgeInsets.symmetric(horizontal: 2.0),
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: -6.0),
+              ),
+              tabs: [
+                Text("T2"),
+                Text("T3"),
+                Text("T4"),
+                Text("T5"),
+                Text("T6"),
+                Text("T7"),
+                Text("CN"),
+              ],
+            ),
           ),
         )
       ],
