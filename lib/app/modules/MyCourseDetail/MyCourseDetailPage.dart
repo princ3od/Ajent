@@ -4,12 +4,9 @@ import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 
-class MyCourseDetailPage extends StatefulWidget {
-  @override
-  _MyCourseDetailPage createState() => _MyCourseDetailPage();
-}
 
-class _MyCourseDetailPage extends State<MyCourseDetailPage> {
+
+class MyCourseDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
