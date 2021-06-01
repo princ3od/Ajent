@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: "Ajent",
       getPages: AppPages.pages,
       initialRoute: Routes.SPLASH,
+      //initialRoute: Routes.MYCOURSEDETAIL,
       initialBinding: SplashBinding(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
