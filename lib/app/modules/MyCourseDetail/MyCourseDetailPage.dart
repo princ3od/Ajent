@@ -42,14 +42,11 @@ class MyCourseDetailPage extends StatelessWidget {
                         radius: 40.0,
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text(
-                          "My Course Name",
-                          style: GoogleFonts.nunitoSans(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14),
-                        )
+                    Text(
+                      "My Course Name",
+                      style: GoogleFonts.nunitoSans(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14),
                     )
                   ]
                   )
@@ -64,73 +61,85 @@ class MyCourseDetailPage extends StatelessWidget {
                   ),
                 )
               ),
-              SizedBox(
-                height: 10,
-              ),
+
               Text("Mã khóa",
                   style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 12)),
-              TextFormField(
-                initialValue: "AJ01033",
-                decoration: primaryTextFieldDecoration,
-                cursorColor: primaryColor,
-                readOnly: true,
-                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: TextFormField(
+                  initialValue: "AJ01033",
+                  decoration: primaryTextFieldDecoration,
+                  cursorColor: primaryColor,
+                  readOnly: true,
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+                ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+
               Text("Họ và tên giảng viên", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 12)),
-              TextFormField(
-                initialValue: "Ajent Agency",//Get a link here to get to teacher profile page
-                decoration: primaryTextFieldDecoration,
-                cursorColor: primaryColor,
-                readOnly: true,
-                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: TextFormField(
+                  initialValue: "Ajent Agency",//Get a link here to get to teacher profile page
+                  decoration: primaryTextFieldDecoration,
+                  cursorColor: primaryColor,
+                  readOnly: true,
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+                ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+
               Text("Số điện thoại giảng viên",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 12)),
-              TextFormField(
-                initialValue: "093812345",
-                decoration: primaryTextFieldDecoration,
-                cursorColor: primaryColor,
-                keyboardType: TextInputType.phone,
-                readOnly: true,
-                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: TextFormField(
+                  initialValue: "093812345",
+                  decoration: primaryTextFieldDecoration,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.phone,
+                  readOnly: true,
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+                ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+
               Text("Địa điểm học",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 12)),
-              TextFormField(
-                initialValue: " Lầu 2 phòng 2.14 Glacial Enterprise 69 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM ",//Get a link here to get to google maps.
-                decoration: primaryTextFieldDecoration,
-                cursorColor: primaryColor,
-                readOnly: true,
-                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: TextFormField(
+                  initialValue: " Lầu 2 phòng 2.14 Glacial Enterprise 69 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM ",//Get a link here to get to google maps.
+                  decoration: primaryTextFieldDecoration,
+                  cursorColor: primaryColor,
+                  readOnly: true,
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+                ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+
               Text("Hình thức học",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 12)),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: TextFormField(
+                  initialValue: "Học nhóm",
+                  decoration: primaryTextFieldDecoration,
+                  cursorColor: primaryColor,
+                  readOnly: true,
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+                ),
+              ),
+
+              Text("Thời gian học",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 12)),
               TextFormField(
-                initialValue: "Học nhóm",
+                initialValue: "T2 - T4 - T6 : 19h00 -21h00, bắt đầu từ 12/6/2021",
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
                 readOnly: true,
                 style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
 
-              Center(
-
-              child:Text("© Ajent ",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w100,fontSize: 12))
+                child:Text("© Ajent ",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w100,fontSize: 12))
+                ),
               )
             ],
-
           ),
         ),
       ),
