@@ -1,8 +1,11 @@
+import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 
 
@@ -54,7 +57,9 @@ class MyCourseDetailPage extends StatelessWidget {
               Center(
                 child: OutlinedButton(
                   style: outlinedButtonStyle,
-                  onPressed: (){},
+                  onPressed: (){
+                    Get.toNamed(Routes.RATING);
+                  },
                   child: Padding(padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child:Text("Đánh giá",
                         style: GoogleFonts.nunitoSans(fontSize: 12,fontWeight: FontWeight.w700),)
