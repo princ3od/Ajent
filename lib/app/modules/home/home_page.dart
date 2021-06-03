@@ -27,7 +27,9 @@ class HomePage extends StatelessWidget {
                 : 0.0,
             duration: Duration(milliseconds: 300),
             child: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.ADD_COURSE, arguments: controller.tabpageIndex.value);
+              },
               tooltip: 'Increment',
               child: new Icon(Icons.add),
             ),

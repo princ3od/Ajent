@@ -1,4 +1,6 @@
 import 'package:ajent/app/modules/MyCourseDetail/MyCourseDetailPage.dart';
+import 'package:ajent/app/modules/add_course/add_course_binding.dart';
+import 'package:ajent/app/modules/add_course/add_course_page.dart';
 import 'package:ajent/app/modules/auth/auth_binding.dart';
 import 'package:ajent/app/modules/auth/login_page.dart';
 import 'package:ajent/app/modules/auth/signup_page.dart';
@@ -29,5 +31,6 @@ abstract class AppPages {
     ),
     GetPage(name: Routes.PROFILE, page: () => MyProfilePage()),
     GetPage(name: Routes.MYCOURSEDETAIL,page: () => MyCourseDetailPage()),
+    GetPage(name: Routes.ADD_COURSE, page: () => AddCoursePage()),
   ];
 }

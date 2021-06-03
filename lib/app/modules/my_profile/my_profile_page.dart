@@ -4,12 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyProfilePage extends StatefulWidget {
-  @override
-  _MyProfilePageState createState() => _MyProfilePageState();
-}
-
-class _MyProfilePageState extends State<MyProfilePage> {
+class MyProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +21,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         ),
         title: Text(
           "Tùy chỉnh thông tin cá nhân",
-          style: GoogleFonts.nunitoSans(color: Colors.black, fontSize: 16),
+          style: GoogleFonts.nunitoSans(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -47,15 +42,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text("Đổi ảnh"),
+                  child: Text("Đổi ảnh", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),),
                   style: whiteButtonStyle,
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-              Text("Họ và tên",
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+              Text("Họ và tên", style: GoogleFonts.nunitoSans(),),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -63,7 +57,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
               SizedBox(
                 height: 20,
               ),
-              Text("Email"),
+              Text("Email", style: GoogleFonts.nunitoSans(),),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -71,7 +65,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
               SizedBox(
                 height: 20,
               ),
-              Text("Số điện thoại"),
+              Text("Số điện thoại", style: GoogleFonts.nunitoSans(),),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -80,7 +74,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
               SizedBox(
                 height: 20,
               ),
-              Text("Bằng cấp, trình độ"),
+              Text("Bằng cấp, trình độ", style: GoogleFonts.nunitoSans(),),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -91,7 +85,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text("Lưu"),
+                  child: Text("Lưu", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),),
                   style: orangeButtonStyle,
                 ),
               )

@@ -21,7 +21,7 @@ final ButtonStyle outlinedButtonStyle = OutlinedButton.styleFrom(
 final ButtonStyle whiteButtonStyle = ElevatedButton.styleFrom(
   primary: Colors.white,
   onPrimary: Colors.black,
-  padding: EdgeInsets.fromLTRB(50, 12, 50, 12),
+  padding: EdgeInsets.fromLTRB(30, 12, 30, 12),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
   textStyle: TextStyle(
     fontSize: 14,
@@ -30,7 +30,7 @@ final ButtonStyle whiteButtonStyle = ElevatedButton.styleFrom(
 
 final ButtonStyle orangeButtonStyle = ElevatedButton.styleFrom(
   primary: primaryColor,
-  padding: EdgeInsets.fromLTRB(50, 12, 50, 12),
+  padding: EdgeInsets.fromLTRB(30, 12, 30, 12),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
   textStyle: TextStyle(
     fontSize: 14,
