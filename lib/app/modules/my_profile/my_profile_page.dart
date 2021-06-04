@@ -1,9 +1,9 @@
+import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class MyProfilePage extends StatefulWidget {
   @override
@@ -19,10 +19,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
         shadowColor: Colors.grey[100],
         toolbarHeight: 70.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.black,),
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
+          ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("Tùy chỉnh thông tin cá nhân", style: TextStyle(color: Colors.black, fontSize: 16),),
+        title: Text(
+          "Tùy chỉnh thông tin cá nhân",
+          style: TextStyle(color: Colors.black, fontSize: 16),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -32,11 +38,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
             children: [
               Center(
                 child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/demo.png"),
+                  backgroundImage:
+                      NetworkImage(HomeController.mainUser.avatarUrl),
                   radius: 40.0,
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Center(
                 child: ElevatedButton(
                   onPressed: () {},
@@ -44,36 +53,53 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   style: whiteButtonStyle,
                 ),
               ),
-              SizedBox(height: 20,),
-              Text("Họ và tên",style:GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
-              TextField(
+              SizedBox(
+                height: 20,
+              ),
+              Text("Họ và tên",
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+              TextFormField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
+                controller:
+                    TextEditingController(text: HomeController.mainUser.name),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Text("Email"),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
+                controller:
+                    TextEditingController(text: HomeController.mainUser.mail),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Text("Số điện thoại"),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
                 keyboardType: TextInputType.phone,
+                controller:
+                    TextEditingController(text: HomeController.mainUser.phone),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Text("Bằng cấp, trình độ"),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Center(
                 child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Lưu"),
+                  onPressed: () {},
+                  child: Text("Lưu"),
                   style: orangeButtonStyle,
                 ),
               )

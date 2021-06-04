@@ -5,6 +5,12 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+enum LoginType {
+  withGoogle,
+  withFacebook,
+  byPhone,
+}
+
 class AuthenticService {
   AuthenticService._privateConstructor();
   static final AuthenticService instance =
@@ -20,6 +26,20 @@ class AuthenticService {
     _googleSignIn = GoogleSignIn();
     await Future.delayed(Duration(seconds: 1));
     return firebaseApp;
+  }
+
+  LoginType getLoginType() {
+    if (FirebaseAuth.instance.currentUser != null) {
+      switch (FirebaseAuth.instance.currentUser.providerData[1].providerId) {
+        case "google.com":
+          return LoginType.withGoogle;
+        case "facebook.com":
+          return LoginType.withFacebook;
+        case "phone":
+          return LoginType.byPhone;
+      }
+    }
+    return LoginType.withGoogle;
   }
 
   User getCurrentUser() => FirebaseAuth.instance.currentUser;

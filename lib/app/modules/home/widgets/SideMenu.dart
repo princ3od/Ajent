@@ -1,4 +1,5 @@
 import 'package:ajent/app/modules/auth/auth_controller.dart';
+import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
@@ -6,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({
-    Key key,
-  }) : super(key: key);
+  const SideMenu({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class SideMenu extends StatelessWidget {
                     child: Container(
                       width: 70,
                       height: 70,
-                      child: Image.asset("assets/images/demo.png"),
+                      child: Image.network(HomeController.mainUser.avatarUrl),
                     ),
                   ),
                   Expanded(
@@ -34,7 +33,7 @@ class SideMenu extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          "Duong Binh Trong",
+                          HomeController.mainUser.name,
                           overflow: TextOverflow.fade,
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
@@ -86,8 +85,7 @@ class SideMenu extends StatelessWidget {
                             left: 15, right: 15, bottom: 5),
                         child: OutlinedButton(
                             onPressed: () {
-                              Get.put<AuthController>(AuthController())
-                                  .signOutGoogle();
+                              AuthController.signOut();
                             },
                             child: Text(
                               "Đăng xuất",

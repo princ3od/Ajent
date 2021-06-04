@@ -1,3 +1,5 @@
+import 'package:ajent/app/data/models/AjentUser.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -11,6 +13,7 @@ class HomeController extends GetxController {
   var needChangeNavigator = true;
   PageController pageController = PageController();
   PanelController panelController = PanelController();
+  static AjentUser mainUser;
   @override
   onInit() {
     super.onInit();

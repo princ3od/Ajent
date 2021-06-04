@@ -44,7 +44,7 @@ class HomeTab extends StatelessWidget {
                 ),
               ]),
         ),
-        Obx(() => (controller.childTabIndex == 0)
+        Obx(() => (controller.childTabIndex.value == 0)
             ? CalendarChildTab()
             : SuggestionChildTab()),
       ],

@@ -1,4 +1,9 @@
+import 'package:ajent/app/data/models/AjentUser.dart';
+import 'package:ajent/app/data/models/Person.dart';
+
 import 'package:ajent/app/data/services/AuthenticService.dart';
+import 'package:ajent/app/data/services/UserService.dart';
+import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,21 +14,64 @@ class AuthController extends GetxController {
   var verificationID = "".obs;
   TextEditingController txtPhoneNumber = TextEditingController();
   TextEditingController txtCode = TextEditingController();
+
+  static LoginType loginType;
+
   loginWithGoogle() async {
     isSigningIn.value = true;
     User user = await AuthenticService.instance.signInWithGoogle();
     if (user != null) {
-      isSigningIn.value = false;
+      loginType = LoginType.withGoogle;
+      bool isExist = await UserService.instance.isUserExisted(user);
+      if (!isExist) {
+        AjentUser ajentUser = AjentUser(
+          user.uid,
+          user.displayName,
+          DateTime.now(),
+          Gender.male,
+          "",
+          user.phoneNumber,
+          user.email,
+          user.photoURL,
+          "",
+          "",
+          "",
+          "",
+        );
+        HomeController.mainUser = await UserService.instance.addUser(ajentUser);
+        Get.snackbar("Đăng nhập thành công",
+            "Chào mừng ${user.displayName} đến với Ajent.");
+      } else {
+        print("old");
+        HomeController.mainUser = await UserService.instance.getUser(user.uid);
+      }
       Get.offAllNamed(Routes.HOME);
+      isSigningIn.value = false;
     } else
       Get.snackbar(
           "Đăng nhập thất bại", "Đã có lỗi xảy ra trong quá trình đăng nhập.");
     isSigningIn.value = false;
   }
 
-  signOutGoogle() async {
-    await AuthenticService.instance.signOutGoogle();
+  static signOut() {
+    switch (loginType) {
+      case LoginType.withGoogle:
+        _signOutGoogle();
+        break;
+      case LoginType.withFacebook:
+        _signOutFacebook();
+        break;
+      case LoginType.byPhone:
+        break;
+      default:
+        break;
+    }
     Get.offAllNamed(Routes.WELCOME);
+  }
+
+  static _signOutGoogle() async {
+    await AuthenticService.instance.signOutGoogle();
+    await FirebaseAuth.instance.signOut();
   }
 
   loginWithFacebook() async {
@@ -31,6 +79,7 @@ class AuthController extends GetxController {
     User user = await AuthenticService.instance.signInWithFacebook();
     if (user != null) {
       isSigningIn.value = false;
+      loginType = LoginType.withFacebook;
       Get.offAllNamed(Routes.HOME);
     } else
       Get.snackbar(
@@ -38,9 +87,8 @@ class AuthController extends GetxController {
     isSigningIn.value = false;
   }
 
-  signOutFacebook() async {
+  static _signOutFacebook() async {
     await AuthenticService.instance.signOutFacebook();
-    Get.offAllNamed(Routes.WELCOME);
   }
 
   loginWithPhone() async {
