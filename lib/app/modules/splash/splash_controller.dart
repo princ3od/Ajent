@@ -21,14 +21,6 @@ class SplashController extends GetxController {
     timeDilation = 2.5;
     loadInfor.value = "Xong rồi!";
     isLoading.value = false;
-    await Future.delayed(Duration(milliseconds: 200));
-    if (AuthenticService.instance.getCurrentUser() == null) {
-      AuthController.loginType = AuthenticService.instance.getLoginType();
-      await Get.offNamed(Routes.WELCOME);
-    } else {
-      loadInfor.value = "Chào mừng bạn quay lại!";
-      await Future.delayed(Duration(milliseconds: 300));
-      await Get.offNamed(Routes.HOME);
-    }
+    await Get.offNamed(Routes.WELCOME);
   }
 }

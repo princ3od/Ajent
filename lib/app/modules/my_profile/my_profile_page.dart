@@ -27,7 +27,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         ),
         title: Text(
           "Tùy chỉnh thông tin cá nhân",
-          style: TextStyle(color: Colors.black, fontSize: 16),
+          style: GoogleFonts.nunitoSans(color: Colors.black, fontSize: 16),
         ),
       ),
       body: SingleChildScrollView(
@@ -58,11 +58,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
               ),
               Text("Họ và tên",
                   style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
-              TextFormField(
+              TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
                 controller:
                     TextEditingController(text: HomeController.mainUser.name),
+              ),
+              SizedBox(
+                height: 20,
               ),
               SizedBox(
                 height: 20,
@@ -73,6 +76,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 cursorColor: primaryColor,
                 controller:
                     TextEditingController(text: HomeController.mainUser.mail),
+              ),
+              SizedBox(
+                height: 20,
               ),
               SizedBox(
                 height: 20,
