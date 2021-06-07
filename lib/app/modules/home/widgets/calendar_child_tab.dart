@@ -1,6 +1,8 @@
 import 'package:ajent/core/values/colors.dart';
+import 'package:ajent/routes/pages.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CalendarChildTab extends StatelessWidget {
   @override
@@ -39,7 +41,10 @@ class CalendarChildTab extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
+        ElevatedButton(
+            onPressed: () => Get.toNamed(Routes.MYCOURSEDETAIL),
+            child: Text("click"))
       ],
     );
   }

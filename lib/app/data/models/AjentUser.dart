@@ -1,5 +1,4 @@
 import 'package:ajent/core/utils/enum_converter.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'Person.dart';
 import 'Degree.dart';

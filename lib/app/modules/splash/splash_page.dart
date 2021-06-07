@@ -59,18 +59,13 @@ class SplashPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Obx(() => SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: (controller.isLoading.value)
-                              ? CircularProgressIndicator()
-                              : Icon(
-                                  Icons.check_circle_outline,
-                                  color: Colors.black,
-                                  size: 55,
-                                ),
-                        )),
-                    SizedBox(height: 20),
-                    Obx(() => Text(controller.loadInfor.value)),
+                        width: 40,
+                        height: 40,
+                        child: (controller.isLoading.value)
+                            ? CircularProgressIndicator()
+                            : CircularProgressIndicator(
+                                value: 100,
+                              ))),
                   ],
                 ),
               ),

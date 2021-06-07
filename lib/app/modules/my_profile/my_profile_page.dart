@@ -1,3 +1,4 @@
+import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
@@ -37,10 +38,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage(HomeController.mainUser.avatarUrl),
-                  radius: 40.0,
+                child: UserAvatar(
+                  user: HomeController.mainUser,
+                  size: 45,
                 ),
               ),
               SizedBox(

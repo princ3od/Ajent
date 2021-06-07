@@ -2,6 +2,7 @@ import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
   final AuthController controller = Get.find<AuthController>();
@@ -75,7 +76,10 @@ class LoginPage extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         ),
                         SizedBox(height: 10),
-                        Text("Đợi xíu, Ajent đang đăng nhập cho bạn..."),
+                        Text(
+                          'logining_text'.tr,
+                          style: GoogleFonts.nunitoSans(),
+                        ),
                       ],
                     )
                   : buildSignIn()),
@@ -110,7 +114,7 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: ButtonWithLeadIcon(
               onPressed: () => controller.loginWithGoogle(),
-              text: "Tiếp tục với Google",
+              text: 'login_google'.tr,
               path: "assets/images/google_logo.png",
             ),
           ),
@@ -122,7 +126,7 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: ButtonWithLeadIcon(
               onPressed: () => controller.loginWithFacebook(),
-              text: "Tiếp tục với Facebook",
+              text: 'login_facebook'.tr,
               path: "assets/images/fb_logo.png",
             ),
           ),
@@ -140,8 +144,8 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Text(
-              "HOẶC",
-              style: TextStyle(color: Colors.white),
+              'or'.tr,
+              style: GoogleFonts.nunitoSans(color: Colors.white),
             ),
             Expanded(
               child: Padding(
@@ -161,7 +165,7 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: ButtonWithLeadIcon(
               onPressed: () => controller.loginWithPhone(),
-              text: "Đăng nhập bằng số điện thoại",
+              text: 'login_phone'.tr,
               path: "assets/images/phone.png",
             ),
           ),
@@ -202,10 +206,10 @@ class ButtonWithLeadIcon extends StatelessWidget {
             Expanded(
               flex: 5,
               child: Text(text,
-                  style: TextStyle(
+                  style: GoogleFonts.nunitoSans(
                     color: Colors.black,
                     fontSize: 15,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                   )),
             ),
           ],

@@ -1,9 +1,10 @@
 import 'package:ajent/app/data/models/AjentUser.dart';
+import 'package:ajent/routes/pages.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
 
 class HomeController extends GetxController {
   var tabpageIndex = 0.obs;
@@ -17,7 +18,6 @@ class HomeController extends GetxController {
   @override
   onInit() {
     super.onInit();
-    timeDilation = 1.0;
   }
 
   oncChildTabChanged(int index) {
@@ -30,6 +30,25 @@ class HomeController extends GetxController {
     }
     if (index == targetPage && needChangeNavigator) {
       tabpageIndex.value = index;
+    }
+  }
+
+  static checkUserUpdateInfo() {
+    if (!HomeController.mainUser.isInfoUpdated()) {
+      print("cc");
+      Get.dialog(AlertDialog(
+        title: Text("Cập nhật thông tin"),
+        content: Text(
+            "Vui lòng cập nhật thông tin để có thể bắt đầu sử dụng toàn bộ tính năng Ajent."),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Get.back();
+                Get.toNamed(Routes.PROFILE);
+              },
+              child: Text("CẬP NHẬT")),
+        ],
+      ));
     }
   }
 }

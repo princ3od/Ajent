@@ -30,13 +30,15 @@ class AuthenticService {
 
   LoginType getLoginType() {
     if (FirebaseAuth.instance.currentUser != null) {
-      switch (FirebaseAuth.instance.currentUser.providerData[1].providerId) {
+      switch (FirebaseAuth.instance.currentUser.providerData[0].providerId) {
         case "google.com":
           return LoginType.withGoogle;
         case "facebook.com":
           return LoginType.withFacebook;
         case "phone":
           return LoginType.byPhone;
+        default:
+          return LoginType.withGoogle;
       }
     }
     return LoginType.withGoogle;

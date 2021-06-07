@@ -1,3 +1,4 @@
+import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
@@ -22,10 +23,9 @@ class SideMenu extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      width: 70,
-                      height: 70,
-                      child: Image.network(HomeController.mainUser.avatarUrl),
+                    child: UserAvatar(
+                      size: 40,
+                      user: HomeController.mainUser,
                     ),
                   ),
                   Expanded(
@@ -60,19 +60,37 @@ class SideMenu extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: TextButton(onPressed: () {}, child: Text("Lịch sử"))),
-            SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: TextButton(onPressed: () {}, child: Text("Cài đặt"))),
-            SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: TextButton(
-                    onPressed: () {}, child: Text("Quy định & chính sách"))),
+            SideMenuButton(
+              text: "Lịch sử",
+              onPressed: () {},
+            ),
+            SideMenuButton(
+              text: "Cài đặt",
+              onPressed: () {},
+            ),
+            SideMenuButton(
+              text: "Quy định & chính sách",
+              onPressed: () {},
+            ),
+            SideMenuButton(
+              text: "Giới thiệu",
+              onPressed: () {
+                showAboutDialog(
+                  context: context,
+                  applicationVersion: '1.0.0',
+                  applicationIcon: Container(
+                    child: Image.asset("assets/images/ajent_logo.png"),
+                    width: 50,
+                    height: 50,
+                  ),
+                  applicationLegalese: 'Copyright 2021 Ajent',
+                  children: [
+                    SizedBox(height: 10),
+                    Text("Tutor searching app"),
+                  ],
+                );
+              },
+            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -110,5 +128,23 @@ class SideMenu extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SideMenuButton extends StatelessWidget {
+  final String text;
+  final Function onPressed;
+  const SideMenuButton({
+    Key key,
+    @required this.text,
+    @required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: double.infinity,
+        height: 50,
+        child: TextButton(onPressed: this.onPressed, child: Text(this.text)));
   }
 }

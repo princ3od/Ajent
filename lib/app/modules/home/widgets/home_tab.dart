@@ -1,6 +1,6 @@
 import 'package:ajent/app/modules/home/home_controller.dart';
-import 'package:ajent/app/modules/home/widgets/CalendarChildTab.dart';
-import 'package:ajent/app/modules/home/widgets/SuggestionChildTab.dart';
+import 'package:ajent/app/modules/home/widgets/calendar_child_tab.dart';
+import 'package:ajent/app/modules/home/widgets/suggestion_child_tab.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

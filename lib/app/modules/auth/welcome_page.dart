@@ -91,7 +91,7 @@ class WelcomePage extends StatelessWidget {
                                               timeDilation = 2.0;
                                               Get.toNamed(Routes.AUTH);
                                             },
-                                            child: Text("Đăng nhập"),
+                                            child: Text('login'.tr),
                                             style: primaryButtonSytle,
                                           ),
                                         ),
@@ -107,8 +107,7 @@ class WelcomePage extends StatelessWidget {
                                               timeDilation = 2.0;
                                               Get.toNamed(Routes.SIGNUP);
                                             },
-                                            child: Text(
-                                                "Lần đầu tham gia Ajent? Đăng ký!"),
+                                            child: Text('sign_up'.tr),
                                             style: outlinedButtonStyle,
                                           ),
                                         ),

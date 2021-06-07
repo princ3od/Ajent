@@ -1,4 +1,5 @@
 import 'package:ajent/app/modules/splash/splash_binding.dart';
+import 'package:ajent/core/values/lang/localization_service.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      translations: LocalizationService(),
+      locale: LocalizationService.locale,
+      fallbackLocale: LocalizationService.fallbackLocale,
     );
   }
 }

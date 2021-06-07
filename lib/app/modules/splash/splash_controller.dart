@@ -1,12 +1,13 @@
-import 'package:ajent/app/data/services/AuthenticService.dart';
+import 'package:ajent/app/data/services/authenctic_service.dart';
 import 'package:ajent/app/modules/auth/auth_controller.dart';
+import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/routes/pages.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
 class SplashController extends GetxController {
   var isLoading = true.obs;
-  var loadInfor = "".obs;
   @override
   void onInit() async {
     super.onInit();
@@ -14,13 +15,17 @@ class SplashController extends GetxController {
   }
 
   intilizeFirebase() async {
-    loadInfor.value = "Khởi tạo kết nối với server...";
     await AuthenticService.instance.initializeFirebase();
-    loadInfor.value = "Một chút nữa...";
-    await Future.delayed(Duration(milliseconds: 200));
-    timeDilation = 2.5;
-    loadInfor.value = "Xong rồi!";
-    isLoading.value = false;
-    await Get.offNamed(Routes.WELCOME);
+    final user = AuthenticService.instance.getCurrentUser();
+    if (user == null) {
+      Get.offNamed(Routes.WELCOME);
+    } else {
+      AuthController.loginType = AuthenticService.instance.getLoginType();
+      print(AuthController.loginType);
+      await AuthController.loadUser(user);
+      isLoading.value = false;
+      Get.offNamed(Routes.HOME);
+      HomeController.checkUserUpdateInfo();
+    }
   }
 }

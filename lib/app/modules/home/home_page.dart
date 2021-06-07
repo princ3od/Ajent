@@ -1,17 +1,16 @@
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
-import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'widgets/HomeTab.dart';
-import 'widgets/SideMenu.dart';
+import 'widgets/home_tab.dart';
+import 'widgets/side_menu.dart';
 import '../learning/learning_tab.dart';
 import '../teaching/teaching_tab.dart';
 import '../notification/notification_tab.dart';
-import '../home/widgets/HomeBackground.dart';
+import 'widgets/home_background.dart';
 
 class HomePage extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
@@ -39,8 +38,8 @@ class HomePage extends StatelessWidget {
               controller.needChangeNavigator = false;
               await controller.pageController.animateToPage(
                 controller.tabpageIndex.value,
-                duration: Duration(milliseconds: 500),
-                curve: Curves.fastLinearToSlowEaseIn,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeIn,
               );
               controller.targetPage = index;
               controller.needChangeNavigator = true;
