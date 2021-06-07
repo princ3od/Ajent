@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 abstract class Person {
   String name;
   DateTime birthDay;
@@ -10,6 +12,7 @@ abstract class Person {
   bool isInfoUpdated() {
     return (name != null &&
         name.isNotEmpty &&
+        name != 'default_name'.tr &&
         (phone != null && phone.isNotEmpty));
   }
 }

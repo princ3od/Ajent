@@ -112,7 +112,7 @@ class WelcomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: 5),
+                                      SizedBox(height: 10),
                                     ],
                                   )),
                             ],

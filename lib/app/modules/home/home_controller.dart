@@ -37,16 +37,15 @@ class HomeController extends GetxController {
     if (!HomeController.mainUser.isInfoUpdated()) {
       print("cc");
       Get.dialog(AlertDialog(
-        title: Text("Cập nhật thông tin"),
-        content: Text(
-            "Vui lòng cập nhật thông tin để có thể bắt đầu sử dụng toàn bộ tính năng Ajent."),
+        title: Text('update_info_dialog_title'.tr),
+        content: Text('update_info_dialog_content'.tr),
         actions: [
           TextButton(
               onPressed: () {
                 Get.back();
                 Get.toNamed(Routes.PROFILE);
               },
-              child: Text("CẬP NHẬT")),
+              child: Text('update_info_dialog_button'.tr)),
         ],
       ));
     }

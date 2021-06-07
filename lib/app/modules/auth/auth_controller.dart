@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   var isSigningIn = false.obs;
+  var isSendingOTP = false.obs;
+  var isVerifing = false.obs;
   var verificationID = "".obs;
   TextEditingController txtPhoneNumber = TextEditingController();
   TextEditingController txtCode = TextEditingController();
@@ -23,8 +25,8 @@ class AuthController extends GetxController {
     User user = await AuthenticService.instance.signInWithGoogle();
     if (user != null) {
       await loadUser(user);
-      isSigningIn.value = false;
       Get.offAllNamed(Routes.HOME);
+      isSigningIn.value = false;
       HomeController.checkUserUpdateInfo();
     } else
       Get.snackbar(
@@ -38,13 +40,13 @@ class AuthController extends GetxController {
     if (!isExist) {
       AjentUser ajentUser = AjentUser(
         user.uid,
-        user.displayName,
+        user.displayName ?? "Ajent user",
         DateTime.now(),
         Gender.male,
         "",
-        user.phoneNumber,
-        user.email,
-        user.photoURL,
+        user.phoneNumber ?? "",
+        user.email ?? "",
+        user.photoURL ?? "",
         "",
         "",
         "",
@@ -68,6 +70,7 @@ class AuthController extends GetxController {
         _signOutFacebook();
         break;
       case LoginType.byPhone:
+        _signOutPhone();
         break;
       default:
         break;
@@ -84,9 +87,11 @@ class AuthController extends GetxController {
     isSigningIn.value = true;
     User user = await AuthenticService.instance.signInWithFacebook();
     if (user != null) {
-      isSigningIn.value = false;
+      await loadUser(user);
       loginType = LoginType.withFacebook;
       Get.offAllNamed(Routes.HOME);
+      isSigningIn.value = false;
+      HomeController.checkUserUpdateInfo();
     } else
       Get.snackbar(
           "Đăng nhập thất bại", "Đã có lỗi xảy ra trong quá trình đăng nhập.");
@@ -98,6 +103,12 @@ class AuthController extends GetxController {
   }
 
   loginWithPhone() async {
+    isSendingOTP.value = true;
+    if (txtPhoneNumber.text.startsWith("0"))
+      txtPhoneNumber.text = txtPhoneNumber.text.substring(1);
+    if (!txtPhoneNumber.text.contains("+84"))
+      txtPhoneNumber.text = "+84" + txtPhoneNumber.text;
+    await Future.delayed(Duration(seconds: 1));
     await AuthenticService.instance.verifyPhoneNumber(
       txtPhoneNumber.text,
       _onPhoneVerified,
@@ -107,31 +118,44 @@ class AuthController extends GetxController {
     );
   }
 
+  static _signOutPhone() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   verifyCode() async {
+    isVerifing.value = true;
     User user = await AuthenticService.instance
         .signInByPhone(verificationID.value, txtCode.text);
     if (user != null) {
+      await loadUser(user);
       Get.offAllNamed(Routes.HOME);
-    } else
+      isVerifing.value = false;
+      HomeController.checkUserUpdateInfo();
+    } else {
       Get.snackbar(
-          "Đăng nhập thất bại", "Đã có lỗi xảy ra trong quá trình đăng nhập.");
+          "Đăng nhập thất bại", "Mã OTP không hợp lệ, vui lòng kiểm tra lại.");
+      await loadUser(user);
+    }
   }
 
   _onPhoneVerified() {
-    //Get.offAllNamed(Routes.HOME);
+    //veri
   }
 
   _onCodeSent(String _verificationID) {
+    isSendingOTP.value = false;
     verificationID.value = _verificationID;
     Get.snackbar("Thông báo", "Mã xác nhận đã được gửi!");
+    Get.offAndToNamed(Routes.VERIFICATION, arguments: txtPhoneNumber.text);
   }
 
   _onFailed() {
+    isSendingOTP.value = false;
     Get.snackbar("Lỗi", "Không thể gửi mã xác nhận!");
   }
 
   _onTimeOut(String _verificationID) {
+    isSendingOTP.value = false;
     verificationID.value = _verificationID;
-    Get.snackbar("Timeout", "abc");
   }
 }

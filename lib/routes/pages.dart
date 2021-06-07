@@ -1,3 +1,4 @@
+import 'package:ajent/app/modules/auth/otp_verification_page.dart';
 import 'package:ajent/app/modules/my_course_detail/my_course_detail_page.dart';
 import 'package:ajent/app/modules/auth/auth_binding.dart';
 import 'package:ajent/app/modules/auth/login_page.dart';
@@ -28,8 +29,13 @@ abstract class AppPages {
       page: () => SignupPage(),
       binding: AuthBinding(),
     ),
+    GetPage(
+      name: Routes.VERIFICATION,
+      page: () => OtpVerificationPage(),
+      binding: AuthBinding(),
+    ),
     GetPage(name: Routes.PROFILE, page: () => MyProfilePage()),
     GetPage(name: Routes.MYCOURSEDETAIL, page: () => MyCourseDetailPage()),
-    GetPage(name: Routes.RATING, page: () =>RatingPage())
+    GetPage(name: Routes.RATING, page: () => RatingPage())
   ];
 }

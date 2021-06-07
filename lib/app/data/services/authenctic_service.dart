@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -119,7 +117,7 @@ class AuthenticService {
       Function(String) onTimeOut) async {
     try {
       await _firebaseAuth.verifyPhoneNumber(
-        timeout: Duration(seconds: 60),
+        timeout: Duration(seconds: 30),
         phoneNumber: phone,
         verificationCompleted: null,
         verificationFailed: (e) {

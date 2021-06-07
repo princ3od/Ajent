@@ -6,7 +6,7 @@ final ButtonStyle primaryButtonSytle = ElevatedButton.styleFrom(
   padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: FontWeight.w500,
   ),
 );
@@ -59,7 +59,6 @@ final InputDecoration searchTextfieldDecoration = InputDecoration(
 );
 
 final InputDecoration primaryTextFieldDecoration = InputDecoration(
-  focusedBorder: UnderlineInputBorder(
-    borderSide: BorderSide(color: primaryColor)
-  ),
+  focusedBorder:
+      UnderlineInputBorder(borderSide: BorderSide(color: primaryColor)),
 );

@@ -1,6 +1,5 @@
 import 'package:ajent/app/data/models/AjentUser.dart';
 import 'package:ajent/app/data/models/Person.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class UserAvatar extends StatelessWidget {
@@ -15,17 +14,23 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       radius: this.size * 1.0,
       child: ClipOval(
-        child: CachedNetworkImage(
-          imageUrl: this.user.avatarUrl,
-          placeholder: (context, url) => CircularProgressIndicator(),
-          errorWidget: (context, url, error) => Image.asset(
-              (this.user.gender == Gender.male)
-                  ? "assets/images/default_avatar_male"
-                  : "assets/images/default_avatar_female"),
-        ),
+        child: FadeInImage.assetNetwork(
+            placeholder: (this.user.gender == Gender.male)
+                ? "assets/images/default_avatar_male.png"
+                : "assets/images/default_avatar_female.png",
+            image: this.user.avatarUrl ?? ""),
+        // child: Image.network(
+        //   this.user.avatarUrl ?? "",
+        //   errorBuilder: (context, error, stackTrace) => Image.asset(
+        //       (this.user.gender == Gender.male)
+        //           ? "assets/images/default_avatar_male"
+        //           : "assets/images/default_avatar_female"),
+        //   loadingBuilder: (context, child, loadingProgress) =>
+        //       CircularProgressIndicator(),
+        // ),
       ),
     );
   }
