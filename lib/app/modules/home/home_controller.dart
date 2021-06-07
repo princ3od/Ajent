@@ -25,9 +25,6 @@ class HomeController extends GetxController {
   }
 
   onPageChanged(int index) {
-    if (!panelController.isPanelOpen) {
-      panelController.open();
-    }
     if (index == targetPage && needChangeNavigator) {
       tabpageIndex.value = index;
     }

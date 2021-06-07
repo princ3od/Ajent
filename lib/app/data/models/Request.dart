@@ -10,6 +10,7 @@ enum RequestStatus {
   accepted,
   waiting,
   denied,
+  canceled,
 }
 enum RequestType {
   requestToJoin,

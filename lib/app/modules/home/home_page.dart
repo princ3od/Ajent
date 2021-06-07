@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:ajent/app/modules/home/home_controller.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'widgets/home_tab.dart';
 import 'widgets/side_menu.dart';
 import '../learning/learning_tab.dart';
 import '../teaching/teaching_tab.dart';
 import '../notification/notification_tab.dart';
-import 'widgets/home_background.dart';
 
 class HomePage extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
@@ -104,58 +102,34 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: SlidingUpPanel(
-        controller: controller.panelController,
-        defaultPanelState: PanelState.OPEN,
+      body: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30.0),
           topRight: Radius.circular(30.0),
         ),
-        maxHeight: Get.height - 15 - kBottomNavigationBarHeight,
-        minHeight: Get.height / 5,
-        header: SizedBox(
+        child: Container(
+          height: Get.height - 15 - kBottomNavigationBarHeight,
           width: Get.width,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Container(
-                width: 100,
-                height: 3.5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3.5),
-                  color: Colors.grey.withAlpha(125),
-                ),
-              ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
             ),
           ),
-        ),
-        body: HomeBackground(),
-        panel: Padding(
-          padding: const EdgeInsets.only(top: 15),
-          child: Container(
-            height: Get.height - 15 - kBottomNavigationBarHeight,
-            width: Get.width,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
-              ),
-            ),
-            child: PageView(
-              physics: BouncingScrollPhysics(),
-              onPageChanged: (index) {
-                controller.targetPage = index;
-                controller.onPageChanged(index);
-              },
-              controller: controller.pageController,
-              children: [
-                HomeTab(),
-                LearningTab(),
-                TeachingTab(),
-                NotificationTab(),
-              ],
-            ),
+          child: PageView(
+            physics: BouncingScrollPhysics(),
+            onPageChanged: (index) {
+              controller.targetPage = index;
+              controller.onPageChanged(index);
+            },
+            controller: controller.pageController,
+            children: [
+              HomeTab(),
+              LearningTab(),
+              TeachingTab(),
+              NotificationTab(),
+            ],
           ),
         ),
       ),
