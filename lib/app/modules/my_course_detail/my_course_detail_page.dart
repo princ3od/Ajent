@@ -36,33 +36,35 @@ class MyCourseDetailPage extends StatelessWidget {
             children: [
               Center(
                   child: Row(children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/ajent_logo.png"),
-                    radius: 40.0,
-                  ),
-                ),
-                Text(
-                  "My Course Name",
-                  style: GoogleFonts.nunitoSans(
-                      fontWeight: FontWeight.w700, fontSize: 14),
-                )
-              ])),
+                    Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/ajent_logo.png"),
+                        radius: 40.0,
+                      ),
+                    ),
+                    Text(
+                      "My Course Name",
+                      style: GoogleFonts.nunitoSans(
+                          fontWeight: FontWeight.w700, fontSize: 14),
+                    )
+                  ])),
               Center(
                   child: OutlinedButton(
-                style: outlinedButtonStyle,
-                onPressed: () {
-                  Get.toNamed(Routes.RATING);
-                },
-                child: Padding(
-                    padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-                    child: Text(
-                      "Đánh giá",
-                      style: GoogleFonts.nunitoSans(
-                          fontSize: 12, fontWeight: FontWeight.w700),
-                    )),
-              )),
+                    style: outlinedButtonStyle,
+                    onPressed: () {
+                      Get.toNamed(Routes.RATING);
+                      },
+                    child: Padding(
+                        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                        child: Text(
+                          "Đánh giá",
+                          style: GoogleFonts.nunitoSans(
+                              fontSize: 12, fontWeight: FontWeight.w700),
+                        )
+                    ),
+                  )
+              ),
               Text("Mã khóa",
                   style: GoogleFonts.nunitoSans(
                       fontWeight: FontWeight.bold, fontSize: 12)),
