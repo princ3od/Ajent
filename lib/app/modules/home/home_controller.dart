@@ -1,4 +1,4 @@
-import 'package:ajent/app/data/models/AjentUser.dart';
+import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/routes/pages.dart';
 
 import 'package:flutter/cupertino.dart';

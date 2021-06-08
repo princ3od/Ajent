@@ -10,10 +10,10 @@ class AjentUser extends Person {
   String schoolName;
   String major;
   String educationLevel;
-  List<String> subjects;
+  List<String> subjects = [];
   String bio;
-  List<Degree> degrees;
-  List<Student> students;
+  List<Degree> degrees = [];
+  List<Student> students = [];
   AjentUser(
       this.uid,
       String name,
@@ -32,7 +32,7 @@ class AjentUser extends Person {
       this.students])
       : super(name, birthDay, gender, address, phone, mail);
 
-  AjentUser.fromJson(String uid, Map<String, dynamic> data)
+  AjentUser.fromJson(this.uid, Map<String, dynamic> data)
       : super(
             data['name'],
             DateTime.parse(data['birthDay'].toDate().toString()),
@@ -40,7 +40,6 @@ class AjentUser extends Person {
             data['address'],
             data['phone'],
             data['mail']) {
-    this.uid = uid;
     avatarUrl = data['avatarUrl'];
     schoolName = data['schoolName'];
     major = data['major'];
