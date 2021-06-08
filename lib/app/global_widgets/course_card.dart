@@ -1,4 +1,3 @@
-
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 
-class A_course extends StatelessWidget {
+class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,9 +40,13 @@ class A_course extends StatelessWidget {
                               fontWeight: FontWeight.w700, fontSize: 14),
                         )
                       ]
-                      ))
+                      )
+                  )
                 ],
-              ))),
+              )
+          )
+
+      ),
     );
   }
 }

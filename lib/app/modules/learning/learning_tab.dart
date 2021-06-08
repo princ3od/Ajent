@@ -1,4 +1,4 @@
-import 'package:ajent/app/global_widgets/a_course.dart';
+import 'package:ajent/app/global_widgets/course_card.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,7 +33,7 @@ class LearningTab extends StatelessWidget {
                 Tab(text: "Đang chờ"),
               ]),
         ),
-        A_course(),
+        CourseCard(),
       ],
     );
   }
