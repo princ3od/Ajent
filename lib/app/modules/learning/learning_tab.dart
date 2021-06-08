@@ -1,3 +1,4 @@
+import 'package:ajent/app/global_widgets/course_card.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,11 +28,12 @@ class LearningTab extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: -8.0),
               ),
               tabs: [
-                Text("Đã học"),
-                Text("Đang học"),
-                Text("Đang chờ"),
+                Tab(text: "Đã học"),
+                Tab(text: "Đang học"),
+                Tab(text: "Đang chờ"),
               ]),
         ),
+        CourseCard(),
       ],
     );
   }

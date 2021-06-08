@@ -46,6 +46,7 @@ class AjentUser extends Person {
     educationLevel = data['educationLevel'];
     bio = data['bio'];
   }
+
   Map<String, dynamic> toJson() {
     return {
       'name': this.name,
