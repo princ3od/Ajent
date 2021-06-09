@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
@@ -9,6 +11,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class OtpVerificationPage extends StatelessWidget {
   final AuthController controller = Get.put<AuthController>(AuthController());
   final String number = Get.arguments.toString();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,15 +147,41 @@ class OtpVerificationPage extends StatelessWidget {
                           children: [
                             Text('not_receive_text'.tr,
                                 style: GoogleFonts.nunitoSans()),
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                primary: primaryColor,
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                'resend'.tr,
-                                style: GoogleFonts.nunitoSans(
-                                    color: primaryColor, fontSize: 16),
+                            Obx(
+                              () => TextButton(
+                                style: TextButton.styleFrom(
+                                  primary: primaryColor,
+                                ),
+                                onPressed: (controller.timeOut > 0)
+                                    ? null
+                                    : () {
+                                        controller.resendOTP();
+                                      },
+                                child: (controller.isSendingOTP.value)
+                                    ? SizedBox(
+                                        height: 15,
+                                        width: 15,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  primaryColor),
+                                        ),
+                                      )
+                                    : Text(
+                                        (controller.timeOut <= 0)
+                                            ? 'resend'.tr
+                                            : 'resend'.tr +
+                                                " (00:" +
+                                                controller.timeOut
+                                                    .toString()
+                                                    .padLeft(2, '0') +
+                                                ")",
+                                        style: GoogleFonts.nunitoSans(
+                                            color: (controller.timeOut <= 0)
+                                                ? primaryColor
+                                                : Colors.grey.shade400,
+                                            fontSize: 16),
+                                      ),
                               ),
                             ),
                           ],

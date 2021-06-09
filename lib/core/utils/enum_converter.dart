@@ -1,3 +1,4 @@
+import 'package:ajent/app/data/models/Course.dart';
 import 'package:ajent/app/data/models/Person.dart';
 
 class EnumConverter {
@@ -20,6 +21,28 @@ class EnumConverter {
         return Gender.female;
       default:
         return Gender.male;
+    }
+  }
+
+  static String timeTypeToString(TimeType timeType) {
+    switch (timeType) {
+      case TimeType.periodTime:
+        return "periodTime";
+      case TimeType.fixedTime:
+        return "fixedTime";
+      default:
+        return "";
+    }
+  }
+
+  static TimeType stringToTimeType(String data) {
+    switch (data) {
+      case "periodTime":
+        return TimeType.periodTime;
+      case "fixedTime":
+        return TimeType.fixedTime;
+      default:
+        return TimeType.fixedTime;
     }
   }
 }

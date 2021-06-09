@@ -1,4 +1,6 @@
-import 'package:ajent/app/data/models/AjentUser.dart';
+import 'dart:async';
+
+import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/Person.dart';
 
 import 'package:ajent/app/data/services/authenctic_service.dart';
@@ -9,17 +11,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sms_receiver/sms_receiver.dart';
 
 class AuthController extends GetxController {
   var isSigningIn = false.obs;
   var isSendingOTP = false.obs;
   var isVerifing = false.obs;
   var verificationID = "".obs;
+  var timeOut = 45.obs;
   TextEditingController txtPhoneNumber = TextEditingController();
   TextEditingController txtCode = TextEditingController();
-
+  SmsReceiver _smsReceiver;
   static LoginType loginType;
-
+  Timer _timerTimeOut;
   loginWithGoogle() async {
     isSigningIn.value = true;
     User user = await AuthenticService.instance.signInWithGoogle();
@@ -30,7 +34,7 @@ class AuthController extends GetxController {
       HomeController.checkUserUpdateInfo();
     } else
       Get.snackbar(
-          "Đăng nhập thất bại", "Đã có lỗi xảy ra trong quá trình đăng nhập.");
+          'notification_login_fail'.tr, 'notification_login_fail_content'.tr);
     isSigningIn.value = false;
   }
 
@@ -40,7 +44,7 @@ class AuthController extends GetxController {
     if (!isExist) {
       AjentUser ajentUser = AjentUser(
         user.uid,
-        user.displayName ?? "Ajent user",
+        user.displayName ?? 'default_name'.tr,
         DateTime.now(),
         Gender.male,
         "",
@@ -53,10 +57,7 @@ class AuthController extends GetxController {
         "",
       );
       HomeController.mainUser = await UserService.instance.addUser(ajentUser);
-      Get.snackbar("Đăng nhập thành công",
-          "Chào mừng ${user.displayName} đến với Ajent.");
     } else {
-      print("old");
       HomeController.mainUser = await UserService.instance.getUser(user.uid);
     }
   }
@@ -89,12 +90,12 @@ class AuthController extends GetxController {
     if (user != null) {
       await loadUser(user);
       loginType = LoginType.withFacebook;
-      Get.offAllNamed(Routes.HOME);
+      await Get.offAllNamed(Routes.HOME);
       isSigningIn.value = false;
       HomeController.checkUserUpdateInfo();
     } else
       Get.snackbar(
-          "Đăng nhập thất bại", "Đã có lỗi xảy ra trong quá trình đăng nhập.");
+          'notification_login_fail'.tr, 'notification_login_fail_content'.tr);
     isSigningIn.value = false;
   }
 
@@ -108,12 +109,34 @@ class AuthController extends GetxController {
       txtPhoneNumber.text = txtPhoneNumber.text.substring(1);
     if (!txtPhoneNumber.text.contains("+84"))
       txtPhoneNumber.text = "+84" + txtPhoneNumber.text;
-    await Future.delayed(Duration(seconds: 1));
     await AuthenticService.instance.verifyPhoneNumber(
       txtPhoneNumber.text,
       _onPhoneVerified,
       _onFailed,
       _onCodeSent,
+      _onTimeOut,
+    );
+  }
+
+  resendOTP() async {
+    isSendingOTP.value = true;
+    await AuthenticService.instance.verifyPhoneNumber(
+      txtPhoneNumber.text,
+      null,
+      _onFailed,
+      (_verificationID) {
+        isSendingOTP.value = false;
+        Get.snackbar('notification'.tr, 'otp_resend'.tr);
+        timeOut.value = 45;
+        _timerTimeOut = Timer.periodic(Duration(seconds: 1), (timer) {
+          if (timeOut.value > 0) {
+            timeOut.value--;
+          } else {
+            timeOut.value = 0;
+            _timerTimeOut.cancel();
+          }
+        });
+      },
       _onTimeOut,
     );
   }
@@ -128,13 +151,12 @@ class AuthController extends GetxController {
         .signInByPhone(verificationID.value, txtCode.text);
     if (user != null) {
       await loadUser(user);
-      Get.offAllNamed(Routes.HOME);
+      await Get.offAllNamed(Routes.HOME);
       isVerifing.value = false;
       HomeController.checkUserUpdateInfo();
     } else {
-      Get.snackbar(
-          "Đăng nhập thất bại", "Mã OTP không hợp lệ, vui lòng kiểm tra lại.");
-      await loadUser(user);
+      Get.snackbar('notification_login_fail'.tr, 'otp_invalid'.tr);
+      isVerifing.value = false;
     }
   }
 
@@ -142,20 +164,38 @@ class AuthController extends GetxController {
     //veri
   }
 
-  _onCodeSent(String _verificationID) {
+  _onCodeSent(String _verificationID) async {
     isSendingOTP.value = false;
     verificationID.value = _verificationID;
-    Get.snackbar("Thông báo", "Mã xác nhận đã được gửi!");
+    Get.snackbar('notification'.tr, 'otp_send'.tr);
     Get.offAndToNamed(Routes.VERIFICATION, arguments: txtPhoneNumber.text);
+    _smsReceiver = SmsReceiver((msg) {
+      print('msg coming');
+      var data = msg.split(" ");
+      if (data.length >= 7 && data[6].length == 6) {
+        txtCode.text = data[6];
+      }
+    });
+    _smsReceiver.startListening();
+    timeOut.value = 45;
+    _timerTimeOut = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (timeOut.value > 0) {
+        timeOut.value--;
+      } else {
+        timeOut.value = 0;
+        _timerTimeOut.cancel();
+      }
+    });
   }
 
   _onFailed() {
     isSendingOTP.value = false;
-    Get.snackbar("Lỗi", "Không thể gửi mã xác nhận!");
+    Get.snackbar('error'.tr, 'unable_send_otp'.tr);
   }
 
   _onTimeOut(String _verificationID) {
     isSendingOTP.value = false;
+    print('timeout fail');
     verificationID.value = _verificationID;
   }
 }

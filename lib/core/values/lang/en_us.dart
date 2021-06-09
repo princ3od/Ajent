@@ -21,5 +21,13 @@ const Map<String, String> en = {
   'update_info_dialog_title': 'Update your profile',
   'update_info_dialog_content':
       'Please update your profile to explore all the features of Ajent.',
-  'update_info_dialog_button': 'UPDATE'
+  'update_info_dialog_button': 'UPDATE',
+  'notification': 'Notification',
+  'otp_send': 'OTP has been sent!',
+  'otp_resend': 'OTP has been resent!',
+  'otp_invalid': 'Invalid OTP, please check again!',
+  'error': 'Error',
+  'unable_send_otp': 'Something wrong with sendind OTP process!',
+  'notification_login_fail': 'Login failed',
+  'notification_login_fail_content': 'Something wrong with login process.',
 };

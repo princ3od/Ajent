@@ -72,12 +72,12 @@ class WelcomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Expanded(
-                                flex: 3,
+                                flex: 4,
                                 child: Image.asset(
                                     "assets/images/welcome_page_img.png"),
                               ),
                               Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [

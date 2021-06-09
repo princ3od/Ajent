@@ -21,5 +21,14 @@ const Map<String, String> vi = {
   'update_info_dialog_title': 'Cập nhật thông tin',
   'update_info_dialog_content':
       'Hãy cập nhật thông tin cá nhân của bạn để có thể trải nghiệm hết các tính năng của Ajent.',
-  'update_info_dialog_button': 'CẬP NHẬT'
+  'update_info_dialog_button': 'CẬP NHẬT',
+  'notification': 'Thông báo',
+  'otp_send': 'Mã OTP đã được gửi!',
+  'otp_resend': 'Mã OTP đã được gửi lại!',
+  'otp_invalid': 'Mã OTP không hợp lệ, vui lòng kiểm tra lại!',
+  'error': 'Lỗi',
+  'unable_send_otp': 'Có lỗi xảy ra với quá trình gửi OTP.',
+  'notification_login_fail': 'Đăng nhập thất bại',
+  'notification_login_fail_content':
+      'Đã có lỗi xảy ra với quá trình đăng nhập.',
 };
