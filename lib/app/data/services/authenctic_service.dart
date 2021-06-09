@@ -111,7 +111,7 @@ class AuthenticService {
 
   Future verifyPhoneNumber(
       String phone,
-      Function onCompleted,
+      Function(PhoneAuthCredential) onCompleted,
       Function onFailed,
       Function(String) onSent,
       Function(String) onTimeOut) async {
@@ -119,7 +119,7 @@ class AuthenticService {
       await _firebaseAuth.verifyPhoneNumber(
         timeout: Duration(seconds: 30),
         phoneNumber: phone,
-        verificationCompleted: null,
+        verificationCompleted: onCompleted,
         verificationFailed: (e) {
           onFailed();
         },

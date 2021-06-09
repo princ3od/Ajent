@@ -11,7 +11,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sms_receiver/sms_receiver.dart';
 
 class AuthController extends GetxController {
   var isSigningIn = false.obs;
@@ -21,7 +20,6 @@ class AuthController extends GetxController {
   var timeOut = 45.obs;
   TextEditingController txtPhoneNumber = TextEditingController();
   TextEditingController txtCode = TextEditingController();
-  SmsReceiver _smsReceiver;
   static LoginType loginType;
   Timer _timerTimeOut;
   loginWithGoogle() async {
@@ -160,8 +158,8 @@ class AuthController extends GetxController {
     }
   }
 
-  _onPhoneVerified() {
-    //veri
+  _onPhoneVerified(PhoneAuthCredential phoneAuthCredential) {
+    txtCode.text = phoneAuthCredential.smsCode;
   }
 
   _onCodeSent(String _verificationID) async {
@@ -169,14 +167,14 @@ class AuthController extends GetxController {
     verificationID.value = _verificationID;
     Get.snackbar('notification'.tr, 'otp_send'.tr);
     Get.offAndToNamed(Routes.VERIFICATION, arguments: txtPhoneNumber.text);
-    _smsReceiver = SmsReceiver((msg) {
-      print('msg coming');
-      var data = msg.split(" ");
-      if (data.length >= 7 && data[6].length == 6) {
-        txtCode.text = data[6];
-      }
-    });
-    _smsReceiver.startListening();
+    // _smsReceiver = SmsReceiver((msg) {
+    //   print('msg coming');
+    //   var data = msg.split(" ");
+    //   print(msg);
+    //   print(data[6]);
+    //   txtCode.text = data[6];
+    // });
+    // _smsReceiver.startListening();
     timeOut.value = 45;
     _timerTimeOut = Timer.periodic(Duration(seconds: 1), (timer) {
       if (timeOut.value > 0) {
