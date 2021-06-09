@@ -20,15 +20,10 @@ class JoinableCourseCard extends StatelessWidget{
                 Get.toNamed(Routes.MYCOURSEDETAIL);
               },
               child: Wrap(
-                spacing: -40,
-                runSpacing: -20,
-                // mainAxisSize: MainAxisSize.min,
-                // crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 10,
+                runSpacing: 10,
+
                 children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(250, 20, 0, 0),
-                    child: Text("Học", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 13)),
-                  ),
                   Center(
                       child: Row(
                           children: <Widget>[
@@ -41,28 +36,12 @@ class JoinableCourseCard extends StatelessWidget{
                           ),
                         ),
                         Text(
-                          "My Course Name",
+                          "Example",
                           style: GoogleFonts.nunitoSans(
                               fontWeight: FontWeight.w700, fontSize: 14),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.transparent,
-                              border: Border.all(color: Colors.black,width: 2.0)
-                            ),
-                            child: IconButton(
-                              onPressed: ()=> print("presses add"),
-                              icon: Icon(
-                                Icons.add,
-                                size: 33,
-                              ),
-                            ),
-                          ),
-                        )
                       ]
+
                       )
                   ),
 

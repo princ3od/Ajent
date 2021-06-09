@@ -21,15 +21,9 @@ class TeachalbeTeachingCard extends StatelessWidget{
                 Get.toNamed(Routes.MYCOURSEDETAIL);
               },
               child: Wrap(
-                spacing: -40,
-                runSpacing: -20,
-                // mainAxisSize: MainAxisSize.min,
-                // crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 10,
+                runSpacing: 10,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(265, 20, 0, 0),
-                    child: Text("Dạy", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 13,color: Colors.white)),
-                  ),
                   Center(
                       child: Row(
                           children: <Widget>[
@@ -42,28 +36,10 @@ class TeachalbeTeachingCard extends StatelessWidget{
                               ),
                             ),
                             Text(
-                              "My Teaching Name",
+                              "Example",
                               style: GoogleFonts.nunitoSans(
                                   fontWeight: FontWeight.w700, fontSize: 14,color: Colors.white),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.transparent,
-                                    border: Border.all(color: Colors.white,width: 2.0)
-                                ),
-                                child: IconButton(
-                                  onPressed: ()=> print("presses add"),
-                                  icon: Icon(
-                                    Icons.add,
-                                    size: 33,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            )
                           ]
                       )
                   ),
