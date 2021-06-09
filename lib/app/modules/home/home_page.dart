@@ -1,9 +1,12 @@
+import 'package:ajent/app/modules/search/search_screen.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
+import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:ajent/app/modules/home/home_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'widgets/home_tab.dart';
 import 'widgets/side_menu.dart';
 import '../learning/learning_tab.dart';
@@ -86,8 +89,12 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: TextField(
-              readOnly: true,
+              style: GoogleFonts.nunitoSans(),
+              readOnly: false,
               decoration: searchTextfieldDecoration,
+              onSubmitted: (text){
+                Get.toNamed(Routes.SEARCH);
+              },
             ),
           ),
         ),

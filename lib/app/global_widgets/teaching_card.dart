@@ -1,11 +1,11 @@
 
 import 'package:ajent/core/values/colors.dart';
-import 'package:ajent/routes/pages.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:get/get.dart';
+
 
 
 class TeachingCard extends StatelessWidget {
