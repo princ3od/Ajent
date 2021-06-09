@@ -8,6 +8,7 @@ import 'package:ajent/app/modules/home/home_binding.dart';
 import 'package:ajent/app/modules/home/home_page.dart';
 import 'package:ajent/app/modules/my_profile/my_profile_page.dart';
 import 'package:ajent/app/modules/rating/rating_page.dart';
+import 'package:ajent/app/modules/search/search_screen.dart';
 import 'package:ajent/app/modules/splash/splash_binding.dart';
 import 'package:ajent/app/modules/splash/splash_page.dart';
 import 'package:get/get.dart';
@@ -36,6 +37,7 @@ abstract class AppPages {
     ),
     GetPage(name: Routes.PROFILE, page: () => MyProfilePage()),
     GetPage(name: Routes.MYCOURSEDETAIL, page: () => MyCourseDetailPage()),
-    GetPage(name: Routes.RATING, page: () => RatingPage())
+    GetPage(name: Routes.RATING, page: () => RatingPage()),
+    GetPage(name: Routes.SEARCH, page: () => SearchScreen()),
   ];
 }
