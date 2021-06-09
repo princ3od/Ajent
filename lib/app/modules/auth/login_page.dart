@@ -132,7 +132,7 @@ class LoginPage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 15),
         Row(
           children: [
             Expanded(
@@ -159,7 +159,7 @@ class LoginPage extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 15),
         SizedBox(
           width: double.infinity,
           child: Padding(
