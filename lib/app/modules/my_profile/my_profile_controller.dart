@@ -13,7 +13,7 @@ class MyProfileController extends GetxController {
   Rx<AjentUser> ajentUser = globalAjentUser.obs;
   RxString dropdownValue = ''.obs;
   Degree overDegee = Degree(imageUrl: '', title: '', description: '');
-  Rx<File> image;
+  Rx<String> imagePath = ''.obs;
   List<DropdownMenuItem<String>> dropDownMenuItems = <String>[
     'ajent_education_level_drop_down_item1'.tr,
     'ajent_education_level_drop_down_item2'.tr,
@@ -29,14 +29,16 @@ class MyProfileController extends GetxController {
   }).toList();
   OverlayEntry overlayEntry;
 
-  void showOverlay(BuildContext context) async {
+  void showOverlay(BuildContext context) {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) => DiplomaLayout(
-          onClickConfirm: () {}, onClickCancel: () {}, onDelete: closeOverlay),
+      builder: (context) => DiplomaLayoutWidget(
+          controller: this,
+          onClickConfirm: () {},
+          onClickCancel: () {},
+          onDelete: closeOverlay),
     );
     overlayState.insert(overlayEntry);
-    await Future.delayed(Duration(seconds: 3));
     this.overlayEntry = overlayEntry;
   }
 
