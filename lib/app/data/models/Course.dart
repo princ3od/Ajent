@@ -1,4 +1,5 @@
 import 'package:ajent/core/utils/enum_converter.dart';
+import 'package:intl/intl.dart';
 
 import 'Student.dart';
 import 'Period.dart';
@@ -45,6 +46,31 @@ class Course {
       'owner': this.owner,
       'teacher': this.teacher,
     };
+  }
+
+  String getTimeAsString() {
+    String result = "";
+    if (timeType == TimeType.fixedTime) {
+      var dateText = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+      for (var i = 0; i < fixedTime.day.length; i++) {
+        if (fixedTime.day[i]) {
+          result += dateText[i];
+          if (i < fixedTime.day.length - 1) {
+            result += " - ";
+          }
+        }
+      }
+      result += ": " +
+          fixedTime.lessonTime.startTime +
+          " - " +
+          fixedTime.lessonTime.endTime;
+      result += " (" +
+          DateFormat("dd/MM/yyyy").format(fixedTime.startDate) +
+          " - " +
+          DateFormat("dd/MM/yyyy").format(fixedTime.endDate) +
+          ")";
+    }
+    return result;
   }
 }
 

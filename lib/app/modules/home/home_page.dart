@@ -34,17 +34,7 @@ class HomePage extends StatelessWidget {
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: Obx(() => BottomNavigationBar(
-            onTap: (index) async {
-              controller.tabpageIndex.value = index;
-              controller.needChangeNavigator = false;
-              await controller.pageController.animateToPage(
-                controller.tabpageIndex.value,
-                duration: Duration(milliseconds: 300),
-                curve: Curves.easeIn,
-              );
-              controller.targetPage = index;
-              controller.needChangeNavigator = true;
-            },
+            onTap: controller.onBottomNavigationBarChanged,
             currentIndex: controller.tabpageIndex.value,
             selectedItemColor: Colors.black,
             unselectedItemColor: Colors.grey,

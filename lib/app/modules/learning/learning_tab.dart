@@ -1,3 +1,4 @@
+import 'package:ajent/app/data/models/Course.dart';
 import 'package:ajent/app/global_widgets/course_card.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
 import 'package:flutter/material.dart';
@@ -10,15 +11,14 @@ class LearningTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(height: 30),
         DefaultTabController(
           initialIndex: 1,
           length: 3,
           child: TabBar(
-              onTap: (index) {
-                print(index);
-              },
+              onTap: controller.onTabChanged,
               unselectedLabelColor: Colors.black,
               indicator: BubbleTabIndicator(
                 //indicatorHeight: 30.0,
@@ -33,7 +33,18 @@ class LearningTab extends StatelessWidget {
                 Tab(text: "Đang chờ"),
               ]),
         ),
-        CourseCard(),
+        Flexible(
+          child: Obx(
+            () => ListView.builder(
+              itemCount: controller.courses.length,
+              itemBuilder: (context, index) {
+                return CourseCard(
+                  course: controller.courses[index],
+                );
+              },
+            ),
+          ),
+        ),
       ],
     );
   }

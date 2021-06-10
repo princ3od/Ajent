@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^2.1.0
   google_sign_in: ^5.0.2
   image_picker: ^0.8.0+1
+  intl: ^0.17.0
   pin_code_fields: ^7.2.0
   sliding_up_panel: ^2.0.0+1
 

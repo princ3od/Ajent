@@ -1,4 +1,5 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
+import 'package:ajent/app/modules/learning/learning_controlller.dart';
 import 'package:ajent/routes/pages.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -27,7 +28,33 @@ class HomeController extends GetxController {
   onPageChanged(int index) {
     if (index == targetPage && needChangeNavigator) {
       tabpageIndex.value = index;
+      switch (index) {
+        case 1:
+          Get.find<LearningController>().fetchCourses();
+          break;
+        default:
+          break;
+      }
     }
+  }
+
+  onBottomNavigationBarChanged(int index) async {
+    tabpageIndex.value = index;
+    needChangeNavigator = false;
+    await pageController.animateToPage(
+      tabpageIndex.value,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    );
+    switch (index) {
+      case 1:
+        Get.find<LearningController>().fetchCourses();
+        break;
+      default:
+        break;
+    }
+    targetPage = index;
+    needChangeNavigator = true;
   }
 
   static checkUserUpdateInfo() {

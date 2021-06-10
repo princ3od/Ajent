@@ -1,4 +1,4 @@
-import 'package:ajent/core/values/colors.dart';
+import 'package:ajent/app/data/models/Course.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 class CourseCard extends StatelessWidget {
+  final Course course;
+  CourseCard({Key key, @required this.course});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,16 +17,16 @@ class CourseCard extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-          elevation: 2,
-
+          elevation: 4,
           child: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color.fromARGB(255, 246, 245, 244), Colors.white10]
-                )
-            ),
+                    colors: [
+                  Color.fromARGB(255, 246, 245, 244),
+                  Colors.white10
+                ])),
             child: InkWell(
                 onTap: () {
                   Get.toNamed(Routes.MYCOURSEDETAIL);
