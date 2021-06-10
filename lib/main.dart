@@ -1,11 +1,16 @@
-import 'package:ajent/app/modules/auth/auth_page.dart';
-import 'package:ajent/app/modules/home/home_page.dart';
+import 'package:ajent/app/modules/splash/splash_binding.dart';
+import 'package:ajent/core/values/lang/localization_service.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -14,13 +19,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: "Ajent",
       getPages: AppPages.pages,
-      initialRoute: Routes.AUTH,
+      initialRoute: Routes.SPLASH,
+      //initialRoute: Routes.MYCOURSEDETAIL,
+      initialBinding: SplashBinding(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AuthPage(),
+      translations: LocalizationService(),
+      locale: LocalizationService.locale,
+      fallbackLocale: LocalizationService.fallbackLocale,
     );
   }
 }
