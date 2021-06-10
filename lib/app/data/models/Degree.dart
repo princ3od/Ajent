@@ -1,5 +1,6 @@
 class Degree {
   String imageUrl;
-  String tittle;
+  String title;
   String description;
+  Degree({this.imageUrl, this.title, this.description});
 }

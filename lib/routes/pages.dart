@@ -6,6 +6,7 @@ import 'package:ajent/app/modules/auth/signup_page.dart';
 import 'package:ajent/app/modules/auth/welcome_page.dart';
 import 'package:ajent/app/modules/home/home_binding.dart';
 import 'package:ajent/app/modules/home/home_page.dart';
+import 'package:ajent/app/modules/my_profile/my_profile_binding.dart';
 import 'package:ajent/app/modules/my_profile/my_profile_page.dart';
 import 'package:ajent/app/modules/rating/rating_page.dart';
 import 'package:ajent/app/modules/splash/splash_binding.dart';
@@ -34,7 +35,10 @@ abstract class AppPages {
       page: () => OtpVerificationPage(),
       binding: AuthBinding(),
     ),
-    GetPage(name: Routes.PROFILE, page: () => MyProfilePage()),
+    GetPage(
+        name: Routes.PROFILE,
+        page: () => MyProfilePage(),
+        binding: MyProfileBinding()),
     GetPage(name: Routes.MYCOURSEDETAIL, page: () => MyCourseDetailPage()),
     GetPage(name: Routes.RATING, page: () => RatingPage())
   ];

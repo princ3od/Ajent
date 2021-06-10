@@ -1,12 +1,7 @@
-
 import 'package:ajent/core/values/colors.dart';
-import 'package:ajent/routes/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:get/get.dart';
-
 
 class TeachingCard extends StatelessWidget {
   @override
@@ -15,41 +10,36 @@ class TeachingCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
           clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
           elevation: 4,
           color: primaryColor,
-
           child: InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
                       child: Row(children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: CircleAvatar(
-                            backgroundImage:
+                    Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: CircleAvatar(
+                        backgroundImage:
                             AssetImage("assets/images/ajent_logo.png"),
-                            radius: 40.0,
-                          ),
-                        ),
-                        Text(
-                          "My Teaching Name",
-                          style: GoogleFonts.nunitoSans(
-                              fontWeight: FontWeight.w700, fontSize: 14, color: Colors.white),
-                        )
-                      ]
-                      )
-                  )
+                        radius: 40.0,
+                      ),
+                    ),
+                    Text(
+                      "My Teaching Name",
+                      style: GoogleFonts.nunitoSans(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: Colors.white),
+                    )
+                  ]))
                 ],
-              )
-          )
-
-      ),
+              ))),
     );
   }
 }
