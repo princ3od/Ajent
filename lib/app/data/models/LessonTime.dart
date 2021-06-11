@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
+
 class LessonTime {
-  DateTime startTime;
-  DateTime endTime;
+  TimeOfDay startTime;
+  TimeOfDay endTime;
 }

@@ -31,6 +31,6 @@ abstract class AppPages {
     ),
     GetPage(name: Routes.PROFILE, page: () => MyProfilePage()),
     GetPage(name: Routes.MYCOURSEDETAIL,page: () => MyCourseDetailPage()),
-    GetPage(name: Routes.ADD_COURSE, page: () => AddCoursePage()),
+    GetPage(name: Routes.ADD_COURSE, page: () => AddCoursePage(), binding: AddCourseBinding()),
   ];
 }
