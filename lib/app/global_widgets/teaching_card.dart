@@ -2,7 +2,6 @@ import 'package:ajent/core/values/colors.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 class TeachingCard extends StatelessWidget {
@@ -17,12 +16,10 @@ class TeachingCard extends StatelessWidget {
           elevation: 2,
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [primaryColor,Color.fromARGB(255, 255, 128, 64)]
-              )
-            ),
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [primaryColor, Color.fromARGB(255, 255, 128, 64)])),
             child: InkWell(
                 onTap: () {},
                 child: Column(
