@@ -455,13 +455,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0+1"
-  sms_receiver:
-    dependency: "direct main"
-    description:
-      name: sms_receiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1+1"
   source_span:
     dependency: transitive
     description:
