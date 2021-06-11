@@ -1,4 +1,3 @@
-import 'package:ajent/app/modules/search/search_screen.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
@@ -27,9 +26,12 @@ class HomePage extends StatelessWidget {
                 : 0.0,
             duration: Duration(milliseconds: 300),
             child: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.ADD_COURSE,
+                    arguments: controller.tabpageIndex.value);
+              },
               tooltip: 'Increment',
-              child: new Icon(Icons.add,size: 40),
+              child: new Icon(Icons.add, size: 40),
             ),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -79,7 +81,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: TextField(
-              style: GoogleFonts.nunitoSans (fontWeight: FontWeight.w600),
+              style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600),
               readOnly: true,
               decoration: searchTextfieldDecoration,
               onTap: () => Get.toNamed(Routes.SEARCH),

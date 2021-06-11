@@ -1,3 +1,5 @@
+import 'package:ajent/app/modules/add_course/add_course_binding.dart';
+import 'package:ajent/app/modules/add_course/add_course_page.dart';
 import 'package:ajent/app/modules/auth/otp_verification_page.dart';
 import 'package:ajent/app/modules/my_course_detail/my_course_detail_page.dart';
 import 'package:ajent/app/modules/auth/auth_binding.dart';
@@ -43,5 +45,9 @@ abstract class AppPages {
     GetPage(name: Routes.MYCOURSEDETAIL, page: () => MyCourseDetailPage()),
     GetPage(name: Routes.RATING, page: () => RatingPage()),
     GetPage(name: Routes.SEARCH, page: () => SearchScreen()),
+    GetPage(
+        name: Routes.ADD_COURSE,
+        page: () => AddCoursePage(),
+        binding: AddCourseBinding()),
   ];
 }

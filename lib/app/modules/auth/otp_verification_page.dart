@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';

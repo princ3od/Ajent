@@ -1,5 +1,4 @@
 import 'package:ajent/app/modules/splash/splash_binding.dart';
-import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/core/values/lang/localization_service.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,8 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.SPLASH,
       initialBinding: SplashBinding(),
       theme: ThemeData(
-        fontFamily: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700).fontFamily,
+        fontFamily:
+            GoogleFonts.nunitoSans(fontWeight: FontWeight.w700).fontFamily,
         primarySwatch: Colors.deepOrange,
       ),
       translations: LocalizationService(),

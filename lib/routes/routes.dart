@@ -10,5 +10,6 @@ abstract class Routes {
   static const MYCOURSEDETAIL = "/my_course_detail";
   static const RATING = "/rating";
   static const VERIFICATION = '/verification';
-  static const SEARCH ="/search";
+  static const SEARCH = "/search";
+  static const ADD_COURSE = "/add_course";
 }

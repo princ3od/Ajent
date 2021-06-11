@@ -1,8 +1,6 @@
-import 'package:ajent/app/data/models/Course.dart';
 import 'package:ajent/app/global_widgets/course_card.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
 import 'package:ajent/app/modules/learning/widgets/empty_learning.dart';
-import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
