@@ -39,7 +39,9 @@ dependencies:
   image_picker: ^0.8.0+1
   intl: ^0.17.0
   pin_code_fields: ^7.2.0
+  pull_to_refresh: ^2.0.0
   sliding_up_panel: ^2.0.0+1
+  url_launcher: ^6.0.6
 
 dev_dependencies:
   flutter_test:

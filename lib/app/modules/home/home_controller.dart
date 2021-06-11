@@ -30,7 +30,7 @@ class HomeController extends GetxController {
       tabpageIndex.value = index;
       switch (index) {
         case 1:
-          Get.find<LearningController>().fetchCourses();
+          Get.find<LearningController>().showCourses();
           break;
         default:
           break;
@@ -48,7 +48,7 @@ class HomeController extends GetxController {
     );
     switch (index) {
       case 1:
-        Get.find<LearningController>().fetchCourses();
+        Get.find<LearningController>().showCourses();
         break;
       default:
         break;

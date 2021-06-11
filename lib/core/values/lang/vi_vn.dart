@@ -31,4 +31,9 @@ const Map<String, String> vi = {
   'notification_login_fail': 'Đăng nhập thất bại',
   'notification_login_fail_content':
       'Đã có lỗi xảy ra với quá trình đăng nhập.',
+  'learning_ongoing_empty': 'Bạn không có khoá học nào ở hiện tại',
+  'learning_finished empty': 'Bạn chưa hoàn thành khoá học nào',
+  'learning_upcoming_empty': 'Bạn chưa có khoá học nào sắp diễn ra',
+  'learning_empty_action': 'Bắt đầu khoá mới ngay bằng cách nhấn nút ở dưới!',
+  'learning_empty_encourage': 'Hi vọng sẽ có vài khoá học nằm ở đây. 😎',
 };

@@ -30,4 +30,9 @@ const Map<String, String> en = {
   'unable_send_otp': 'Something wrong with sendind OTP process!',
   'notification_login_fail': 'Login failed',
   'notification_login_fail_content': 'Something wrong with login process.',
+  'learning_ongoing_empty': 'You have no ongoing course',
+  'learning_finished empty': 'You have no finished course',
+  'learning_upcoming_empty': 'You have no upcoming course',
+  'learning_empty_action': 'Start new course now by clicking button below!',
+  'learning_empty_encourage': 'Hope there are some courses here soon. 😎',
 };

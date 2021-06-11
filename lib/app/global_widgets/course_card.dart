@@ -29,7 +29,7 @@ class CourseCard extends StatelessWidget {
                 ])),
             child: InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.MYCOURSEDETAIL);
+                  Get.toNamed(Routes.MYCOURSEDETAIL, arguments: course);
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -47,7 +47,7 @@ class CourseCard extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          "My Course Name",
+                          course.name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: GoogleFonts.nunitoSans(

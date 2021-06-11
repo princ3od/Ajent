@@ -1,9 +1,12 @@
 import 'package:ajent/app/data/models/Course.dart';
 import 'package:ajent/app/global_widgets/course_card.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
+import 'package:ajent/app/modules/learning/widgets/empty_learning.dart';
+import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class LearningTab extends StatelessWidget {
   final LearningController controller =
@@ -13,9 +16,9 @@ class LearningTab extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(height: 30),
+        SizedBox(height: 20),
         DefaultTabController(
-          initialIndex: 1,
+          initialIndex: controller.currentIndex.value,
           length: 3,
           child: TabBar(
               onTap: controller.onTabChanged,
@@ -35,14 +38,26 @@ class LearningTab extends StatelessWidget {
         ),
         Flexible(
           child: Obx(
-            () => ListView.builder(
-              itemCount: controller.courses.length,
-              itemBuilder: (context, index) {
-                return CourseCard(
-                  course: controller.courses[index],
-                );
-              },
-            ),
+            () => (controller.courses.length <= 0)
+                ? EmptyLearning(
+                    index: controller.currentIndex.value,
+                  )
+                : SmartRefresher(
+                    physics: BouncingScrollPhysics(),
+                    controller: controller.refreshController,
+                    onRefresh: () async {
+                      await controller.fetchCourses();
+                    },
+                    child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: controller.courses.length,
+                      itemBuilder: (context, index) {
+                        return CourseCard(
+                          course: controller.courses[index],
+                        );
+                      },
+                    ),
+                  ),
           ),
         ),
       ],

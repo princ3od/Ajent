@@ -69,6 +69,15 @@ class Course {
           " - " +
           DateFormat("dd/MM/yyyy").format(fixedTime.endDate) +
           ")";
+    } else {
+      for (var i = 0; i < periods.length; i++) {
+        result +=
+            "${i + 1}. ${DateFormat("dd/MM/yyyy").format(periods[i].date)}: " +
+                periods[i].lessonTime.startTime +
+                " - " +
+                periods[i].lessonTime.endTime;
+        result += "\n";
+      }
     }
     return result;
   }
