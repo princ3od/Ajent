@@ -172,9 +172,9 @@ class AuthController extends GetxController {
     _smsReceiver = SmsReceiver((msg) {
       print('msg coming');
       var data = msg.split(" ");
-      if (data.length >= 7 && data[6].length == 6) {
-        txtCode.text = data[6];
-      }
+      print(msg);
+      print(data[6]);
+      txtCode.text = data[6];
     });
     _smsReceiver.startListening();
     timeOut.value = 45;

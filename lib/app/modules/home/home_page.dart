@@ -90,11 +90,9 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: TextField(
               style: GoogleFonts.nunitoSans(),
-              readOnly: false,
+              readOnly: true,
               decoration: searchTextfieldDecoration,
-              onSubmitted: (text){
-                Get.toNamed(Routes.SEARCH);
-              },
+              onTap: () => Get.toNamed(Routes.SEARCH),
             ),
           ),
         ),
