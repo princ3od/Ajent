@@ -8,44 +8,61 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class DiplomaLayoutWidget extends StatefulWidget {
-  DiplomaLayoutWidget(
+class DiplomaLayout extends StatelessWidget {
+  final MyProfileController controller;
+  final VoidCallback onClickConfirm;
+  final VoidCallback onClickCancel;
+  final Function onClosedDiplomaOverlay;
+
+  const DiplomaLayout(
       {Key key,
       this.controller,
       this.onClickConfirm,
       this.onClickCancel,
-      this.onDelete})
+      this.onClosedDiplomaOverlay})
       : super(key: key);
-  final MyProfileController controller;
-  final VoidCallback onClickConfirm;
-  final VoidCallback onClickCancel;
-  final Function onDelete;
-
-  @override
-  _DiplomaLayoutWidgetState createState() => _DiplomaLayoutWidgetState();
-}
-
-class _DiplomaLayoutWidgetState extends State<DiplomaLayoutWidget> {
-  File _image;
-  final picker = ImagePicker();
-  Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut<MyProfileController>(() => widget.controller);
-    String description = '';
-    String title = '';
-    String url = '';
+    Future<void> _showMyDialog() async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('add_diploma_dialog'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('add_diploma_dialog_message'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('add_diploma_approve_label'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    Get.put(this.controller);
+    final picker = ImagePicker();
+    Future getImage() async {
+      final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+      if (pickedFile != null) {
+        controller.image.value = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -66,15 +83,30 @@ class _DiplomaLayoutWidgetState extends State<DiplomaLayoutWidget> {
                 SizedBox(
                   height: 20,
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 80,
-                  child: ClipOval(
-                    child: _image == null
-                        ? Image.asset('assets/images/ajent_logo.png')
-                        : Image.file(_image),
-                  ),
-                ),
+                Obx(() => Container(
+                      height: 150,
+                      child: (controller.image.value.path == '')
+                          ? CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 80,
+                              child: Container(
+                                child: Image.asset(
+                                  'assets/images/ajent_logo.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )
+                          : CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 80,
+                              child: Container(
+                                child: Image.file(
+                                  controller.image.value,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                    )),
                 SizedBox(
                   height: 20,
                 ),
@@ -101,7 +133,8 @@ class _DiplomaLayoutWidgetState extends State<DiplomaLayoutWidget> {
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
                     onChanged: (value) {
-                      title = value;
+                      controller.title.value = value;
+                      print(controller.title.value);
                     },
                   ),
                 ),
@@ -118,7 +151,8 @@ class _DiplomaLayoutWidgetState extends State<DiplomaLayoutWidget> {
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
                     onChanged: (value) {
-                      description = value;
+                      controller.description.value = value;
+                      print(controller.description.value);
                     },
                   ),
                 ),
@@ -129,12 +163,24 @@ class _DiplomaLayoutWidgetState extends State<DiplomaLayoutWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton.icon(
-                      onPressed: () {
-                        widget.controller.overDegee.title = title;
-                        widget.controller.overDegee.description = description;
-                        widget.controller.overDegee.imageUrl = url;
-                        widget.onDelete();
-                        // onClickConfirm();
+                      onPressed: () async {
+                        if (controller.isAvaiableDegreeInfo()) {
+                          String imageUrl = await controller.storageService
+                              .uploadImage(controller.image.value,
+                                  controller.ajentUser.value.uid);
+                          print(imageUrl);
+                          controller.overDegee.imageUrl = imageUrl;
+                          controller.overDegee.title = controller.title.value;
+                          controller.overDegee.description =
+                              controller.description.value;
+
+                          await controller.userService.addDegree(
+                              controller.ajentUser.value.uid,
+                              controller.overDegee);
+                          onClosedDiplomaOverlay(context);
+                        } else {
+                          await _showMyDialog();
+                        }
                       },
                       label: Text('add_diploma_layout_confirm_label'.tr),
                       icon: Icon(Icons.check),
@@ -145,7 +191,7 @@ class _DiplomaLayoutWidgetState extends State<DiplomaLayoutWidget> {
                     TextButton.icon(
                         icon: Icon(Icons.cancel),
                         onPressed: () {
-                          widget.onDelete();
+                          onClosedDiplomaOverlay(context);
                           // onClickCancel();
                         },
                         label: Text('add_diploma_layout_cancel_label'.tr)),

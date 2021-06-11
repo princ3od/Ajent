@@ -39,6 +39,8 @@ dependencies:
   image_picker: ^0.8.0+1
   pin_code_fields: ^7.2.0
   sliding_up_panel: ^2.0.0+1
+  flutter_datetime_picker: ^1.5.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
