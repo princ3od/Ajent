@@ -42,9 +42,9 @@ class CalendarChildTab extends StatelessWidget {
             ),
           ),
         ),
-        ElevatedButton(
+        /*ElevatedButton(
             onPressed: () => Get.toNamed(Routes.MYCOURSEDETAIL),
-            child: Text("click"))
+            child: Text("click"))*/
       ],
     );
   }

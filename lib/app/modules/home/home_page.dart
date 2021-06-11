@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
             child: FloatingActionButton(
               onPressed: () {},
               tooltip: 'Increment',
-              child: new Icon(Icons.add),
+              child: new Icon(Icons.add,size: 40),
             ),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -89,7 +89,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: TextField(
-              style: GoogleFonts.nunitoSans(),
+              style: GoogleFonts.nunitoSans (fontWeight: FontWeight.w600),
               readOnly: true,
               decoration: searchTextfieldDecoration,
               onTap: () => Get.toNamed(Routes.SEARCH),

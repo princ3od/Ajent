@@ -5,6 +5,7 @@ import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.SPLASH,
       initialBinding: SplashBinding(),
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        fontFamily: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700).fontFamily,
+        primarySwatch: Colors.deepOrange,
       ),
       translations: LocalizationService(),
       locale: LocalizationService.locale,

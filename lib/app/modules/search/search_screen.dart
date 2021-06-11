@@ -21,11 +21,14 @@ class SearchScreen extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
         backgroundColor: Colors.white,
-        elevation: 1,
-        toolbarHeight: 70,
+        elevation: 2,
+        toolbarHeight: 55,
         title: TextFormField(
+          autofocus: true,
           decoration: searchTextfieldDecoration,
-          style: GoogleFonts.nunitoSans(),
+          style: GoogleFonts.nunitoSans(
+            fontSize: 14
+          ),
         ),
       ),
       body: SingleChildScrollView(

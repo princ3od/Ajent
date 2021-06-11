@@ -6,6 +6,7 @@ import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key key}) : super(key: key);
@@ -18,13 +19,13 @@ class SideMenu extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(15.0),
               child: Row(
                 children: [
                   Expanded(
                     flex: 1,
                     child: UserAvatar(
-                      size: 40,
+                      size: 30,
                       user: HomeController.mainUser,
                     ),
                   ),
@@ -36,7 +37,7 @@ class SideMenu extends StatelessWidget {
                           HomeController.mainUser.name,
                           overflow: TextOverflow.fade,
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 5),
                         Padding(
@@ -49,7 +50,7 @@ class SideMenu extends StatelessWidget {
                               onPressed: () {
                                 Get.toNamed(Routes.PROFILE);
                               },
-                              child: Text("Thông tin cá nhân"),
+                              child: Text("Thông tin cá nhân", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700,fontSize: 11),),
                               style: outlinedButtonStyle,
                             ),
                           ),

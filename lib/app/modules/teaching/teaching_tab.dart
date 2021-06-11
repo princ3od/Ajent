@@ -24,9 +24,9 @@ class TeachingTab extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: -8.0),
               ),
               tabs: [
-                Text("Đã dạy"),
-                Text("Đang dạy"),
-                Text("Đang chờ"),
+                Tab(text: "Đã dạy"),
+                Tab(text: "Đang dạy"),
+                Tab(text: "Đang chờ"),
               ]),
         ),
         TeachingCard(),
