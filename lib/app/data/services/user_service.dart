@@ -1,12 +1,13 @@
+import 'package:ajent/app/data/models/Degree.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ajent/app/data/models/Student.dart';
 
 class UserService implements CollectionInterface {
   UserService._privateConstructor();
   static final UserService instance = UserService._privateConstructor();
-
   final FirebaseFirestore database = FirebaseFirestore.instance;
 
   @override
@@ -35,5 +36,105 @@ class UserService implements CollectionInterface {
         .get()
         .then((value) => ajentUser = AjentUser.fromJson(uid, value.data()));
     return ajentUser;
+  }
+
+  Future<bool> updateInfo(AjentUser ajentUser) async {
+    bool success = false;
+    await database
+        .collection(collectionName)
+        .doc(ajentUser.uid)
+        .set(ajentUser.toJson())
+        .whenComplete(() {
+      success = true;
+    }).catchError((error) => print('Occured error $error'));
+    return success;
+  }
+
+  Future<List<Degree>> getDegrees(String uid) async {
+    List<Degree> degrees = [];
+    await database
+        .collection(collectionName)
+        .doc(uid)
+        .collection('degrees')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        print('${element.id}');
+        Degree item = Degree.fromJson(id: element.id, data: element.data());
+        degrees.add(item);
+      });
+    }).catchError(
+            (error) => print("Failed to get user degrees property: $error"));
+    return degrees;
+  }
+
+  Future<bool> delDegree(String uid, String docId) async {
+    try {
+      await database
+          .collection(collectionName)
+          .doc(uid)
+          .collection('degrees')
+          .doc(docId)
+          .delete()
+          .then((value) => print('Degree $docId Have Been Deleted'))
+          .catchError((error) {
+        print("Failed to delete user's property: $error");
+        return false;
+      });
+      return true;
+    } catch (exception) {
+      print('${exception.toString()}');
+      return false;
+    }
+  }
+
+  Future<bool> addDegree(String uid, Degree newDegree) async {
+    bool success = false;
+    await database
+        .collection(collectionName)
+        .doc(uid)
+        .collection('degrees')
+        .add(newDegree.toJson())
+        .then((value) {
+      success = true;
+      print("Degree Added..");
+    }).catchError((onError) {
+      success = false;
+      print("Failed to add user: $onError");
+    });
+    return success;
+  }
+
+  Future<List<Student>> getStudents(String uid) async {
+    List<Student> students = [];
+    await database
+        .collection(collectionName)
+        .doc(uid)
+        .collection('students')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        print('${element.id}');
+        Student student =
+            Student.fromJson(id: element.id, data: element.data());
+        students.add(student);
+      });
+    }).catchError((error) => print(error));
+    return students;
+  }
+
+  Future<bool> delStudent(String uid, String studentId) async {
+    bool success = false;
+    await database
+        .collection(collectionName)
+        .doc(uid)
+        .collection('students')
+        .doc(studentId)
+        .delete()
+        .then((value) {
+      print('Student $studentId Have Been Deleted');
+      success = true;
+    }).catchError((error) => print('$error'));
+    return success;
   }
 }
