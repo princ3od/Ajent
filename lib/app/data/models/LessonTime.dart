@@ -1,16 +1,19 @@
+import 'package:ajent/core/utils/date_converter.dart';
+import 'package:flutter/material.dart';
+
 class LessonTime {
-  String startTime;
-  String endTime;
+  TimeOfDay startTime;
+  TimeOfDay endTime;
   LessonTime(this.startTime, this.endTime);
   LessonTime.fromJson(Map<String, dynamic> data) {
-    startTime = data['startTime'];
-    endTime = data['endTime'];
+    startTime = DateConverter.stringToTime(data['startTime']);
+    endTime = DateConverter.stringToTime(data['endTime']);
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'startTime': startTime,
-      'endTime': endTime,
+      'startTime': DateConverter.timeToString(startTime),
+      'endTime': DateConverter.timeToString(endTime),
     };
   }
 }

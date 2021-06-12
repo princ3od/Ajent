@@ -1,3 +1,4 @@
+import 'package:ajent/core/utils/date_converter.dart';
 import 'package:intl/intl.dart';
 
 import 'LessonTime.dart';
@@ -12,6 +13,7 @@ class FixedTime {
     day = List<bool>.from(data['day']);
     startDate = DateFormat("dd/MM/yyyy").parse(data['startDate']);
     endDate = DateFormat("dd/MM/yyyy").parse(data['endDate']);
-    lessonTime = LessonTime(data['startTime'], data['endTime']);
+    lessonTime = LessonTime(DateConverter.stringToTime(data['startTime']),
+        DateConverter.stringToTime(data['endTime']));
   }
 }

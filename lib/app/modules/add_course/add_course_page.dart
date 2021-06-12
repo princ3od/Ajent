@@ -1,12 +1,16 @@
+import 'package:ajent/app/data/models/LessonTime.dart';
+import 'package:ajent/app/data/models/Period.dart';
 import 'package:ajent/app/modules/add_course/add_course_controller.dart';
 import 'package:ajent/app/modules/add_course/widgets/DatePickingButton.dart';
 import 'package:ajent/app/modules/add_course/widgets/RoundDropdownButton.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
+import 'package:ajent/core/values/lang/en_us.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class AddCoursePage extends StatelessWidget {
   @override
@@ -180,54 +184,54 @@ class AddCoursePage extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () async {
-                      // //It's just design code, its jobs is add a new periods
-                      // var x = new Period();
-                      // x.lessonTime = new LessonTime();
-                      // x.date = await showDatePicker(
-                      //     context: context,
-                      //     initialDate: DateTime.now(),
-                      //     firstDate: DateTime.now(),
-                      //     lastDate: DateTime(DateTime.now().year + 10),
-                      // );
+                      //It's just design code, its jobs is add a new periods
+                      TimeOfDay start, end;
+                      DateTime date;
+                      date = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(DateTime.now().year + 10),
+                      );
 
-                      // x.lessonTime.startTime = await showTimePicker(
-                      //     context: context,
-                      //     initialTime: TimeOfDay(hour: 12, minute: 0));
+                      start = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay(hour: 12, minute: 0));
 
-                      // x.lessonTime.endTime = await showTimePicker(
-                      //     context: context,
-                      //     initialTime: TimeOfDay(hour: 12, minute: 0));
-
-                      // controller.periods.add(x);
+                      end = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay(hour: 12, minute: 0));
+                      var x = Period(date, LessonTime(start, end));
+                      controller.periods.add(x);
                     },
                   )
                 ],
               ),
               Obx(() => Wrap(
                     children: controller.periods.map((element) {
-                      //   String date = DateFormat("dd/MM/yy").format(element.date);
-                      //   String startTime =
-                      //       element.lessonTime.startTime.format(context);
-                      //   String endTime =
-                      //       element.lessonTime.endTime.format(context);
-                      //   return Padding(
-                      //     padding: EdgeInsets.fromLTRB(2, 0, 2, 0),
-                      //     child: InputChip(
-                      //       label: Column(
-                      //         children: [
-                      //           Text(date),
-                      //           Text('$startTime - $endTime'),
-                      //         ],
-                      //       ),
-                      //       labelStyle:
-                      //           TextStyle(fontSize: 13, color: Colors.white),
-                      //       backgroundColor: primaryColor,
-                      //       onDeleted: () {
-                      //         controller.periods.remove(element);
-                      //       },
-                      //       deleteIconColor: Colors.white,
-                      //     ),
-                      //   );
+                      String date = DateFormat("dd/MM/yy").format(element.date);
+                      String startTime =
+                          element.lessonTime.startTime.format(context);
+                      String endTime =
+                          element.lessonTime.endTime.format(context);
+                      return Padding(
+                        padding: EdgeInsets.fromLTRB(2, 0, 2, 0),
+                        child: InputChip(
+                          label: Column(
+                            children: [
+                              Text(date),
+                              Text('$startTime - $endTime'),
+                            ],
+                          ),
+                          labelStyle:
+                              TextStyle(fontSize: 13, color: Colors.white),
+                          backgroundColor: primaryColor,
+                          onDeleted: () {
+                            controller.periods.remove(element);
+                          },
+                          deleteIconColor: Colors.white,
+                        ),
+                      );
                     }).toList(),
                   )),
               SizedBox(

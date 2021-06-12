@@ -1,3 +1,4 @@
+import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/utils/enum_converter.dart';
 import 'package:intl/intl.dart';
 
@@ -61,9 +62,9 @@ class Course {
         }
       }
       result += ": " +
-          fixedTime.lessonTime.startTime +
+          DateConverter.timeToString(fixedTime.lessonTime.startTime) +
           " - " +
-          fixedTime.lessonTime.endTime;
+          DateConverter.timeToString(fixedTime.lessonTime.endTime);
       result += " (" +
           DateFormat("dd/MM/yyyy").format(fixedTime.startDate) +
           " - " +
@@ -73,9 +74,9 @@ class Course {
       for (var i = 0; i < periods.length; i++) {
         result +=
             "${i + 1}. ${DateFormat("dd/MM/yyyy").format(periods[i].date)}: " +
-                periods[i].lessonTime.startTime +
+                DateConverter.timeToString(periods[i].lessonTime.startTime) +
                 " - " +
-                periods[i].lessonTime.endTime;
+                DateConverter.timeToString(periods[i].lessonTime.endTime);
         result += "\n";
       }
     }
