@@ -22,7 +22,7 @@ class CourseCard extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color.fromARGB(255, 246, 245, 244), Colors.white10]
+                    colors: [Color.fromARGB(150, 229, 222, 222),Colors.white10, Colors.white]
                 )
             ),
             child: InkWell(
@@ -35,22 +35,22 @@ class CourseCard extends StatelessWidget {
                   children: [
                     Center(
                         child: Row(children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: CircleAvatar(
-                          backgroundImage:
+                          Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: CircleAvatar(
+                              backgroundImage:
                               AssetImage("assets/images/ajent_logo.png"),
-                          radius: 40.0,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "My Course Name",
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: GoogleFonts.nunitoSans(
+                              radius: 40.0,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "My Course Name",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: GoogleFonts.nunitoSans(
                               fontWeight: FontWeight.w700, fontSize: 14),
-                        ),
+                            ),
                       )
                     ]))
                   ],

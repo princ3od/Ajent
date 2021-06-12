@@ -51,7 +51,7 @@ class SideMenu extends StatelessWidget {
                                 Get.toNamed(Routes.PROFILE);
                               },
                               child: Text("Thông tin cá nhân", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700,fontSize: 11),),
-                              style: outlinedButtonStyle,
+                              //style: outlinedButtonStyle,
                             ),
                           ),
                         ),
@@ -120,7 +120,7 @@ class SideMenu extends StatelessWidget {
                             )),
                       )),
                   SizedBox(height: 5),
-                  Text("© Ajent"),
+                  Text("© Ajent",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w100),),
                   SizedBox(height: 20),
                 ],
               ),
