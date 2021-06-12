@@ -32,39 +32,36 @@ class SearchScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                      child: ElevatedButton(
-                        style: orangeButtonStyle,
-                        child: Text("Mở lớp",
-                            style: GoogleFonts.nunitoSans(
-                            fontWeight: FontWeight.w700, fontSize: 11)),
-                          onPressed: () {},
-                        ),
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: ElevatedButton(
+                      //style: orangeButtonStyle,
+                      child: Text("Mở lớp",
+                          style: GoogleFonts.nunitoSans(
+                          fontWeight: FontWeight.w700, fontSize: 12)),
+                        onPressed: () {},
                       ),
-                    Padding(
-                        padding: EdgeInsets.fromLTRB(130, 10, 10, 10),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.filter_list
-                          ),
-                          onPressed: (){},
-                        )
-                    )
-                  ],
-                ),
-                JoinableCourseCard(),
-                TeachalbeTeachingCard()
-              ]
-          ),
+                    ),
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(210, 0, 10, 10),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.filter_list
+                        ),
+                        onPressed: (){},
+                      )
+                  )
+                ],
+              ),
+              JoinableCourseCard(),
+              TeachalbeTeachingCard()
+            ]
         ),
       ),
     );

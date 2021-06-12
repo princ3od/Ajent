@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'core/values/colors.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
@@ -13,6 +15,20 @@ void main() {
     runApp(MyApp());
   });
 }
+
+const MaterialColor jetblack =
+    const MaterialColor(0xff000000, const <int, Color>{
+  50: const Color(0xff000000),
+  100: const Color(0xff000000),
+  200: const Color(0xff000000),
+  300: const Color(0xff000000),
+  400: const Color(0xff000000),
+  500: const Color(0xff000000),
+  600: const Color(0xff000000),
+  700: const Color(0xff000000),
+  800: const Color(0xff000000),
+  900: const Color(0xff000000),
+});
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -27,7 +43,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily:
             GoogleFonts.nunitoSans(fontWeight: FontWeight.w700).fontFamily,
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: jetblack,
+        primaryColor: primaryColor,
       ),
       translations: LocalizationService(),
       locale: LocalizationService.locale,

@@ -24,8 +24,9 @@ class CourseCard extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                  Color.fromARGB(255, 246, 245, 244),
-                  Colors.white10
+                  Color.fromARGB(150, 229, 222, 222),
+                  Colors.white10,
+                  Colors.white
                 ])),
             child: InkWell(
                 onTap: () {
