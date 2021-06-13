@@ -2,6 +2,8 @@ import 'package:ajent/app/data/models/Person.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/my_profile/my_profile_controller.dart';
+import 'package:ajent/app/modules/my_profile/widgets/drop_down_widget_customize.dart';
+import 'package:ajent/app/modules/my_profile/widgets/my_students_bottomsheet.dart';
 import 'package:ajent/app/modules/my_profile/widgets/overlay_diploma.dart';
 import 'package:ajent/app/modules/my_profile/widgets/student_detail.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
@@ -44,9 +46,11 @@ class MyProfilePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: UserAvatar(
-                  user: HomeController.mainUser,
-                  size: 45,
+                child: Obx(
+                  () => UserAvatar(
+                    user: controller.ajentUser.value,
+                    size: 45,
+                  ),
                 ),
               ),
               SizedBox(
@@ -55,7 +59,11 @@ class MyProfilePage extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   //TODO add function handler changing progress user avatar here
-                  onPressed: () {},
+                  onPressed: () async {
+                    print('on hanging changing avatar');
+                    await controller.onClickChangeAvatar(
+                        controller: this.controller);
+                  },
                   child: Text('profile_changed_image_label'.tr),
                   style: whiteButtonStyle,
                 ),
@@ -136,34 +144,24 @@ class MyProfilePage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'ajent_user_education_level_label'.tr,
-                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),
-                  ),
-                  Obx(
-                    () => DropdownButton<String>(
-                      value: (controller.dropdownValue.value != '')
-                          ? controller.dropdownValue.value
-                          : null,
-                      icon: const Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.deepPurpleAccent,
-                      ),
-                      onChanged: (newValue) {
-                        controller.dropdownValue.value = newValue;
-                        print('${controller.dropdownValue.value}');
-                      },
-                      items: controller.dropDownMenuItems,
-                    ),
-                  ),
-                ],
+              Text(
+                'ajent_user_education_level_label'.tr,
+                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Obx(
+                () => MyDropDownWidget(
+                  items: controller.dropDownMenuItems,
+                  value: (controller.dropdownValue.value != '')
+                      ? controller.dropdownValue.value
+                      : null,
+                  onChanged: (newValue) {
+                    controller.dropdownValue.value = newValue;
+                    print('${controller.dropdownValue.value}');
+                  },
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -317,114 +315,7 @@ class MyProfilePage extends StatelessWidget {
                     TextButton.icon(
                       onPressed: () {
                         Get.bottomSheet(
-                          Scaffold(
-                            floatingActionButton: FloatingActionButton(
-                              child: Icon(Icons.add),
-                              onPressed: () {
-                                Get.to(StudentDetail());
-                              },
-                              backgroundColor: primaryColor,
-                            ),
-                            body: Container(
-                              height: double.infinity,
-                              color: Colors.white,
-                              child: ListView.builder(
-                                itemCount: controller.students.length,
-                                itemBuilder: (context, index) {
-                                  var item = controller.students[index];
-                                  return Dismissible(
-                                    key: ObjectKey(controller.students[index]),
-                                    onDismissed: (direction) async {
-                                      //TODO Handellimg Remove Student In DB
-                                      bool success = await controller
-                                          .userService
-                                          .delStudent(
-                                              HomeController.mainUser.uid,
-                                              item.id);
-                                      if (success)
-                                        controller.students.remove(item);
-                                    },
-                                    confirmDismiss:
-                                        (DismissDirection direction) async {
-                                      return await showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                                'profile_confirm_dismiss_title'
-                                                    .tr),
-                                            content: Text(
-                                                'profile_confirm_dismiss_message'
-                                                    .tr),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.of(context)
-                                                          .pop(true),
-                                                  child: Text(
-                                                      'profile_confirm_dismiss_DELETE_label'
-                                                          .tr)),
-                                              TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.of(context)
-                                                          .pop(false),
-                                                  child: Text(
-                                                      'profile_confirm_dismiss_cancel_label'
-                                                          .tr)),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 2.0),
-                                      decoration: ShapeDecoration(
-                                        color: Colors.deepOrange.withAlpha(125),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32.0),
-                                        ),
-                                      ),
-                                      child: ListTile(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32.0),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.all(8.0),
-                                        //TODO add function handler edit progress uer diploma here
-                                        onTap: () => print('On tap'),
-                                        leading: CircleAvatar(
-                                          radius: 30.0,
-                                          backgroundImage: (controller
-                                                      .students[index].gender ==
-                                                  Gender.female)
-                                              ? AssetImage(
-                                                  'assets/images/default_avatar_female.png')
-                                              : AssetImage(
-                                                  'assets/images/default_avatar_male.png'),
-                                          backgroundColor: Colors.transparent,
-                                        ),
-                                        title: Text(
-                                            '${controller.students[index].name}'),
-                                        subtitle: Text(
-                                            '${controller.students[index].mail}'),
-                                        trailing: IconButton(
-                                          onPressed: null,
-                                          icon: Icon(
-                                            Icons.arrow_forward_ios,
-                                            size: 25,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
+                          MyStudentBottomSheet(controller: controller),
                         );
                       },
                       icon: Icon(Icons.group),

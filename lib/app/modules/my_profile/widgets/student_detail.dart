@@ -1,3 +1,5 @@
+import 'package:ajent/app/modules/my_profile/my_profile_controller.dart';
+import 'package:ajent/app/modules/my_profile/widgets/my_button.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class StudentDetail extends StatelessWidget {
-  StudentDetail({Key key}) : super(key: key);
+  final MyProfileController controller;
+
   List<DropdownMenuItem<String>> dropDownMenuItems = <String>[
     'drop_down_item1',
     'drop_down_item2',
@@ -15,6 +18,8 @@ class StudentDetail extends StatelessWidget {
       child: Text(value),
     );
   }).toList();
+
+  StudentDetail({Key key, @required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,9 @@ class StudentDetail extends StatelessWidget {
                   child: TextField(
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      controller.studentName.value = value;
+                    },
                   ),
                 ),
                 SizedBox(
@@ -66,7 +73,9 @@ class StudentDetail extends StatelessWidget {
                         height: 2,
                         color: Colors.deepPurpleAccent,
                       ),
-                      onChanged: (newValue) {},
+                      onChanged: (newValue) {
+                        controller.studentGender.value = newValue;
+                      },
                       items: dropDownMenuItems,
                     ),
                   ],
@@ -94,7 +103,11 @@ class StudentDetail extends StatelessWidget {
                                     : _dateTime,
                                 firstDate: DateTime(1999),
                                 lastDate: DateTime(2022))
-                            .then((date) {});
+                            .then((date) {
+                          if (date != null) {
+                            controller.studentBirthDay.value = date;
+                          }
+                        });
                       },
                     ),
                     Text('${DateFormat('dd-MM-yyyy').format(DateTime.now())}'),
@@ -113,7 +126,9 @@ class StudentDetail extends StatelessWidget {
                   child: TextField(
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      controller.studentAddress.value = value;
+                    },
                   ),
                 ),
                 SizedBox(
@@ -129,7 +144,9 @@ class StudentDetail extends StatelessWidget {
                   child: TextField(
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      controller.studentPhone.value = value;
+                    },
                   ),
                 ),
                 SizedBox(
@@ -142,9 +159,35 @@ class StudentDetail extends StatelessWidget {
                   child: TextField(
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      controller.studentMail.value = value;
+                    },
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    MyButton(
+                      onPressed: () async {
+                        await controller.onPressedStudentConfirm(context);
+                        controller.students.value = await controller.userService
+                            .getStudents(controller.ajentUser.value.uid);
+                      },
+                      icon: Icon(Icons.check),
+                      label: Text('Confirm'),
+                    ),
+                    MyButton(
+                      onPressed: () {
+                        controller.onPressedStudentCancel(context);
+                      },
+                      icon: Icon(Icons.cancel),
+                      label: Text('Cancel'),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

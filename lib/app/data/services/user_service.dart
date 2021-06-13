@@ -4,6 +4,9 @@ import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ajent/app/data/models/Student.dart';
+import 'package:flutter/material.dart';
+import 'dart:io';
+import 'storage_service.dart';
 
 class UserService implements CollectionInterface {
   UserService._privateConstructor();
@@ -135,6 +138,41 @@ class UserService implements CollectionInterface {
       print('Student $studentId Have Been Deleted');
       success = true;
     }).catchError((error) => print('$error'));
+    return success;
+  }
+
+  Future<bool> updateUserAvatar(AjentUser ajentUser, File fileAvatar) async {
+    try {
+      StorageService storeInstance = StorageService.instance;
+      String avatarUrl =
+          await storeInstance.uploadImage(fileAvatar, ajentUser.uid);
+      ajentUser.avatarUrl = avatarUrl;
+      await this.updateInfo(ajentUser);
+      return true;
+    } catch (exception) {
+      print('$exception');
+      return false;
+    }
+  }
+
+  Future<bool> addStudent(String uid, Student student) async {
+    bool success = false;
+    try {
+      await database
+          .collection(collectionName)
+          .doc(uid)
+          .collection('students')
+          .add(student.toJson())
+          .then((value) {
+        print('$value' + ' student data have been added');
+        success = true;
+      }).catchError((error) {
+        print('$error');
+        success = false;
+      });
+    } catch (exception) {
+      return false;
+    }
     return success;
   }
 }
