@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
               icon: Icon(
                 Icons.menu,
                 color: Colors.black,
-                size: 32,
+                size: 30,
               ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -82,7 +82,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: TextField(
-              style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600),
+              style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
               readOnly: true,
               decoration: searchTextfieldDecoration,
               onTap: () => Get.toNamed(Routes.SEARCH),
@@ -92,9 +92,9 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.message,
+              Icons.chat_rounded,
               color: Colors.black,
-              size: 28,
+              size: 25,
             ),
             onPressed: () {},
           ),
@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
           topRight: Radius.circular(30.0),
         ),
         child: Container(
-          height: Get.height - 15 - kBottomNavigationBarHeight,
+          height: Get.height - 25 - kBottomNavigationBarHeight,
           width: Get.width,
           decoration: BoxDecoration(
             color: Colors.white,

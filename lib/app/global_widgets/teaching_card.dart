@@ -1,7 +1,9 @@
 import 'package:ajent/core/values/colors.dart';
+import 'package:ajent/routes/pages.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TeachingCard extends StatelessWidget {
@@ -21,7 +23,9 @@ class TeachingCard extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [primaryColor, Color.fromARGB(255, 255, 128, 64)])),
             child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(Routes.MYTEACHINGDETAIL);
+                },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
