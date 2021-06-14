@@ -1,22 +1,17 @@
-import 'dart:convert';
-
+import 'package:ajent/app/modules/my_profile/my_profile_controller.dart';
+import 'package:ajent/app/modules/my_profile/widgets/my_button.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-
-import 'package:flutter/cupertino.dart';
-
-import 'package:get/get.dart';
 class StudentDetail extends StatelessWidget {
+  final MyProfileController controller;
 
-  DateTime _dateTime;
-  StudentDetail({Key key}) : super(key: key);
   List<DropdownMenuItem<String>> dropDownMenuItems = <String>[
-    'male',
-    'female',
+    'drop_down_item1',
+    'drop_down_item2',
   ].map<DropdownMenuItem<String>>((String value) {
     return DropdownMenuItem<String>(
       value: value,
@@ -24,24 +19,17 @@ class StudentDetail extends StatelessWidget {
     );
   }).toList();
 
+  StudentDetail({Key key, @required this.controller}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    DateTime _dateTime = DateTime.now();
+    DateTime _dateTime;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          shadowColor: Colors.grey[100],
-          toolbarHeight: 70.0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios_rounded,
-              color: Colors.black,
-            ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          title: Text('student_add_label'.tr, style: GoogleFonts.nunitoSans(color: Colors.black, fontSize: 18,fontWeight: FontWeight.w700),),
+          title: Text('student_name_label'),
           centerTitle: true,
+          backgroundColor: primaryColor,
         ),
         body: Container(
           child: SingleChildScrollView(
@@ -51,47 +39,16 @@ class StudentDetail extends StatelessWidget {
                 SizedBox(
                   height: 50,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Text("student_name_label".tr,
-                      style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
-                ),
+                Text("student_name_label",
+                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: TextField(
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
-                    onChanged: (value) {},
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("student_gender_label".tr,
-                          style: GoogleFonts.nunitoSans(
-                              fontWeight: FontWeight.bold)),
-                      DropdownButton<String>(
-                        value: dropDownMenuItems[0].value,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 24,
-                        elevation: 16,
-                            style:  TextStyle(color:primaryColor ),
-                        underline: Container(
-                          height: 2,
-                          color: primaryColor,
-                        ),
-                        onChanged: (newValue) {},
-                        items: dropDownMenuItems,
-                      ),
-                    ],
+                    onChanged: (value) {
+                      controller.studentName.value = value;
+                    },
                   ),
                 ),
                 SizedBox(
@@ -103,29 +60,24 @@ class StudentDetail extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(32, 32, 0, 32),
-                      child: Text("student_birthday_label".tr,
-                          style: GoogleFonts.nunitoSans(
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    TextButton.icon(
-                      label: Text( '${DateFormat('dd-MM-yyyy').format(_dateTime)}'),
-                      icon: Icon(Icons.calendar_today),
-                      onPressed: () {
-                        showDatePicker(
-                                context: context,
-                                initialDate: _dateTime == null
-                                    ? DateTime.now()
-                                    : _dateTime,
-                                firstDate: DateTime(1999),
-                                lastDate: DateTime(9999))
-                            .then((date) {
-                              _dateTime = date;
-                        });
+                    Text("student_gender_label",
+                        style: GoogleFonts.nunitoSans(
+                            fontWeight: FontWeight.bold)),
+                    DropdownButton<String>(
+                      value: dropDownMenuItems[0].value,
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (newValue) {
+                        controller.studentGender.value = newValue;
                       },
+                      items: dropDownMenuItems,
                     ),
-                    //Text('${DateFormat('dd-MM-yyyy').format(DateTime.now())}'),
                   ],
                 ),
                 SizedBox(
@@ -134,17 +86,49 @@ class StudentDetail extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Text("student_address_label".tr,
-                      style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("student_birthDay_label",
+                        style: GoogleFonts.nunitoSans(
+                            fontWeight: FontWeight.bold)),
+                    TextButton.icon(
+                      label: Text('Pick a date'),
+                      icon: Icon(Icons.calendar_today),
+                      onPressed: () {
+                        showDatePicker(
+                                context: context,
+                                initialDate: _dateTime == null
+                                    ? DateTime.now()
+                                    : _dateTime,
+                                firstDate: DateTime(1999),
+                                lastDate: DateTime(2022))
+                            .then((date) {
+                          if (date != null) {
+                            controller.studentBirthDay.value = date;
+                          }
+                        });
+                      },
+                    ),
+                    Text('${DateFormat('dd-MM-yyyy').format(DateTime.now())}'),
+                  ],
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text("student_address_label",
+                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: TextField(
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      controller.studentAddress.value = value;
+                    },
                   ),
                 ),
                 SizedBox(
@@ -153,43 +137,56 @@ class StudentDetail extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Text("student_phone_label".tr,
-                      style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
-                ),
+                Text("student_phone_label",
+                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: TextField(
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      controller.studentPhone.value = value;
+                    },
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
+                Text("student_email_label",
+                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Text("student_email_label".tr,
-                      style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
                   child: TextField(
                     decoration: primaryTextFieldDecoration,
                     cursorColor: primaryColor,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      controller.studentMail.value = value;
+                    },
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Center(
-                  child: ElevatedButton(onPressed: (){},
-                    child: Text("add_student_to_account".tr,style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700),),
-                    style: orangeButtonStyle,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    MyButton(
+                      onPressed: () async {
+                        await controller.onPressedStudentConfirm(context);
+                        controller.students.value = await controller.userService
+                            .getStudents(controller.ajentUser.value.uid);
+                      },
+                      icon: Icon(Icons.check),
+                      label: Text('Confirm'),
+                    ),
+                    MyButton(
+                      onPressed: () {
+                        controller.onPressedStudentCancel(context);
+                      },
+                      icon: Icon(Icons.cancel),
+                      label: Text('Cancel'),
+                    ),
+                  ],
                 )
               ],
             ),
@@ -198,8 +195,4 @@ class StudentDetail extends StatelessWidget {
       ),
     );
   }
-
-
-
-
 }

@@ -46,6 +46,21 @@ class AjentUser extends Person {
     educationLevel = data['educationLevel'];
     bio = data['bio'];
   }
+  AjentUser.cloneWith(AjentUser ajentUser)
+      : super(
+          ajentUser.name,
+          ajentUser.birthDay,
+          ajentUser.gender,
+          ajentUser.address,
+          ajentUser.phone,
+          ajentUser.mail,
+        ) {
+    avatarUrl = ajentUser.avatarUrl;
+    schoolName = ajentUser.schoolName;
+    major = ajentUser.major;
+    educationLevel = ajentUser.educationLevel;
+    bio = ajentUser.bio;
+  }
 
   Map<String, dynamic> toJson() {
     return {

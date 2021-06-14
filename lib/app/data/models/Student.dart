@@ -4,8 +4,14 @@ import 'Person.dart';
 
 class Student extends Person {
   String id;
-  Student(this.id, String name, DateTime birthDay, Gender gender,
-      String address, String phone, String mail)
+  Student(
+      {this.id,
+      String name,
+      DateTime birthDay,
+      Gender gender,
+      String address,
+      String phone,
+      String mail})
       : super(name, birthDay, gender, address, phone, mail);
   Student.fromJson({this.id, Map<String, dynamic> data})
       : super(
@@ -15,4 +21,14 @@ class Student extends Person {
             data['address'],
             data['phone'],
             data['mail']);
+  Map<String, dynamic> toJson() {
+    return {
+      'name': this.name,
+      'birthDay': this.birthDay,
+      'gender': EnumConverter.genderToString(this.gender),
+      'address': this.address,
+      'phone': this.phone,
+      'mail': this.mail,
+    };
+  }
 }
