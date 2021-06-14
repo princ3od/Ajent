@@ -1,11 +1,11 @@
-import 'package:ajent/app/data/models/Person.dart';
+
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/my_profile/my_profile_controller.dart';
 import 'package:ajent/app/modules/my_profile/widgets/drop_down_widget_customize.dart';
 import 'package:ajent/app/modules/my_profile/widgets/my_students_bottomsheet.dart';
 import 'package:ajent/app/modules/my_profile/widgets/overlay_diploma.dart';
-import 'package:ajent/app/modules/my_profile/widgets/student_detail.dart';
+
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,7 +64,7 @@ class MyProfilePage extends StatelessWidget {
                     await controller.onClickChangeAvatar(
                         controller: this.controller);
                   },
-                  child: Text('profile_changed_image_label'.tr),
+                  child: Text('profile_changed_image_label'.tr,style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700),),
                   style: whiteButtonStyle,
                 ),
               ),
@@ -72,7 +72,7 @@ class MyProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text('ajent_user_name_label'.tr,
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14)),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -88,7 +88,7 @@ class MyProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text("email_label".tr,
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14)),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -104,7 +104,7 @@ class MyProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text('school_name_label'.tr,
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14)),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -118,7 +118,7 @@ class MyProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text('phone_number_label'.tr,
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14)),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -132,7 +132,7 @@ class MyProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text('ajent_user_major_label'.tr,
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14)),
               TextField(
                 decoration: primaryTextFieldDecoration,
                 cursorColor: primaryColor,
@@ -146,7 +146,7 @@ class MyProfilePage extends StatelessWidget {
               ),
               Text(
                 'ajent_user_education_level_label'.tr,
-                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),
+                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14),
               ),
               SizedBox(
                 height: 10,
@@ -167,7 +167,7 @@ class MyProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text('ajent_bio_label'.tr,
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14)),
               TextField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
@@ -191,7 +191,7 @@ class MyProfilePage extends StatelessWidget {
                       //     .getDegrees(HomeController.mainUser.uid);
                       // controller.degrees.value = degrees;
                     },
-                    child: Text('profile_save_label'.tr),
+                    child: Text('profile_save_label'.tr,style: GoogleFonts.nunitoSans(fontSize: 14,fontWeight: FontWeight.w700)),
                     style: orangeButtonStyle,
                   ),
                 ],
@@ -206,10 +206,10 @@ class MyProfilePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Degree/My students customize',
+                    'degrees_&_my_students_edit'.tr,
                     style: GoogleFonts.notoSans(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontStyle: FontStyle.normal),
                   )
                 ],
@@ -218,9 +218,10 @@ class MyProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text('ajent_education_degrees_label'.tr,
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14)),
               Container(
                 height: 300,
+                color: Color.fromARGB(255, 246, 246, 243),
                 child: Obx(
                   () => ListView.builder(
                     itemCount: controller.degrees.length,
@@ -319,7 +320,7 @@ class MyProfilePage extends StatelessWidget {
                         );
                       },
                       icon: Icon(Icons.group),
-                      label: Text('My Students'),
+                      label: Text('my_students'.tr),
                     ),
                     TextButton.icon(
                         onPressed: () {

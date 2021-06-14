@@ -11,6 +11,7 @@ import 'package:ajent/app/modules/home/home_page.dart';
 import 'package:ajent/app/modules/my_profile/my_profile_binding.dart';
 import 'package:ajent/app/modules/my_profile/my_profile_page.dart';
 import 'package:ajent/app/modules/my_teaching_detail/my_teaching_detail_page.dart';
+import 'package:ajent/app/modules/profile_view/profile_view_page.dart';
 import 'package:ajent/app/modules/rating/rating_page.dart';
 import 'package:ajent/app/modules/search/search_screen.dart';
 import 'package:ajent/app/modules/splash/splash_binding.dart';
@@ -47,6 +48,7 @@ abstract class AppPages {
     GetPage(name: Routes.MYTEACHINGDETAIL,page: ()=> MyTeachingDetailPage()),
     GetPage(name: Routes.RATING, page: () => RatingPage()),
     GetPage(name: Routes.SEARCH, page: () => SearchScreen()),
+    GetPage(name: Routes.PROFILEVIEW,page: ()=> ProfileViewPage()),
     GetPage(
         name: Routes.ADD_COURSE,
         page: () => AddCoursePage(),

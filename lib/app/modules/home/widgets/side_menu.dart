@@ -4,6 +4,7 @@ import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,11 +47,17 @@ class SideMenu extends StatelessWidget {
                           child: SizedBox(
                             width: double.infinity,
                             height: 40,
-                            child: OutlinedButton(
+                            child: MaterialButton(
+                              elevation: 3,
+                              height: 5,
+                              color: Color.fromARGB(255, 250, 246, 246),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)
+                              ),
                               onPressed: () {
-                                Get.toNamed(Routes.PROFILE);
+                                Get.toNamed(Routes.PROFILEVIEW);
                               },
-                              child: Text("Thông tin cá nhân", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700,fontSize: 11),),
+                              child: Text("Thông tin cá nhân", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700,fontSize: 13),),
                               //style: outlinedButtonStyle,
                             ),
                           ),
@@ -68,6 +75,12 @@ class SideMenu extends StatelessWidget {
             SideMenuButton(
               text: "Cài đặt",
               onPressed: () {},
+            ),
+            SideMenuButton(
+              text: "Tùy chỉnh thông tin cá nhân",
+              onPressed: () {
+                Get.toNamed(Routes.PROFILE);
+              },
             ),
             SideMenuButton(
               text: "Quy định & chính sách",
@@ -102,22 +115,16 @@ class SideMenu extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 15, right: 15, bottom: 5),
-                        child: OutlinedButton(
+                        child: MaterialButton(
                             onPressed: () {
                               AuthController.signOut();
                             },
                             child: Text(
                               "Đăng xuất",
-                              style: TextStyle(
-                                  color: Colors.red,
+                              style: TextStyle(                                 
                                   fontWeight: FontWeight.w600),
                             ),
-                            style: OutlinedButton.styleFrom(
-                              primary: Colors.red,
-                              onSurface: primaryColor,
-                              padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
-                              side: BorderSide(color: Colors.red, width: 1.6),
-                            )),
+                            ),
                       )),
                   SizedBox(height: 5),
                   Text("© Ajent",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w100),),

@@ -14,8 +14,8 @@ class MyStudentBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Thêm học sinh +'),
         onPressed: () {
           Navigator.push(
             context,
@@ -23,7 +23,7 @@ class MyStudentBottomSheet extends StatelessWidget {
                 builder: (context) => StudentDetail(controller: controller)),
           );
         },
-        backgroundColor: primaryColor,
+        backgroundColor: Colors.black,
       ),
       body: Obx(
         () => Container(

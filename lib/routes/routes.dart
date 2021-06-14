@@ -13,4 +13,5 @@ abstract class Routes {
   static const SEARCH = "/search";
   static const ADD_COURSE = "/add_course";
   static const MYTEACHINGDETAIL='/my_teaching_detail';
+  static const PROFILEVIEW ='/profile_view';
 }
