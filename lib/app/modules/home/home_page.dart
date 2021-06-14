@@ -25,13 +25,14 @@ class HomePage extends StatelessWidget {
                 ? 1.0
                 : 0.0,
             duration: Duration(milliseconds: 300),
-            child: FloatingActionButton(
+            child: FloatingActionButton.extended(
               onPressed: () {
                 Get.toNamed(Routes.ADD_COURSE,
                     arguments: controller.tabpageIndex.value);
               },
               tooltip: 'Increment',
-              child: new Icon(Icons.add, size: 40),
+              label: Text('Thêm lớp +'),
+              //icon: new Icon(Icons.add, size: 40),
             ),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

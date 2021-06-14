@@ -14,7 +14,7 @@ class JoinableCourseCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25)),
             elevation: 4,
-            color: Colors.white,
+            color: Color.fromARGB(255, 246, 243, 243),
             child: InkWell(
                 onTap: () {
                   Get.toNamed(Routes.MYCOURSEDETAIL);

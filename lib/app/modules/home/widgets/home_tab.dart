@@ -1,3 +1,4 @@
+import 'package:ajent/app/global_widgets/course_card.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/home/widgets/calendar_child_tab.dart';
 import 'package:ajent/app/modules/home/widgets/suggestion_child_tab.dart';

@@ -54,7 +54,7 @@ class MyProfilePage extends StatelessWidget {
               ),
               Center(
                 child: ElevatedButton(
-                  //TODO add function handler changing progress user avatar here
+
                   onPressed: () {},
                   child: Text('profile_changed_image_label'.tr),
                   style: whiteButtonStyle,
@@ -148,13 +148,13 @@ class MyProfilePage extends StatelessWidget {
                       value: (controller.dropdownValue.value != '')
                           ? controller.dropdownValue.value
                           : null,
-                      icon: const Icon(Icons.arrow_downward),
+                      icon: const Icon(Icons.arrow_drop_down),
                       iconSize: 24,
                       elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
+                      style:  TextStyle(color: primaryColor),
                       underline: Container(
                         height: 2,
-                        color: Colors.deepPurpleAccent,
+                        color: primaryColor,
                       ),
                       onChanged: (newValue) {
                         controller.dropdownValue.value = newValue;
@@ -169,7 +169,7 @@ class MyProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text('ajent_bio_label'.tr,
-                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold,fontSize: 14)),
               TextField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
@@ -193,14 +193,14 @@ class MyProfilePage extends StatelessWidget {
                       //     .getDegrees(HomeController.mainUser.uid);
                       // controller.degrees.value = degrees;
                     },
-                    child: Text('profile_save_label'.tr),
+                    child: Text('profile_save_label'.tr, style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700),),
                     style: orangeButtonStyle,
                   ),
                 ],
               ),
               Divider(
                 height: 40,
-                thickness: 5,
+                thickness: 4,
                 indent: 100,
                 endIndent: 100,
               ),
@@ -208,7 +208,7 @@ class MyProfilePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Degree/My students customize',
+                    'degrees_&_my_students_edit'.tr,
                     style: GoogleFonts.notoSans(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -223,6 +223,7 @@ class MyProfilePage extends StatelessWidget {
                   style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
               Container(
                 height: 300,
+                color: Color.fromARGB(255, 246, 243, 243),
                 child: Obx(
                   () => ListView.builder(
                     itemCount: controller.degrees.length,
@@ -318,12 +319,12 @@ class MyProfilePage extends StatelessWidget {
                       onPressed: () {
                         Get.bottomSheet(
                           Scaffold(
-                            floatingActionButton: FloatingActionButton(
-                              child: Icon(Icons.add),
+                            floatingActionButton: FloatingActionButton.extended(
+                              label: Text("Thêm học sinh +"),
                               onPressed: () {
                                 Get.to(StudentDetail());
                               },
-                              backgroundColor: primaryColor,
+                              backgroundColor: Colors.black,
                             ),
                             body: Container(
                               height: double.infinity,
@@ -428,7 +429,7 @@ class MyProfilePage extends StatelessWidget {
                         );
                       },
                       icon: Icon(Icons.group),
-                      label: Text('My Students'),
+                      label: Text('my_students'.tr),
                     ),
                     TextButton.icon(
                         onPressed: () {

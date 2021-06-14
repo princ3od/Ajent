@@ -65,9 +65,18 @@ class DiplomaLayout extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: primaryColor,
-        title: Text('add_diploma_overlay_title'.tr),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.grey[100],
+        toolbarHeight: 70.0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text('add_diploma_overlay_title'.tr,style: GoogleFonts.nunitoSans(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w700)),
+
       ),
       //resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey.withOpacity(0.5),
@@ -125,7 +134,7 @@ class DiplomaLayout extends StatelessWidget {
                 ),
                 Text('add_diploma_overlay_title_label'.tr,
                     style: GoogleFonts.nunitoSans(
-                        fontWeight: FontWeight.bold, fontSize: 20)),
+                        fontWeight: FontWeight.bold, fontSize: 14)),
                 SizedBox(
                   width: 300,
                   child: TextField(
@@ -143,7 +152,7 @@ class DiplomaLayout extends StatelessWidget {
                 ),
                 Text('add_diploma_overlay_description_label'.tr,
                     style: GoogleFonts.nunitoSans(
-                        fontWeight: FontWeight.bold, fontSize: 20)),
+                        fontWeight: FontWeight.bold, fontSize: 14)),
                 SizedBox(
                   width: 300,
                   child: TextField(
@@ -157,12 +166,12 @@ class DiplomaLayout extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton.icon(
+                    ElevatedButton(
                       onPressed: () async {
                         if (controller.isAvaiableDegreeInfo()) {
                           String imageUrl = await controller.storageService
@@ -182,19 +191,21 @@ class DiplomaLayout extends StatelessWidget {
                           await _showMyDialog();
                         }
                       },
-                      label: Text('add_diploma_layout_confirm_label'.tr),
-                      icon: Icon(Icons.check),
+                      style: orangeButtonStyle,
+                      child: Text('add_diploma_layout_confirm_label'.tr, style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700),),
+
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 30,
                     ),
-                    TextButton.icon(
-                        icon: Icon(Icons.cancel),
+                      OutlinedButton(
+
                         onPressed: () {
                           onClosedDiplomaOverlay(context);
                           // onClickCancel();
                         },
-                        label: Text('add_diploma_layout_cancel_label'.tr)),
+                          style: outlinedButtonStyle,
+                        child: Text('add_diploma_layout_cancel_label'.tr)),
                   ],
                 ),
               ],

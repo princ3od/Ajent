@@ -34,13 +34,15 @@ class EmptyLearning extends StatelessWidget {
         Text(
           title[index],
           style: GoogleFonts.nunitoSans(
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
           content[index],
-          style: GoogleFonts.nunitoSans(),
+          style: GoogleFonts.nunitoSans(
+            fontSize: 12,
+          ),
         ),
       ],
     );
