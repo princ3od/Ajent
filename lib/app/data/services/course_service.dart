@@ -1,4 +1,4 @@
-import 'package:ajent/app/data/models/Course.dart';
+import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/FixedTime.dart';
 import 'package:ajent/app/data/models/Period.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';

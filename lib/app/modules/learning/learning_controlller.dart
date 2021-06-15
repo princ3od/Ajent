@@ -1,4 +1,4 @@
-import 'package:ajent/app/data/models/Course.dart';
+import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:get/get.dart';

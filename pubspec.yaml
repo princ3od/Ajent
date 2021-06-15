@@ -29,6 +29,7 @@ dependencies:
   firebase_auth: ^1.2.0
   firebase_core: ^1.2.0
   firebase_storage: ^8.1.0
+  flutter_datetime_picker: ^1.5.1
   flutter_facebook_auth: ^3.3.3+1
   flutter_launcher_icons: ^0.9.0
   flutter_native_splash: ^1.1.8+4
@@ -42,7 +43,6 @@ dependencies:
   pull_to_refresh: ^2.0.0
   sliding_up_panel: ^2.0.0+1
   url_launcher: ^6.0.6
-  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:

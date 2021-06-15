@@ -24,12 +24,13 @@ class EmptyLearning extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ConstrainedBox(
             constraints: BoxConstraints(
-                maxWidth: Get.width - 20, maxHeight: Get.width - 20),
+                maxWidth: Get.width - 20,
+                maxHeight: Get.width - kBottomNavigationBarHeight),
             child: Image.asset("assets/images/${imgPath[index]}")),
         Text(
           title[index],
@@ -44,6 +45,7 @@ class EmptyLearning extends StatelessWidget {
             fontSize: 12,
           ),
         ),
+        SizedBox(height: kBottomNavigationBarHeight * 2),
       ],
     );
   }

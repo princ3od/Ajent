@@ -11,19 +11,21 @@ class Course {
   String id;
   String name;
   String description;
+  String photoUrl;
   List<String> subjects = [];
   List<Student> students = [];
   TimeType timeType;
   String address;
   String owner;
   String teacher;
+  int price;
   List<Period> periods = [];
   FixedTime fixedTime;
   List<Evaluation> evaluations = [];
   String requirements;
   CourseStatus status;
-  Course(this.id, this.name, this.description, this.timeType, this.address,
-      this.owner, this.teacher, this.requirements,
+  Course(this.id, this.name, this.description, this.photoUrl, this.timeType,
+      this.address, this.owner, this.teacher, this.price, this.requirements,
       [this.subjects,
       this.students,
       this.periods,
@@ -31,21 +33,25 @@ class Course {
       this.evaluations]);
   Course.fromJson(this.id, Map<String, dynamic> data) {
     description = data['description'];
+    photoUrl = data['photoUrl'];
     name = data['name'];
     timeType = EnumConverter.stringToTimeType(data['timeType']);
     address = data['address'];
     owner = data['owner'];
     teacher = data['teacher'];
+    price = data['price'];
     requirements = data['requirement'];
   }
   Map<String, dynamic> toJson() {
     return {
       'name': this.name,
       'description': this.description,
+      'photoUrl': this.photoUrl,
       'timeType': EnumConverter.timeTypeToString(this.timeType),
       'address': this.address,
       'owner': this.owner,
       'teacher': this.teacher,
+      'price': this.price,
     };
   }
 

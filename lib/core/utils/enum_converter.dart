@@ -1,4 +1,4 @@
-import 'package:ajent/app/data/models/Course.dart';
+import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/Person.dart';
 
 class EnumConverter {
