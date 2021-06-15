@@ -128,7 +128,8 @@ class MyCourseDetailPage extends StatelessWidget {
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                               child: TextFormField(
                                 onTap: () {
-                                  print('teacher details');
+                                  Get.toNamed(Routes.PROFILEVIEW,
+                                      arguments: controller.teacher);
                                 },
                                 initialValue: controller.teacher
                                     .name, //Get a link here to get to teacher profile page
