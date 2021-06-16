@@ -30,7 +30,9 @@ class EmptyLearning extends StatelessWidget {
         ConstrainedBox(
             constraints: BoxConstraints(
                 maxWidth: Get.width - 20,
-                maxHeight: Get.width - kBottomNavigationBarHeight),
+                maxHeight: Get.width -
+                    kBottomNavigationBarHeight -
+                    kFloatingActionButtonMargin * 2),
             child: Image.asset("assets/images/${imgPath[index]}")),
         Text(
           title[index],
@@ -45,7 +47,7 @@ class EmptyLearning extends StatelessWidget {
             fontSize: 12,
           ),
         ),
-        SizedBox(height: kBottomNavigationBarHeight * 2),
+        SizedBox(height: kBottomNavigationBarHeight),
       ],
     );
   }

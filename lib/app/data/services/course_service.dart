@@ -1,6 +1,7 @@
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/FixedTime.dart';
 import 'package:ajent/app/data/models/Period.dart';
+import 'package:ajent/app/data/models/evaluation.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -105,5 +106,14 @@ class CourseService implements CollectionInterface {
       }
     });
     return courses;
+  }
+
+  Future<Evaluation> addEvaluation(
+      String courseId, Evaluation evaluation) async {
+    await database.collection(collectionName).doc(courseId).update({
+      'evaluationContent': evaluation.content,
+      'evaluationStar': evaluation.star,
+    });
+    return evaluation;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
+import 'package:ajent/app/modules/profile_view/profile_view_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProfileViewPage extends StatelessWidget {
   final AjentUser user = Get.arguments;
+  final ProfileViewController controller =
+      Get.put<ProfileViewController>(ProfileViewController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,13 +56,27 @@ class ProfileViewPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('2.3'),
-                  Icon(Icons.star),
-                ],
+              Obx(
+                () => Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (controller.averageStar.value == -2.0)
+                      SizedBox(
+                        height: 12,
+                        width: 12,
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.black),
+                        ),
+                      )
+                    else if (controller.averageStar.value == -1.0)
+                      Text('Chưa có')
+                    else
+                      Text(controller.averageStar.value.toStringAsFixed(2)),
+                    Icon(Icons.star),
+                  ],
+                ),
               ),
               Center(
                   child: IconButton(

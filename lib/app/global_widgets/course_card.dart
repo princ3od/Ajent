@@ -55,21 +55,26 @@ class CourseCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: Get.width - 150,
-                        child: Hero(
-                          tag: '${course.id} name',
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Text(
-                              course.name,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: GoogleFonts.nunitoSans(
-                                  fontWeight: FontWeight.w700, fontSize: 14),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: Get.width - 150,
+                            child: Hero(
+                              tag: '${course.id} name',
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Text(
+                                  course.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       )
                     ]))
                   ],

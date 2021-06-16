@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'Student.dart';
 import 'Period.dart';
 import 'FixedTime.dart';
-import 'Evaluation.dart';
+import 'evaluation.dart';
 
 class Course {
   String id;
@@ -21,7 +21,7 @@ class Course {
   int price;
   List<Period> periods = [];
   FixedTime fixedTime;
-  List<Evaluation> evaluations = [];
+  Evaluation evaluation = Evaluation(-1, null);
   String requirements;
   CourseStatus status;
   Course(this.id, this.name, this.description, this.photoUrl, this.timeType,
@@ -30,7 +30,7 @@ class Course {
       this.students,
       this.periods,
       this.fixedTime,
-      this.evaluations]);
+      this.evaluation]);
   Course.fromJson(this.id, Map<String, dynamic> data) {
     description = data['description'];
     photoUrl = data['photoUrl'];
@@ -40,7 +40,8 @@ class Course {
     owner = data['owner'];
     teacher = data['teacher'];
     price = data['price'];
-    requirements = data['requirement'];
+    evaluation = Evaluation(data['evaluationStar'], data['evaluationContent']);
+    requirements = data['requirements'];
   }
   Map<String, dynamic> toJson() {
     return {
@@ -52,6 +53,9 @@ class Course {
       'owner': this.owner,
       'teacher': this.teacher,
       'price': this.price,
+      'evaluationStar': this.evaluation.star,
+      'evaluationContent': this.evaluation.content,
+      'requirements': this.requirements,
     };
   }
 

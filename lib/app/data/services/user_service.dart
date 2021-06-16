@@ -175,4 +175,25 @@ class UserService implements CollectionInterface {
     }
     return success;
   }
+
+  Future<double> getAverageEvaluationStar(String userUid) async {
+    int totalEvaluation = 0;
+    double totalStar = 0.0;
+    await database
+        .collection('courses')
+        .where('teacher', isEqualTo: userUid)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        double star = element.data()['evaluationStar'] * 1.0;
+        if (star < 0) {
+          continue;
+        }
+        totalStar += star;
+        totalEvaluation++;
+      }
+    });
+    if (totalEvaluation == 0) return -1.0;
+    return (totalStar / totalEvaluation);
+  }
 }

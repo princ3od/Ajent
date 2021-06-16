@@ -78,153 +78,175 @@ class MyCourseDetailPage extends StatelessWidget {
               ],
             ),
           ),
-          Center(
-            child: OutlinedButton(
-              style: outlinedButtonStyle,
-              onPressed: () {
-                Get.toNamed(Routes.RATING, arguments: course);
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-                child: Text(
-                  "Đánh giá",
-                  style: GoogleFonts.nunitoSans(
-                      fontSize: 12, fontWeight: FontWeight.w700),
+          if (course.status == CourseStatus.fininished)
+            Center(
+              child: OutlinedButton(
+                style: outlinedButtonStyle,
+                onPressed: () {
+                  Get.toNamed(Routes.RATING,
+                      arguments: controller.course.value);
+                },
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                  child: Obx(
+                    () => Text(
+                      controller.course.value.evaluation.isEvaluate()
+                          ? "Xem đánh giá của bạn"
+                          : "Đánh giá",
+                      style: GoogleFonts.nunitoSans(
+                          fontSize: 12, fontWeight: FontWeight.w700),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
           Expanded(
             child: Obx(
               () => (controller.isLoading.value)
                   ? Center(
                       child: CircularProgressIndicator(),
                     )
-                  : SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Mã khóa",
-                                style: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.bold, fontSize: 12)),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                              child: TextFormField(
-                                initialValue: course.id,
-                                decoration: primaryTextFieldDecoration,
-                                cursorColor: primaryColor,
-                                readOnly: true,
-                                style: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.w600, fontSize: 12),
-                              ),
-                            ),
-                            Text("Họ và tên giảng viên",
-                                style: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.bold, fontSize: 12)),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                              child: TextFormField(
-                                onTap: () {
-                                  Get.toNamed(Routes.PROFILEVIEW,
-                                      arguments: controller.teacher);
-                                },
-                                initialValue: controller.teacher
-                                    .name, //Get a link here to get to teacher profile page
-                                decoration: primaryTextFieldDecoration,
-                                cursorColor: primaryColor,
-                                readOnly: true,
-                                style: GoogleFonts.nunitoSans(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12),
-                              ),
-                            ),
-                            Text("Số điện thoại giảng viên",
-                                style: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.bold, fontSize: 12)),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                              child: TextFormField(
-                                onTap: () async {
-                                  if (controller.teacher.phone != null &&
-                                      controller.teacher.phone.isNotEmpty) {
-                                    await launch(
-                                        'tel: ${controller.teacher.phone}');
-                                  }
-                                },
-                                initialValue: (controller.teacher.phone == null)
-                                    ? "Không có"
-                                    : (controller.teacher.phone.isEmpty)
-                                        ? "Không có"
-                                        : controller.teacher.phone,
-                                decoration: primaryTextFieldDecoration,
-                                cursorColor: primaryColor,
-                                keyboardType: TextInputType.phone,
-                                readOnly: true,
-                                style: GoogleFonts.nunitoSans(
-                                    color: (controller.teacher.phone != null &&
-                                            controller.teacher.phone.isNotEmpty)
-                                        ? Colors.blue
-                                        : Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12),
-                              ),
-                            ),
-                            Text("Địa điểm học",
-                                style: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.bold, fontSize: 12)),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                              child: TextFormField(
-                                onTap: () {
-                                  launch(
-                                      'https://www.google.com/maps/search/?api=1&query=${course.address}');
-                                },
-                                initialValue: course
-                                    .address, //Get a link here to get to google maps.
-                                decoration: primaryTextFieldDecoration,
-                                cursorColor: primaryColor,
-                                readOnly: true,
-                                style: GoogleFonts.nunitoSans(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                  color: Colors.blue,
+                  : Scrollbar(
+                      isAlwaysShown: true,
+                      thickness: 4,
+                      child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Mã khóa",
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                child: TextFormField(
+                                  initialValue: course.id,
+                                  decoration: primaryTextFieldDecoration,
+                                  cursorColor: primaryColor,
+                                  readOnly: true,
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12),
                                 ),
                               ),
-                            ),
-                            Text("Thời gian học",
-                                style: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.bold, fontSize: 12)),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                              child: TextFormField(
-                                initialValue: controller.course?.value
-                                        ?.getTimeAsString() ??
-                                    "",
+                              Text("Họ và tên giảng viên",
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                child: TextFormField(
+                                  onTap: () {
+                                    Get.toNamed(Routes.PROFILEVIEW,
+                                        arguments: controller.teacher);
+                                  },
+                                  initialValue: controller.teacher
+                                      .name, //Get a link here to get to teacher profile page
+                                  decoration: primaryTextFieldDecoration,
+                                  cursorColor: primaryColor,
+                                  readOnly: true,
+                                  style: GoogleFonts.nunitoSans(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12),
+                                ),
+                              ),
+                              Text("Số điện thoại giảng viên",
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                child: TextFormField(
+                                  onTap: () async {
+                                    if (controller.teacher.phone != null &&
+                                        controller.teacher.phone.isNotEmpty) {
+                                      await launch(
+                                          'tel: ${controller.teacher.phone}');
+                                    }
+                                  },
+                                  initialValue:
+                                      (controller.teacher.phone == null)
+                                          ? "Không có"
+                                          : (controller.teacher.phone.isEmpty)
+                                              ? "Không có"
+                                              : controller.teacher.phone,
+                                  decoration: primaryTextFieldDecoration,
+                                  cursorColor: primaryColor,
+                                  keyboardType: TextInputType.phone,
+                                  readOnly: true,
+                                  style: GoogleFonts.nunitoSans(
+                                      color:
+                                          (controller.teacher.phone != null &&
+                                                  controller
+                                                      .teacher.phone.isNotEmpty)
+                                              ? Colors.blue
+                                              : Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12),
+                                ),
+                              ),
+                              Text("Địa điểm học",
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                child: TextFormField(
+                                  onTap: () {
+                                    launch(
+                                        'https://www.google.com/maps/search/?api=1&query=${course.address}');
+                                  },
+                                  initialValue: course
+                                      .address, //Get a link here to get to google maps.
+                                  decoration: primaryTextFieldDecoration,
+                                  cursorColor: primaryColor,
+                                  readOnly: true,
+                                  style: GoogleFonts.nunitoSans(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                              Text("Thời gian học",
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                child: TextFormField(
+                                  initialValue: controller.course?.value
+                                          ?.getTimeAsString() ??
+                                      "",
+                                  decoration: primaryTextFieldDecoration,
+                                  cursorColor: primaryColor,
+                                  readOnly: true,
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12),
+                                ),
+                              ),
+                              Text("Giá tiền",
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              TextFormField(
+                                initialValue: NumberFormat.currency(
+                                        locale: "vi_VN", symbol: "VNĐ")
+                                    .format(
+                                        controller.course?.value?.price ?? 0),
                                 decoration: primaryTextFieldDecoration,
                                 cursorColor: primaryColor,
                                 readOnly: true,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w600, fontSize: 12),
                               ),
-                            ),
-                            Text("Giá tiền",
-                                style: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.bold, fontSize: 12)),
-                            TextFormField(
-                              initialValue: NumberFormat.currency(
-                                      locale: "vi_VN", symbol: "VNĐ")
-                                  .format(controller.course?.value?.price ?? 0),
-                              decoration: primaryTextFieldDecoration,
-                              cursorColor: primaryColor,
-                              readOnly: true,
-                              style: GoogleFonts.nunitoSans(
-                                  fontWeight: FontWeight.w600, fontSize: 12),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

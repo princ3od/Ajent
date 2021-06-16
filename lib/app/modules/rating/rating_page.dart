@@ -1,4 +1,5 @@
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/modules/rating/rating_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RatingPage extends StatelessWidget {
   final Course course = Get.arguments;
+  final RatingController controller = Get.put(RatingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,24 +72,31 @@ class RatingPage extends StatelessWidget {
             )
           ])),
           RatingBar.builder(
+            ignoreGestures: course.evaluation.isEvaluate(),
             itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
             itemCount: 5,
-            initialRating: 4,
+            initialRating: course.evaluation.isEvaluate()
+                ? course.evaluation.star % 6.0
+                : 5,
             direction: Axis.horizontal,
             allowHalfRating: false,
             itemBuilder: (context, index) => Icon(
               Icons.star_rounded,
               color: Colors.amber,
             ),
-            onRatingUpdate: (rating) {},
+            onRatingUpdate: (rating) {
+              controller.star.value = rating;
+            },
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
             child: TextField(
+              enabled: !course.evaluation.isEvaluate(),
               style: GoogleFonts.nunitoSans(),
               autofocus: false,
               maxLines: 4,
               maxLength: 200,
+              controller: controller.contentController,
               decoration: InputDecoration(
                 labelText: "Đánh giá",
                 labelStyle: GoogleFonts.nunitoSans(
@@ -109,18 +118,30 @@ class RatingPage extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Center(
-              child: ElevatedButton(
-                style: orangeButtonStyle,
-                child: Text("Đăng tải đánh giá",
-                    style: GoogleFonts.nunitoSans(
-                        fontWeight: FontWeight.w700, fontSize: 14)),
-                onPressed: () {},
+          if (!course.evaluation.isEvaluate())
+            Obx(
+              () => Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: ElevatedButton(
+                    style: orangeButtonStyle,
+                    child: (controller.isPosting.value)
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          )
+                        : Text("Đăng tải đánh giá",
+                            style: GoogleFonts.nunitoSans(
+                                fontWeight: FontWeight.w700, fontSize: 14)),
+                    onPressed: () => controller.postEvaluation(course.id),
+                  ),
+                ),
               ),
-            ),
-          )
+            )
         ],
       )),
     );
