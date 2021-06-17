@@ -25,9 +25,12 @@ class SideMenu extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: UserAvatar(
-                      size: 30,
-                      user: HomeController.mainUser,
+                    child: Hero(
+                      tag: '${HomeController.mainUser.uid} avatar',
+                      child: UserAvatar(
+                        size: 45,
+                        user: HomeController.mainUser,
+                      ),
                     ),
                   ),
                   Expanded(

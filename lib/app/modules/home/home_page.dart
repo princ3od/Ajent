@@ -19,12 +19,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: primaryColor,
       drawer: SideMenu(),
-      floatingActionButton: Obx(() => AnimatedOpacity(
-            opacity: (controller.tabpageIndex.value == 1 ||
-                    controller.tabpageIndex.value == 2)
-                ? 1.0
-                : 0.0,
-            duration: Duration(milliseconds: 300),
+      floatingActionButton: Obx(() => Visibility(
+            visible: (controller.tabpageIndex.value % 3.0 != 0),
             child: FloatingActionButton.extended(
               onPressed: () {
                 Get.toNamed(Routes.ADD_COURSE,
@@ -82,7 +78,8 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: TextField(
-              style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w600,fontSize: 12),
+              style: GoogleFonts.nunitoSans(
+                  fontWeight: FontWeight.w600, fontSize: 12),
               readOnly: true,
               decoration: searchTextfieldDecoration,
               onTap: () => Get.toNamed(Routes.SEARCH),

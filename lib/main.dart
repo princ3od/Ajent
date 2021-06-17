@@ -45,6 +45,8 @@ class MyApp extends StatelessWidget {
             GoogleFonts.nunitoSans(fontWeight: FontWeight.w700).fontFamily,
         primarySwatch: jetblack,
         primaryColor: primaryColor,
+        appBarTheme:
+            Theme.of(context).appBarTheme.copyWith(brightness: Brightness.dark),
       ),
       translations: LocalizationService(),
       locale: LocalizationService.locale,

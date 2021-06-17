@@ -141,18 +141,18 @@ class UserService implements CollectionInterface {
     return success;
   }
 
-  Future<bool> updateUserAvatar(AjentUser ajentUser, File fileAvatar) async {
+  Future<String> updateUserAvatar(AjentUser ajentUser, File fileAvatar) async {
+    String avatarUrl = null;
     try {
       StorageService storeInstance = StorageService.instance;
-      String avatarUrl =
-          await storeInstance.uploadImage(fileAvatar, ajentUser.uid);
+      avatarUrl = await storeInstance.uploadImage(fileAvatar, ajentUser.uid);
       ajentUser.avatarUrl = avatarUrl;
       await this.updateInfo(ajentUser);
-      return true;
     } catch (exception) {
       print('$exception');
-      return false;
+      return null;
     }
+    return avatarUrl;
   }
 
   Future<bool> addStudent(String uid, Student student) async {
