@@ -1,9 +1,12 @@
+import 'package:ajent/app/data/models/Course.dart';
 import 'package:ajent/app/data/models/LessonTime.dart';
 import 'package:ajent/app/data/models/Period.dart';
 import 'package:ajent/app/modules/add_course/add_course_controller.dart';
 import 'package:ajent/app/modules/add_course/widgets/DatePickingButton.dart';
+import 'package:ajent/app/modules/add_course/widgets/PeriodDayPicker.dart';
 import 'package:ajent/app/modules/add_course/widgets/RoundDropdownButton.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
+import 'package:ajent/core/utils/enum_converter.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/core/values/lang/en_us.dart';
 import 'package:flutter/cupertino.dart';
@@ -105,7 +108,10 @@ class AddCoursePage extends StatelessWidget {
               ),
               Obx(() => RoundedDropdownButton(
                     value: controller.selectedTopic.value,
-                    items: controller.topics,
+                    items: controller.topics.map((item) => DropdownMenuItem(
+                      child: Text(item, style: GoogleFonts.nunitoSans(fontSize: 13)),
+                      value: item,
+                    )).toList(),
                     onChanged: (selectedItem) {
                       controller.selectedTopic.value = selectedItem;
                     },
@@ -122,7 +128,10 @@ class AddCoursePage extends StatelessWidget {
               ),
               Obx(() => RoundedDropdownButton(
                     value: controller.selectedType.value,
-                    items: controller.courseTypes,
+                    items: controller.courseTypes.map((item) => DropdownMenuItem(
+                      child: Text(item, style: GoogleFonts.nunitoSans(fontSize: 13)),
+                      value: item,
+                    )).toList(),
                     onChanged: (selectedItem) {
                       controller.selectedType.value = selectedItem;
                     },
@@ -174,37 +183,43 @@ class AddCoursePage extends StatelessWidget {
                       padding: EdgeInsets.only(left: 20),
                       child: Obx(() => RoundedDropdownButton(
                             value: controller.selectedTimeType.value,
-                            items: controller.timeTypes,
+                            items: controller.timeTypes.map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Text(EnumConverter.timeTypeToString(item).tr, style: GoogleFonts.nunitoSans(fontSize: 13),),
+                            )).toList(),
                             onChanged: (selectedItem) {
                               controller.selectedTimeType.value = selectedItem;
                             },
                           )),
                     ),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () async {
-                      //It's just design code, its jobs is add a new periods
-                      TimeOfDay start, end;
-                      DateTime date;
-                      date = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(DateTime.now().year + 10),
-                      );
-
-                      start = await showTimePicker(
+                  Obx(() => Visibility(
+                    visible: (controller.selectedTimeType.value == TimeType.fixedTime) ? true : false,
+                    child: IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () async {
+                        //It's just design code, its jobs is add a new periods
+                        TimeOfDay start, end;
+                        DateTime date;
+                        date = await showDatePicker(
                           context: context,
-                          initialTime: TimeOfDay(hour: 12, minute: 0));
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(DateTime.now().year + 10),
+                        );
 
-                      end = await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay(hour: 12, minute: 0));
-                      var x = Period(date, LessonTime(start, end));
-                      controller.periods.add(x);
-                    },
-                  )
+                        start = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay(hour: 12, minute: 0));
+
+                        end = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay(hour: 12, minute: 0));
+                        var x = Period(date, LessonTime(start, end));
+                        controller.periods.add(x);
+                      },
+                    ),
+                  ))
                 ],
               ),
               Obx(() => Wrap(
@@ -234,6 +249,16 @@ class AddCoursePage extends StatelessWidget {
                       );
                     }).toList(),
                   )),
+              Obx(() => Visibility(
+                visible: (controller.selectedTimeType.value == TimeType.periodTime) ? true : false,
+                child: PeriodDayPicker(
+                  onAddButtonPress: (index) {
+                    //Add day & time here
+                    //index = [0, 1, 2, 3,..,6] ~ [t2, T3, T4, T5,...,T6]
+                    print(index);
+                  },
+                ),
+              ),),
               SizedBox(
                 height: 10,
               ),
@@ -260,7 +285,7 @@ class AddCoursePage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('đến'),
+                    child: Text('đến', style: GoogleFonts.nunitoSans(),),
                   ),
                   Expanded(
                     child: Obx(() => DatePickingButton(

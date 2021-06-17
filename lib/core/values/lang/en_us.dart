@@ -64,4 +64,6 @@ const Map<String, String> en = {
   'add_diploma_overlay_description_label': 'Description of diploma',
   'add_diploma_layout_confirm_label': 'Confirm',
   'add_diploma_layout_cancel_label': 'CANCEL',
+  'periodTime': 'Periodical time',
+  'fixedTime': 'Fixed time'
 };
