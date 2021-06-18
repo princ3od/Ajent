@@ -140,16 +140,19 @@ class MyCourseDetailPage extends StatelessWidget {
                                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                                 child: TextFormField(
                                   onTap: () {
-                                    Get.toNamed(Routes.PROFILEVIEW,
-                                        arguments: controller.teacher);
+                                    if (controller.teacher != null)
+                                      Get.toNamed(Routes.PROFILEVIEW,
+                                          arguments: controller.teacher);
                                   },
-                                  initialValue: controller.teacher
-                                      .name, //Get a link here to get to teacher profile page
+                                  initialValue: controller.teacher?.name ??
+                                      "Chưa có", //Get a link here to get to teacher profile page
                                   decoration: primaryTextFieldDecoration,
                                   cursorColor: primaryColor,
                                   readOnly: true,
                                   style: GoogleFonts.nunitoSans(
-                                      color: Colors.blue,
+                                      color: (controller.teacher != null)
+                                          ? Colors.blue
+                                          : Colors.black,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12),
                                 ),
@@ -162,25 +165,26 @@ class MyCourseDetailPage extends StatelessWidget {
                                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                                 child: TextFormField(
                                   onTap: () async {
-                                    if (controller.teacher.phone != null &&
+                                    if (controller.teacher != null &&
+                                        controller.teacher.phone != null &&
                                         controller.teacher.phone.isNotEmpty) {
                                       await launch(
                                           'tel: ${controller.teacher.phone}');
                                     }
                                   },
-                                  initialValue:
-                                      (controller.teacher.phone == null)
+                                  initialValue: (controller.teacher == null ||
+                                          controller.teacher?.phone == null)
+                                      ? "Không có"
+                                      : (controller.teacher.phone.isEmpty)
                                           ? "Không có"
-                                          : (controller.teacher.phone.isEmpty)
-                                              ? "Không có"
-                                              : controller.teacher.phone,
+                                          : controller.teacher.phone,
                                   decoration: primaryTextFieldDecoration,
                                   cursorColor: primaryColor,
                                   keyboardType: TextInputType.phone,
                                   readOnly: true,
                                   style: GoogleFonts.nunitoSans(
                                       color:
-                                          (controller.teacher.phone != null &&
+                                          (controller.teacher?.phone != null &&
                                                   controller
                                                       .teacher.phone.isNotEmpty)
                                               ? Colors.blue

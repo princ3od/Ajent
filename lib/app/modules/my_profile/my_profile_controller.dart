@@ -30,6 +30,7 @@ class MyProfileController extends GetxController {
   var isUpdatingInfo = false.obs;
   @override
   onInit() {
+    super.onInit();
     txtName.text = ajentUser.value.name;
     txtMail.text = ajentUser.value.mail;
     txtSchool.text = ajentUser.value.schoolName;
@@ -44,11 +45,11 @@ class MyProfileController extends GetxController {
     loadDegree.value = true;
   }
 
-  loadUserStudent() async {
-    ajentUser.value.students =
-        await userService.getStudents(ajentUser.value.uid);
-    loadStudent.value = true;
-  }
+  // loadUserStudent() async {
+  //   ajentUser.value.students =
+  //       await userService.getStudents(ajentUser.value.uid);
+  //   loadStudent.value = true;
+  // }
 
   Future<void> onChangeAvatar() async {
     isUpdatingAvatar.value = true;
@@ -106,6 +107,34 @@ class MyProfileController extends GetxController {
     }
     isUpdatingInfo.value = false;
     return success;
+  }
+
+  showAddDegreeSheet(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: Get.height,
+          child: Center(
+            child: Text('add degree here'),
+          ),
+        );
+      },
+    );
+  }
+
+  showAddStudentSheet(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: Get.height,
+          child: Center(
+            child: Text('add student here'),
+          ),
+        );
+      },
+    );
   }
 
   bool isAvailableInputInfo() {

@@ -62,7 +62,6 @@ class UserService implements CollectionInterface {
         .get()
         .then((value) {
       value.docs.forEach((element) {
-        print('${element.id}');
         Degree item = Degree.fromJson(id: element.id, data: element.data());
         degrees.add(item);
       });

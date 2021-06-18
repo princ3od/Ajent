@@ -12,7 +12,10 @@ class MyCourseDetailController extends GetxController {
   onInit() async {
     super.onInit();
     course.value = await CourseService.instance.getCourse(course.value.id);
-    teacher = await UserService.instance.getUser(course.value.teacher);
+    if (course.value.teacher != null && course.value.teacher.isNotEmpty)
+      teacher = await UserService.instance.getUser(course.value.teacher);
+    else
+      teacher = null;
     await Future.delayed(Duration(milliseconds: 100));
     isLoading.value = false;
   }

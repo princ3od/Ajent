@@ -21,4 +21,19 @@ class StorageService implements CollectionInterface {
     });
     return imageUrl;
   }
+
+  Future<String> uploadCourseImage(File image) async {
+    String imageUrl;
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference rootStorageReference = storage.ref();
+    Reference pictureFolderReference =
+        rootStorageReference.child('images').child('coursesImages/$fileName');
+    await pictureFolderReference.putFile(image).whenComplete(() async {
+      imageUrl = await pictureFolderReference.getDownloadURL();
+    }).onError((error, stackTrace) {
+      print(error.toString());
+      return null;
+    });
+    return imageUrl;
+  }
 }

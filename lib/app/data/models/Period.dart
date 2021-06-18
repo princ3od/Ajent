@@ -12,4 +12,11 @@ class Period {
     lessonTime = LessonTime(DateConverter.stringToTime(data['startTime']),
         DateConverter.stringToTime(data['endTime']));
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'date': DateFormat("dd/MM/yyyy").format(date),
+      'startTime': DateConverter.timeToString(lessonTime.startTime),
+      'endTime': DateConverter.timeToString(lessonTime.endTime),
+    };
+  }
 }

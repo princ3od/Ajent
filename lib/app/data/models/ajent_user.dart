@@ -13,7 +13,6 @@ class AjentUser extends Person {
   List<String> subjects = [];
   String bio;
   List<Degree> degrees = [];
-  List<Student> students = [];
   AjentUser(
       this.uid,
       String name,
@@ -28,8 +27,7 @@ class AjentUser extends Person {
       this.educationLevel,
       this.bio,
       [this.subjects,
-      this.degrees,
-      this.students])
+      this.degrees])
       : super(name, birthDay, gender, address, phone, mail);
 
   AjentUser.fromJson(this.uid, Map<String, dynamic> data)

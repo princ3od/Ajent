@@ -52,7 +52,7 @@ class InformationTab extends StatelessWidget {
             decoration: primaryTextFieldDecoration,
             cursorColor: primaryColor,
             controller: controller.txtMail,
-            enabled: (AuthController.loginType == LoginType.withGoogle),
+            enabled: (AuthController.loginType != LoginType.withGoogle),
           ),
           SizedBox(
             height: 20,
@@ -76,7 +76,7 @@ class InformationTab extends StatelessWidget {
             cursorColor: primaryColor,
             keyboardType: TextInputType.phone,
             controller: controller.txtPhone,
-            enabled: (AuthController.loginType == LoginType.byPhone),
+            enabled: (AuthController.loginType != LoginType.byPhone),
           ),
           SizedBox(
             height: 20,
@@ -127,31 +127,6 @@ class InformationTab extends StatelessWidget {
           ),
           SizedBox(
             height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await controller.updateInformation();
-                },
-                child: Obx(
-                  () => (controller.isUpdatingInfo.value)
-                      ? SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
-                          ),
-                        )
-                      : Text('profile_save_label'.tr,
-                          style: GoogleFonts.nunitoSans(
-                              fontSize: 14, fontWeight: FontWeight.w700)),
-                ),
-                style: orangeButtonStyle,
-              ),
-            ],
           ),
         ],
       ),
