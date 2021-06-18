@@ -1,4 +1,5 @@
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/data/models/message.dart';
 import 'package:ajent/app/data/models/Person.dart';
 
 class EnumConverter {
@@ -43,6 +44,32 @@ class EnumConverter {
         return TimeType.fixedTime;
       default:
         return TimeType.fixedTime;
+    }
+  }
+
+  static String messageTypeToString(MessageType messageType) {
+    switch (messageType) {
+      case MessageType.text:
+        return "text";
+      case MessageType.image:
+        return "image";
+      case MessageType.invitation:
+        return "invitation";
+      default:
+        return "text";
+    }
+  }
+
+  static MessageType stringToMessageType(String data) {
+    switch (data) {
+      case "text":
+        return MessageType.text;
+      case "image":
+        return MessageType.image;
+      case "invitation":
+        return MessageType.invitation;
+      default:
+        return MessageType.text;
     }
   }
 }

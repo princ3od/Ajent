@@ -93,7 +93,9 @@ class HomePage extends StatelessWidget {
               color: Colors.black,
               size: 25,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.TEXTING);
+            },
           ),
         ],
       ),

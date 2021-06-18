@@ -12,6 +12,8 @@ abstract class Routes {
   static const VERIFICATION = '/verification';
   static const SEARCH = "/search";
   static const ADD_COURSE = "/add_course";
-  static const MYTEACHINGDETAIL='/my_teaching_detail';
-  static const PROFILEVIEW ='/profile_view';
+  static const MYTEACHINGDETAIL = '/my_teaching_detail';
+  static const PROFILEVIEW = '/profile_view';
+  static const TEXTING = '/texting';
+  static const CHATTING = '/chatting';
 }
