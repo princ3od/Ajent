@@ -13,6 +13,7 @@ import 'package:ajent/app/data/models/chat_group.dart';
 
 class TextingController extends GetxController {
   bool firstFetch = true;
+  bool fetchGroup = false;
   AjentUser user = HomeController.mainUser;
 
   var isLoadingGroup = false.obs;
@@ -37,11 +38,14 @@ class TextingController extends GetxController {
       chatGroups[i].seen = true;
       _listenLastMessage[i] = MessageService.instance
           .subcribeListenMessage(chatGroups[i].id, (data) {
-        if (firstFetch && i == chatGroups.length - 1) {
+        if (firstFetch) {
           print(firstFetch);
-          firstFetch = false;
+          if (i == chatGroups.length - 1) {
+            firstFetch = false;
+          }
           return;
         }
+        print("update last msg");
         if (data.docChanges.length > 0) {
           chatGroups[i].lastMessage = Message.fromJson(
               data.docChanges.first.doc.id, data.docChanges.first.doc.data());
@@ -51,16 +55,17 @@ class TextingController extends GetxController {
         }
       });
     }
+    fetchGroup = true;
     isLoadingGroup.value = false;
   }
 
   listenNewChatGroup() {
     _listenNewChat =
         ChatGroupService.instance.subcribeNewChatGroup((data) async {
-      if (firstFetch) {
-        if (chatGroups.length == 0) firstFetch = false;
+      if (!fetchGroup) {
         return;
       }
+      print("new chat");
       for (var item in data.docChanges) {
         if (item.doc.data()['people']?.contains(user.uid) ?? false) {
           ChatGroup chatGroup =
