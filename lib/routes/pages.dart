@@ -17,7 +17,7 @@ import 'package:ajent/app/modules/splash/splash_binding.dart';
 import 'package:ajent/app/modules/splash/splash_page.dart';
 import 'package:ajent/app/modules/texting/texting_page.dart';
 import 'package:ajent/app/modules/texting/texting_binding.dart';
-import 'package:ajent/app/modules/texting/widgets/chat_page.dart';
+import 'package:ajent/app/modules/chat/chat_page.dart';
 
 import 'package:get/get.dart';
 

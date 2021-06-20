@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:ajent/app/global_widgets/user_avatar.dart';
+import 'package:ajent/app/modules/chat/widgets/full_image_page.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/my_profile/my_profile_controller.dart';
 import 'package:ajent/app/modules/my_profile/widgets/degrees_tab.dart';
@@ -70,9 +71,20 @@ class MyProfilePage extends StatelessWidget {
                         () => Center(
                           child: Hero(
                             tag: '${HomeController.mainUser.uid} avatar',
-                            child: UserAvatar(
-                              user: controller.ajentUser.value,
-                              size: 45,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(() => FullImageScreen(
+                                      imageURL:
+                                          controller.ajentUser.value.avatarUrl,
+                                      name: controller.ajentUser.value.name,
+                                      tag:
+                                          '${HomeController.mainUser.uid} avatar',
+                                    ));
+                              },
+                              child: UserAvatar(
+                                user: controller.ajentUser.value,
+                                size: 45,
+                              ),
                             ),
                           ),
                         ),

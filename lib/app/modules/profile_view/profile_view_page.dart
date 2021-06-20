@@ -1,6 +1,7 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/modules/profile_view/profile_view_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
+import 'package:ajent/routes/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,7 +81,10 @@ class ProfileViewPage extends StatelessWidget {
               ),
               Center(
                   child: IconButton(
-                      onPressed: () {}, icon: Icon(Icons.chat_rounded))),
+                      onPressed: () {
+                        Get.toNamed(Routes.CHATTING, arguments: user);
+                      },
+                      icon: Icon(Icons.chat_rounded))),
               Text("ajent_user_name_label".tr,
                   style: GoogleFonts.nunitoSans(
                       fontWeight: FontWeight.bold, fontSize: 12)),

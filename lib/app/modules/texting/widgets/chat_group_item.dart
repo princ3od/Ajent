@@ -1,7 +1,9 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
+import 'package:ajent/app/modules/texting/texting_controller.dart';
 import 'package:ajent/core/utils/date_converter.dart';
+import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:ajent/app/data/models/chat_group.dart';
@@ -12,7 +14,9 @@ import 'package:google_fonts/google_fonts.dart';
 class ChatGroupItem extends StatelessWidget {
   final ChatGroup chatGroup;
   final AjentUser partner;
-  ChatGroupItem({@required this.chatGroup, @required this.partner});
+  final int index;
+  ChatGroupItem(
+      {@required this.chatGroup, @required this.partner, @required this.index});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -21,30 +25,41 @@ class ChatGroupItem extends StatelessWidget {
         title: Text(
           partner.name,
           style: GoogleFonts.nunitoSans(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+              fontSize: 16,
+              fontWeight: (chatGroup.seen) ? FontWeight.w600 : FontWeight.bold),
         ),
-        subtitle: lastMessage(chatGroup.lastMessage),
-        leading: UserAvatar(user: partner, size: 40),
-        onTap: () {
-          Get.toNamed(Routes.CHATTING, arguments: chatGroup);
-        },
+        subtitle: (chatGroup.lastMessage == null)
+            ? Container()
+            : lastMessage(chatGroup.lastMessage),
+        leading: UserAvatar(user: partner, size: 24),
+        trailing: AnimatedOpacity(
+            opacity: (chatGroup.seen) ? 0 : 1,
+            duration: Duration(milliseconds: 180),
+            child: Icon(Icons.circle, color: primaryColor, size: 8)),
       ),
+      onTap: () {
+        Get.find<TextingController>().chatGroups[index].seen = true;
+        Get.find<TextingController>().chatGroups.refresh();
+        FocusManager.instance.primaryFocus.unfocus();
+        print("tap");
+        Get.toNamed(Routes.CHATTING, arguments: partner);
+      },
     );
   }
 
   Widget lastMessage(Message message) {
     String txt = "";
-    if (message.senderUid == HomeController.mainUser.uid) {
-      txt += "You";
-    } else {
-      txt += partner.name;
-    }
+
     if (message.type == MessageType.text) {
-      txt += ": " + message.content;
+      if (message.senderUid == HomeController.mainUser.uid) {
+        txt += "You: ";
+      }
+      txt += message.content;
     } else {
-      txt += " sent you a image.";
+      if (message.senderUid == HomeController.mainUser.uid) {
+        txt += "You sent an image.";
+      } else
+        txt += "${partner.name} sent an image.";
     }
     return Row(
       children: [
@@ -53,18 +68,20 @@ class ChatGroupItem extends StatelessWidget {
           child: Text(
             txt,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontWeight: FontWeight.normal,
+            style: GoogleFonts.nunitoSans(
+              fontSize: 12,
+              fontWeight: (chatGroup.seen) ? FontWeight.w600 : FontWeight.bold,
             ),
           ),
         ),
         Flexible(
           flex: 2,
           child: Text(
-            " - " + DateConverter.getTime(message.timeStamp),
+            " - " + DateConverter.getTime(message.timeStamp, true),
             overflow: TextOverflow.clip,
-            style: TextStyle(
-              fontWeight: FontWeight.normal,
+            style: GoogleFonts.nunitoSans(
+              fontSize: 12,
+              fontWeight: (chatGroup.seen) ? FontWeight.w600 : FontWeight.bold,
             ),
           ),
         ),

@@ -36,17 +36,26 @@ class LearningTab extends StatelessWidget {
         ),
         Flexible(
           child: Obx(
-            () => (controller.courses.length <= 0)
-                ? EmptyLearning(
-                    index: controller.currentIndex.value,
-                  )
-                : SmartRefresher(
-                    physics: BouncingScrollPhysics(),
-                    controller: controller.refreshController,
-                    onRefresh: () async {
-                      await controller.fetchCourses();
-                    },
-                    child: ListView.builder(
+            () => SmartRefresher(
+              physics: BouncingScrollPhysics(),
+              controller: controller.refreshController,
+              onRefresh: () async {
+                await controller.fetchCourses();
+              },
+              child: (controller.courses?.length == 0)
+                  ? AnimatedOpacity(
+                      opacity: (controller.courses.length > 0 ||
+                              controller.isFetching.value)
+                          ? 0
+                          : 1,
+                      duration: Duration(milliseconds: 500),
+                      child: Center(
+                        child: EmptyLearning(
+                          index: controller.currentIndex.value,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
                       physics: BouncingScrollPhysics(),
                       itemCount: controller.courses.length,
                       itemBuilder: (context, index) {
@@ -55,7 +64,7 @@ class LearningTab extends StatelessWidget {
                         );
                       },
                     ),
-                  ),
+            ),
           ),
         ),
       ],
