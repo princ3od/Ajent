@@ -7,6 +7,8 @@ import 'package:ajent/app/modules/add_course/add_course_controller.dart';
 import 'package:ajent/app/modules/add_course/widgets/DatePickingButton.dart';
 import 'package:ajent/app/modules/add_course/widgets/PeriodDayPicker.dart';
 import 'package:ajent/app/modules/add_course/widgets/RoundDropdownButton.dart';
+import 'package:ajent/app/modules/add_course/widgets/TextCheckBox.dart';
+import 'package:ajent/app/modules/add_course/widgets/TimePickingButton.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/utils/enum_converter.dart';
 import 'package:ajent/core/values/colors.dart';
@@ -276,19 +278,55 @@ class AddCoursePage extends StatelessWidget {
                             }).toList(),
                           ),
                         )),
+                    SizedBox(height: 10,),
                     Obx(
                       () => Visibility(
                         visible: (controller.selectedTimeType.value ==
                                 TimeType.fixedTime)
                             ? true
                             : false,
-                        child: PeriodDayPicker(
-                          onAddButtonPress: (index) {
-                            //Add day & time here
-                            //index = [0, 1, 2, 3,..,6] ~ [t2, T3, T4, T5,...,T6]
-                            print(index);
-                          },
-                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: TextCheckBox(content: 'T2', onPressed: (val) {},)
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T3', onPressed: (val) {},)
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T4', onPressed: (val) {},)
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T5', onPressed: (val) {},)
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T6', onPressed: (val) {},)
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T7', onPressed: (val) {},)
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'CN', onPressed: (val) {},)
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(child: TimePickingButton()),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'đến',
+                                    style: GoogleFonts.nunitoSans(),
+                                  ),
+                                ),
+                                Expanded(child: TimePickingButton())
+                              ],
+                            )
+                          ],
+                        )
                       ),
                     ),
                     SizedBox(
@@ -296,7 +334,7 @@ class AddCoursePage extends StatelessWidget {
                     ),
                     Visibility(
                       visible: (controller.selectedTimeType.value ==
-                              TimeType.fixedTime)
+                          TimeType.fixedTime)
                           ? true
                           : false,
                       child: Column(
@@ -312,17 +350,17 @@ class AddCoursePage extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Obx(() => DatePickingButton(
-                                      date: controller.startDate.value,
-                                      onPressed: () async {
-                                        controller.startDate.value =
-                                            await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime.now(),
-                                                lastDate: DateTime(
-                                                    DateTime.now().year + 10));
-                                      },
-                                    )),
+                                  date: controller.startDate.value,
+                                  onPressed: () async {
+                                    controller.startDate.value =
+                                    await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime.now(),
+                                        lastDate: DateTime(
+                                            DateTime.now().year + 10));
+                                  },
+                                )),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -333,17 +371,17 @@ class AddCoursePage extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Obx(() => DatePickingButton(
-                                      date: controller.endDate.value,
-                                      onPressed: () async {
-                                        controller.endDate.value =
-                                            await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime.now(),
-                                                lastDate: DateTime(
-                                                    DateTime.now().year + 10));
-                                      },
-                                    )),
+                                  date: controller.endDate.value,
+                                  onPressed: () async {
+                                    controller.endDate.value =
+                                    await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime.now(),
+                                        lastDate: DateTime(
+                                            DateTime.now().year + 10));
+                                  },
+                                )),
                               )
                             ],
                           ),
