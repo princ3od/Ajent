@@ -30,7 +30,7 @@ class HomeTab extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //Icon(Icons.event),
+
                     SizedBox(width: 5),
                     Text("Lịch"),
                   ],
@@ -38,7 +38,7 @@ class HomeTab extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //Icon(Icons.recommend),
+
                     SizedBox(width: 5),
                     Text("Dành cho tôi"),
                   ],

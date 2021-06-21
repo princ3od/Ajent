@@ -16,4 +16,5 @@ abstract class Routes {
   static const PROFILEVIEW = '/profile_view';
   static const TEXTING = '/texting';
   static const CHATTING = '/chatting';
+  static const SETTINGS = '/settings';
 }
