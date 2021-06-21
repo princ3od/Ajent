@@ -1,4 +1,4 @@
-import 'package:ajent/app/data/models/Course.dart';
+import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
@@ -12,7 +12,10 @@ class MyCourseDetailController extends GetxController {
   onInit() async {
     super.onInit();
     course.value = await CourseService.instance.getCourse(course.value.id);
-    teacher = await UserService.instance.getUser(course.value.teacher);
+    if (course.value.teacher != null && course.value.teacher.isNotEmpty)
+      teacher = await UserService.instance.getUser(course.value.teacher);
+    else
+      teacher = null;
     await Future.delayed(Duration(milliseconds: 100));
     isLoading.value = false;
   }

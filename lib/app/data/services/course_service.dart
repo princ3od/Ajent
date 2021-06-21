@@ -1,6 +1,7 @@
-import 'package:ajent/app/data/models/Course.dart';
+import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/FixedTime.dart';
 import 'package:ajent/app/data/models/Period.dart';
+import 'package:ajent/app/data/models/evaluation.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -15,10 +16,19 @@ class CourseService implements CollectionInterface {
   String collectionName = 'courses';
 
   Future<Course> addCourse(Course course) async {
-    await database
-        .collection(collectionName)
-        .doc(course.id)
-        .set(course.toJson(), SetOptions(merge: true));
+    DocumentReference courseRef =
+        await database.collection(collectionName).add(course.toJson());
+    course.id = courseRef.id;
+    if (course.timeType == TimeType.fixedTime) {
+      await courseRef
+          .collection('fixedTime')
+          .doc('fixedTime')
+          .set(course.fixedTime.toJson());
+    } else {
+      for (var period in course.periods) {
+        await courseRef.collection('periods').doc().set(period.toJson());
+      }
+    }
     return course;
   }
 
@@ -78,14 +88,21 @@ class CourseService implements CollectionInterface {
           }
         } else {
           String lastPeriod = element.data()['lastPeriod'];
+          String firstPeriod = element.data()['firstPeriod'];
           DateTime lastDate = DateFormat("dd/MM/yyyy").parse(lastPeriod);
+          DateTime firstDate = DateFormat("dd/MM/yyyy").parse(firstPeriod);
           if (now.isAfter(lastDate)) {
             course.status = CourseStatus.fininished;
-          } else if (now.isBefore(lastDate)) {
+          } else if (now.isBefore(firstDate)) {
             course.status = CourseStatus.upcoming;
           } else {
             course.status = CourseStatus.ongoing;
           }
+        }
+        if (course.teacher == null ||
+            course.teacher.isEmpty &&
+                course.status != CourseStatus.fininished) {
+          course.status = CourseStatus.upcoming;
         }
         courses.add(course);
       }
@@ -105,5 +122,14 @@ class CourseService implements CollectionInterface {
       }
     });
     return courses;
+  }
+
+  Future<Evaluation> addEvaluation(
+      String courseId, Evaluation evaluation) async {
+    await database.collection(collectionName).doc(courseId).update({
+      'evaluationContent': evaluation.content,
+      'evaluationStar': evaluation.star,
+    });
+    return evaluation;
   }
 }

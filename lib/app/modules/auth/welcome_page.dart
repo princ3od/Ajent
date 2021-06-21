@@ -3,7 +3,6 @@ import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -88,7 +87,6 @@ class WelcomePage extends StatelessWidget {
                                               left: 10.0, right: 10.0),
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              timeDilation = 2.0;
                                               Get.toNamed(Routes.AUTH);
                                             },
                                             child: Text('login'.tr),
@@ -104,7 +102,6 @@ class WelcomePage extends StatelessWidget {
                                               left: 10.0, right: 10.0),
                                           child: OutlinedButton(
                                             onPressed: () {
-                                              timeDilation = 2.0;
                                               Get.toNamed(Routes.SIGNUP);
                                             },
                                             child: Text('sign_up'.tr),

@@ -1,4 +1,4 @@
-import 'package:ajent/app/data/models/Course.dart';
+import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,20 +40,41 @@ class CourseCard extends StatelessWidget {
                         child: Row(children: <Widget>[
                       Padding(
                         padding: EdgeInsets.all(15.0),
-                        child: CircleAvatar(
-                          backgroundImage:
-                              AssetImage("assets/images/ajent_logo.png"),
-                          radius: 40.0,
+                        child: Hero(
+                          tag: '${course.id} avatar',
+                          child: CircleAvatar(
+                            child: ClipOval(
+                              child: FadeInImage.assetNetwork(
+                                placeholder: 'assets/images/ajent_logo.png',
+                                image: course.photoUrl,
+                                width: 100,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                            radius: 40.0,
+                          ),
                         ),
                       ),
-                      Expanded(
-                        child: Text(
-                          course.name,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: GoogleFonts.nunitoSans(
-                              fontWeight: FontWeight.w700, fontSize: 14),
-                        ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: Get.width - 150,
+                            child: Hero(
+                              tag: '${course.id} name',
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Text(
+                                  course.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: GoogleFonts.nunitoSans(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                     ]))
                   ],

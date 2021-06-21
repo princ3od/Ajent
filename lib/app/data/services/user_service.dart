@@ -62,7 +62,6 @@ class UserService implements CollectionInterface {
         .get()
         .then((value) {
       value.docs.forEach((element) {
-        print('${element.id}');
         Degree item = Degree.fromJson(id: element.id, data: element.data());
         degrees.add(item);
       });
@@ -141,18 +140,18 @@ class UserService implements CollectionInterface {
     return success;
   }
 
-  Future<bool> updateUserAvatar(AjentUser ajentUser, File fileAvatar) async {
+  Future<String> updateUserAvatar(AjentUser ajentUser, File fileAvatar) async {
+    String avatarUrl = null;
     try {
       StorageService storeInstance = StorageService.instance;
-      String avatarUrl =
-          await storeInstance.uploadImage(fileAvatar, ajentUser.uid);
+      avatarUrl = await storeInstance.uploadImage(fileAvatar, ajentUser.uid);
       ajentUser.avatarUrl = avatarUrl;
       await this.updateInfo(ajentUser);
-      return true;
     } catch (exception) {
       print('$exception');
-      return false;
+      return null;
     }
+    return avatarUrl;
   }
 
   Future<bool> addStudent(String uid, Student student) async {
@@ -174,5 +173,26 @@ class UserService implements CollectionInterface {
       return false;
     }
     return success;
+  }
+
+  Future<double> getAverageEvaluationStar(String userUid) async {
+    int totalEvaluation = 0;
+    double totalStar = 0.0;
+    await database
+        .collection('courses')
+        .where('teacher', isEqualTo: userUid)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        double star = element.data()['evaluationStar'] * 1.0;
+        if (star < 0) {
+          continue;
+        }
+        totalStar += star;
+        totalEvaluation++;
+      }
+    });
+    if (totalEvaluation == 0) return -1.0;
+    return (totalStar / totalEvaluation);
   }
 }

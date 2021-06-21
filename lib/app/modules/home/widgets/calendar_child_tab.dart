@@ -14,15 +14,17 @@ class CalendarChildTab extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
             child: TabBar(
+              isScrollable: true,
               onTap: (index) {
                 print(index);
               },
               unselectedLabelColor: Colors.black,
-              unselectedLabelStyle: TextStyle(fontSize: 10.5),
+              unselectedLabelStyle: TextStyle(fontSize: 12),
               labelColor: Colors.black,
-              labelStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               indicator: BubbleTabIndicator(
-                //indicatorHeight: 30.0,
+                indicatorHeight: 25.0,
+                indicatorRadius: 10.0,
                 indicatorColor: primaryColor,
                 tabBarIndicatorSize: TabBarIndicatorSize.label,
                 insets: const EdgeInsets.symmetric(horizontal: 2.0),

@@ -14,14 +14,20 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: Colors.white,
-      radius: this.size * 1.0,
+      backgroundColor: Colors.white54,
+      radius: size * 1.0,
       child: ClipOval(
         child: FadeInImage.assetNetwork(
-            placeholder: (this.user.gender == Gender.male)
-                ? "assets/images/default_avatar_male.png"
-                : "assets/images/default_avatar_female.png",
-            image: this.user.avatarUrl ?? ""),
+          fadeInDuration: Duration(milliseconds: 200),
+          fadeOutDuration: Duration(milliseconds: 180),
+          placeholder: (this.user.gender == Gender.male)
+              ? "assets/images/default_avatar_male.png"
+              : "assets/images/default_avatar_female.png",
+          image: this.user.avatarUrl ?? "",
+          width: 85,
+          height: 85,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

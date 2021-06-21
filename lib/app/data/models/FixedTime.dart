@@ -1,4 +1,5 @@
 import 'package:ajent/core/utils/date_converter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 import 'LessonTime.dart';
@@ -15,5 +16,14 @@ class FixedTime {
     endDate = DateFormat("dd/MM/yyyy").parse(data['endDate']);
     lessonTime = LessonTime(DateConverter.stringToTime(data['startTime']),
         DateConverter.stringToTime(data['endTime']));
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'day': day,
+      'startDate': DateFormat("dd/MM/yyyy").format(startDate),
+      'endDate': DateFormat("dd/MM/yyyy").format(endDate),
+      'startTime': DateConverter.timeToString(lessonTime.startTime),
+      'endTime': DateConverter.timeToString(lessonTime.endTime),
+    };
   }
 }

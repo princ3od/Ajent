@@ -1,4 +1,3 @@
-import 'package:ajent/app/modules/add_course/add_course_binding.dart';
 import 'package:ajent/app/modules/add_course/add_course_page.dart';
 import 'package:ajent/app/modules/auth/otp_verification_page.dart';
 import 'package:ajent/app/modules/my_course_detail/my_course_detail_page.dart';
@@ -16,6 +15,10 @@ import 'package:ajent/app/modules/rating/rating_page.dart';
 import 'package:ajent/app/modules/search/search_screen.dart';
 import 'package:ajent/app/modules/splash/splash_binding.dart';
 import 'package:ajent/app/modules/splash/splash_page.dart';
+import 'package:ajent/app/modules/texting/texting_page.dart';
+import 'package:ajent/app/modules/texting/texting_binding.dart';
+import 'package:ajent/app/modules/chat/chat_page.dart';
+
 import 'package:get/get.dart';
 
 part './routes.dart';
@@ -45,13 +48,18 @@ abstract class AppPages {
         page: () => MyProfilePage(),
         binding: MyProfileBinding()),
     GetPage(name: Routes.MYCOURSEDETAIL, page: () => MyCourseDetailPage()),
-    GetPage(name: Routes.MYTEACHINGDETAIL,page: ()=> MyTeachingDetailPage()),
+    GetPage(name: Routes.MYTEACHINGDETAIL, page: () => MyTeachingDetailPage()),
     GetPage(name: Routes.RATING, page: () => RatingPage()),
     GetPage(name: Routes.SEARCH, page: () => SearchScreen()),
-    GetPage(name: Routes.PROFILEVIEW,page: ()=> ProfileViewPage()),
+    GetPage(name: Routes.PROFILEVIEW, page: () => ProfileViewPage()),
     GetPage(
-        name: Routes.ADD_COURSE,
-        page: () => AddCoursePage(),
-        binding: AddCourseBinding()),
+      name: Routes.ADD_COURSE,
+      page: () => AddCoursePage(),
+    ),
+    GetPage(
+        name: Routes.TEXTING,
+        page: () => TextingPage(),
+        binding: TextingBinding()),
+    GetPage(name: Routes.CHATTING, page: () => ChatPage()),
   ];
 }

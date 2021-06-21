@@ -5,47 +5,59 @@ import 'package:intl/intl.dart';
 import 'Student.dart';
 import 'Period.dart';
 import 'FixedTime.dart';
-import 'Evaluation.dart';
+import 'evaluation.dart';
 
 class Course {
   String id;
   String name;
   String description;
+  String photoUrl;
   List<String> subjects = [];
   List<Student> students = [];
   TimeType timeType;
   String address;
   String owner;
   String teacher;
+  int price;
   List<Period> periods = [];
   FixedTime fixedTime;
-  List<Evaluation> evaluations = [];
+  Evaluation evaluation = Evaluation(-1, null);
   String requirements;
   CourseStatus status;
-  Course(this.id, this.name, this.description, this.timeType, this.address,
-      this.owner, this.teacher, this.requirements,
-      [this.subjects,
-      this.students,
-      this.periods,
-      this.fixedTime,
-      this.evaluations]);
+  // Course(this.id, this.name, this.description, this.photoUrl, this.timeType,
+  //     this.address, this.owner, this.teacher, this.price, this.requirements,
+  //     [this.subjects,
+  //     this.students,
+  //     this.periods,
+  //     this.fixedTime,
+  //     this.evaluation]);
+  Course();
   Course.fromJson(this.id, Map<String, dynamic> data) {
     description = data['description'];
+    photoUrl = data['photoUrl'];
     name = data['name'];
     timeType = EnumConverter.stringToTimeType(data['timeType']);
     address = data['address'];
     owner = data['owner'];
     teacher = data['teacher'];
-    requirements = data['requirement'];
+    price = data['price'];
+    evaluation = Evaluation(data['evaluationStar'], data['evaluationContent']);
+    requirements = data['requirements'];
   }
   Map<String, dynamic> toJson() {
     return {
       'name': this.name,
       'description': this.description,
+      'photoUrl': this.photoUrl,
       'timeType': EnumConverter.timeTypeToString(this.timeType),
       'address': this.address,
       'owner': this.owner,
       'teacher': this.teacher,
+      'price': this.price,
+      'evaluationStar': this.evaluation.star,
+      'evaluationContent': this.evaluation.content,
+      'requirements': this.requirements,
+      'lastPeriod': getLastPeriod(),
     };
   }
 
@@ -81,6 +93,16 @@ class Course {
       }
     }
     return result;
+  }
+
+  String getLastPeriod() {
+    if (timeType == TimeType.fixedTime) {
+      return "";
+    }
+    periods.sort((a, b) => a.date.compareTo(b.date));
+    String date =
+        DateFormat("dd/MM/yyyy").format(periods[periods.length - 1].date);
+    return date;
   }
 }
 

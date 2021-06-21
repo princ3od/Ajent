@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RoundedDropdownButton extends StatefulWidget {
-  RoundedDropdownButton({Key key, @required dynamic value, @required List<String> items, void Function(dynamic) onChanged}) : super(key: key)
+  RoundedDropdownButton({Key key, @required dynamic value, @required List<DropdownMenuItem<dynamic>> items, void Function(dynamic) onChanged}) : super(key: key)
   {
     this.value = value;
     this.items = items;
     this.onChanged = onChanged;
   }
   dynamic value;
-  List<String> items;
+  List<DropdownMenuItem<dynamic>> items;
   void Function(dynamic) onChanged;
 
   @override
@@ -32,12 +32,7 @@ class _RoundedDropdownButtonState extends State<RoundedDropdownButton> {
         underline: SizedBox(),
         onChanged: widget.onChanged,
         value: widget.value,
-        items: widget.items.map((selectedItem) {
-          return DropdownMenuItem(
-            child: Text(selectedItem, style: GoogleFonts.nunitoSans(fontSize: 13),),
-            value: selectedItem,
-          );
-        }).toList(),
+        items: widget.items,
       )
     );
   }

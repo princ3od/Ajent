@@ -1,11 +1,16 @@
+import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/modules/rating/rating_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RatingPage extends StatelessWidget {
+  final Course course = Get.arguments;
+  final RatingController controller = Get.put(RatingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,77 +33,117 @@ class RatingPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Center(
-                  child: Row(children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(50, 50, 20, 50),
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage("assets/images/ajent_logo.png"),
-                        radius: 40.0,
-                      ),
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Center(
+              child: Row(children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+              child: Hero(
+                tag: '${course.id} avatar',
+                child: CircleAvatar(
+                  child: ClipOval(
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/images/ajent_logo.png',
+                      image: course.photoUrl,
+                      width: 100,
+                      fit: BoxFit.fitWidth,
                     ),
-                    Text(
-                      "My Course Name",
-                      style: GoogleFonts.nunitoSans(
-                  fontWeight: FontWeight.w700, fontSize: 14),
-                    )
-                  ])),
-              RatingBar.builder(
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemCount: 5,
-                initialRating: 4,
-                direction: Axis.horizontal,
-                allowHalfRating: false,
-                itemBuilder: (context, index) => Icon(
-                  Icons.star_rounded,
-                  color: Colors.amber,
+                  ),
+                  radius: 40.0,
                 ),
-                onRatingUpdate: (rating) {},
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-                child: TextField(
-                  style: GoogleFonts.nunitoSans(),
-                  autofocus: true,
-                  maxLines: 4,
-                  maxLength: 200,
-                  decoration: InputDecoration(
-                    labelText: "Đánh giá",
-                    labelStyle: GoogleFonts.nunitoSans(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: Colors.black),
-                    hintText: "Hãy để lại phần đánh giá",
-                    hintStyle: GoogleFonts.nunitoSans(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: primaryColor, width: 2),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+            ),
+            Hero(
+              tag: '${course.id} name',
+              child: Material(
+                color: Colors.transparent,
+                child: SizedBox(
+                  width: Get.width - 150,
+                  child: Text(
+                    course.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: GoogleFonts.nunitoSans(
+                        fontWeight: FontWeight.w700, fontSize: 14),
                   ),
                 ),
               ),
-              Padding(
+            )
+          ])),
+          RatingBar.builder(
+            ignoreGestures: course.evaluation.isEvaluate(),
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemCount: 5,
+            initialRating: course.evaluation.isEvaluate()
+                ? course.evaluation.star % 6.0
+                : 5,
+            direction: Axis.horizontal,
+            allowHalfRating: false,
+            itemBuilder: (context, index) => Icon(
+              Icons.star_rounded,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              controller.star.value = rating;
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+            child: TextField(
+              enabled: !course.evaluation.isEvaluate(),
+              style: GoogleFonts.nunitoSans(),
+              autofocus: false,
+              maxLines: 4,
+              maxLength: 200,
+              controller: controller.contentController,
+              decoration: InputDecoration(
+                labelText: "Đánh giá",
+                labelStyle: GoogleFonts.nunitoSans(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    color: Colors.black),
+                hintText: "Hãy để lại phần đánh giá",
+                hintStyle: GoogleFonts.nunitoSans(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    color: Colors.grey),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: primaryColor, width: 2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          if (!course.evaluation.isEvaluate())
+            Obx(
+              () => Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Center(
                   child: ElevatedButton(
                     style: orangeButtonStyle,
-                    child: Text("Đăng tải đánh giá",
-                        style: GoogleFonts.nunitoSans(
-                            fontWeight: FontWeight.w700, fontSize: 14)),
-                    onPressed: () {},
+                    child: (controller.isPosting.value)
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          )
+                        : Text("Đăng tải đánh giá",
+                            style: GoogleFonts.nunitoSans(
+                                fontWeight: FontWeight.w700, fontSize: 14)),
+                    onPressed: () => controller.postEvaluation(course.id),
                   ),
                 ),
-              )
-            ],
-          )),
+              ),
+            )
+        ],
+      )),
     );
   }
 }

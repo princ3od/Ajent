@@ -25,9 +25,12 @@ class SideMenu extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: UserAvatar(
-                      size: 30,
-                      user: HomeController.mainUser,
+                    child: Hero(
+                      tag: '${HomeController.mainUser.uid} avatar',
+                      child: UserAvatar(
+                        size: 45,
+                        user: HomeController.mainUser,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -52,12 +55,16 @@ class SideMenu extends StatelessWidget {
                               height: 5,
                               color: Color.fromARGB(255, 255, 255, 255),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)
-                              ),
+                                  borderRadius: BorderRadius.circular(50)),
                               onPressed: () {
-                                Get.toNamed(Routes.PROFILEVIEW);
+                                Get.toNamed(Routes.PROFILEVIEW,
+                                    arguments: HomeController.mainUser);
                               },
-                              child: Text("Thông tin cá nhân", style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700,fontSize: 13),),
+                              child: Text(
+                                "Thông tin cá nhân",
+                                style: GoogleFonts.nunitoSans(
+                                    fontWeight: FontWeight.w700, fontSize: 13),
+                              ),
                               //style: outlinedButtonStyle,
                             ),
                           ),
@@ -116,18 +123,20 @@ class SideMenu extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             left: 15, right: 15, bottom: 5),
                         child: MaterialButton(
-                            onPressed: () {
-                              AuthController.signOut();
-                            },
-                            child: Text(
-                              "Đăng xuất",
-                              style: TextStyle(                                 
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            ),
+                          onPressed: () {
+                            AuthController.signOut();
+                          },
+                          child: Text(
+                            "Đăng xuất",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ),
                       )),
                   SizedBox(height: 5),
-                  Text("© Ajent",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w100),),
+                  Text(
+                    "© Ajent",
+                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w100),
+                  ),
                   SizedBox(height: 20),
                 ],
               ),

@@ -74,4 +74,6 @@ const Map<String, String> vi = {
   'add_diploma_overlay_description_label': 'Miêu tả chứng chỉ',
   'add_diploma_layout_confirm_label': 'Xác nhận',
   'add_diploma_layout_cancel_label': 'Huỷ bỏ',
+  'periodTime': 'Chu kì',
+  'fixedTime': 'Theo ngày'
 };
