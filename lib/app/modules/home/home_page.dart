@@ -41,6 +41,7 @@ class HomePage extends StatelessWidget {
             currentIndex: controller.tabpageIndex.value,
             selectedItemColor: Colors.black,
             unselectedItemColor: Colors.grey,
+            type:BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
                   label: "Trang chủ",
