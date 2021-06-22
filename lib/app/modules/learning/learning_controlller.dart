@@ -21,7 +21,6 @@ class LearningController extends GetxController {
     isFetching.value = true;
     allCourses = await CourseService.instance
         .getUserLearningCourse(HomeController.mainUser.uid);
-    print(allCourses.length);
     print('fetch done!');
     showCourses();
     refreshController.refreshCompleted();

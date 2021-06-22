@@ -9,8 +9,9 @@ class Period {
   Period(this.date, this.lessonTime);
   Period.fromJson(Map<String, dynamic> data) {
     date = DateFormat("dd/MM/yyyy").parse(data['date']);
-    lessonTime = LessonTime(DateConverter.stringToTime(data['startTime']),
-        DateConverter.stringToTime(data['endTime']));
+    lessonTime = LessonTime()
+      ..startTime = DateConverter.stringToTime(data['startTime'])
+      ..endTime = DateConverter.stringToTime(data['endTime']);
   }
   Map<String, dynamic> toJson() {
     return {

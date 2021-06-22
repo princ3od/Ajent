@@ -73,6 +73,18 @@ class AjentUser extends Person {
       'major': this.major,
       'educationLevel': this.educationLevel,
       'bio': this.bio,
+      'indexList': getIndexList(),
     };
+  }
+
+  List<String> getIndexList() {
+    List<String> result = [];
+    List<String> words = name.split(' ').toList();
+    for (var word in words) {
+      for (var i = 0; i < word.length + 1; i++) {
+        result.add(word.substring(0, i).toLowerCase());
+      }
+    }
+    return result;
   }
 }

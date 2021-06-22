@@ -44,9 +44,9 @@ const Map<String, String> vi = {
   'student_name_label': 'Tên học sinh',
   'student_gender_label': 'Giới tính học sinh',
   'student_birthday_label': 'Ngày sinh của học sinh',
-  'student_address_label':'Địa chỉ của học sinh',
-  'student_phone_label':'Số điện thoại của học sinh',
-  'student_email_label':'Email của học sinh',
+  'student_address_label': 'Địa chỉ của học sinh',
+  'student_phone_label': 'Số điện thoại của học sinh',
+  'student_email_label': 'Email của học sinh',
   'phone_number_label': 'Số điện thoại cá nhân',
   'add_student_to_account': 'Thêm học sinh',
   'my_students': 'Học sinh',
@@ -75,5 +75,11 @@ const Map<String, String> vi = {
   'add_diploma_layout_confirm_label': 'Xác nhận',
   'add_diploma_layout_cancel_label': 'Huỷ bỏ',
   'periodTime': 'Chu kì',
-  'fixedTime': 'Theo ngày'
+  'fixedTime': 'Theo ngày',
+  'teaching_ongoing_empty': 'Các khoá học bạn đang dạy sẽ ở đây',
+  'teaching_finished empty': 'Các khoá học bạn đã từng dạy sẽ ở đây',
+  'teaching_upcoming_empty': 'Các khoá học bạn sắp dạy sẽ ở đây',
+  'teaching_empty_action': 'Bắt đầu dạy ngay bằng cách nhấn nút ở dưới!',
+  'teaching_empty_encourage':
+      'Hi vòng bạn có thể lan toả kiến thức của mình. 😎',
 };
