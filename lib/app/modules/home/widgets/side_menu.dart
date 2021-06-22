@@ -93,7 +93,9 @@ class SideMenu extends StatelessWidget {
             ),
             SideMenuButton(
               text: "Quy định & chính sách",
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.TERMS);
+              },
             ),
             SideMenuButton(
               text: "Giới thiệu",

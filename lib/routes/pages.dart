@@ -1,3 +1,4 @@
+import 'package:ajent/app/modules/%20regulations_and_policies/regulations_and_policies_page.dart';
 import 'package:ajent/app/modules/add_course/add_course_page.dart';
 import 'package:ajent/app/modules/auth/otp_verification_page.dart';
 import 'package:ajent/app/modules/my_course_detail/my_course_detail_page.dart';
@@ -62,6 +63,7 @@ abstract class AppPages {
         page: () => TextingPage(),
         binding: TextingBinding()),
     GetPage(name: Routes.CHATTING, page: () => ChatPage()),
-    GetPage(name: Routes.SETTINGS, page: () =>SettingsPage())
+    GetPage(name: Routes.SETTINGS, page: () =>SettingsPage()),
+    GetPage(name: Routes.TERMS, page: () =>RegulationsAndPoliciesPage())
   ];
 }

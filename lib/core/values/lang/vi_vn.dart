@@ -77,4 +77,5 @@ const Map<String, String> vi = {
   'periodTime': 'Chu kì',
   'fixedTime': 'Theo ngày',
   'settings_title_label':'Cài đặt',
+  'terms_title_label':'Quy định và chính sách'
 };
