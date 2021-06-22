@@ -82,4 +82,7 @@ const Map<String, String> vi = {
   'teaching_empty_action': 'Bắt đầu dạy ngay bằng cách nhấn nút ở dưới!',
   'teaching_empty_encourage':
       'Hi vòng bạn có thể lan toả kiến thức của mình. 😎',
+  'settings_title_label':'Cài đặt',
+  'terms_title_label':'Quy định và chính sách',
+  'see_ratings_label':'Xem đánh giá'
 };

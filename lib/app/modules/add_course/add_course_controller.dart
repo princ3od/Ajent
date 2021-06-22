@@ -29,8 +29,10 @@ class AddCourseController extends GetxController {
 
   RxList<Period> periods = RxList<Period>();
 
-  var days = List.filled(7, false);
   List<String> selectedDays;
+  var days = List.generate(7, (index) => false);
+  var startTime = TimeOfDay(hour: 7, minute: 0).obs;
+  var endTime = TimeOfDay(hour: 9, minute: 0).obs;
 
   var startDate = DateTime.now().obs;
   var endDate = DateTime.now().obs;

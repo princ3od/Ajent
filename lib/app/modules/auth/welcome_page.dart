@@ -3,6 +3,7 @@ import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -31,10 +32,10 @@ class WelcomePage extends StatelessWidget {
                         color: Colors.transparent,
                         child: Text(
                           "Ajent",
-                          style: TextStyle(
+                          style: GoogleFonts.suezOne(
                             color: Colors.white,
                             fontSize: 32,
-                            fontWeight: FontWeight.bold,
+                            fontWeight:FontWeight.normal,
                           ),
                         ),
                       ),
@@ -42,7 +43,7 @@ class WelcomePage extends StatelessWidget {
                         color: Colors.transparent,
                         child: Text(
                           "Move forward",
-                          style: TextStyle(
+                          style: GoogleFonts.nunitoSans(
                             fontSize: 16,
                             color: Colors.white,
                           ),
