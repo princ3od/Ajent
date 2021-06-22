@@ -1,20 +1,25 @@
 import 'package:ajent/app/global_widgets/teaching_card.dart';
+import 'package:ajent/app/modules/teaching/teaching_controller.dart';
+import 'package:ajent/app/modules/teaching/widgets/empty_teaching.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TeachingTab extends StatelessWidget {
+  final TeachingController controller =
+      Get.put<TeachingController>(TeachingController());
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 30),
+        SizedBox(height: 20),
         DefaultTabController(
-          initialIndex: 1,
+          initialIndex: controller.currentIndex.value,
           length: 3,
           child: TabBar(
-              onTap: (index) {
-                print(index);
-              },
+              onTap: controller.onTabChanged,
               unselectedLabelColor: Colors.black,
               indicator: BubbleTabIndicator(
                 //indicatorHeight: 30.0,
@@ -29,7 +34,39 @@ class TeachingTab extends StatelessWidget {
                 Tab(text: "Đang chờ"),
               ]),
         ),
-        TeachingCard(),
+        Flexible(
+          child: Obx(
+            () => SmartRefresher(
+              physics: BouncingScrollPhysics(),
+              controller: controller.refreshController,
+              onRefresh: () async {
+                await controller.fetchCourses();
+              },
+              child: (controller.courses?.length == 0)
+                  ? AnimatedOpacity(
+                      opacity: (controller.courses.length > 0 ||
+                              controller.isFetching.value)
+                          ? 0
+                          : 1,
+                      duration: Duration(milliseconds: 500),
+                      child: Center(
+                        child: EmptyTeaching(
+                          index: controller.currentIndex.value,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: controller.courses.length,
+                      itemBuilder: (context, index) {
+                        return TeachingCard(
+                          course: controller.courses[index],
+                        );
+                      },
+                    ),
+            ),
+          ),
+        ),
       ],
     );
   }

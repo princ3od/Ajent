@@ -25,7 +25,7 @@ class _DatePickingButtonState extends State<DatePickingButton> {
   Widget build(BuildContext context) {
     return Container(
         height: 40,
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
             border: Border.all(color: Colors.grey[400])),
@@ -34,7 +34,7 @@ class _DatePickingButtonState extends State<DatePickingButton> {
             children: [
               Expanded(
                 child: Text(
-                  DateFormat('dd/MM/yyy').format(widget.date),
+                  DateFormat('MMM, dd yyyy').format(widget.date),
                   style:
                       GoogleFonts.nunitoSans(fontSize: 13, color: Colors.black),
                 ),

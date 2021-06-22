@@ -164,6 +164,7 @@ class AddCoursePage extends StatelessWidget {
                       cursorColor: primaryColor,
                       decoration: primaryTextFieldDecoration,
                       controller: controller.txtCoursePrice,
+                      onChanged: controller.formatCurrencyText,
                       keyboardType: TextInputType.number,
                     ),
                     SizedBox(
@@ -229,17 +230,28 @@ class AddCoursePage extends StatelessWidget {
                                     lastDate:
                                         DateTime(DateTime.now().year + 10),
                                   );
-
+                                  if (date == null) {
+                                    return;
+                                  }
                                   start = await showTimePicker(
                                       context: context,
                                       initialTime:
                                           TimeOfDay(hour: 12, minute: 0));
-
+                                  if (start == null) {
+                                    return;
+                                  }
                                   end = await showTimePicker(
                                       context: context,
-                                      initialTime:
-                                          TimeOfDay(hour: 12, minute: 0));
-                                  var x = Period(date, LessonTime(start, end));
+                                      initialTime: TimeOfDay(
+                                          hour: start.hour + 2,
+                                          minute: start.minute));
+                                  if (end == null) {
+                                    return;
+                                  }
+                                  LessonTime lessonTime = LessonTime()
+                                    ..startTime = start
+                                    ..endTime = end;
+                                  var x = Period(date, lessonTime);
                                   controller.periods.add(x);
                                 },
                               ),
@@ -278,7 +290,122 @@ class AddCoursePage extends StatelessWidget {
                             }).toList(),
                           ),
                         )),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Obx(
+                      () => Visibility(
+                          visible: (controller.selectedTimeType.value ==
+                                  TimeType.fixedTime)
+                              ? true
+                              : false,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: TextCheckBox(
+                                    content: 'T2',
+                                    onPressed: (val) =>
+                                        controller.days[0] = val,
+                                  )),
+                                  Expanded(
+                                      child: TextCheckBox(
+                                    content: 'T3',
+                                    onPressed: (val) =>
+                                        controller.days[1] = val,
+                                  )),
+                                  Expanded(
+                                      child: TextCheckBox(
+                                    content: 'T4',
+                                    onPressed: (val) =>
+                                        controller.days[2] = val,
+                                  )),
+                                  Expanded(
+                                      child: TextCheckBox(
+                                    content: 'T5',
+                                    onPressed: (val) =>
+                                        controller.days[3] = val,
+                                  )),
+                                  Expanded(
+                                      child: TextCheckBox(
+                                    content: 'T6',
+                                    onPressed: (val) =>
+                                        controller.days[4] = val,
+                                  )),
+                                  Expanded(
+                                      child: TextCheckBox(
+                                    content: 'T7',
+                                    onPressed: (val) =>
+                                        controller.days[5] = val,
+                                  )),
+                                  Expanded(
+                                      child: TextCheckBox(
+                                    content: 'CN',
+                                    onPressed: (val) =>
+                                        controller.days[6] = val,
+                                  )),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Obx(
+                                    () => TimePickingButton(
+                                      time: controller.startTime.value,
+                                      onPressed: () async {
+                                        controller.startTime.value =
+                                            await showTimePicker(
+                                                context: context,
+                                                initialTime:
+                                                    controller.startTime.value);
+                                        if (controller.startTime.value?.hour ==
+                                                null ??
+                                            false ||
+                                                controller.startTime.value
+                                                        ?.minute ==
+                                                    null ??
+                                            false) {
+                                          return;
+                                        }
+                                        controller.endTime.value = TimeOfDay(
+                                            hour: controller
+                                                    .startTime.value.hour +
+                                                1,
+                                            minute: controller
+                                                    .startTime.value.minute +
+                                                30);
+                                      },
+                                    ),
+                                  )),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'đến',
+                                      style: GoogleFonts.nunitoSans(),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      child: Obx(
+                                    () => TimePickingButton(
+                                      time: controller.endTime.value,
+                                      onPressed: () async {
+                                        controller.endTime.value =
+                                            await showTimePicker(
+                                                context: context,
+                                                initialTime:
+                                                    controller.endTime.value);
+                                      },
+                                    ),
+                                  ))
+                                ],
+                              )
+                            ],
+                          )),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Obx(
                       () => Visibility(
                         visible: (controller.selectedTimeType.value ==
@@ -287,42 +414,33 @@ class AddCoursePage extends StatelessWidget {
                             : false,
                         child: Column(
                           children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: TextCheckBox(content: 'T2', onPressed: (val) { controller.days[0] = val;},)
-                                ),
-                                Expanded(
-                                    child: TextCheckBox(content: 'T3', onPressed: (val) { controller.days[1] = val;},)
-                                ),
-                                Expanded(
-                                    child: TextCheckBox(content: 'T4', onPressed: (val) { controller.days[2] = val;},)
-                                ),
-                                Expanded(
-                                    child: TextCheckBox(content: 'T5', onPressed: (val) { controller.days[3] = val;},)
-                                ),
-                                Expanded(
-                                    child: TextCheckBox(content: 'T6', onPressed: (val) { controller.days[4] = val;},)
-                                ),
-                                Expanded(
-                                    child: TextCheckBox(content: 'T7', onPressed: (val) { controller.days[5] = val;},)
-                                ),
-                                Expanded(
-                                    child: TextCheckBox(content: 'CN', onPressed: (val) { controller.days[6] = val;},)
-                                ),
-                              ],
+                            Text(
+                              "Ngày bắt đầu - kết thúc dự kiến",
+                              style: GoogleFonts.nunitoSans(),
+                            ),
+                            SizedBox(
+                              height: 10,
                             ),
                             Row(
                               children: [
-                                Expanded(child: TimePickingButton(
-                                  time: controller.startTime.value,
-                                  onPressed: () async {
-                                    controller.startTime.value = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay(hour: 0, minute: 0)
-                                    );
-                                  },
-                                )),
+                                Expanded(
+                                  child: Obx(() => DatePickingButton(
+                                        date: controller.startDate.value,
+                                        onPressed: () async {
+                                          controller.startDate.value =
+                                              await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime.now(),
+                                                  lastDate: DateTime(
+                                                      DateTime.now().year +
+                                                          10));
+                                          controller.endDate.value = controller
+                                              .startDate.value
+                                              .add(Duration(days: 7));
+                                        },
+                                      )),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -330,101 +448,48 @@ class AddCoursePage extends StatelessWidget {
                                     style: GoogleFonts.nunitoSans(),
                                   ),
                                 ),
-                                Expanded(child: TimePickingButton(
-                                  time: controller.endTime.value,
-                                  onPressed: () async {
-                                    controller.endTime.value = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay(hour: 0, minute: 0)
-                                    );
-                                  },
-                                ))
+                                Expanded(
+                                  child: Obx(() => DatePickingButton(
+                                        date: controller.endDate.value,
+                                        onPressed: () async {
+                                          controller.endDate.value =
+                                              await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime.now(),
+                                                  lastDate: DateTime(
+                                                      DateTime.now().year +
+                                                          10));
+                                        },
+                                      )),
+                                )
                               ],
-                            )
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            // Visibility(
+                            //   visible: (pageIndex == 1) ? true : false,
+                            //   child: Row(
+                            //     children: [
+                            //       Text(
+                            //         "Thông tin học sinh",
+                            //         style: GoogleFonts.nunitoSans(),
+                            //       ),
+                            //       IconButton(
+                            //         icon: Icon(Icons.add),
+                            //         onPressed: () async {
+                            //           controller.learners.add('Hoc sinh');
+                            //         },
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
+                            SizedBox(
+                              height: 10,
+                            ),
                           ],
-                        )
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Visibility(
-                      visible: (controller.selectedTimeType.value ==
-                          TimeType.fixedTime)
-                          ? true
-                          : false,
-                      child: Column(
-                        children: [
-                          Text(
-                            "Ngày bắt đầu - kết thúc dự kiến",
-                            style: GoogleFonts.nunitoSans(),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Obx(() => DatePickingButton(
-                                  date: controller.startDate.value,
-                                  onPressed: () async {
-                                    controller.startDate.value =
-                                    await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime.now(),
-                                        lastDate: DateTime(
-                                            DateTime.now().year + 10));
-                                  },
-                                )),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'đến',
-                                  style: GoogleFonts.nunitoSans(),
-                                ),
-                              ),
-                              Expanded(
-                                child: Obx(() => DatePickingButton(
-                                  date: controller.endDate.value,
-                                  onPressed: () async {
-                                    controller.endDate.value =
-                                    await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime.now(),
-                                        lastDate: DateTime(
-                                            DateTime.now().year + 10));
-                                  },
-                                )),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          // Visibility(
-                          //   visible: (pageIndex == 1) ? true : false,
-                          //   child: Row(
-                          //     children: [
-                          //       Text(
-                          //         "Thông tin học sinh",
-                          //         style: GoogleFonts.nunitoSans(),
-                          //       ),
-                          //       IconButton(
-                          //         icon: Icon(Icons.add),
-                          //         onPressed: () async {
-                          //           controller.learners.add('Hoc sinh');
-                          //         },
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                     Visibility(
