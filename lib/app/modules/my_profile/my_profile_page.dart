@@ -52,9 +52,7 @@ class MyProfilePage extends StatelessWidget {
                   return;
                 } else if (controller.tabIndex.value == 1) {
                   controller.showAddDegreeSheet(context);
-                } else {
-                  controller.showAddStudentSheet(context);
-                }
+                } else {}
               },
             ),
           ),

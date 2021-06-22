@@ -7,13 +7,13 @@
 // import 'package:get/get.dart';
 // import 'package:image_picker/image_picker.dart';
 // import 'dart:io';
-
+//
 // class DiplomaLayout extends StatelessWidget {
 //   final MyProfileController controller;
 //   final VoidCallback onClickConfirm;
 //   final VoidCallback onClickCancel;
 //   final Function onClosedDiplomaOverlay;
-
+//
 //   const DiplomaLayout(
 //       {Key key,
 //       this.controller,
@@ -21,7 +21,7 @@
 //       this.onClickCancel,
 //       this.onClosedDiplomaOverlay})
 //       : super(key: key);
-
+//
 //   @override
 //   Widget build(BuildContext context) {
 //     Future<void> _showMyDialog() async {
@@ -50,19 +50,19 @@
 //         },
 //       );
 //     }
-
+//
 //     Get.put(this.controller);
 //     final picker = ImagePicker();
 //     Future getImage() async {
 //       final pickedFile = await picker.getImage(source: ImageSource.camera);
-
+//
 //       if (pickedFile != null) {
 //         controller.image.value = File(pickedFile.path);
 //       } else {
 //         print('No image selected.');
 //       }
 //     }
-
+//
 //     return Scaffold(
 //       appBar: AppBar(
 //         backgroundColor: Colors.white,
@@ -76,7 +76,7 @@
 //           onPressed: () => Navigator.of(context).pop(),
 //         ),
 //         title: Text('add_diploma_overlay_title'.tr,style: GoogleFonts.nunitoSans(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w700)),
-
+//
 //       ),
 //       //resizeToAvoidBottomInset: false,
 //       backgroundColor: Colors.grey.withOpacity(0.5),
@@ -182,7 +182,7 @@
 //                           controller.overDegee.title = controller.title.value;
 //                           controller.overDegee.description =
 //                               controller.description.value;
-
+//
 //                           await controller.userService.addDegree(
 //                               controller.ajentUser.value.uid,
 //                               controller.overDegee);
@@ -193,13 +193,13 @@
 //                       },
 //                       style: orangeButtonStyle,
 //                       child: Text('add_diploma_layout_confirm_label'.tr, style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700),),
-
+//
 //                     ),
 //                     SizedBox(
 //                       width: 30,
 //                     ),
 //                       OutlinedButton(
-
+//
 //                         onPressed: () {
 //                           onClosedDiplomaOverlay(context);
 //                           // onClickCancel();
