@@ -39,19 +39,19 @@ class MyProfilePage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        floatingActionButton: Obx(
-          () => Visibility(
-            visible: (controller.tabIndex.value > 0),
-            child: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                if (controller.tabIndex.value == 0) {
-                  return;
-                } else if (controller.tabIndex.value == 1) {
-                  controller.showAddDegreeSheet(context);
-                } else {}
-              },
-            ),
+      ),
+      floatingActionButton: Obx(
+        () => Visibility(
+          visible: (controller.tabIndex.value > 0),
+          child: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              if (controller.tabIndex.value == 0) {
+                return;
+              } else if (controller.tabIndex.value == 1) {
+                controller.showAddDegreeSheet(context);
+              } else {}
+            },
           ),
         ),
       ),
@@ -119,9 +119,8 @@ class MyProfilePage extends StatelessWidget {
                                     height: 16,
                                     width: 16,
                                     child: CircularProgressIndicator(
-                                      valueColor:
-                                          AlwaysStoppedAnimation<Color>(
-                                              Colors.black),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.black),
                                     ),
                                   )
                                 : Icon(
@@ -150,13 +149,15 @@ class MyProfilePage extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                       child: Text(
                         "Thông tin",
-                        style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700,fontSize: 12),
+                        style: GoogleFonts.nunitoSans(
+                            fontWeight: FontWeight.w700, fontSize: 12),
                       )),
                   1: Padding(
                       padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                       child: Text(
                         "Bằng cấp",
-                        style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w700,fontSize: 12),
+                        style: GoogleFonts.nunitoSans(
+                            fontWeight: FontWeight.w700, fontSize: 12),
                       )),
                 },
                 onValueChanged: (value) {

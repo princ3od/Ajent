@@ -36,8 +36,6 @@ class AddCourseController extends GetxController {
 
   var startDate = DateTime.now().obs;
   var endDate = DateTime.now().obs;
-  var startTime = TimeOfDay(hour: 19, minute: 00).obs;
-  var endTime = TimeOfDay(hour: 21, minute: 00).obs;
   var lessionTime = LessonTime();
 
   RxList<String> learners = RxList<String>();
