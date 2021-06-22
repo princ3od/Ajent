@@ -98,7 +98,6 @@ class MyProfileController extends GetxController {
     ajentUser.mail = txtMail.text;
     ajentUser.schoolName = txtSchool.text;
     ajentUser.phone = txtPhone.text;
-    ajentUser.major = txtMajor.text;
     ajentUser.educationLevel = dropdownValue.value;
     ajentUser.bio = txtBio.text;
     bool success = await this.userService.updateInfo(ajentUser);
@@ -286,5 +285,15 @@ class MyProfileController extends GetxController {
         );
       },
     );
+  }
+
+  List<String> createTags() {
+    List<String> tags = [];
+    var container = HomeController.mainUser.major.split(" ");
+    container.forEach((item) {
+      tags.add(item.replaceAll(new RegExp(r"\s+\b|\b\s"), ""));
+    });
+    tags.removeWhere((element) => (element == "" || element == " "));
+    return tags;
   }
 }

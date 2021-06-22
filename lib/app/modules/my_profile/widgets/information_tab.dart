@@ -1,6 +1,10 @@
+import 'dart:math';
+
+import 'package:ajent/app/data/models/Person.dart';
 import 'package:ajent/app/data/services/authenctic_service.dart';
 import 'package:ajent/app/modules/add_course/widgets/DatePickingButton.dart';
 import 'package:ajent/app/modules/auth/auth_controller.dart';
+import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/my_profile/my_profile_controller.dart';
 import 'package:ajent/app/modules/my_profile/widgets/drop_down_widget_customize.dart';
 import 'package:ajent/app/modules/my_profile/widgets/gender_radio.dart';
@@ -63,6 +67,9 @@ class InformationTab extends StatelessWidget {
                       initialDate: controller.startDate.value ?? DateTime.now(),
                       firstDate: DateTime(DateTime.now().year - 30),
                       lastDate: DateTime(DateTime.now().year + 1));
+                  if (controller.startDate.value != null)
+                    controller.ajentUser.value.birthDay =
+                        controller.startDate.value;
                 },
               ),
             ),
@@ -76,8 +83,9 @@ class InformationTab extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GenderRadio(
+              initGender: controller.ajentUser.value.gender ?? Gender.female,
               onChanged: (value) {
-                print(value);
+                controller.ajentUser.value.gender = value;
               },
             ),
           ),
@@ -121,7 +129,9 @@ class InformationTab extends StatelessWidget {
               style: GoogleFonts.nunitoSans(
                   fontWeight: FontWeight.bold, fontSize: 12)),
           TextFieldTags(
-            initialTags: ["tags"],
+            initialTags: controller.createTags().length > 0
+                ? controller.createTags()
+                : ["Tags"],
             tagsStyler: TagsStyler(
               showHashtag: true,
               tagMargin: const EdgeInsets.only(right: 4.0),
@@ -152,8 +162,22 @@ class InformationTab extends StatelessWidget {
                 borderSide: BorderSide(color: primaryColor, width: 1.0),
               ),
             ),
-            onDelete: (tag) {},
-            onTag: (tag) {},
+            onDelete: (tag) {
+              print(tag);
+              List<String> items = HomeController.mainUser.major.split(" ");
+              items.remove(tag);
+              String result = "";
+              items.forEach((item) {
+                result += " $item";
+              });
+              HomeController.mainUser.major = result;
+            },
+            onTag: (tag) {
+              if (HomeController.mainUser.major == null)
+                HomeController.mainUser.major = "";
+              HomeController.mainUser.major += " $tag";
+              print(HomeController.mainUser.major);
+            },
             validator: (String tag) {
               if (tag.length > 10) {
                 return "hey that is too much";

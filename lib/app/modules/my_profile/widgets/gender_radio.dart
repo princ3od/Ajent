@@ -5,15 +5,22 @@ import 'package:flutter/material.dart';
 
 class GenderRadio extends StatefulWidget {
   final ValueChanged<Gender> onChanged;
+  final Gender initGender;
 
-  const GenderRadio({Key key, this.onChanged}) : super(key: key);
+  const GenderRadio({Key key, this.onChanged, this.initGender})
+      : super(key: key);
 
   @override
   State<GenderRadio> createState() => _GenderRadioState();
 }
 
 class _GenderRadioState extends State<GenderRadio> {
-  Gender _gender = Gender.male;
+  Gender _gender;
+  @override
+  void initState() {
+    super.initState();
+    _gender = widget.initGender;
+  }
 
   @override
   Widget build(BuildContext context) {
