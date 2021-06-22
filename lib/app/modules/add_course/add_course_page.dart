@@ -290,31 +290,39 @@ class AddCoursePage extends StatelessWidget {
                             Row(
                               children: [
                                 Expanded(
-                                    child: TextCheckBox(content: 'T2', onPressed: (val) {},)
+                                    child: TextCheckBox(content: 'T2', onPressed: (val) { controller.days[0] = val;},)
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T3', onPressed: (val) {},)
+                                    child: TextCheckBox(content: 'T3', onPressed: (val) { controller.days[1] = val;},)
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T4', onPressed: (val) {},)
+                                    child: TextCheckBox(content: 'T4', onPressed: (val) { controller.days[2] = val;},)
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T5', onPressed: (val) {},)
+                                    child: TextCheckBox(content: 'T5', onPressed: (val) { controller.days[3] = val;},)
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T6', onPressed: (val) {},)
+                                    child: TextCheckBox(content: 'T6', onPressed: (val) { controller.days[4] = val;},)
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T7', onPressed: (val) {},)
+                                    child: TextCheckBox(content: 'T7', onPressed: (val) { controller.days[5] = val;},)
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'CN', onPressed: (val) {},)
+                                    child: TextCheckBox(content: 'CN', onPressed: (val) { controller.days[6] = val;},)
                                 ),
                               ],
                             ),
                             Row(
                               children: [
-                                Expanded(child: TimePickingButton()),
+                                Expanded(child: TimePickingButton(
+                                  time: controller.startTime.value,
+                                  onPressed: () async {
+                                    controller.startTime.value = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay(hour: 0, minute: 0)
+                                    );
+                                  },
+                                )),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -322,7 +330,15 @@ class AddCoursePage extends StatelessWidget {
                                     style: GoogleFonts.nunitoSans(),
                                   ),
                                 ),
-                                Expanded(child: TimePickingButton())
+                                Expanded(child: TimePickingButton(
+                                  time: controller.endTime.value,
+                                  onPressed: () async {
+                                    controller.endTime.value = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay(hour: 0, minute: 0)
+                                    );
+                                  },
+                                ))
                               ],
                             )
                           ],
