@@ -6,6 +6,7 @@ import 'package:ajent/app/data/services/storage_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,6 +14,8 @@ class MyProfileController extends GetxController {
   var tabIndex = 0.obs;
   var ajentUser = HomeController.mainUser.obs;
   var dropdownValue = ''.obs;
+  var startDate = DateTime.now().obs;
+  var ajenGender = HomeController.mainUser.gender.obs;
 
   TextEditingController txtName = TextEditingController();
   TextEditingController txtMail = TextEditingController();
