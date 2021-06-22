@@ -65,5 +65,10 @@ const Map<String, String> en = {
   'add_diploma_layout_confirm_label': 'Confirm',
   'add_diploma_layout_cancel_label': 'CANCEL',
   'periodTime': 'Periodical time',
-  'fixedTime': 'Fixed time'
+  'fixedTime': 'Fixed time',
+  'teaching_ongoing_empty': 'You have no ongoing teaching-course',
+  'teaching_finished empty': 'You have no finished teaching-course',
+  'teaching_upcoming_empty': 'You have no upcoming teaching-course',
+  'teaching_empty_action': 'Teach new course now by clicking button below!',
+  'teaching_empty_encourage': 'Hope you can spread out your knowledges. 😎',
 };

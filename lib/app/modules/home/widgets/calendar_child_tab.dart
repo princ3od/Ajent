@@ -1,3 +1,6 @@
+import 'package:ajent/app/modules/home/calendar_content/study_calendar_event.dart';
+import 'package:ajent/app/modules/home/calendar_content/teaching_calendar_event.dart';
+import 'package:ajent/app/modules/search/teachable_teaching_card.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +26,15 @@ class CalendarChildTab extends StatelessWidget {
               labelColor: Colors.black,
               labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               indicator: BubbleTabIndicator(
-                indicatorHeight: 25.0,
-                indicatorRadius: 10.0,
+                indicatorHeight: 10.0,
+                indicatorRadius: 40.0,
                 indicatorColor: primaryColor,
                 tabBarIndicatorSize: TabBarIndicatorSize.label,
                 insets: const EdgeInsets.symmetric(horizontal: 2.0),
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: -6.0),
+
+
+
               ),
               tabs: [
                 Text("T2"),
@@ -42,9 +48,8 @@ class CalendarChildTab extends StatelessWidget {
             ),
           ),
         ),
-        /*ElevatedButton(
-            onPressed: () => Get.toNamed(Routes.MYCOURSEDETAIL),
-            child: Text("click"))*/
+        StudyCalendarEventCard(),
+        TeachingCalendarEventCard()
       ],
     );
   }

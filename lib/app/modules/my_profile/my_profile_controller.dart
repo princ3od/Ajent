@@ -4,15 +4,23 @@ import 'package:ajent/app/data/models/Student.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/services/storage_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
+import 'package:ajent/app/global_widgets/user_avatar.dart';
+import 'package:ajent/app/modules/chat/widgets/full_image_page.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
+import 'package:ajent/core/themes/widget_theme.dart';
+import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MyProfileController extends GetxController {
   var tabIndex = 0.obs;
   var ajentUser = HomeController.mainUser.obs;
   var dropdownValue = ''.obs;
+  var startDate = DateTime.now().obs;
+  var ajenGender = HomeController.mainUser.gender.obs;
 
   TextEditingController txtName = TextEditingController();
   TextEditingController txtMail = TextEditingController();
@@ -95,7 +103,6 @@ class MyProfileController extends GetxController {
     ajentUser.mail = txtMail.text;
     ajentUser.schoolName = txtSchool.text;
     ajentUser.phone = txtPhone.text;
-    ajentUser.major = txtMajor.text;
     ajentUser.educationLevel = dropdownValue.value;
     ajentUser.bio = txtBio.text;
     bool success = await this.userService.updateInfo(ajentUser);
@@ -113,24 +120,122 @@ class MyProfileController extends GetxController {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          height: Get.height,
-          child: Center(
-            child: Text('add degree here'),
-          ),
-        );
-      },
-    );
-  }
-
-  showAddStudentSheet(BuildContext context) async {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Container(
-          height: Get.height,
-          child: Center(
-            child: Text('add student here'),
+        return SingleChildScrollView(
+          child: Container(
+            height: Get.height * 0.7,
+            child: Center(
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 0),
+                        child: Center(
+                            child: CircleAvatar(
+                          backgroundColor: Colors.white54,
+                          radius: 60 * 1.0,
+                          child: ClipOval(
+                            child: FadeInImage.assetNetwork(
+                              fadeInDuration: Duration(milliseconds: 200),
+                              fadeOutDuration: Duration(milliseconds: 180),
+                              placeholder: "assets/images/ajent_logo.png",
+                              image:
+                                  "https://khamphamoingay.com/wp-content/uploads/2019/07/nhung-hinh-anh-hoat-hinh-doremon-de-thuong-nhat-1.png",
+                              width: 85,
+                              height: 85,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text('Ảnh chụp',
+                            style: GoogleFonts.nunitoSans(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text('Tiểu đề',
+                            style: GoogleFonts.nunitoSans(
+                                fontWeight: FontWeight.bold, fontSize: 16)),
+                      ),
+                      TextField(
+                        decoration: primaryTextFieldDecoration,
+                        cursorColor: primaryColor,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text('Thông tin chi tiết',
+                            style: GoogleFonts.nunitoSans(
+                                fontWeight: FontWeight.bold, fontSize: 16)),
+                      ),
+                      TextField(
+                        decoration: primaryTextFieldDecoration,
+                        cursorColor: primaryColor,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Save"),
+                            style: ElevatedButton.styleFrom(
+                              primary: primaryColor,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Cancel"),
+                            style: ElevatedButton.styleFrom(
+                              primary: primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 15),
+                      width: 95,
+                      height: 100,
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: ClipOval(
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            color: Colors.grey.shade400.withAlpha(220),
+                            child: InkWell(
+                              splashColor: primaryColor,
+                              customBorder: CircleBorder(),
+                              onTap: () {},
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         );
       },
@@ -283,5 +388,15 @@ class MyProfileController extends GetxController {
         );
       },
     );
+  }
+
+  List<String> createTags() {
+    List<String> tags = [];
+    var container = HomeController.mainUser.major.split(" ");
+    container.forEach((item) {
+      tags.add(item.replaceAll(new RegExp(r"\s+\b|\b\s"), ""));
+    });
+    tags.removeWhere((element) => (element == "" || element == " "));
+    return tags;
   }
 }

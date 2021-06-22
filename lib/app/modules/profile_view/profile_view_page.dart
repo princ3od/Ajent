@@ -80,6 +80,22 @@ class ProfileViewPage extends StatelessWidget {
                 ),
               ),
               Center(
+                child: InkWell(
+                  onTap: (){
+                    Get.toNamed(Routes.VIEWRATING);
+                  },
+                  child: Column(
+                    children: [
+                      Text(
+                        "220 lượt đánh giá",
+                        style: GoogleFonts.nunitoSans(fontSize: 12, fontWeight: FontWeight.normal),
+                      ),
+                      Text("(tap vào để xem chi tiết)", style: GoogleFonts.nunitoSans(fontSize: 10,fontWeight: FontWeight.w200),)
+                    ],
+                  ),
+                ),
+              ),
+              Center(
                   child: IconButton(
                       onPressed: () {
                         Get.toNamed(Routes.CHATTING, arguments: user);
