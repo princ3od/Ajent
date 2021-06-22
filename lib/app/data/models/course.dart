@@ -136,6 +136,11 @@ class Course {
     return result;
   }
 
+  String getReadablePrice() {
+    if (price == null) price = 0;
+    return NumberFormat.currency(locale: "vi_VN", symbol: "VNĐ").format(price);
+  }
+
   CourseStatus getCourseStatus() {
     DateTime now = DateTime.now();
     if (timeType == TimeType.fixedTime) {

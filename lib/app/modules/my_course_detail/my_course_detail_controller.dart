@@ -28,7 +28,7 @@ class MyCourseDetailController extends GetxController {
         await CourseService.instance.getEvaluations(course.value.id);
     joinable.value = (course.value.status == CourseStatus.upcoming &&
         !course.value.learners.contains(HomeController.mainUser.uid));
-    requestable.value = (course.value.status == CourseStatus.upcoming &&
+    requestable.value = (joinable.value &&
         course.value.owner != HomeController.mainUser.uid &&
         (course.value.teacher == null || course.value.teacher.isEmpty));
     isLoading.value = false;

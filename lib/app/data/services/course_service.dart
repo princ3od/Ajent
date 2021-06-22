@@ -56,6 +56,7 @@ class CourseService implements CollectionInterface {
         });
       }
     });
+    course.getCourseStatus();
     return course;
   }
 
@@ -139,7 +140,7 @@ class CourseService implements CollectionInterface {
   Future updateLearnners(Course course) async {
     await database.collection(collectionName).doc(course.id).set({
       'learners': course.learners,
-    });
+    }, SetOptions(merge: true));
   }
 
   Future<Map<String, Evaluation>> getEvaluations(String courseId) async {
@@ -167,5 +168,25 @@ class CourseService implements CollectionInterface {
         .doc(user)
         .set(evaluation.toJson());
     return evaluation;
+  }
+
+  Stream<QuerySnapshot> searchCourse(
+      {String keyword, bool isFirst, DocumentSnapshot last}) {
+    if (isFirst) {
+      return database
+          .collection(collectionName)
+          .where('indexList', arrayContains: keyword)
+          .orderBy('name')
+          .limit(25)
+          .snapshots();
+    } else {
+      return database
+          .collection(collectionName)
+          .where('indexList', arrayContains: keyword)
+          .orderBy('name')
+          .startAfterDocument(last)
+          .limit(25)
+          .snapshots();
+    }
   }
 }
