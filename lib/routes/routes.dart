@@ -18,4 +18,5 @@ abstract class Routes {
   static const CHATTING = '/chatting';
   static const SETTINGS = '/settings';
   static const TERMS ='/regulations_and_policies';
+  static const VIEWRATING='/ratings_view';
 }

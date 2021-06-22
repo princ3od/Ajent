@@ -82,6 +82,7 @@ class ProfileViewPage extends StatelessWidget {
               Center(
                 child: InkWell(
                   onTap: (){
+                    Get.toNamed(Routes.VIEWRATING);
                   },
                   child: Column(
                     children: [
