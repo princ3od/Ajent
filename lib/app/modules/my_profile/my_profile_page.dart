@@ -39,22 +39,19 @@ class MyProfilePage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-      ),
-      floatingActionButton: Obx(
-        () => Visibility(
-          visible: (controller.tabIndex.value > 0),
-          child: FloatingActionButton.extended(
-
-            label: Text('Thêm bằng +'),
-            onPressed: () {
-              if (controller.tabIndex.value == 0) {
-                return;
-              } else if (controller.tabIndex.value == 1) {
-                controller.showAddDegreeSheet(context);
-              } else {
-                controller.showAddStudentSheet(context);
-              }
-            },
+        floatingActionButton: Obx(
+          () => Visibility(
+            visible: (controller.tabIndex.value > 0),
+            child: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                if (controller.tabIndex.value == 0) {
+                  return;
+                } else if (controller.tabIndex.value == 1) {
+                  controller.showAddDegreeSheet(context);
+                } else {}
+              },
+            ),
           ),
         ),
       ),
