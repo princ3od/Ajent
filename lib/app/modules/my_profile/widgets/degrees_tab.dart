@@ -21,6 +21,9 @@ class DegreesTab extends StatelessWidget {
                 itemCount: controller.ajenDegree.length,
                 itemBuilder: (context, index) {
                   return DegreeItem(
+                      onLongPress: (value) async {
+                        await controller.onLongPressDegreeCard(value);
+                      },
                       degree: controller.ajentUser.value.degrees[index]);
                 },
               )

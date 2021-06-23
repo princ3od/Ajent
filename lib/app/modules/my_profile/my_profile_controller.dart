@@ -62,6 +62,36 @@ class MyProfileController extends GetxController {
     loadDegree.value = true;
   }
 
+  Future<void> onLongPressDegreeCard(Degree degree) async {
+    await Get.defaultDialog(
+      title: "Thông baó ",
+      content: Text(
+        "Bạn xác nhận muốn xóa?",
+      ),
+      cancel: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: primaryColor,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+        child: Text('Cancel'),
+      ),
+      confirm: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: primaryColor,
+        ),
+        onPressed: () async {
+          await userService.delDegree(HomeController.mainUser.uid, degree.id);
+          await loadUserDegree();
+          Get.back();
+          Get.snackbar("Thông báo ", "Thao tác xóa thành công");
+        },
+        child: Text('Confirm'),
+      ),
+    );
+  }
+
   Future<void> onChangeAvatar() async {
     isUpdatingAvatar.value = true;
     final picker = ImagePicker();
