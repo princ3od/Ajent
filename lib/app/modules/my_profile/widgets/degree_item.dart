@@ -17,6 +17,7 @@ class DegreeItem extends StatelessWidget {
           onTap: () {
             //
           },
+          onLongPress: () {},
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),
             child: ListTile(

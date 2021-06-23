@@ -41,8 +41,9 @@ class MyProfileController extends GetxController {
   var isUpdatingAvatar = false.obs;
   var isUpdatingInfo = false.obs;
 
-  var isUploadDegreeImage = false.obs;
-  var imageDegreeUrl = "".obs;
+  var isUploadDegreeImage;
+  var imageDegreeUrl;
+  var imageDegreeFile;
   @override
   onInit() {
     super.onInit();
@@ -91,13 +92,17 @@ class MyProfileController extends GetxController {
     }
   }
 
+  Future<void> _onTakeImage() async {
+    var imagePicker = new ImagePicker();
+    imageDegreeFile.value = await _getImage(imagePicker);
+  }
+
   Future<void> _onUploadImage() async {
     isUploadDegreeImage.value = true;
-    var imagePicker = new ImagePicker();
-    var pickedFile = await _getImage(imagePicker);
-    if (pickedFile != null) {
+
+    if (imageDegreeFile.value != null) {
       imageDegreeUrl.value = await storageService.uploadImage(
-          pickedFile, HomeController.mainUser.uid);
+          imageDegreeFile.value, HomeController.mainUser.uid);
     }
     isUploadDegreeImage.value = false;
   }
@@ -123,6 +128,11 @@ class MyProfileController extends GetxController {
       Navigator.pop(context);
       Get.snackbar("Thông báo", "Hồ sơ của bạn, đã được cập nhật.");
     }
+  }
+
+  Future<void> onPressSave(BuildContext context) async {
+    await _onUploadImage();
+    await _onUpdateUserDegree(context);
   }
 
   Future<bool> updateInformation() async {
@@ -167,15 +177,19 @@ class MyProfileController extends GetxController {
                           radius: 60 * 1.0,
                           child: ClipOval(
                             child: Obx(
-                              () => FadeInImage.assetNetwork(
-                                fadeInDuration: Duration(milliseconds: 200),
-                                fadeOutDuration: Duration(milliseconds: 180),
-                                placeholder: "assets/images/ajent_logo.png",
-                                image: imageDegreeUrl.value,
-                                width: 85,
-                                height: 85,
-                                fit: BoxFit.cover,
-                              ),
+                              () => imageDegreeFile.value.path == ""
+                                  ? Image.asset(
+                                      'assets/images/ajent_logo.png',
+                                      width: 85,
+                                      height: 85,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.file(
+                                      imageDegreeFile.value,
+                                      width: 85,
+                                      height: 85,
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                         )),
@@ -224,7 +238,7 @@ class MyProfileController extends GetxController {
                         children: [
                           ElevatedButton(
                             onPressed: () async {
-                              await _onUpdateUserDegree(context);
+                              await onPressSave(context);
                             },
                             child: Text("Save"),
                             style: ElevatedButton.styleFrom(
@@ -261,7 +275,7 @@ class MyProfileController extends GetxController {
                               splashColor: primaryColor,
                               customBorder: CircleBorder(),
                               onTap: () async {
-                                await _onUploadImage();
+                                await _onTakeImage();
                               },
                               child: Obx(
                                 () => isUploadDegreeImage.value == false
@@ -344,10 +358,9 @@ class MyProfileController extends GetxController {
 
   void resetDegreeBottomSheet() {
     isUploadDegreeImage = false.obs;
-    imageDegreeUrl = "".obs;
     txtTitle = TextEditingController();
     txtDescription = TextEditingController();
-    isUploadDegreeImage = false.obs;
     imageDegreeUrl = "".obs;
+    imageDegreeFile = File("").obs;
   }
 }
