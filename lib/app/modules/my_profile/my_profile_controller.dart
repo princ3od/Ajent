@@ -57,6 +57,7 @@ class MyProfileController extends GetxController {
 
   loadUserDegree() async {
     ajentUser.value.degrees = await userService.getDegrees(ajentUser.value.uid);
+    ajenDegree.value = ajentUser.value.degrees;
     loadDegree.value = true;
   }
 
@@ -116,8 +117,9 @@ class MyProfileController extends GetxController {
     if (!success) {
       Get.snackbar("Lỗi", "Sever hiện tại đang bận, vui lòng thử lại sau.");
     } else {
+      loadDegree.value = false;
       await loadUserDegree();
-      ajenDegree.value = HomeController.mainUser.degrees;
+
       Navigator.pop(context);
       Get.snackbar("Thông báo", "Hồ sơ của bạn, đã được cập nhật.");
     }
