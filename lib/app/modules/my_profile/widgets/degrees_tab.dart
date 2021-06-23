@@ -16,13 +16,15 @@ class DegreesTab extends StatelessWidget {
           200,
       child: Obx(
         () => (controller.loadDegree.value)
-            ? ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: controller.ajentUser.value.degrees.length,
-                itemBuilder: (context, index) {
-                  return DegreeItem(
-                      degree: controller.ajentUser.value.degrees[index]);
-                },
+            ? Obx(
+                () => ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: controller.ajenDegree.length,
+                  itemBuilder: (context, index) {
+                    return DegreeItem(
+                        degree: controller.ajentUser.value.degrees[index]);
+                  },
+                ),
               )
             : Center(child: CircularProgressIndicator()),
       ),
