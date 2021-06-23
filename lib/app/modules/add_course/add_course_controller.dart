@@ -26,8 +26,9 @@ class AddCourseController extends GetxController {
 
   RxList<Period> periods = RxList<Period>();
 
-  var days = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-  List<String> selectedDays;
+  var days = List.generate(7, (index) => false);
+  var startTime = TimeOfDay(hour: 7, minute: 0).obs;
+  var endTime = TimeOfDay(hour: 9, minute: 0).obs;
 
   var startDate = DateTime.now().obs;
   var endDate = DateTime.now().obs;
@@ -90,12 +91,12 @@ class AddCourseController extends GetxController {
         course.periods = periods;
       else
         course.fixedTime = FixedTime(
-          List.generate(7, (index) => true),
+          days,
           startDate.value,
           endDate.value,
           LessonTime(
-            TimeOfDay(hour: 12, minute: 00),
-            TimeOfDay(hour: 14, minute: 30),
+            startTime.value,
+            endTime.value,
           ),
         );
       course = await CourseService.instance.addCourse(course);
