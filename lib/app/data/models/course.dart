@@ -101,6 +101,10 @@ class Course {
     return result;
   }
 
+  bool hasTeacher() {
+    return (teacher != null && teacher.isNotEmpty);
+  }
+
   String getLastPeriod() {
     if (timeType == TimeType.fixedTime) {
       return "";

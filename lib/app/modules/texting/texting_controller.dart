@@ -39,13 +39,11 @@ class TextingController extends GetxController {
       _listenLastMessage[i] = MessageService.instance
           .subcribeListenMessage(chatGroups[i].id, (data) {
         if (firstFetch) {
-          print(firstFetch);
           if (i == chatGroups.length - 1) {
             firstFetch = false;
           }
           return;
         }
-        print("update last msg");
         if (data.docChanges.length > 0) {
           chatGroups[i].lastMessage = Message.fromJson(
               data.docChanges.first.doc.id, data.docChanges.first.doc.data());
@@ -65,7 +63,6 @@ class TextingController extends GetxController {
       if (!fetchGroup) {
         return;
       }
-      print("new chat");
       for (var item in data.docChanges) {
         if (item.doc.data()['people']?.contains(user.uid) ?? false) {
           ChatGroup chatGroup =

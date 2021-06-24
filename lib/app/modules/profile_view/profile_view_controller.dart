@@ -8,7 +8,7 @@ class ProfileViewController extends GetxController {
   void onInit() async {
     super.onInit();
     AjentUser user = Get.arguments;
-    averageStar.value =
-        await UserService.instance.getAverageEvaluationStar(user.uid);
+    // averageStar.value =
+    //     await UserService.instance.getAverageEvaluationStar(user.uid);
   }
 }
