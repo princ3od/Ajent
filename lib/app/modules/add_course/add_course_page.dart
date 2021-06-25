@@ -177,6 +177,7 @@ class AddCoursePage extends StatelessWidget {
                       cursorColor: primaryColor,
                       decoration: primaryTextFieldDecoration,
                       controller: controller.txtCourseAddress,
+                      autofocus: false,
                     ),
                     SizedBox(
                       height: 10,
@@ -290,25 +291,25 @@ class AddCoursePage extends StatelessWidget {
                             Row(
                               children: [
                                 Expanded(
-                                    child: TextCheckBox(content: 'T2', onPressed: (val) { controller.days[0] = val;},)
+                                    child: TextCheckBox(content: 'T2', onPressed: (val) { controller.days[0] = val;}, value: controller.days[0],)
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T3', onPressed: (val) { controller.days[1] = val;},)
+                                    child: TextCheckBox(content: 'T3', onPressed: (val) { controller.days[1] = val;}, value: controller.days[1])
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T4', onPressed: (val) { controller.days[2] = val;},)
+                                    child: TextCheckBox(content: 'T4', onPressed: (val) { controller.days[2] = val;}, value: controller.days[2])
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T5', onPressed: (val) { controller.days[3] = val;},)
+                                    child: TextCheckBox(content: 'T5', onPressed: (val) { controller.days[3] = val;}, value: controller.days[3])
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T6', onPressed: (val) { controller.days[4] = val;},)
+                                    child: TextCheckBox(content: 'T6', onPressed: (val) { controller.days[4] = val;}, value: controller.days[4])
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'T7', onPressed: (val) { controller.days[5] = val;},)
+                                    child: TextCheckBox(content: 'T7', onPressed: (val) { controller.days[5] = val;}, value: controller.days[5])
                                 ),
                                 Expanded(
-                                    child: TextCheckBox(content: 'CN', onPressed: (val) { controller.days[6] = val;},)
+                                    child: TextCheckBox(content: 'CN', onPressed: (val) { controller.days[6] = val;}, value: controller.days[6])
                                 ),
                               ],
                             ),
