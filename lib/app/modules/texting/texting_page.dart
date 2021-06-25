@@ -1,8 +1,10 @@
 import 'package:ajent/app/modules/texting/widgets/chat_group_item.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'texting_controller.dart';
 
@@ -103,23 +105,28 @@ class TextingPage extends StatelessWidget {
                   decoration: searchTextfieldDecoration,
                 ),
               ),
-              Obx(
-                () => (!controller.isLoadingGroup.value)
-                    ? Expanded(
-                        child: ListView.builder(
-                          itemCount: controller.chatGroups.length,
-                          itemBuilder: (context, index) {
-                            return ChatGroupItem(
-                              chatGroup: controller.chatGroups[index],
-                              partner: controller.chatGroups[index].partner,
-                              index: index,
-                            );
-                          },
-                        ),
-                      )
-                    : Expanded(
-                        child: Center(child: CircularProgressIndicator())),
-              ),
+              Obx(() => Expanded(
+                    child: SmartRefresher(
+                      physics: BouncingScrollPhysics(),
+                      controller: controller.refreshController,
+                      onRefresh: () async {
+                        await controller.fetchChatGroup();
+                      },
+                      child: ListView.builder(
+                        itemCount: controller.chatGroups.length +
+                            ((controller.isLoadingGroup.value) ? 2 : 0),
+                        itemBuilder: (context, index) {
+                          if (index > controller.chatGroups.length - 1)
+                            return ListTileShimmer();
+                          return ChatGroupItem(
+                            chatGroup: controller.chatGroups[index],
+                            partner: controller.chatGroups[index].partner,
+                            index: index,
+                          );
+                        },
+                      ),
+                    ),
+                  )),
             ],
           ),
         ],

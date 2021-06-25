@@ -15,6 +15,7 @@ class MyCourseDetailController extends GetxController {
 
   var joinable = false.obs;
   var requestable = false.obs;
+  var editable = false.obs;
   AjentUser teacher;
   @override
   onInit() async {
@@ -31,6 +32,8 @@ class MyCourseDetailController extends GetxController {
     requestable.value = (joinable.value &&
         course.value.owner != HomeController.mainUser.uid &&
         (course.value.teacher == null || course.value.teacher.isEmpty));
+    editable.value = (HomeController.mainUser.uid == course.value.owner &&
+        course.value.status == CourseStatus.upcoming);
     isLoading.value = false;
   }
 

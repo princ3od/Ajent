@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: primaryColor,
       drawer: SideMenu(),
       floatingActionButton: Obx(() => Visibility(
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
             currentIndex: controller.tabpageIndex.value,
             selectedItemColor: Colors.black,
             unselectedItemColor: Colors.grey,
-            type:BottomNavigationBarType.fixed,
+            type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
                   label: "Trang chủ",

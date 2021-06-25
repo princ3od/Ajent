@@ -77,7 +77,7 @@ class ChatGroupItem extends StatelessWidget {
         Flexible(
           flex: 2,
           child: Text(
-            " - " + DateConverter.getTime(message.timeStamp, true),
+            " - " + DateConverter.getTimeInAgo(message.timeStamp),
             overflow: TextOverflow.clip,
             style: GoogleFonts.nunitoSans(
               fontSize: 12,

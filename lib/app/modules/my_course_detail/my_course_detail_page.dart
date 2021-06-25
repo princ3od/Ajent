@@ -18,8 +18,7 @@ class MyCourseDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final MyCourseDetailController controller =
         Get.put(MyCourseDetailController(course));
-    final bool editable = (HomeController.mainUser.uid == course.owner &&
-        course.status == CourseStatus.upcoming);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -46,13 +45,17 @@ class MyCourseDetailPage extends StatelessWidget {
                 color: Colors.black,
               ),
               onPressed: () {}),
-          if (editable)
-            IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.black,
-                ),
-                onPressed: () {}),
+          Obx(
+            () => Visibility(
+              visible: controller.editable.value,
+              child: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {}),
+            ),
+          ),
         ],
       ),
       body: Column(
