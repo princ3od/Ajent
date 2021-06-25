@@ -51,9 +51,9 @@ class SideMenu extends StatelessWidget {
                             width: double.infinity,
                             height: 40,
                             child: MaterialButton(
-                              elevation: 3,
+                              elevation: 2,
                               height: 5,
-                              color: Color.fromARGB(255, 250, 246, 246),
+                              color: Color.fromARGB(255, 255, 255, 255),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50)),
                               onPressed: () {
@@ -81,7 +81,9 @@ class SideMenu extends StatelessWidget {
             ),
             SideMenuButton(
               text: "Cài đặt",
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.SETTINGS);
+              },
             ),
             SideMenuButton(
               text: "Tùy chỉnh thông tin cá nhân",
@@ -91,7 +93,9 @@ class SideMenu extends StatelessWidget {
             ),
             SideMenuButton(
               text: "Quy định & chính sách",
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.TERMS);
+              },
             ),
             SideMenuButton(
               text: "Giới thiệu",

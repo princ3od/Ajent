@@ -1,3 +1,4 @@
+import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
 
@@ -7,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TeachingCard extends StatelessWidget {
+  final Course course;
+  TeachingCard({@required this.course});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +27,7 @@ class TeachingCard extends StatelessWidget {
                     colors: [primaryColor, Color.fromARGB(255, 255, 128, 64)])),
             child: InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.MYTEACHINGDETAIL);
+                  Get.toNamed(Routes.MYTEACHINGDETAIL, arguments: course);
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -34,22 +37,42 @@ class TeachingCard extends StatelessWidget {
                         child: Row(children: <Widget>[
                       Padding(
                         padding: EdgeInsets.all(15.0),
-                        child: CircleAvatar(
-                          backgroundImage:
-                              AssetImage("assets/images/ajent_logo.png"),
-                          radius: 40.0,
+                        child: Hero(
+                          tag: '${course.id} avatar',
+                          child: CircleAvatar(
+                            child: ClipOval(
+                              child: FadeInImage.assetNetwork(
+                                placeholder: 'assets/images/ajent_logo.png',
+                                image: course.photoUrl,
+                                width: 100,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                            radius: 40.0,
+                          ),
                         ),
                       ),
-                      Expanded(
-                        child: Text(
-                          "My Teaching Name",
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: GoogleFonts.nunitoSans(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14,
-                              color: Colors.white),
-                        ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: Get.width - 150,
+                            child: Hero(
+                              tag: '${course.id} name',
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Text(
+                                  course.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: GoogleFonts.nunitoSans(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                     ]))
                   ],

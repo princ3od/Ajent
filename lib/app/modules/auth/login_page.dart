@@ -43,10 +43,10 @@ class LoginPage extends StatelessWidget {
                       color: Colors.transparent,
                       child: Text(
                         "Ajent",
-                        style: TextStyle(
+                        style: GoogleFonts.suezOne(
                           color: Colors.white,
                           fontSize: 32,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ),
@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
                       color: Colors.transparent,
                       child: Text(
                         "Move forward",
-                        style: TextStyle(
+                        style: GoogleFonts.nunitoSans(
                           fontSize: 16,
                           color: Colors.white,
                         ),

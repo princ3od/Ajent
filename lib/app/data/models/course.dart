@@ -2,7 +2,6 @@ import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/utils/enum_converter.dart';
 import 'package:intl/intl.dart';
 
-import 'Student.dart';
 import 'Period.dart';
 import 'FixedTime.dart';
 import 'evaluation.dart';
@@ -13,15 +12,16 @@ class Course {
   String description;
   String photoUrl;
   List<String> subjects = [];
-  List<Student> students = [];
+  List<String> learners = [];
   TimeType timeType;
   String address;
   String owner;
   String teacher;
   int price;
+  int maxLearner;
   List<Period> periods = [];
   FixedTime fixedTime;
-  Evaluation evaluation = Evaluation(-1, null);
+  Map<String, Evaluation> evaluations = Map<String, Evaluation>();
   String requirements;
   CourseStatus status;
   // Course(this.id, this.name, this.description, this.photoUrl, this.timeType,
@@ -41,10 +41,14 @@ class Course {
     owner = data['owner'];
     teacher = data['teacher'];
     price = data['price'];
-    evaluation = Evaluation(data['evaluationStar'], data['evaluationContent']);
+    learners = List.from(data['learners']);
+    maxLearner = data['maxLearners'];
     requirements = data['requirements'];
   }
   Map<String, dynamic> toJson() {
+    if (timeType == TimeType.periodTime) {
+      periods.sort((a, b) => a.date.compareTo(b.date));
+    }
     return {
       'name': this.name,
       'description': this.description,
@@ -54,10 +58,12 @@ class Course {
       'owner': this.owner,
       'teacher': this.teacher,
       'price': this.price,
-      'evaluationStar': this.evaluation.star,
-      'evaluationContent': this.evaluation.content,
+      'maxLearners': this.maxLearner,
+      'learners': this.learners,
       'requirements': this.requirements,
+      'firstPeriod': getFirstPeriod(),
       'lastPeriod': getLastPeriod(),
+      'indexList': getIndexList(),
     };
   }
 
@@ -95,14 +101,75 @@ class Course {
     return result;
   }
 
+  bool hasTeacher() {
+    return (teacher != null && teacher.isNotEmpty);
+  }
+
   String getLastPeriod() {
     if (timeType == TimeType.fixedTime) {
       return "";
     }
-    periods.sort((a, b) => a.date.compareTo(b.date));
     String date =
         DateFormat("dd/MM/yyyy").format(periods[periods.length - 1].date);
     return date;
+  }
+
+  String getFirstPeriod() {
+    if (timeType == TimeType.fixedTime) {
+      return "";
+    }
+    String date = DateFormat("dd/MM/yyyy").format(periods[0].date);
+    return date;
+  }
+
+  List<String> getIndexList() {
+    List<String> result = [];
+    List<String> words = name.split(' ').toList();
+    for (var word in words) {
+      for (var i = 1; i < word.length + 1; i++) {
+        result.add(word.substring(0, i).toLowerCase());
+      }
+    }
+    for (var i = 0; i < words.length - 1; i++) {
+      String word = words[i];
+      for (var j = i + 1; j < words.length; j++) {
+        word += " " + words[j];
+        result.add(word.toLowerCase());
+      }
+    }
+    return result;
+  }
+
+  String getReadablePrice() {
+    if (price == null) price = 0;
+    return NumberFormat.currency(locale: "vi_VN", symbol: "VNĐ").format(price);
+  }
+
+  CourseStatus getCourseStatus() {
+    DateTime now = DateTime.now();
+    if (timeType == TimeType.fixedTime) {
+      if (now.isAfter(fixedTime.endDate.add(Duration(days: 1)))) {
+        status = CourseStatus.fininished;
+      } else if (now.isBefore(fixedTime.startDate)) {
+        status = CourseStatus.upcoming;
+      } else {
+        status = CourseStatus.ongoing;
+      }
+    } else {
+      if (now
+          .isAfter(periods[periods.length - 1].date.add(Duration(days: 1)))) {
+        status = CourseStatus.fininished;
+      } else if (now.isBefore(periods[0].date)) {
+        status = CourseStatus.upcoming;
+      } else {
+        status = CourseStatus.ongoing;
+      }
+    }
+    if ((teacher == null || teacher.isEmpty || learners.length <= 0) &&
+        status != CourseStatus.fininished) {
+      status = CourseStatus.upcoming;
+    }
+    return status;
   }
 }
 

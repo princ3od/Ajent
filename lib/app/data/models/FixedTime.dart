@@ -14,8 +14,9 @@ class FixedTime {
     day = List<bool>.from(data['day']);
     startDate = DateFormat("dd/MM/yyyy").parse(data['startDate']);
     endDate = DateFormat("dd/MM/yyyy").parse(data['endDate']);
-    lessonTime = LessonTime(DateConverter.stringToTime(data['startTime']),
-        DateConverter.stringToTime(data['endTime']));
+    lessonTime = LessonTime()
+      ..startTime = DateConverter.stringToTime(data['startTime'])
+      ..endTime = DateConverter.stringToTime(data['endTime']);
   }
   Map<String, dynamic> toJson() {
     return {

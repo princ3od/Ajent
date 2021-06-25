@@ -1,4 +1,5 @@
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/my_course_detail/my_course_detail_controller.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class MyCourseDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final MyCourseDetailController controller =
         Get.put(MyCourseDetailController(course));
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -36,6 +38,25 @@ class MyCourseDetailPage extends StatelessWidget {
           ),
           onPressed: () => Get.back(),
         ),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.share,
+                color: Colors.black,
+              ),
+              onPressed: () {}),
+          Obx(
+            () => Visibility(
+              visible: controller.editable.value,
+              child: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {}),
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -88,14 +109,10 @@ class MyCourseDetailPage extends StatelessWidget {
                 },
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-                  child: Obx(
-                    () => Text(
-                      controller.course.value.evaluation.isEvaluate()
-                          ? "Xem đánh giá của bạn"
-                          : "Đánh giá",
-                      style: GoogleFonts.nunitoSans(
-                          fontSize: 12, fontWeight: FontWeight.w700),
-                    ),
+                  child: Text(
+                    "Đánh giá",
+                    style: GoogleFonts.nunitoSans(
+                        fontSize: 12, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -123,7 +140,7 @@ class MyCourseDetailPage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                                 child: TextFormField(
-                                  initialValue: course.id,
+                                  initialValue: course.id.toUpperCase(),
                                   decoration: primaryTextFieldDecoration,
                                   cursorColor: primaryColor,
                                   readOnly: true,
@@ -249,6 +266,17 @@ class MyCourseDetailPage extends StatelessWidget {
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w600, fontSize: 12),
                               ),
+                              Container(
+                                height: 50,
+                                child: Align(
+                                  alignment: FractionalOffset.bottomCenter,
+                                  child: Center(
+                                      child: Text("© Ajent ",
+                                          style: GoogleFonts.nunitoSans(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize: 12))),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -256,16 +284,71 @@ class MyCourseDetailPage extends StatelessWidget {
                     ),
             ),
           ),
-          Container(
-            height: 50,
-            child: Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Center(
-                  child: Text("© Ajent ",
-                      style: GoogleFonts.nunitoSans(
-                          fontWeight: FontWeight.w100, fontSize: 12))),
-            ),
-          )
+          Obx(
+            () => (controller.requestable.value || controller.joinable.value)
+                ? Visibility(
+                    visible: (MediaQuery.of(context).viewInsets.bottom == 0),
+                    child: Container(
+                      height: kBottomNavigationBarHeight + 15,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              if (controller.requestable.value)
+                                ElevatedButton(
+                                  onPressed: () {
+                                    //create request
+                                  },
+                                  style: orangeButtonStyle,
+                                  child: (controller.isRequesting.value)
+                                      ? SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Colors.white),
+                                          ),
+                                        )
+                                      : Text("Ứng tuyển dạy",
+                                          style: GoogleFonts.nunitoSans(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w700)),
+                                ),
+                              if (controller.joinable.value)
+                                ElevatedButton(
+                                  onPressed: () {
+                                    controller.joinCourse();
+                                  },
+                                  style: (controller.requestable.value)
+                                      ? whiteButtonStyle
+                                      : orangeButtonStyle,
+                                  child: (controller.isJoining.value)
+                                      ? SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Colors.white),
+                                          ),
+                                        )
+                                      : Text("Tham gia",
+                                          style: GoogleFonts.nunitoSans(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w700)),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : SizedBox(),
+          ),
         ],
       ),
     );

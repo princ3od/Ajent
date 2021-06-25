@@ -2,17 +2,20 @@ import 'dart:io';
 
 import 'package:ajent/app/data/models/FixedTime.dart';
 import 'package:ajent/app/data/models/LessonTime.dart';
-import 'package:ajent/app/data/models/Student.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/Period.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/storage_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
+import 'package:ajent/app/modules/my_course_detail/my_course_detail_page.dart';
+import 'package:ajent/app/modules/my_teaching_detail/my_teaching_detail_page.dart';
+import 'package:ajent/app/modules/teaching/teaching_controller.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class AddCourseController extends GetxController {
   var topics = ['Toán', 'Tiếng anh'];
@@ -26,12 +29,14 @@ class AddCourseController extends GetxController {
 
   RxList<Period> periods = RxList<Period>();
 
+  List<String> selectedDays;
   var days = List.generate(7, (index) => false);
   var startTime = TimeOfDay(hour: 7, minute: 0).obs;
   var endTime = TimeOfDay(hour: 9, minute: 0).obs;
 
   var startDate = DateTime.now().obs;
   var endDate = DateTime.now().obs;
+  var lessionTime = LessonTime();
 
   RxList<String> learners = RxList<String>();
 
@@ -51,13 +56,16 @@ class AddCourseController extends GetxController {
     String path = await _getImage();
     if (path != null) {
       imagePath.value = path;
+      print(path);
     }
   }
 
   onAddCourse() async {
+    if (isAddingCourse.value) {
+      return;
+    }
     isAddingCourse.value = true;
     String imageUrl = '';
-    imagePath.value = '';
     if (imagePath.value != null && imagePath.value.isNotEmpty)
       imageUrl = await StorageService.instance
           .uploadCourseImage(File(imagePath.value));
@@ -66,10 +74,10 @@ class AddCourseController extends GetxController {
       try {
         course = Course()
           ..name = txtCourseName.text
+          ..owner = HomeController.mainUser.uid
           ..description = txtCourseDescription.text
-          ..students =
-              List.generate(int.parse(txtStudentNum.text), (index) => null)
-          ..price = int.parse(txtCoursePrice.text)
+          ..maxLearner = num.parse(txtStudentNum.text)
+          ..price = int.parse(txtCoursePrice.text.replaceAll(".", ""))
           ..address = txtCourseAddress.text
           ..timeType = selectedTimeType.value
           ..requirements = txtCourseRequirements.text
@@ -82,40 +90,55 @@ class AddCourseController extends GetxController {
       }
       if (pageIndex == 1) {
         course.teacher = '';
-        course.owner = HomeController.mainUser.uid;
+        course.learners.add(HomeController.mainUser.uid);
       } else {
         course.teacher = HomeController.mainUser.uid;
-        course.owner = '';
+        course.learners = [];
       }
       if (selectedTimeType.value == TimeType.periodTime)
         course.periods = periods;
-      else
+      else {
+        lessionTime
+          ..startTime = startTime.value
+          ..endTime = endTime.value;
         course.fixedTime = FixedTime(
           days,
           startDate.value,
           endDate.value,
-          LessonTime(
-            startTime.value,
-            endTime.value,
-          ),
+          lessionTime,
         );
+      }
       course = await CourseService.instance.addCourse(course);
       if (course != null) {
-        isAddingCourse.value = false;
         course.status = CourseStatus.upcoming;
-        Get.snackbar("Thông báo", "Thêm khoá học thành công!");
-        await Future.delayed(Duration(seconds: 1));
-        await Get.find<LearningController>().fetchCourses();
         if (pageIndex == 1) {
-          Get.offAndToNamed(Routes.MYCOURSEDETAIL, arguments: course);
+          Get.find<LearningController>().onTabChanged(course.status.index);
+          Get.find<LearningController>().fetchCourses();
+          Get.offNamed(Routes.MYCOURSEDETAIL, arguments: course);
         } else {
-          Get.offAndToNamed(Routes.MYTEACHINGDETAIL, arguments: course);
+          Get.find<TeachingController>().onTabChanged(course.status.index);
+          Get.find<TeachingController>().fetchCourses();
+          Get.offNamed(Routes.MYTEACHINGDETAIL, arguments: course);
         }
+        isAddingCourse.value = false;
       } else {
         Get.snackbar("Lỗi", "Thêm khoá học thất bại!");
         isAddingCourse.value = false;
       }
     }
+  }
+
+  formatCurrencyText(String value) {
+    if (value.isEmpty) {
+      txtCoursePrice.clear();
+      return;
+    }
+    txtCoursePrice.text = NumberFormat("#,###")
+        .format(num.parse(value.replaceAll(".", "")))
+        .replaceAll(",", ".");
+    txtCoursePrice.selection = TextSelection(
+        baseOffset: txtCoursePrice.text.length,
+        extentOffset: txtCoursePrice.text.length);
   }
 
   Future<String> _getImage() async {
