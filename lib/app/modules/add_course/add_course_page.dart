@@ -326,17 +326,40 @@ class AddCoursePage extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Row(
                               children: [
-                                Expanded(child: TimePickingButton(
-                                  time: controller.startTime.value,
-                                  onPressed: () async {
-                                    controller.startTime.value = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay(hour: 0, minute: 0)
-                                    );
-                                  },
-                                )),
+                                Expanded(
+                                    child: Obx(
+                                          () => TimePickingButton(
+                                        time: controller.startTime.value,
+                                        onPressed: () async {
+                                          controller.startTime.value =
+                                          await showTimePicker(
+                                              context: context,
+                                              initialTime:
+                                              controller.startTime.value);
+                                          if (controller.startTime.value?.hour ==
+                                              null ??
+                                              false ||
+                                                  controller.startTime.value
+                                                      ?.minute ==
+                                                      null ??
+                                              false) {
+                                            return;
+                                          }
+                                          controller.endTime.value = TimeOfDay(
+                                              hour: controller
+                                                  .startTime.value.hour +
+                                                  1,
+                                              minute: controller
+                                                  .startTime.value.minute +
+                                                  30);
+                                        },
+                                      ),
+                                    )),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -344,127 +367,24 @@ class AddCoursePage extends StatelessWidget {
                                     style: GoogleFonts.nunitoSans(),
                                   ),
                                 ),
-                                Expanded(child: TimePickingButton(
-                                  time: controller.endTime.value,
-                                  onPressed: () async {
-                                    controller.endTime.value = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay(hour: 0, minute: 0)
-                                    );
-                                  },
-                                ))
+                                Expanded(
+                                    child: Obx(
+                                          () => TimePickingButton(
+                                        time: controller.endTime.value,
+                                        onPressed: () async {
+                                          controller.endTime.value =
+                                          await showTimePicker(
+                                              context: context,
+                                              initialTime:
+                                              controller.endTime.value);
+                                        },
+                                      ),
+                                    ))
                               ],
                             )
                           ],
                         )
-                      ),
-                          visible: (controller.selectedTimeType.value ==
-                                  TimeType.fixedTime)
-                              ? true
-                              : false,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: TextCheckBox(
-                                    content: 'T2',
-                                    onPressed: (val) =>
-                                        controller.days[0] = val,
-                                  )),
-                                  Expanded(
-                                      child: TextCheckBox(
-                                    content: 'T3',
-                                    onPressed: (val) =>
-                                        controller.days[1] = val,
-                                  )),
-                                  Expanded(
-                                      child: TextCheckBox(
-                                    content: 'T4',
-                                    onPressed: (val) =>
-                                        controller.days[2] = val,
-                                  )),
-                                  Expanded(
-                                      child: TextCheckBox(
-                                    content: 'T5',
-                                    onPressed: (val) =>
-                                        controller.days[3] = val,
-                                  )),
-                                  Expanded(
-                                      child: TextCheckBox(
-                                    content: 'T6',
-                                    onPressed: (val) =>
-                                        controller.days[4] = val,
-                                  )),
-                                  Expanded(
-                                      child: TextCheckBox(
-                                    content: 'T7',
-                                    onPressed: (val) =>
-                                        controller.days[5] = val,
-                                  )),
-                                  Expanded(
-                                      child: TextCheckBox(
-                                    content: 'CN',
-                                    onPressed: (val) =>
-                                        controller.days[6] = val,
-                                  )),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: Obx(
-                                    () => TimePickingButton(
-                                      time: controller.startTime.value,
-                                      onPressed: () async {
-                                        controller.startTime.value =
-                                            await showTimePicker(
-                                                context: context,
-                                                initialTime:
-                                                    controller.startTime.value);
-                                        if (controller.startTime.value?.hour ==
-                                                null ??
-                                            false ||
-                                                controller.startTime.value
-                                                        ?.minute ==
-                                                    null ??
-                                            false) {
-                                          return;
-                                        }
-                                        controller.endTime.value = TimeOfDay(
-                                            hour: controller
-                                                    .startTime.value.hour +
-                                                1,
-                                            minute: controller
-                                                    .startTime.value.minute +
-                                                30);
-                                      },
-                                    ),
-                                  )),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'đến',
-                                      style: GoogleFonts.nunitoSans(),
-                                    ),
-                                  ),
-                                  Expanded(
-                                      child: Obx(
-                                    () => TimePickingButton(
-                                      time: controller.endTime.value,
-                                      onPressed: () async {
-                                        controller.endTime.value =
-                                            await showTimePicker(
-                                                context: context,
-                                                initialTime:
-                                                    controller.endTime.value);
-                                      },
-                                    ),
-                                  ))
-                                ],
-                              )
-                            ],
-                          )),
+                      )
                     ),
                     SizedBox(
                       height: 10,
