@@ -178,6 +178,7 @@ class AddCoursePage extends StatelessWidget {
                       cursorColor: primaryColor,
                       decoration: primaryTextFieldDecoration,
                       controller: controller.txtCourseAddress,
+                      autofocus: false,
                     ),
                     SizedBox(
                       height: 10,
@@ -424,23 +425,39 @@ class AddCoursePage extends StatelessWidget {
                             Row(
                               children: [
                                 Expanded(
-                                  child: Obx(() => DatePickingButton(
-                                        date: controller.startDate.value,
-                                        onPressed: () async {
-                                          controller.startDate.value =
-                                              await showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime.now(),
-                                                  firstDate: DateTime.now(),
-                                                  lastDate: DateTime(
-                                                      DateTime.now().year +
-                                                          10));
-                                          controller.endDate.value = controller
-                                              .startDate.value
-                                              .add(Duration(days: 7));
-                                        },
-                                      )),
+                                    child: TextCheckBox(content: 'T2', onPressed: (val) { controller.days[0] = val;}, value: controller.days[0],)
                                 ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T3', onPressed: (val) { controller.days[1] = val;}, value: controller.days[1])
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T4', onPressed: (val) { controller.days[2] = val;}, value: controller.days[2])
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T5', onPressed: (val) { controller.days[3] = val;}, value: controller.days[3])
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T6', onPressed: (val) { controller.days[4] = val;}, value: controller.days[4])
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'T7', onPressed: (val) { controller.days[5] = val;}, value: controller.days[5])
+                                ),
+                                Expanded(
+                                    child: TextCheckBox(content: 'CN', onPressed: (val) { controller.days[6] = val;}, value: controller.days[6])
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(child: TimePickingButton(
+                                  time: controller.startTime.value,
+                                  onPressed: () async {
+                                    controller.startTime.value = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay(hour: 0, minute: 0)
+                                    );
+                                  },
+                                )),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
