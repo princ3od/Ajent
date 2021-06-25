@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TextCheckBox extends StatefulWidget {
-  TextCheckBox({Key key, @required String content, void Function(bool) onPressed}) : super(key: key){
+  TextCheckBox({Key key, @required String content, bool value = false, void Function(bool) onPressed}) : super(key: key){
     this.content = content;
     this.onPressed = onPressed;
+    this._value = value;
   }
 
-  bool _value = false;
+  bool _value;
   String content;
   void Function(bool) onPressed;
 
