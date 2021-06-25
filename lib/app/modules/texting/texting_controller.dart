@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import 'package:ajent/app/data/models/chat_group.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TextingController extends GetxController {
   bool firstFetch = true;
@@ -20,6 +21,7 @@ class TextingController extends GetxController {
   var chatGroups = <ChatGroup>[].obs;
 
   StreamSubscription<QuerySnapshot> _listenNewChat;
+  RefreshController refreshController = RefreshController();
   var _listenLastMessage = <StreamSubscription<QuerySnapshot>>[];
   @override
   void onInit() async {
@@ -30,6 +32,8 @@ class TextingController extends GetxController {
 
   fetchChatGroup() async {
     isLoadingGroup.value = true;
+    firstFetch = true;
+    fetchGroup = false;
     chatGroups.value = await ChatGroupService.instance.getChatGroups(user.uid);
     chatGroups.sort(
         (a, b) => b.lastMessage.timeStamp.compareTo(a.lastMessage.timeStamp));
@@ -53,6 +57,7 @@ class TextingController extends GetxController {
         }
       });
     }
+    refreshController.refreshCompleted();
     fetchGroup = true;
     isLoadingGroup.value = false;
   }

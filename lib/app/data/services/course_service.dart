@@ -148,6 +148,9 @@ class CourseService implements CollectionInterface {
         .collection('evaluations')
         .get()
         .then((value) {
+      if (value.docs.isEmpty) {
+        return evaluations;
+      }
       for (var item in value.docs) {
         Evaluation evaluation = Evaluation.fromJson(item.id, item.data());
         evaluations[item.id] = evaluation;
