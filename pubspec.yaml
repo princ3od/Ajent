@@ -27,6 +27,7 @@ dependencies:
   chips_choice: ^2.0.1
   cloud_firestore: ^2.2.0
   cupertino_icons: ^1.0.2
+  date_picker_timeline: ^1.2.3
   firebase_auth: ^1.2.0
   firebase_core: ^1.2.0
   firebase_storage: ^8.1.0

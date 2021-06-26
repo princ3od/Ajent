@@ -38,6 +38,11 @@ class SearchController extends GetxController {
 
   showFilter(BuildContext context) {
     showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20.0),
+        topRight: Radius.circular(20.0),
+      )),
       context: context,
       builder: (context) {
         return Column(

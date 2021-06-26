@@ -30,12 +30,18 @@ class DateConverter {
         .format(time);
   }
 
+  static String getTimeInDate(int timeStamp) {
+    final time = DateTime.fromMillisecondsSinceEpoch(timeStamp);
+    return DateFormat("MMM dd, yyyy").format(time);
+  }
+
   static String getTimeInAgo(int timeStamp) {
     final now = DateTime.now();
     final time = DateTime.fromMillisecondsSinceEpoch(timeStamp);
     final timeDistance = now.difference(time);
-    if (timeDistance.inMinutes.abs() < 1)
-      return timeDistance.inMinutes.abs().toString() + 'ss'.tr + 'ago'.tr;
+    if (timeDistance.inMinutes.abs() < 1) {
+      return 'now'.tr;
+    }
     if (timeDistance.inMinutes.abs() < 60)
       return timeDistance.inMinutes.abs().toString() + 'mm'.tr + 'ago'.tr;
     if (timeDistance.inHours.abs() < 24)

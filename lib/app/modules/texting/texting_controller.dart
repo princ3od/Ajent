@@ -51,6 +51,7 @@ class TextingController extends GetxController {
         if (data.docChanges.length > 0) {
           chatGroups[i].lastMessage = Message.fromJson(
               data.docChanges.first.doc.id, data.docChanges.first.doc.data());
+          chatGroups.insert(0, chatGroups.removeAt(i));
           if (chatGroups[i].lastMessage.senderUid != user.uid)
             chatGroups[i].seen = false;
           chatGroups.refresh();
