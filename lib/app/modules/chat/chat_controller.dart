@@ -128,7 +128,7 @@ class ChatController extends GetxController {
     final lastTime =
         DateTime.fromMillisecondsSinceEpoch(messages[index + 1].timeStamp)
             .toLocal();
-    if (time.difference(lastTime).inMinutes > 15) return true;
+    if (time.difference(lastTime).inMinutes > 5) return true;
     return false;
   }
 

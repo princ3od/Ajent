@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
+import '../values/lang/localization_service.dart';
+
 class DateConverter {
   static String timeToString(TimeOfDay time) {
     final now = new DateTime.now();
@@ -23,16 +25,21 @@ class DateConverter {
     if (timeDistance.inHours.abs() < 24)
       return DateFormat("HH:mm").format(time);
     if (timeDistance.inDays.abs() < 7)
-      return DateFormat("HH:mm, EE dd").format(time);
+      return DateFormat("HH:mm, EE dd", LocalizationService.getLocaleString())
+          .format(time);
     if (timeDistance.inDays.abs() < 365)
-      return DateFormat((dateOnly) ? "MMM dd" : "HH:mm MMM dd").format(time);
-    return DateFormat((dateOnly) ? "MMM dd, yyyy" : "HH:mm MMM dd, yyyy")
+      return DateFormat((dateOnly) ? "MMM dd" : "HH:mm MMM dd",
+              LocalizationService.getLocaleString())
+          .format(time);
+    return DateFormat((dateOnly) ? "MMM dd, yyyy" : "HH:mm MMM dd, yyyy",
+            LocalizationService.getLocaleString())
         .format(time);
   }
 
   static String getTimeInDate(int timeStamp) {
     final time = DateTime.fromMillisecondsSinceEpoch(timeStamp);
-    return DateFormat("MMM dd, yyyy").format(time);
+    return DateFormat("MMM dd, yyyy", LocalizationService.getLocaleString())
+        .format(time);
   }
 
   static String getTimeInAgo(int timeStamp) {
@@ -50,6 +57,7 @@ class DateConverter {
       return timeDistance.inDays.abs().toString() + 'dd'.tr + 'ago'.tr;
     if (timeDistance.inDays.abs() < 365)
       return (timeDistance.inDays.abs() / 30).toString() + 'mm'.tr + 'ago'.tr;
-    return DateFormat("MMM dd, yyyy").format(time);
+    return DateFormat("MMM dd, yyyy", LocalizationService.getLocaleString())
+        .format(time);
   }
 }
