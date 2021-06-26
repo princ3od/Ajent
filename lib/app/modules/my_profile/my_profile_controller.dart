@@ -1,19 +1,15 @@
 import 'dart:io';
 import 'package:ajent/app/data/models/Degree.dart';
-import 'package:ajent/app/data/models/Student.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/services/storage_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
-import 'package:ajent/app/global_widgets/user_avatar.dart';
-import 'package:ajent/app/modules/chat/widgets/full_image_page.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:ajent/core/utils/file_utils.dart';
 
 class MyProfileController extends GetxController {
   var tabIndex = 0.obs;
@@ -94,8 +90,7 @@ class MyProfileController extends GetxController {
 
   Future<void> onChangeAvatar() async {
     isUpdatingAvatar.value = true;
-    final picker = ImagePicker();
-    var file = await _getImage(picker);
+    File file = await FileUtilitiy.getImage();
     String returnUrl;
     if (file != null) {
       returnUrl =
@@ -112,19 +107,8 @@ class MyProfileController extends GetxController {
     isUpdatingAvatar.value = false;
   }
 
-  Future<File> _getImage(ImagePicker picker) async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-    if (pickedFile != null) {
-      return File(pickedFile.path);
-    } else {
-      print('No image selected.');
-      return null;
-    }
-  }
-
   Future<void> _onTakeImage() async {
-    var imagePicker = new ImagePicker();
-    imageDegreeFile.value = await _getImage(imagePicker);
+    imageDegreeFile.value = await FileUtilitiy.getImage();
   }
 
   Future<void> _onUploadImage() async {
