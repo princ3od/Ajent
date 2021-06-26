@@ -75,10 +75,11 @@ const Map<String, String> en = {
   'terms_title_label': 'Quy định và chính sách',
   'see_ratings_label': 'Xem đánh giá',
   'ago': ' ago',
-  'ss': " seconds",
+  'now': 'now',
   'mm': ' minutes',
   'hh': ' hours',
   'dd': ' days',
   'MM': ' months',
   'you': 'You',
+  'texting': 'Messages',
 };

@@ -41,7 +41,6 @@ class ChatGroupItem extends StatelessWidget {
         Get.find<TextingController>().chatGroups[index].seen = true;
         Get.find<TextingController>().chatGroups.refresh();
         FocusManager.instance.primaryFocus.unfocus();
-        print("tap");
         Get.toNamed(Routes.CHATTING, arguments: partner);
       },
     );

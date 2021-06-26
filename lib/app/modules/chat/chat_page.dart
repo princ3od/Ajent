@@ -45,6 +45,13 @@ class ChatPage extends StatelessWidget {
             ],
           ),
         ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.info),
+              onPressed: () {
+                Get.toNamed(Routes.PROFILEVIEW, arguments: controller.partner);
+              })
+        ],
       ),
       body: Stack(
         children: <Widget>[
@@ -60,20 +67,24 @@ class ChatPage extends StatelessWidget {
                           child: ListView.builder(
                             itemCount: controller.messages.length,
                             itemBuilder: (context, index) {
-                              return ListTile(
-                                dense: true,
-                                visualDensity:
-                                    VisualDensity(horizontal: 0, vertical: -4),
-                                title: MessageItem(
-                                  message: controller.messages[index],
-                                  showTime: controller.needShowTime(index),
-                                  fromPartner: (controller.user.uid !=
-                                      controller.messages[index].senderUid),
-                                  partner: controller.partner,
-                                  showAvatar:
-                                      (controller.messages[index].type ==
-                                              MessageType.image ||
-                                          controller.isLastLeft(index)),
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: (index == 0) ? 5 : 0),
+                                child: ListTile(
+                                  dense: true,
+                                  visualDensity: VisualDensity(
+                                      horizontal: 0, vertical: -4),
+                                  title: MessageItem(
+                                    message: controller.messages[index],
+                                    showTime: controller.needShowTime(index),
+                                    fromPartner: (controller.user.uid !=
+                                        controller.messages[index].senderUid),
+                                    partner: controller.partner,
+                                    showAvatar:
+                                        (controller.messages[index].type ==
+                                                MessageType.image ||
+                                            controller.isLastLeft(index)),
+                                  ),
                                 ),
                               );
                             },

@@ -86,10 +86,11 @@ const Map<String, String> vi = {
   'terms_title_label': 'Quy định và chính sách',
   'see_ratings_label': 'Xem đánh giá',
   'ago': ' trước',
-  'ss': ' giây',
+  'now': 'bây giờ',
   'mm': ' phút',
   'hh': ' tiếng',
   'dd': ' ngày',
   'MM': ' tháng',
   'you': 'Bạn',
+  'texting': 'Tin nhắn',
 };

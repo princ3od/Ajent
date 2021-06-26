@@ -188,6 +188,11 @@ class MyProfileController extends GetxController {
   showAddDegreeSheet(BuildContext context) async {
     resetDegreeBottomSheet();
     showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20.0),
+        topRight: Radius.circular(20.0),
+      )),
       context: context,
       builder: (context) {
         return SingleChildScrollView(
