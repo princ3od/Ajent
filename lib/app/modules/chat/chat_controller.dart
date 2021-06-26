@@ -10,8 +10,9 @@ import 'package:ajent/app/data/services/storage_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:ajent/core/utils/file_utils.dart';
 
 class ChatController extends GetxController {
   AjentUser user = HomeController.mainUser;
@@ -102,7 +103,7 @@ class ChatController extends GetxController {
   }
 
   sendImage() async {
-    File image = await _getImage();
+    File image = await FileUtilitiy.getImage();
 
     if (image == null) return;
 
@@ -139,17 +140,6 @@ class ChatController extends GetxController {
       return true;
     } else {
       return false;
-    }
-  }
-
-  Future<File> _getImage() async {
-    final pickedFile =
-        await ImagePicker().getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      return File(pickedFile.path);
-    } else {
-      print('No image selected.');
-      return null;
     }
   }
 
