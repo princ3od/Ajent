@@ -16,7 +16,13 @@ class MyCourseDetailController extends GetxController {
   var joinable = false.obs;
   var requestable = false.obs;
   var editable = false.obs;
+
+  var scrollOffset = (0.0).obs;
+  var showMore = false.obs;
   AjentUser teacher;
+  var learners = <AjentUser>[].obs;
+
+  String timeOverall = '';
   @override
   onInit() async {
     super.onInit();
@@ -25,6 +31,10 @@ class MyCourseDetailController extends GetxController {
       teacher = await UserService.instance.getUser(course.value.teacher);
     else
       teacher = null;
+    if (course.value.learners != null) {
+      learners.value =
+          await CourseService.instance.getLearners(course.value.learners);
+    }
     course.value.evaluations =
         await CourseService.instance.getEvaluations(course.value.id);
     joinable.value = (course.value.status == CourseStatus.upcoming &&
@@ -34,6 +44,11 @@ class MyCourseDetailController extends GetxController {
         (course.value.teacher == null || course.value.teacher.isEmpty));
     editable.value = (HomeController.mainUser.uid == course.value.owner &&
         course.value.status == CourseStatus.upcoming);
+    if (course.value.timeType == TimeType.periodTime) {
+      timeOverall = '--' + 'hh'.tr + ' (${course.value.periods.length} buổi)';
+    } else {
+      timeOverall = '--' + 'hh'.tr;
+    }
     isLoading.value = false;
   }
 
@@ -45,7 +60,10 @@ class MyCourseDetailController extends GetxController {
     isJoining.value = true;
     course.value.learners.add(HomeController.mainUser.uid);
     await CourseService.instance.updateLearnners(course.value);
+    var user = await UserService.instance.getUser(HomeController.mainUser.uid);
+    learners.insert(0, user);
     isJoining.value = false;
     joinable.value = false;
+    requestable.value = false;
   }
 }

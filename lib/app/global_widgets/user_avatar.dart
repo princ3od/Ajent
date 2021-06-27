@@ -14,7 +14,7 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.white60,
       radius: size * 1.0,
       child: ClipOval(
         child: FadeInImage.assetNetwork(

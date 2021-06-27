@@ -60,4 +60,19 @@ class DateConverter {
     return DateFormat("MMM dd, yyyy", LocalizationService.getLocaleString())
         .format(time);
   }
+
+  static List<String> weekDays() {
+    return [
+      DateTime(2000, 1, 3, 1),
+      DateTime(2000, 1, 4, 1),
+      DateTime(2000, 1, 5, 1),
+      DateTime(2000, 1, 6, 1),
+      DateTime(2000, 1, 7, 1),
+      DateTime(2000, 1, 8, 1),
+      DateTime(2000, 1, 9, 1)
+    ]
+        .map((day) => DateFormat("EEE", LocalizationService.getLocaleString())
+            .format(day))
+        .toList();
+  }
 }
