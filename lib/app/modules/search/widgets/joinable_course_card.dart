@@ -1,4 +1,5 @@
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,10 @@ class JoinableCourseCard extends StatelessWidget {
             elevation: 4,
             color: Color.fromARGB(255, 246, 243, 243),
             child: InkWell(
-                onTap: () {
-                  Get.toNamed(Routes.MYCOURSEDETAIL, arguments: course);
+                onTap: () async {
+                  Course fullCourse =
+                      await CourseService.instance.getCourse(course.id);
+                  Get.toNamed(Routes.MYCOURSEDETAIL, arguments: fullCourse);
                 },
                 child: Row(
                   children: [

@@ -24,6 +24,7 @@ class Course {
   Map<String, Evaluation> evaluations = Map<String, Evaluation>();
   String requirements;
   CourseStatus status;
+  int postDate;
   // Course(this.id, this.name, this.description, this.photoUrl, this.timeType,
   //     this.address, this.owner, this.teacher, this.price, this.requirements,
   //     [this.subjects,
@@ -43,6 +44,7 @@ class Course {
     price = data['price'];
     learners = List.from(data['learners']);
     maxLearner = data['maxLearners'];
+    postDate = data['postDate'];
     requirements = data['requirements'];
   }
   Map<String, dynamic> toJson() {
@@ -61,6 +63,7 @@ class Course {
       'maxLearners': this.maxLearner,
       'learners': this.learners,
       'requirements': this.requirements,
+      'postDate': this.postDate,
       'firstPeriod': getFirstPeriod(),
       'lastPeriod': getLastPeriod(),
       'indexList': getIndexList(),
@@ -170,6 +173,18 @@ class Course {
       status = CourseStatus.upcoming;
     }
     return status;
+  }
+
+  double getTotalHours() {
+    double result = 0;
+    if (timeType == TimeType.periodTime) {
+      for (var period in periods) {
+        result += period.lessonTime.getTotalTime();
+      }
+    } else {
+      result = fixedTime.getTotalTime();
+    }
+    return result;
   }
 }
 

@@ -83,5 +83,6 @@ const Map<String, String> en = {
   'you': 'You',
   'texting': 'Messages',
   'gallery': 'From gallery',
-  'camera': 'From camera'
+  'camera': 'From camera',
+  'week': ' weeks',
 };

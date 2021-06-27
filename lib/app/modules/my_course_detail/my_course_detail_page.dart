@@ -62,12 +62,19 @@ class MyCourseDetailPage extends StatelessWidget {
                   onPressed: () {}),
             ),
           ),
-          IconButton(
-              icon: Icon(
-                Icons.info,
-                color: Colors.black,
-              ),
-              onPressed: () {}),
+          Obx(
+            () => Visibility(
+              visible: !controller.isLoading.value,
+              child: IconButton(
+                  icon: Icon(
+                    Icons.info,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    controller.showMoreInfo(context);
+                  }),
+            ),
+          ),
         ],
       ),
       body: Center(
@@ -131,13 +138,13 @@ class MyCourseDetailPage extends StatelessWidget {
                         child: NotificationListener<ScrollUpdateNotification>(
                           onNotification: (notification) {
                             controller.scrollOffset.value +=
-                                notification.scrollDelta / 6;
+                                notification.scrollDelta / 8;
                             if (controller.scrollOffset.value < 0) {
                               controller.scrollOffset.value = 0;
                               return false;
                             }
-                            if (controller.scrollOffset.value > 20) {
-                              controller.scrollOffset.value = 20;
+                            if (controller.scrollOffset.value > 25) {
+                              controller.scrollOffset.value = 25;
                               return false;
                             }
                             return true;

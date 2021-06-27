@@ -2,11 +2,12 @@ import 'package:ajent/app/data/models/course.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 
 class CourseOverall extends StatelessWidget {
   final titleStyle = GoogleFonts.nunitoSans(fontSize: 12, color: Colors.grey);
   final contentStyle = GoogleFonts.nunitoSans(
-      fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
+      fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold);
   final Course course;
   CourseOverall({@required this.course});
   @override
@@ -34,7 +35,8 @@ class CourseOverall extends StatelessWidget {
                         style: titleStyle,
                       ),
                       Text(
-                        "12 giờ",
+                        "~${course.getTotalHours().toStringAsFixed(0)}" +
+                            'hh'.tr,
                         style: contentStyle,
                       ),
                     ],

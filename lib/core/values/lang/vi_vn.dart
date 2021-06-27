@@ -94,5 +94,6 @@ const Map<String, String> vi = {
   'you': 'Bạn',
   'texting': 'Tin nhắn',
   'gallery': 'Từ thư viện ảnh',
-  'camera': 'Từ máy ảnh'
+  'camera': 'Từ máy ảnh',
+  'week': ' tuần',
 };
