@@ -25,20 +25,20 @@ class DateConverter {
     if (timeDistance.inHours.abs() < 24)
       return DateFormat("HH:mm").format(time);
     if (timeDistance.inDays.abs() < 7)
-      return DateFormat("HH:mm, EE dd", LocalizationService.getLocaleString())
+      return DateFormat("HH:mm, EE", LocalizationService.getLocaleString())
           .format(time);
     if (timeDistance.inDays.abs() < 365)
-      return DateFormat((dateOnly) ? "MMM dd" : "HH:mm MMM dd",
+      return DateFormat((dateOnly) ? "dd MMM" : "HH:mm dd MMM",
               LocalizationService.getLocaleString())
           .format(time);
-    return DateFormat((dateOnly) ? "MMM dd, yyyy" : "HH:mm MMM dd, yyyy",
+    return DateFormat((dateOnly) ? "dd MMM, yyyy" : "HH:mm dd MMM, yyyy",
             LocalizationService.getLocaleString())
         .format(time);
   }
 
   static String getTimeInDate(int timeStamp) {
     final time = DateTime.fromMillisecondsSinceEpoch(timeStamp);
-    return DateFormat("MMM dd, yyyy", LocalizationService.getLocaleString())
+    return DateFormat("dd MMM, yyyy", LocalizationService.getLocaleString())
         .format(time);
   }
 

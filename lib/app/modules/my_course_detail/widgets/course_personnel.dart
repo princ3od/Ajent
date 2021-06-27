@@ -1,5 +1,6 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
+import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,23 +28,28 @@ class CoursePersonnel extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   if (teacher != null)
-                    Row(
-                      children: [
-                        UserAvatar(user: teacher, size: 16),
-                        SizedBox(width: 10),
-                        SizedBox(
-                          width: Get.width / 2 - 50,
-                          child: Tooltip(
-                            message: teacher.name,
-                            child: Text(
-                              teacher.name,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.nunitoSans(
-                                  fontSize: 14, fontWeight: FontWeight.w700),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.PROFILEVIEW, arguments: teacher);
+                      },
+                      child: Row(
+                        children: [
+                          UserAvatar(user: teacher, size: 16),
+                          SizedBox(width: 10),
+                          SizedBox(
+                            width: Get.width / 2 - 50,
+                            child: Tooltip(
+                              message: teacher.name,
+                              child: Text(
+                                teacher.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.nunitoSans(
+                                    fontSize: 14, fontWeight: FontWeight.w700),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   else
                     Padding(
@@ -103,7 +109,16 @@ class CoursePersonnel extends StatelessWidget {
                           message: learners[2].name,
                           preferBelow: false,
                         ),
-                      if (learners.length > 2) Text("..."),
+                      if (learners.length > 3)
+                        Tooltip(
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: UserAvatar(user: learners[3], size: 12),
+                          ),
+                          message: learners[3].name,
+                          preferBelow: false,
+                        ),
+                      if (learners.length > 4) Text("..."),
                     ],
                   )
                 ],
