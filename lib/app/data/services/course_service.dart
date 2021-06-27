@@ -123,12 +123,12 @@ class CourseService implements CollectionInterface {
     return courses;
   }
 
-  Future<Map<String, AjentUser>> getLearners(List<String> learnersUid) async {
-    Map<String, AjentUser> learners = Map<String, AjentUser>();
+  Future<List<AjentUser>> getLearners(List<String> learnersUid) async {
+    List<AjentUser> learners = [];
     for (var learnerUid in learnersUid) {
       AjentUser learner = await UserService.instance.getUser(learnerUid);
       if (learner != null) {
-        learners[learnerUid] = learner;
+        learners.add(learner);
       }
     }
     return learners;
