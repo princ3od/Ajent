@@ -35,6 +35,24 @@ class InformationTab extends StatelessWidget {
       ),
     );
   }).toList();
+
+  var educationLevel = {
+    'ajent_education_level_drop_down_item1'.tr: 'Student',
+    'ajent_education_level_drop_down_item2'.tr: 'Undergraduate',
+    'ajent_education_level_drop_down_item3'.tr: 'Bachelor',
+    'ajent_education_level_drop_down_item4'.tr: 'Master',
+    'ajent_education_level_drop_down_item5'.tr: 'PhD',
+    'ajent_education_level_drop_down_item6'.tr: 'Professor',
+  };
+  var educationLevelReversal = {
+    'Student': 'ajent_education_level_drop_down_item1'.tr,
+    'Undergraduate': 'ajent_education_level_drop_down_item2'.tr,
+    'Bachelor': 'ajent_education_level_drop_down_item3'.tr,
+    'Master': 'ajent_education_level_drop_down_item4'.tr,
+    'PhD': 'ajent_education_level_drop_down_item5'.tr,
+    'Professor': 'ajent_education_level_drop_down_item6'.tr,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -200,10 +218,10 @@ class InformationTab extends StatelessWidget {
             () => MyDropDownWidget(
               items: dropDownMenuItems,
               value: (controller.dropdownValue.value != '')
-                  ? controller.dropdownValue.value
+                  ? educationLevelReversal[controller.dropdownValue.value]
                   : null,
               onChanged: (newValue) {
-                controller.dropdownValue.value = newValue;
+                controller.dropdownValue.value = educationLevel[newValue];
                 print('${controller.dropdownValue.value}');
               },
             ),
