@@ -89,7 +89,6 @@ class AuthenticService {
       final FacebookAuthCredential facebookAuthCredential =
           FacebookAuthProvider.credential(result.accessToken.token);
       fbAcessToken = result.accessToken.token;
-      print(fbAcessToken);
       final UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(facebookAuthCredential);
       user = userCredential.user;

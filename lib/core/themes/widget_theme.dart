@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 final ButtonStyle primaryButtonSytle = ElevatedButton.styleFrom(
   primary: primaryColor,
-  padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+  padding: EdgeInsets.fromLTRB(5, 12, 5, 12),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
   textStyle: TextStyle(
     fontSize: 15,

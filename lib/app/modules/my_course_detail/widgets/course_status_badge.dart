@@ -13,7 +13,7 @@ class CourseStatusBadge extends StatelessWidget {
   final Map<CourseStatus, Color> colors = {
     CourseStatus.fininished: Colors.red,
     CourseStatus.ongoing: Colors.green,
-    CourseStatus.upcoming: Colors.amber,
+    CourseStatus.upcoming: Colors.amber.shade700,
   };
   @override
   Widget build(BuildContext context) {

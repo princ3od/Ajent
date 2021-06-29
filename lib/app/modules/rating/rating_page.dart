@@ -75,6 +75,7 @@ class RatingPage extends StatelessWidget {
               initialRating: (controller.evaluated.value)
                   ? controller.evaluation.star.toDouble()
                   : 0.0,
+              minRating: 1,
               direction: Axis.horizontal,
               allowHalfRating: false,
               itemBuilder: (context, index) => Icon(

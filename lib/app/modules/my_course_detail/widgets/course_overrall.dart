@@ -27,7 +27,7 @@ class CourseOverall extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -38,7 +38,7 @@ class CourseOverall extends StatelessWidget {
                       Row(
                         children: [
                           NumberSlideAnimation(
-                            duration: const Duration(milliseconds: 1500),
+                            duration: const Duration(milliseconds: 1200),
                             curve: Curves.fastOutSlowIn,
                             number: (course.getTotalHours() < 1000)
                                 ? "${course.getTotalHours().toStringAsFixed(0)}"
@@ -53,6 +53,7 @@ class CourseOverall extends StatelessWidget {
                           Text(
                             'hh'.tr,
                             style: contentStyle,
+                            overflow: TextOverflow.fade,
                           ),
                         ],
                       ),
@@ -61,7 +62,7 @@ class CourseOverall extends StatelessWidget {
                 ),
                 VerticalDivider(),
                 Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -78,7 +79,7 @@ class CourseOverall extends StatelessWidget {
                 ),
                 VerticalDivider(),
                 Expanded(
-                  flex: 5,
+                  flex: 6,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
