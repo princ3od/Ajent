@@ -179,142 +179,144 @@ class MyProfileController extends GetxController {
       )),
       context: context,
       builder: (context) {
-        return SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            height: Get.height * 0.7,
-            child: Center(
-              child: Stack(
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, bottom: 0),
-                        child: Center(
-                            child: CircleAvatar(
-                          backgroundColor: Colors.white54,
-                          radius: 60 * 1.0,
-                          child: ClipOval(
-                            child: Obx(
-                              () => imageDegreeFile.value.path == ""
-                                  ? Image.asset(
-                                      'assets/images/ajent_logo.png',
-                                      width: 85,
-                                      height: 85,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.file(
-                                      imageDegreeFile.value,
-                                      width: 85,
-                                      height: 85,
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
-                          ),
-                        )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: Text('Ảnh chụp',
-                            style: GoogleFonts.nunitoSans(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text('Tiểu đề',
-                            style: GoogleFonts.nunitoSans(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
-                      ),
-                      TextField(
-                        controller: txtTitle,
-                        decoration: primaryTextFieldDecoration,
-                        cursorColor: primaryColor,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text('Thông tin chi tiết',
-                            style: GoogleFonts.nunitoSans(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
-                      ),
-                      TextField(
-                        controller: txtDescription,
-                        decoration: primaryTextFieldDecoration,
-                        cursorColor: primaryColor,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () async {
-                              await onPressSave(context);
-                            },
-                            child: Text("Save"),
-                            style: ElevatedButton.styleFrom(
-                              primary: primaryColor,
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text("Cancel"),
-                            style: ElevatedButton.styleFrom(
-                              primary: primaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 15),
-                      width: 95,
-                      height: 100,
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: ClipOval(
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            color: Colors.grey.shade400.withAlpha(220),
-                            child: InkWell(
-                              splashColor: primaryColor,
-                              customBorder: CircleBorder(),
-                              onTap: () async {
-                                await _onTakeImage();
-                              },
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              height: Get.height * 0.7,
+              child: Center(
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 0),
+                          child: Center(
+                              child: CircleAvatar(
+                            backgroundColor: Colors.white54,
+                            radius: 60 * 1.0,
+                            child: ClipOval(
                               child: Obx(
-                                () => isUploadDegreeImage.value == false
-                                    ? Icon(
-                                        Icons.camera_alt_outlined,
-                                        size: 20,
+                                () => imageDegreeFile.value.path == ""
+                                    ? Image.asset(
+                                        'assets/images/ajent_logo.png',
+                                        width: 85,
+                                        height: 85,
+                                        fit: BoxFit.cover,
                                       )
-                                    : CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                Color(0xff01BCD4)),
+                                    : Image.file(
+                                        imageDegreeFile.value,
+                                        width: 85,
+                                        height: 85,
+                                        fit: BoxFit.cover,
                                       ),
+                              ),
+                            ),
+                          )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5),
+                          child: Text('Ảnh chụp',
+                              style: GoogleFonts.nunitoSans(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text('Tiểu đề',
+                              style: GoogleFonts.nunitoSans(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                        ),
+                        TextField(
+                          controller: txtTitle,
+                          decoration: primaryTextFieldDecoration,
+                          cursorColor: primaryColor,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text('Thông tin chi tiết',
+                              style: GoogleFonts.nunitoSans(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                        ),
+                        TextField(
+                          controller: txtDescription,
+                          decoration: primaryTextFieldDecoration,
+                          cursorColor: primaryColor,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                await onPressSave(context);
+                              },
+                              child: Text("Save"),
+                              style: ElevatedButton.styleFrom(
+                                primary: primaryColor,
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Cancel"),
+                              style: ElevatedButton.styleFrom(
+                                primary: primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 15),
+                        width: 95,
+                        height: 100,
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: ClipOval(
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              color: Colors.grey.shade400.withAlpha(220),
+                              child: InkWell(
+                                splashColor: primaryColor,
+                                customBorder: CircleBorder(),
+                                onTap: () async {
+                                  await _onTakeImage();
+                                },
+                                child: Obx(
+                                  () => isUploadDegreeImage.value == false
+                                      ? Icon(
+                                          Icons.camera_alt_outlined,
+                                          size: 20,
+                                        )
+                                      : CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  Color(0xff01BCD4)),
+                                        ),
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
