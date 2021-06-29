@@ -34,43 +34,39 @@ class RatingPage extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-              child: Row(children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
-              child: Hero(
-                tag: '${course.id} avatar',
-                child: CircleAvatar(
-                  child: ClipOval(
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/images/ajent_logo.png',
-                      image: course.photoUrl,
-                      width: 100,
-                      fit: BoxFit.fitWidth,
-                    ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Hero(
+              tag: '${course.id} avatar',
+              child: CircleAvatar(
+                child: ClipOval(
+                  child: FadeInImage.assetNetwork(
+                    placeholder: 'assets/images/ajent_logo.png',
+                    image: course.photoUrl,
+                    width: 100,
+                    fit: BoxFit.fitWidth,
                   ),
-                  radius: 40.0,
                 ),
+                radius: 50.0,
               ),
             ),
-            Hero(
-              tag: '${course.id} name',
-              child: Material(
-                color: Colors.transparent,
-                child: SizedBox(
-                  width: Get.width - 150,
-                  child: Text(
-                    course.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: GoogleFonts.nunitoSans(
-                        fontWeight: FontWeight.w700, fontSize: 14),
-                  ),
-                ),
+          ),
+          Hero(
+            tag: '${course.id} name',
+            child: Material(
+              color: Colors.transparent,
+              child: Text(
+                course.name,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: GoogleFonts.nunitoSans(
+                    fontWeight: FontWeight.w700, fontSize: 18),
               ),
-            )
-          ])),
+            ),
+          ),
+          SizedBox(height: 10),
           Obx(
             () => RatingBar.builder(
               ignoreGestures: controller.evaluated.value,
@@ -78,7 +74,7 @@ class RatingPage extends StatelessWidget {
               itemCount: 5,
               initialRating: (controller.evaluated.value)
                   ? controller.evaluation.star.toDouble()
-                  : 5.0,
+                  : 0.0,
               direction: Axis.horizontal,
               allowHalfRating: false,
               itemBuilder: (context, index) => Icon(
@@ -92,30 +88,32 @@ class RatingPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-            child: TextField(
-              enabled: !controller.evaluated.value,
-              style: GoogleFonts.nunitoSans(),
-              autofocus: false,
-              maxLines: 4,
-              maxLength: 200,
-              controller: controller.contentController,
-              decoration: InputDecoration(
-                labelText: "Đánh giá",
-                labelStyle: GoogleFonts.nunitoSans(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                    color: Colors.black),
-                hintText: "Hãy để lại phần đánh giá",
-                hintStyle: GoogleFonts.nunitoSans(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                    color: Colors.grey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: primaryColor, width: 2),
-                  borderRadius: BorderRadius.circular(10),
+            child: Obx(
+              () => TextField(
+                enabled: !controller.evaluated.value,
+                style: GoogleFonts.nunitoSans(),
+                autofocus: false,
+                maxLines: 4,
+                maxLength: 200,
+                controller: controller.contentController,
+                decoration: InputDecoration(
+                  labelText: "Đánh giá",
+                  labelStyle: GoogleFonts.nunitoSans(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      color: Colors.black),
+                  hintText: "Hãy để lại phần đánh giá",
+                  hintStyle: GoogleFonts.nunitoSans(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      color: Colors.grey),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: primaryColor, width: 2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
+import 'package:number_slide_animation/number_slide_animation.dart';
 
 class CourseOverall extends StatelessWidget {
   final titleStyle = GoogleFonts.nunitoSans(fontSize: 12, color: Colors.grey);
@@ -34,10 +35,26 @@ class CourseOverall extends StatelessWidget {
                         "Thời gian",
                         style: titleStyle,
                       ),
-                      Text(
-                        "~${course.getTotalHours().toStringAsFixed(0)}" +
+                      Row(
+                        children: [
+                          NumberSlideAnimation(
+                            duration: const Duration(milliseconds: 1500),
+                            curve: Curves.fastOutSlowIn,
+                            number: (course.getTotalHours() < 1000)
+                                ? "${course.getTotalHours().toStringAsFixed(0)}"
+                                : "999",
+                            textStyle: contentStyle,
+                          ),
+                          if (course.getTotalHours() > 999)
+                            Text(
+                              '+',
+                              style: contentStyle,
+                            ),
+                          Text(
                             'hh'.tr,
-                        style: contentStyle,
+                            style: contentStyle,
+                          ),
+                        ],
                       ),
                     ],
                   ),

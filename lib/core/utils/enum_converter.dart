@@ -1,3 +1,4 @@
+import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/message.dart';
 import 'package:ajent/app/data/models/Person.dart';
@@ -70,6 +71,36 @@ class EnumConverter {
         return MessageType.invitation;
       default:
         return MessageType.text;
+    }
+  }
+
+  static String requestStatusToString(RequestStatus requestStatus) {
+    switch (requestStatus) {
+      case RequestStatus.accepted:
+        return "accepted";
+      case RequestStatus.waiting:
+        return "waiting";
+      case RequestStatus.denied:
+        return "denied";
+      case RequestStatus.canceled:
+        return "canceled";
+      default:
+        return "waiting";
+    }
+  }
+
+  static RequestStatus stringToRequestStatus(String data) {
+    switch (data) {
+      case "accepted":
+        return RequestStatus.accepted;
+      case "waiting":
+        return RequestStatus.waiting;
+      case "denied":
+        return RequestStatus.denied;
+      case "canceled":
+        return RequestStatus.canceled;
+      default:
+        return RequestStatus.waiting;
     }
   }
 }

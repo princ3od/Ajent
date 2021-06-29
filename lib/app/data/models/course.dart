@@ -43,6 +43,7 @@ class Course {
     teacher = data['teacher'];
     price = data['price'];
     learners = List.from(data['learners']);
+    subjects = List.from(data['subjects']);
     maxLearner = data['maxLearners'];
     postDate = data['postDate'];
     requirements = data['requirements'];
@@ -62,6 +63,7 @@ class Course {
       'price': this.price,
       'maxLearners': this.maxLearner,
       'learners': this.learners,
+      'subjects': this.subjects,
       'requirements': this.requirements,
       'postDate': this.postDate,
       'firstPeriod': getFirstPeriod(),
@@ -145,7 +147,7 @@ class Course {
 
   String getReadablePrice() {
     if (price == null) price = 0;
-    return NumberFormat.currency(locale: "vi_VN", symbol: "VNĐ").format(price);
+    return NumberFormat.currency(locale: "vi_VN", symbol: "vnd").format(price);
   }
 
   CourseStatus getCourseStatus() {
@@ -186,6 +188,17 @@ class Course {
     }
     return result;
   }
+
+  String getRelativeAddress() {
+    var addressPart = address.split(',');
+    int startPart = addressPart.length > 2 ? addressPart.length - 2 : 0;
+    String result = "";
+    for (var i = startPart; i < addressPart.length; i++) {
+      result += addressPart[i].trim();
+      if (i < addressPart.length - 1) result += ", ";
+    }
+    return result;
+  }
 }
 
 enum TimeType {
@@ -197,4 +210,11 @@ enum CourseStatus {
   fininished,
   ongoing,
   upcoming,
+}
+
+enum UserRelation {
+  noRelation,
+  teaching,
+  joining,
+  requesting,
 }

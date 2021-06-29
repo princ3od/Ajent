@@ -71,7 +71,7 @@ const Map<String, String> en = {
   'teaching_upcoming_empty': 'You have no upcoming teaching-course',
   'teaching_empty_action': 'Teach new course now by clicking button below!',
   'teaching_empty_encourage': 'Hope you can spread out your knowledges. 😎',
-  'settings_title_label': 'Cài đặt',
+  'settings_title_label': 'Setting',
   'terms_title_label': 'Quy định và chính sách',
   'see_ratings_label': 'Xem đánh giá',
   'ago': ' ago',
@@ -85,4 +85,9 @@ const Map<String, String> en = {
   'gallery': 'From gallery',
   'camera': 'From camera',
   'week': ' weeks',
+  'confirm': 'Confirm',
+  'yes': 'Yes',
+  'no': 'No',
+  'confirm_leave_course': 'Are you sure to leave this course?',
+  'open_in_gg_map': 'Open in Google Map',
 };

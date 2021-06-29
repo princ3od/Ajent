@@ -13,9 +13,11 @@ import '../../home/home_controller.dart';
 class ARatingCard extends StatefulWidget {
   final AjentUser user;
   final Evaluation evaluation;
+  final bool isExpandable;
   ARatingCard({
     @required this.user,
     @required this.evaluation,
+    this.isExpandable = true,
   });
 
   @override
@@ -29,6 +31,7 @@ class _ARatingCardState extends State<ARatingCard>
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        if (!widget.isExpandable) return;
         setState(() {
           isExpand = !isExpand;
         });
@@ -62,34 +65,36 @@ class _ARatingCardState extends State<ARatingCard>
                             fontSize: 15,
                             color: Colors.black),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RatingBar.builder(
-                            itemSize: 15,
-                            ignoreGestures: true,
-                            itemCount: 5,
-                            initialRating: widget.evaluation.star.toDouble(),
-                            itemBuilder: (context, index) => Icon(
-                              Icons.star_rounded,
-                              color: Colors.amber,
+                      SingleChildScrollView(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RatingBar.builder(
+                              itemSize: 15,
+                              ignoreGestures: true,
+                              itemCount: 5,
+                              initialRating: widget.evaluation.star.toDouble(),
+                              itemBuilder: (context, index) => Icon(
+                                Icons.star_rounded,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (value) {},
                             ),
-                            onRatingUpdate: (value) {},
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Text(
-                              (isExpand)
-                                  ? DateConverter.getTimeInDate(
-                                      widget.evaluation.postDate)
-                                  : DateConverter.getTimeInAgo(
-                                      widget.evaluation.postDate),
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.nunitoSans(
-                                  fontSize: 12, color: Colors.grey),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: Text(
+                                (isExpand)
+                                    ? DateConverter.getTimeInDate(
+                                        widget.evaluation.postDate)
+                                    : DateConverter.getTimeInAgo(
+                                        widget.evaluation.postDate),
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.nunitoSans(
+                                    fontSize: 12, color: Colors.grey),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
