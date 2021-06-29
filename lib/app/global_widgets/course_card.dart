@@ -16,8 +16,8 @@ class CourseCard extends StatelessWidget {
       child: Card(
           clipBehavior: Clip.antiAlias,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-          elevation: 4,
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          elevation: 2,
           child: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -51,7 +51,7 @@ class CourseCard extends StatelessWidget {
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
-                            radius: 40.0,
+                            radius: 30.0,
                           ),
                         ),
                       ),

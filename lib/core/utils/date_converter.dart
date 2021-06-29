@@ -57,7 +57,7 @@ class DateConverter {
       return timeDistance.inDays.abs().toString() + 'dd'.tr + 'ago'.tr;
     if (timeDistance.inDays.abs() < 365)
       return (timeDistance.inDays.abs() / 30).toString() + 'mm'.tr + 'ago'.tr;
-    return DateFormat("MMM dd, yyyy", LocalizationService.getLocaleString())
+    return DateFormat("dd MMM, yyyy", LocalizationService.getLocaleString())
         .format(time);
   }
 

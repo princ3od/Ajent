@@ -1,4 +1,3 @@
-import 'package:ajent/app/data/models/Student.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/FixedTime.dart';

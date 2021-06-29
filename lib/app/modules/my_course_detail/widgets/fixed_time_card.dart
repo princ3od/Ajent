@@ -13,7 +13,7 @@ class FixedTimeCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       child: Card(
-        elevation: 3.0,
+        elevation: 2.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),

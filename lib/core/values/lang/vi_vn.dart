@@ -96,4 +96,9 @@ const Map<String, String> vi = {
   'gallery': 'Từ thư viện ảnh',
   'camera': 'Từ máy ảnh',
   'week': ' tuần',
+  'confirm': 'Xác nhận',
+  'yes': 'Có',
+  'no': 'Không',
+  'confirm_leave_course': 'Bạn chắc chắn muốn rời khỏi khoá học này?',
+  'open_in_gg_map': 'Mở trong Bản đồ',
 };

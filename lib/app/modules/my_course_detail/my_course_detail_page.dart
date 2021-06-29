@@ -5,6 +5,8 @@ import 'package:ajent/app/modules/my_course_detail/widgets/course_personnel.dart
 import 'package:ajent/app/modules/my_course_detail/widgets/course_status_badge.dart';
 import 'package:ajent/app/modules/my_course_detail/widgets/fixed_time_card.dart';
 import 'package:ajent/app/modules/my_course_detail/widgets/period_item.dart';
+import 'package:ajent/app/modules/my_course_detail/widgets/user_relation_badge.dart';
+import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,6 +90,8 @@ class MyCourseDetailPage extends StatelessWidget {
                   () => CircleAvatar(
                     child: ClipOval(
                       child: FadeInImage.assetNetwork(
+                        fadeInDuration: Duration(milliseconds: 200),
+                        fadeOutDuration: Duration(milliseconds: 180),
                         placeholder: 'assets/images/ajent_logo.png',
                         image: course.photoUrl,
                         width: 100,
@@ -103,27 +107,39 @@ class MyCourseDetailPage extends StatelessWidget {
               tag: '${course.id} name',
               child: Material(
                 color: Colors.transparent,
-                child: SizedBox(
-                  child: Text(
-                    course.name,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.nunitoSans(
-                        fontWeight: FontWeight.w700, fontSize: 18),
-                  ),
+                child: Text(
+                  course.name,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.nunitoSans(
+                      fontWeight: FontWeight.w700, fontSize: 18),
                 ),
               ),
             ),
-            Text(
-              course.address,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.nunitoSans(fontSize: 14, color: Colors.grey),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Text(
+                course.getRelativeAddress(),
+                textAlign: TextAlign.center,
+                style: GoogleFonts.nunitoSans(fontSize: 14, color: Colors.grey),
+              ),
             ),
             Obx(() => AnimatedOpacity(
                 duration: Duration(seconds: 1),
                 opacity: (controller.isLoading.value) ? 0 : 1,
-                child: CourseStatusBadge(
-                    status: controller.course.value?.status ??
-                        CourseStatus.upcoming))),
+                child: Column(
+                  children: [
+                    CourseStatusBadge(
+                        status: controller.course.value?.status ??
+                            CourseStatus.upcoming),
+                    if (controller.userRelation.value !=
+                        UserRelation.noRelation)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: UserRelationBadge(
+                            relation: controller.userRelation.value),
+                      ),
+                  ],
+                ))),
             CourseOverall(
               course: course,
             ),
@@ -208,19 +224,23 @@ class MyCourseDetailPage extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 25),
+                                  padding: const EdgeInsets.only(
+                                      left: 25, top: 5, right: 20),
                                   child: Row(
                                     children: [
-                                      Text(
-                                        controller.course.value.address,
-                                        style: contentStyle(controller
-                                                .course.value.address
-                                                .trim()
-                                                .isNotEmpty
-                                            ? Colors.black
-                                            : Colors.grey),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
+                                      SizedBox(
+                                        width: Get.width - 100,
+                                        child: Text(
+                                          controller.course.value.address,
+                                          style: contentStyle(controller
+                                                  .course.value.address
+                                                  .trim()
+                                                  .isNotEmpty
+                                              ? Colors.black
+                                              : Colors.grey),
+                                          maxLines: 4,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                       if (course.address.isNotEmpty)
                                         ClipOval(
@@ -229,15 +249,17 @@ class MyCourseDetailPage extends StatelessWidget {
                                               launch(
                                                   'https://www.google.com/maps/search/?api=1&query=${course.address}');
                                             },
-                                            child: Material(
-                                                color: Colors.transparent,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          10, 5, 10, 5),
-                                                  child: Icon(Icons.map,
-                                                      color: Colors.blue),
-                                                )),
+                                            child: Tooltip(
+                                              message: 'open_in_gg_map'.tr,
+                                              child: Material(
+                                                  color: Colors.transparent,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(10, 5, 10, 5),
+                                                    child: Icon(Icons.map,
+                                                        color: Colors.blue),
+                                                  )),
+                                            ),
                                           ),
                                         )
                                     ],
@@ -323,7 +345,10 @@ class MyCourseDetailPage extends StatelessWidget {
               ),
             ),
             Obx(
-              () => (controller.requestable.value || controller.joinable.value)
+              () => (controller.requestable.value ||
+                      controller.joinable.value ||
+                      controller.evaluable.value ||
+                      controller.unEnrollable.value)
                   ? Visibility(
                       visible: (MediaQuery.of(context).viewInsets.bottom == 0),
                       child: Container(
@@ -338,7 +363,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                 if (controller.requestable.value)
                                   ElevatedButton(
                                     onPressed: () {
-                                      //create request
+                                      controller.sendRequest();
                                     },
                                     style: orangeButtonStyle,
                                     child: (controller.isRequesting.value)
@@ -371,10 +396,83 @@ class MyCourseDetailPage extends StatelessWidget {
                                             child: CircularProgressIndicator(
                                               valueColor:
                                                   AlwaysStoppedAnimation<Color>(
-                                                      Colors.white),
+                                                      (controller.requestable
+                                                              .value)
+                                                          ? Colors.black
+                                                          : Colors.white),
                                             ),
                                           )
                                         : Text("Tham gia",
+                                            style: GoogleFonts.nunitoSans(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700)),
+                                  ),
+                                if (controller.unEnrollable.value)
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                title: Text('confirm'.tr),
+                                                content: Text(
+                                                    'confirm_leave_course'.tr),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    child: Text('no'.tr),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      controller.leaveCourse();
+                                                      Get.back();
+                                                    },
+                                                    child: Text('yes'.tr),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary: primaryColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ));
+                                    },
+                                    style: orangeButtonStyle,
+                                    child: (controller.isLeaving.value)
+                                        ? SizedBox(
+                                            height: 20,
+                                            width: 20,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Colors.white),
+                                            ),
+                                          )
+                                        : Text("Rời khoá học",
+                                            style: GoogleFonts.nunitoSans(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700)),
+                                  ),
+                                if (controller.evaluable.value)
+                                  ElevatedButton(
+                                    onPressed: controller.evaluateCourse,
+                                    style: orangeButtonStyle,
+                                    child: (controller.isRequesting.value)
+                                        ? SizedBox(
+                                            height: 20,
+                                            width: 20,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Colors.white),
+                                            ),
+                                          )
+                                        : Text(
+                                            (controller.course.value.evaluations
+                                                    .containsKey(
+                                                        controller.user.uid))
+                                                ? "Xem đánh giá của bạn"
+                                                : "Đánh giá",
                                             style: GoogleFonts.nunitoSans(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w700)),
