@@ -217,7 +217,10 @@ class RequestCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: (request?.status ??
+                              RequestStatus.accepted != RequestStatus.waiting)
+                          ? null
+                          : () => print("hello"),
                       child: Text(
                         "Từ chối",
                         style: GoogleFonts.nunitoSans(

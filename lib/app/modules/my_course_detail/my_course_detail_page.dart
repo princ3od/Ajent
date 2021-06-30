@@ -153,6 +153,10 @@ class MyCourseDetailPage extends StatelessWidget {
                         isAlwaysShown: true,
                         child: NotificationListener<ScrollUpdateNotification>(
                           onNotification: (notification) {
+                            if (notification.metrics.axisDirection ==
+                                    AxisDirection.left ||
+                                notification.metrics.axisDirection ==
+                                    AxisDirection.right) return false;
                             controller.scrollOffset.value +=
                                 notification.scrollDelta / 8;
                             if (controller.scrollOffset.value < 0) {
@@ -229,7 +233,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: Get.width - 100,
+                                        width: Get.width - 90,
                                         child: Text(
                                           controller.course.value.address,
                                           style: contentStyle(controller
@@ -250,13 +254,14 @@ class MyCourseDetailPage extends StatelessWidget {
                                                   'https://www.google.com/maps/search/?api=1&query=${course.address}');
                                             },
                                             child: Tooltip(
+                                              preferBelow: false,
                                               message: 'open_in_gg_map'.tr,
                                               child: Material(
                                                   color: Colors.transparent,
                                                   child: Padding(
                                                     padding: const EdgeInsets
                                                         .fromLTRB(10, 5, 10, 5),
-                                                    child: Icon(Icons.map,
+                                                    child: Icon(Icons.place,
                                                         color: Colors.blue),
                                                   )),
                                             ),
@@ -309,6 +314,57 @@ class MyCourseDetailPage extends StatelessWidget {
                                           controller.course.value.fixedTime,
                                     ),
                                   ),
+                                if (course.subjects.length > 0)
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, top: 10),
+                                    child: Text(
+                                      'Chủ đề',
+                                      style: titleStyle,
+                                    ),
+                                  ),
+                                if (course.subjects.length > 0)
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(25, 5, 25, 5),
+                                    child: SizedBox(
+                                      height: 24,
+                                      child: ListView.builder(
+                                        physics: BouncingScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: course.subjects.length,
+                                        itemBuilder: (context, index) {
+                                          if (course.subjects[index].isEmpty)
+                                            return SizedBox();
+                                          return SubjectBadge(
+                                              content: course.subjects[index]);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                // Padding(
+                                //   padding:
+                                //       const EdgeInsets.fromLTRB(25, 5, 25, 5),
+                                //   child: SingleChildScrollView(
+                                //     child: Wrap(
+                                //       spacing:
+                                //           8.0, // gap between adjacent chips
+                                //       runSpacing: 4.0, // gap between lines
+                                //       direction: Axis.horizontal,
+                                //       children: [
+                                //         for (var text in course.subjects)
+                                //           if (text.isNotEmpty)
+                                //             SubjectBadge(content: text),
+                                //         // for (var text in course.subjects)
+                                //         //   if (text.isNotEmpty)
+                                //         //     SubjectBadge(content: text),
+                                //         // for (var text in course.subjects)
+                                //         //   if (text.isNotEmpty)
+                                //         //     SubjectBadge(content: text),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(left: 20, top: 10),
@@ -487,6 +543,40 @@ class MyCourseDetailPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class SubjectBadge extends StatelessWidget {
+  final String content;
+  const SubjectBadge({Key key, @required this.content}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: primaryColor.withOpacity(0.20),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
+              child: Center(
+                child: Text(content,
+                    maxLines: 1,
+                    style: GoogleFonts.nunitoSans(
+                        color: Colors.black.withOpacity(0.9),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
