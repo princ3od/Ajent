@@ -47,10 +47,12 @@ class Course {
     maxLearner = data['maxLearners'];
     postDate = data['postDate'];
     requirements = data['requirements'];
+    subjects.removeWhere((element) => element.isEmpty);
   }
   Map<String, dynamic> toJson() {
     if (timeType == TimeType.periodTime) {
       periods.sort((a, b) => a.date.compareTo(b.date));
+      subjects.removeWhere((element) => element.isEmpty);
     }
     return {
       'name': this.name,
