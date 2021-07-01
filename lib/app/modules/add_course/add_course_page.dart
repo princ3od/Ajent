@@ -85,6 +85,7 @@ class AddCoursePage extends StatelessWidget {
                             onTap: (){
                               _pageController.previousPage(duration: Duration(milliseconds: 800), curve: Curves.easeInOutQuint);
                             },
+                            borderRadius: BorderRadius.circular(10.0),
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 300),
                               height: 40,
@@ -106,6 +107,7 @@ class AddCoursePage extends StatelessWidget {
                                   controller.onAddCourse();
                                 }
                             },
+                            borderRadius: BorderRadius.circular(10.0),
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 300),
                               height: 40,
