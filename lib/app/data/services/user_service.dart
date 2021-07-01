@@ -154,4 +154,12 @@ class UserService implements CollectionInterface {
     if (totalEvaluation == 0) return -1.0;
     return (totalStar / totalEvaluation);
   }
+
+  Stream<QuerySnapshot> searchUser({String keyword}) {
+    return database
+        .collection(collectionName)
+        .where('indexList', arrayContains: keyword)
+        .orderBy('name')
+        .snapshots();
+  }
 }

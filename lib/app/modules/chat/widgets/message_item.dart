@@ -106,9 +106,9 @@ class MessageItem extends StatelessWidget {
                   ? MainAxisAlignment.start
                   : MainAxisAlignment.end,
               children: [
-                if (showAvatar)
+                if (showAvatar && fromPartner)
                   UserAvatar(user: partner, size: 18)
-                else
+                else if (fromPartner)
                   SizedBox(
                     height: 18,
                     width: 18,

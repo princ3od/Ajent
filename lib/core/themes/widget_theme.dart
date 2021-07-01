@@ -14,7 +14,7 @@ final ButtonStyle primaryButtonSytle = ElevatedButton.styleFrom(
 final ButtonStyle outlinedButtonStyle = OutlinedButton.styleFrom(
   primary: Colors.black87,
   onSurface: primaryColor,
-  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
   side: BorderSide(color: Colors.black),
 );
 
