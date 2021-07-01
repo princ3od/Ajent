@@ -27,9 +27,11 @@ dependencies:
   chips_choice: ^2.0.1
   cloud_firestore: ^2.2.0
   cupertino_icons: ^1.0.2
+  date_picker_timeline: ^1.2.3
   firebase_auth: ^1.2.0
   firebase_core: ^1.2.0
   firebase_storage: ^8.1.0
+  flutter_date_picker_timeline: ^0.3.2
   flutter_datetime_picker: ^1.5.1
   flutter_facebook_auth: ^3.3.3+1
   flutter_launcher_icons: ^0.9.0
@@ -42,6 +44,7 @@ dependencies:
   image_picker: ^0.8.0+1
   intl: ^0.17.0
   multi_select_flutter: ^4.0.0
+  number_slide_animation: ^0.2.1
   photo_view: ^0.11.1
   pin_code_fields: ^7.2.0
   pull_to_refresh: ^2.0.0

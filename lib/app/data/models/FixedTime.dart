@@ -1,6 +1,6 @@
 import 'package:ajent/core/utils/date_converter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 
 import 'LessonTime.dart';
 
@@ -26,5 +26,23 @@ class FixedTime {
       'startTime': DateConverter.timeToString(lessonTime.startTime),
       'endTime': DateConverter.timeToString(lessonTime.endTime),
     };
+  }
+
+  double getTotalTime() {
+    int learnDay = 0;
+    double baseLessonTime = lessonTime.getTotalTime();
+    day.forEach((element) {
+      if (element) learnDay += 1;
+    });
+    var diff = endDate.difference(startDate);
+    return learnDay * baseLessonTime * (diff.inDays / 7).floor();
+  }
+
+  String getTimeDetail() {
+    var diff = endDate.difference(startDate);
+    if (diff.inDays < 45) {
+      return '${(diff.inDays / 7).floor().toString()}' + 'week'.tr;
+    }
+    return '${(diff.inDays / 30).floor().toString()}' + 'MM'.tr;
   }
 }

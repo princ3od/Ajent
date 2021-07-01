@@ -30,6 +30,8 @@ class RatingController extends GetxController {
     isPosting.value = true;
     evaluation = Evaluation()
       ..star = star.value.toInt()
+      ..postDate = DateTime.now().millisecondsSinceEpoch
+      ..evaluatorUid = user.uid
       ..content = contentController.text;
     await CourseService.instance.postEvaluation(courseId, user.uid, evaluation);
     evaluated.value = true;

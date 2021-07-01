@@ -1,4 +1,3 @@
-import 'package:ajent/app/data/models/Student.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/FixedTime.dart';
@@ -123,12 +122,12 @@ class CourseService implements CollectionInterface {
     return courses;
   }
 
-  Future<Map<String, AjentUser>> getLearners(List<String> learnersUid) async {
-    Map<String, AjentUser> learners = Map<String, AjentUser>();
+  Future<List<AjentUser>> getLearners(List<String> learnersUid) async {
+    List<AjentUser> learners = [];
     for (var learnerUid in learnersUid) {
       AjentUser learner = await UserService.instance.getUser(learnerUid);
       if (learner != null) {
-        learners[learnerUid] = learner;
+        learners.add(learner);
       }
     }
     return learners;
