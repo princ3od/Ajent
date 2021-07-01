@@ -5,6 +5,7 @@ import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/request_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
+import 'package:ajent/app/modules/chat/chat_controller.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/my_course_detail/widgets/shareable_user_item.dart';
 import 'package:ajent/app/modules/ratings_view/widgets/a_rating_card.dart';
@@ -240,7 +241,13 @@ class MyCourseDetailController extends GetxController {
                                   onPointerDown: (e) => FocusManager
                                       .instance.primaryFocus
                                       .unfocus(),
-                                  child: ShareableUserItem(user: user));
+                                  child: ShareableUserItem(
+                                    user: user,
+                                    onShare: () {
+                                      ChatController.sendInvitation(
+                                          course.value.id, user.uid);
+                                    },
+                                  ));
                             },
                           );
                         },

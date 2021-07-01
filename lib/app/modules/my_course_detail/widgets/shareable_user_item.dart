@@ -6,7 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ShareableUserItem extends StatelessWidget {
   final AjentUser user;
-  const ShareableUserItem({Key key, this.user}) : super(key: key);
+  final VoidCallback onShare;
+  const ShareableUserItem({
+    Key key,
+    @required this.user,
+    @required this.onShare,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class ShareableUserItem extends StatelessWidget {
       ),
       leading: UserAvatar(user: user, size: 20),
       trailing: OutlinedButton(
-        onPressed: () {},
+        onPressed: onShare,
         child: Text(
           'Share',
           style: GoogleFonts.nunitoSans(

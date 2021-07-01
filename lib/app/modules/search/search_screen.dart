@@ -127,9 +127,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           : 0) +
                       ((controller.loadMore) ? 0 : 1),
                   itemBuilder: (context, index) {
-                    // if (snapshot.data.docs.length == 0) {
-                    //   return SizedBox();
-                    // }
+                    if (snapshot.data.docs == null) {
+                      return SizedBox();
+                    }
                     if (controller.currentLength != snapshot.data.docs.length) {
                       controller.currentLength = snapshot.data.docs.length;
                     }
@@ -148,6 +148,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     }
                     if (index > snapshot.data.docs.length - 1)
                       return SizedBox();
+                    print(index);
                     Course course = Course.fromJson(
                         snapshot.data.docs[index].id,
                         snapshot.data.docs[index].data());
