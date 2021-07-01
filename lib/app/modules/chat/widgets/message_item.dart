@@ -160,7 +160,7 @@ class MessageItem extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10, bottom: 5),
         child: Text(
           DateConverter.getTime(timeStamp),
-          style: GoogleFonts.nunitoSans(fontSize: 12.5),
+          style: GoogleFonts.nunitoSans(fontSize: 12),
         ),
       ),
     );

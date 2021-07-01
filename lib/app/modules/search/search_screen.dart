@@ -1,6 +1,7 @@
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/modules/search/widgets/empty_search.dart';
 import 'package:ajent/app/modules/search/widgets/joinable_course_card.dart';
+import 'package:ajent/app/modules/search/widgets/search_course_card.dart';
 import 'package:ajent/app/modules/search/widgets/teachable_teaching_card.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
@@ -126,9 +127,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           : 0) +
                       ((controller.loadMore) ? 0 : 1),
                   itemBuilder: (context, index) {
-                    if (snapshot.data.docs.length == 0) {
-                      return SizedBox();
-                    }
+                    // if (snapshot.data.docs.length == 0) {
+                    //   return SizedBox();
+                    // }
                     if (controller.currentLength != snapshot.data.docs.length) {
                       controller.currentLength = snapshot.data.docs.length;
                     }
@@ -145,19 +146,23 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       ));
                     }
+                    if (index > snapshot.data.docs.length - 1)
+                      return SizedBox();
                     Course course = Course.fromJson(
                         snapshot.data.docs[index].id,
                         snapshot.data.docs[index].data());
-                    if (course.hasTeacher())
-                      return Listener(
-                          onPointerDown: (e) =>
-                              FocusManager.instance.primaryFocus.unfocus(),
-                          child: JoinableCourseCard(course: course));
-                    else
-                      return Listener(
-                          onPointerDown: (e) =>
-                              FocusManager.instance.primaryFocus.unfocus(),
-                          child: TeachalbeTeachingCard(course: course));
+                    var isFilter = (course.timeType == TimeType.fixedTime &&
+                            !controller.fixedTimeFilter.value) ||
+                        (course.timeType == TimeType.periodTime &&
+                            !controller.flexibleTimeFilter.value) ||
+                        (!course.price.isBetween(controller.priceValues.value));
+                    if (isFilter) {
+                      return SizedBox();
+                    }
+                    return Listener(
+                        onPointerDown: (e) =>
+                            FocusManager.instance.primaryFocus.unfocus(),
+                        child: SearchCourseCard(course: course));
                   },
                 );
               },
@@ -166,5 +171,11 @@ class _SearchScreenState extends State<SearchScreen> {
         ],
       ),
     );
+  }
+}
+
+extension Range on int {
+  bool isBetween(RangeValues values) {
+    return values.start <= this && this <= values.end;
   }
 }

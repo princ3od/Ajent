@@ -17,7 +17,7 @@ class TeachingCard extends StatelessWidget {
       child: Card(
           clipBehavior: Clip.antiAlias,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           elevation: 2,
           child: Container(
             decoration: BoxDecoration(
@@ -27,7 +27,7 @@ class TeachingCard extends StatelessWidget {
                     colors: [primaryColor, Color.fromARGB(255, 255, 128, 64)])),
             child: InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.MYTEACHINGDETAIL, arguments: course);
+                  Get.toNamed(Routes.MYCOURSEDETAIL, arguments: course);
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -48,7 +48,7 @@ class TeachingCard extends StatelessWidget {
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
-                            radius: 40.0,
+                            radius: 30.0,
                           ),
                         ),
                       ),

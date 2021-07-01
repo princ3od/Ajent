@@ -41,7 +41,6 @@ class ChatGroupItem extends StatelessWidget {
         Get.find<TextingController>().chatGroups[index].seen = true;
         Get.find<TextingController>().chatGroups.refresh();
         FocusManager.instance.primaryFocus.unfocus();
-        print("tap");
         Get.toNamed(Routes.CHATTING, arguments: partner);
       },
     );
@@ -77,7 +76,7 @@ class ChatGroupItem extends StatelessWidget {
         Flexible(
           flex: 2,
           child: Text(
-            " - " + DateConverter.getTimeInAgo(message.timeStamp),
+            " - " + DateConverter.getTime(message.timeStamp, true),
             overflow: TextOverflow.clip,
             style: GoogleFonts.nunitoSans(
               fontSize: 12,

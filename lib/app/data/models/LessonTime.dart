@@ -16,4 +16,10 @@ class LessonTime {
       'endTime': DateConverter.timeToString(endTime),
     };
   }
+
+  double getTotalTime() {
+    double totalTime = (endTime.hour + (endTime.minute / 60)) -
+        (startTime.hour + (startTime.minute / 60));
+    return totalTime.abs();
+  }
 }

@@ -2,7 +2,6 @@ import 'package:ajent/core/utils/enum_converter.dart';
 
 import 'Person.dart';
 import 'Degree.dart';
-import 'Student.dart';
 
 class AjentUser extends Person {
   String uid;
