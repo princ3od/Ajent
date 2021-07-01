@@ -40,7 +40,12 @@ class RequestPage extends StatelessWidget {
               initialIndex: controller.tabIndex.value,
               length: 2,
               child: TabBar(
-                  onTap: (value) => controller.tabIndex.value = value,
+                  onTap: (value) async {
+                    controller.tabIndex.value = value;
+                    if (value == 0) {
+                      await controller.getRequestItems();
+                    }
+                  },
                   unselectedLabelColor: Colors.black,
                   indicator: BubbleTabIndicator(
                     //indicatorHeight: 30.0,
@@ -61,8 +66,21 @@ class RequestPage extends StatelessWidget {
               child: Column(
                 children: [
                   if (controller.tabIndex.value == 0)
-                    RequestCard(
-                      requestor: HomeController.mainUser,
+                    Container(
+                      height: Get.height - 168,
+                      child: Obx(
+                        () => ListView.builder(
+                          itemCount: controller.requestItems.length,
+                          itemBuilder: (context, index) {
+                            return RequestCard(
+                              request: controller.requestItems[index].request,
+                              requestor:
+                                  controller.requestItems[index].requestor,
+                              course: controller.requestItems[index].course,
+                            );
+                          },
+                        ),
+                      ),
                     )
                   else
                     RequestStatusCard(),

@@ -1,5 +1,6 @@
 import 'package:ajent/app/data/models/Degree.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
+import 'package:ajent/app/data/models/requestCardData.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -154,4 +155,6 @@ class UserService implements CollectionInterface {
     if (totalEvaluation == 0) return -1.0;
     return (totalStar / totalEvaluation);
   }
+
+
 }

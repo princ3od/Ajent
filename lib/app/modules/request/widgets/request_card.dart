@@ -9,6 +9,7 @@ import 'package:ajent/app/modules/request/widgets/request_status_badge.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -217,10 +218,13 @@ class RequestCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: (request?.status ??
-                              RequestStatus.accepted != RequestStatus.waiting)
-                          ? null
-                          : () => print("hello"),
+                      onPressed: (request != null)
+                          ? ((request.status != null)
+                              ? ((request.status != RequestStatus.accepted)
+                                  ? (() => {print('Denined')})
+                                  : null)
+                              : null)
+                          : null,
                       child: Text(
                         "Từ chối",
                         style: GoogleFonts.nunitoSans(
@@ -229,7 +233,13 @@ class RequestCard extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: (request != null)
+                          ? ((request.status != null)
+                              ? ((request.status != RequestStatus.accepted)
+                                  ? (() => {print('Approve')})
+                                  : null)
+                              : null)
+                          : null,
                       child: Text(
                         "Đồng ý",
                         style: GoogleFonts.nunitoSans(
