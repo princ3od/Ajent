@@ -40,7 +40,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Ajent",
       getPages: AppPages.pages,
-      initialRoute: Routes.SPLASH,
+      //initialRoute: Routes.SPLASH,
+      initialRoute: Routes.ONBOARDINTRO,
       initialBinding: SplashBinding(),
       theme: ThemeData(
         fontFamily:
