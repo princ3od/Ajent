@@ -66,11 +66,9 @@ class ChatController extends GetxController {
     chatGroup =
         await ChatGroupService.instance.getChatGroup(user.uid, partner.uid);
     if (chatGroup == null) {
-      print("new user");
       isNewUser.value = true;
       listenChatGroup();
     } else {
-      print("olde");
       await fetchMessages();
     }
     if (reload) isLoading.value = false;

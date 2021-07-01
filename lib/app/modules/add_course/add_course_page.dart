@@ -37,7 +37,7 @@ class AddCoursePage extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          (pageIndex == 1) ? 'Mở lớp (Bạn học)': 'Mở lớp (Bạn dạy)',
+          'Mở lớp',
           style: GoogleFonts.nunitoSans(
               color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
         ),

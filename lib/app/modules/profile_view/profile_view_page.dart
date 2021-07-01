@@ -67,6 +67,7 @@ class ProfileViewPage extends StatelessWidget {
                         height: 12,
                         width: 12,
                         child: CircularProgressIndicator(
+                          strokeWidth: 3.0,
                           valueColor:
                               AlwaysStoppedAnimation<Color>(Colors.black),
                         ),
@@ -75,22 +76,37 @@ class ProfileViewPage extends StatelessWidget {
                       Text('Chưa có')
                     else
                       Text(controller.averageStar.value.toStringAsFixed(2)),
-                    Icon(Icons.star),
+                    Icon(
+                      Icons.star,
+                      color: Colors.yellow.shade600,
+                    ),
                   ],
                 ),
               ),
               Center(
                 child: InkWell(
-                  onTap: (){
-                    Get.toNamed(Routes.VIEWRATING);
-                  },
+                  onTap: () => (controller.averageStar.value > -1.0)
+                      ? Get.toNamed(Routes.VIEWRATING,
+                          arguments: controller.evaluations)
+                      : null,
                   child: Column(
                     children: [
-                      Text(
-                        "220 lượt đánh giá",
-                        style: GoogleFonts.nunitoSans(fontSize: 12, fontWeight: FontWeight.normal),
+                      Obx(
+                        () => Text(
+                          (controller.reviewNum.value > -1)
+                              ? (controller.reviewNum.value > 0)
+                                  ? "${controller.reviewNum.value} lượt đánh giá"
+                                  : "Chưa có đánh giá"
+                              : "-- lượt đánh giá",
+                          style: GoogleFonts.nunitoSans(
+                              fontSize: 12, fontWeight: FontWeight.normal),
+                        ),
                       ),
-                      Text("(tap vào để xem chi tiết)", style: GoogleFonts.nunitoSans(fontSize: 10,fontWeight: FontWeight.w200),)
+                      Text(
+                        "(tap vào để xem chi tiết)",
+                        style: GoogleFonts.nunitoSans(
+                            fontSize: 10, fontWeight: FontWeight.w200),
+                      )
                     ],
                   ),
                 ),

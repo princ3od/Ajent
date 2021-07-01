@@ -44,7 +44,6 @@ class CourseService implements CollectionInterface {
             .doc('fixedTime')
             .get()
             .then((value) {
-          print(value.data());
           course.fixedTime = FixedTime.fromJson(value.data());
         });
       } else {
@@ -75,7 +74,6 @@ class CourseService implements CollectionInterface {
               .doc('fixedTime')
               .get()
               .then((value) {
-            print(value.data());
             course.fixedTime = FixedTime.fromJson(value.data());
           });
         } else {
@@ -108,7 +106,6 @@ class CourseService implements CollectionInterface {
               .doc('fixedTime')
               .get()
               .then((value) {
-            print(value.data());
             course.fixedTime = FixedTime.fromJson(value.data());
           });
         } else {
@@ -151,6 +148,9 @@ class CourseService implements CollectionInterface {
         .collection('evaluations')
         .get()
         .then((value) {
+      if (value.docs.isEmpty) {
+        return evaluations;
+      }
       for (var item in value.docs) {
         Evaluation evaluation = Evaluation.fromJson(item.id, item.data());
         evaluations[item.id] = evaluation;
@@ -170,23 +170,12 @@ class CourseService implements CollectionInterface {
     return evaluation;
   }
 
-  Stream<QuerySnapshot> searchCourse(
-      {String keyword, bool isFirst, DocumentSnapshot last}) {
-    if (isFirst) {
-      return database
-          .collection(collectionName)
-          .where('indexList', arrayContains: keyword)
-          .orderBy('name')
-          .limit(25)
-          .snapshots();
-    } else {
-      return database
-          .collection(collectionName)
-          .where('indexList', arrayContains: keyword)
-          .orderBy('name')
-          .startAfterDocument(last)
-          .limit(25)
-          .snapshots();
-    }
+  Stream<QuerySnapshot> searchCourse({String keyword, int maxLength = 25}) {
+    return database
+        .collection(collectionName)
+        .where('indexList', arrayContains: keyword)
+        .orderBy('name')
+        .limit(maxLength)
+        .snapshots();
   }
 }

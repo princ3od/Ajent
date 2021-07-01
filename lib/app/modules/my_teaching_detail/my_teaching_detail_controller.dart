@@ -15,7 +15,7 @@ class MyTeachingDetailController extends GetxController {
   var isSharing = false.obs;
 
   var joinable = false.obs;
-
+  var editable = false.obs;
   AjentUser teacher;
   Map<String, AjentUser> learners = Map();
   @override
@@ -32,6 +32,8 @@ class MyTeachingDetailController extends GetxController {
     joinable.value = (course.value.status == CourseStatus.upcoming &&
         !course.value.learners.contains(HomeController.mainUser.uid) &&
         course.value.teacher != HomeController.mainUser.uid);
+    editable.value = (HomeController.mainUser.uid == course.value.owner &&
+        course.value.status == CourseStatus.upcoming);
     isLoading.value = false;
   }
 
