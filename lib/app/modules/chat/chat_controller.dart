@@ -108,6 +108,15 @@ class ChatController extends GetxController {
     if (image == null) return;
 
     try {
+      if (chatGroup == null) {
+        chatGroup = ChatGroup()..people = [user.uid, partner.uid];
+        chatGroup = await ChatGroupService.instance.createChatGroup(chatGroup);
+        if (chatGroup == null) {
+          return;
+        }
+        isNewUser.value = false;
+        listenNewMessage();
+      }
       String imageUrl = await StorageService.instance.uploadMessageImage(image);
       Message message = Message()
         ..content = imageUrl
@@ -119,6 +128,28 @@ class ChatController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }
+
+  static Future<Message> sendInvitation(
+      String courseId, String partnerUid) async {
+    ChatGroup chatGroup = await ChatGroupService.instance
+        .getChatGroup(HomeController.mainUser.uid, partnerUid);
+    if (chatGroup == null) {
+      chatGroup = ChatGroup()
+        ..people = [HomeController.mainUser.uid, partnerUid];
+      chatGroup = await ChatGroupService.instance.createChatGroup(chatGroup);
+      if (chatGroup == null) {
+        return null;
+      }
+    }
+    Message message = Message()
+      ..content = courseId
+      ..groupID = chatGroup.id
+      ..senderUid = HomeController.mainUser.uid
+      ..timeStamp = DateTime.now().millisecondsSinceEpoch
+      ..type = MessageType.invitation;
+    message = await MessageService.instance.sendMessage(message);
+    return message;
   }
 
   bool needShowTime(int index) {

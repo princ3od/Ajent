@@ -52,7 +52,9 @@ class MyCourseDetailPage extends StatelessWidget {
                 Icons.share,
                 color: Colors.black,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                controller.showShareBottomSheet(context);
+              }),
           Obx(
             () => Visibility(
               visible: controller.editable.value,
@@ -342,29 +344,6 @@ class MyCourseDetailPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                // Padding(
-                                //   padding:
-                                //       const EdgeInsets.fromLTRB(25, 5, 25, 5),
-                                //   child: SingleChildScrollView(
-                                //     child: Wrap(
-                                //       spacing:
-                                //           8.0, // gap between adjacent chips
-                                //       runSpacing: 4.0, // gap between lines
-                                //       direction: Axis.horizontal,
-                                //       children: [
-                                //         for (var text in course.subjects)
-                                //           if (text.isNotEmpty)
-                                //             SubjectBadge(content: text),
-                                //         // for (var text in course.subjects)
-                                //         //   if (text.isNotEmpty)
-                                //         //     SubjectBadge(content: text),
-                                //         // for (var text in course.subjects)
-                                //         //   if (text.isNotEmpty)
-                                //         //     SubjectBadge(content: text),
-                                //       ],
-                                //     ),
-                                //   ),
-                                // ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(left: 20, top: 10),
