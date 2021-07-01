@@ -18,11 +18,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddCourseController extends GetxController {
-  var topics = ['Toán', 'Tiếng anh'];
-  var selectedTopic = 'Toán'.obs;
-
-  var courseTypes = ['Học nhóm'];
-  var selectedType = 'Học nhóm'.obs;
+  List<String> subjects = [];
 
   var timeTypes = [TimeType.fixedTime, TimeType.periodTime];
   var selectedTimeType = TimeType.fixedTime.obs;
@@ -81,7 +77,8 @@ class AddCourseController extends GetxController {
           ..address = txtCourseAddress.text
           ..timeType = selectedTimeType.value
           ..requirements = txtCourseRequirements.text
-          ..photoUrl = imageUrl;
+          ..photoUrl = imageUrl
+          ..subjects = subjects;
       } catch (e) {
         Get.snackbar(
             "Lỗi dữ liệu", "Vui lòng kiểm tra lại thông tin khoá học.");
