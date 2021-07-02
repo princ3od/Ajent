@@ -3,6 +3,7 @@ import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/evaluation.dart';
 import 'package:ajent/app/data/models/requestCardData.dart';
+import 'package:ajent/app/data/models/requestStatusCardData.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
@@ -174,5 +175,24 @@ class RequestService implements CollectionInterface {
     });
     isSuccess = true;
     return isSuccess;
+  }
+
+  Future<List<RequestStatusCardData>> getRequestStatusItems(String uid) async {
+    List<RequestStatusCardData> result = [];
+    await database
+        .collection(collectionName)
+        .where('requestorUid', isEqualTo: uid)
+        .get()
+        .then((value) async {
+      for (var item in value.docs) {
+        Request request = Request.fromJson(item.id, item.data());
+        Course course =
+            await CourseService.instance.getCourse(request.courseId);
+        RequestStatusCardData data =
+            RequestStatusCardData(course: course, request: request);
+        result.add(data);
+      }
+    });
+    return result;
   }
 }

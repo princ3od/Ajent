@@ -3,6 +3,7 @@ import 'package:ajent/app/modules/request/request_controller.dart';
 import 'package:ajent/app/modules/request/widgets/request_card.dart';
 import 'package:ajent/app/modules/request/widgets/request_status_card.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -94,7 +95,24 @@ class RequestPage extends StatelessWidget {
                                       });
                                 })))
                   else
-                    RequestStatusCard(),
+                    Container(
+                      height: Get.height - 168,
+                      child: Obx(
+                        () => controller.isLoadingStatus.value == true
+                            ? Center(child: CircularProgressIndicator())
+                            : ListView.builder(
+                                itemCount: controller.requestStatusItems.length,
+                                itemBuilder: (context, index) {
+                                  return RequestStatusCard(
+                                    course: controller
+                                        .requestStatusItems[index].course,
+                                    request: controller
+                                        .requestStatusItems[index].request,
+                                  );
+                                },
+                              ),
+                      ),
+                    ),
                 ],
               ),
             ),

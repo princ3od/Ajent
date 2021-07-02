@@ -118,7 +118,7 @@ class RequestCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
                                 child: UserAvatar(
-                                  user: HomeController.mainUser,
+                                  user: requestor,
                                   size: 16,
                                 ),
                               ),

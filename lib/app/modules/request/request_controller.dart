@@ -4,6 +4,7 @@ import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/evaluation.dart';
 import 'package:ajent/app/data/models/requestCardData.dart';
+import 'package:ajent/app/data/models/requestStatusCardData.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/request_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
@@ -17,11 +18,11 @@ class RequestController extends GetxController {
 
   // ignore: deprecated_member_use
   var requestItems = List<RequestCardData>();
-  Future<bool> getRequestItems() async {
+
+  Future<void> getRequestItems() async {
     requestItems = await requestService.getRequestItems(ajentUser.uid);
     isLoading.value = false;
-    Get.snackbar("Thông báo", "Đã cập nhật các yêu cầu thành công.");
-    return true;
+    Get.snackbar("Thông báo", "Dữ liệu mới đã được cập nhật");
   }
 
   Future<void> onDeniedButtonPress(Request requestItem) async {
@@ -44,10 +45,21 @@ class RequestController extends GetxController {
     }
   }
 
+  var isLoadingStatus = true.obs;
+  // ignore: deprecated_member_use
+  var requestStatusItems = List<RequestStatusCardData>();
+  Future<void> getRequestStatusItems() async {
+    requestStatusItems =
+        await requestService.getRequestStatusItems(ajentUser.uid);
+    isLoadingStatus.value = false;
+    Get.snackbar("Thông báo", "Dữ liệu mới đã được cập nhật");
+  }
+
   @override
   Future<void> onInit() async {
     super.onInit();
+    await getRequestStatusItems();
     await getRequestItems();
+    Get.snackbar("Thông báo", "Hoàn tất đồng bộ hoá dữ liệu");
   }
-
 }

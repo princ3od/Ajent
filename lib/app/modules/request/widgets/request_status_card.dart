@@ -11,13 +11,12 @@ import 'package:google_fonts/google_fonts.dart';
 class RequestStatusCard extends StatelessWidget {
   final Course course;
   final Request request;
-  final RequestStatus status;
-  const RequestStatusCard(
-      {Key key,
-      @required this.course,
-      @required this.request,
-      @required this.status})
-      : super(key: key);
+
+  const RequestStatusCard({
+    Key key,
+    @required this.course,
+    @required this.request,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
