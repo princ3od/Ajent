@@ -195,4 +195,16 @@ class RequestService implements CollectionInterface {
     });
     return result;
   }
+
+  Future<bool> delRequest(Request item) async {
+    bool result = true;
+    await database
+        .collection(collectionName)
+        .doc(item.id)
+        .delete()
+        .catchError((error) {
+      result = false;
+    });
+    return result;
+  }
 }

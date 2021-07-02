@@ -8,6 +8,7 @@ import 'package:ajent/app/data/models/requestStatusCardData.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/request_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RequestController extends GetxController {
@@ -53,6 +54,17 @@ class RequestController extends GetxController {
         await requestService.getRequestStatusItems(ajentUser.uid);
     isLoadingStatus.value = false;
     Get.snackbar("Thông báo", "Dữ liệu mới đã được cập nhật");
+  }
+
+  Future<void> onStatusDenied(Request item) async {
+    bool result = await requestService.delRequest(item);
+    if (result) {
+      Get.snackbar("Thông báo", "Huỷ yêu cầu thành công");
+      isLoadingStatus.value = true;
+      getRequestStatusItems();
+    } else {
+      Get.snackbar("Cảnh báo", "Có lỗi xảy ra, vui lòng thử lại sau.");
+    }
   }
 
   @override
