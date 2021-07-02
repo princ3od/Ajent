@@ -11,13 +11,16 @@ import 'package:google_fonts/google_fonts.dart';
 class RequestStatusCard extends StatelessWidget {
   final Course course;
   final Request request;
-  final RequestStatus status;
-  const RequestStatusCard(
-      {Key key,
-      @required this.course,
-      @required this.request,
-      @required this.status})
-      : super(key: key);
+  final ValueChanged<Request> onDenied;
+  final ValueChanged<Request> onContact;
+
+  const RequestStatusCard({
+    Key key,
+    @required this.course,
+    @required this.request,
+    @required this.onDenied,
+    @required this.onContact,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +172,7 @@ class RequestStatusCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => onDenied(this.request),
                       child: Text(
                         "Huỷ yêu cầu",
                         style: GoogleFonts.nunitoSans(
@@ -178,7 +181,7 @@ class RequestStatusCard extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => onContact(this.request),
                       child: Text(
                         "Liên hệ",
                         style: GoogleFonts.nunitoSans(

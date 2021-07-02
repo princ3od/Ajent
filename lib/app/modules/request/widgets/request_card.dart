@@ -9,6 +9,7 @@ import 'package:ajent/app/modules/request/widgets/request_status_badge.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -19,12 +20,17 @@ class RequestCard extends StatelessWidget {
   final Request request;
   final AjentUser requestor;
   final double star;
+  final ValueChanged<Request> onApprovePressed;
+  final ValueChanged<Request> onDeniedPressed;
+
   const RequestCard(
       {Key key,
       @required this.course,
       @required this.request,
       @required this.requestor,
-      this.star = -2})
+      this.star = -2,
+      this.onApprovePressed,
+      this.onDeniedPressed})
       : super(key: key);
 
   @override
@@ -112,7 +118,7 @@ class RequestCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
                                 child: UserAvatar(
-                                  user: HomeController.mainUser,
+                                  user: requestor,
                                   size: 16,
                                 ),
                               ),
@@ -131,17 +137,25 @@ class RequestCard extends StatelessWidget {
                                           fontSize: 14,
                                           color: Colors.black),
                                     ),
-                                    RatingBar.builder(
-                                      itemSize: 15,
-                                      ignoreGestures: true,
-                                      itemCount: 5,
-                                      initialRating: 2,
-                                      itemBuilder: (context, index) => Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (value) {},
-                                    ),
+                                    (star != -1)
+                                        ? RatingBar.builder(
+                                            itemSize: 15,
+                                            ignoreGestures: true,
+                                            itemCount: 5,
+                                            initialRating:
+                                                (star != null) ? star : 2.0,
+                                            itemBuilder: (context, index) =>
+                                                Icon(
+                                              Icons.star_rounded,
+                                              color: Colors.amber,
+                                            ),
+                                            onRatingUpdate: (value) {},
+                                          )
+                                        : Text(
+                                            'Chưa có đánh giá',
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 14),
+                                          ),
                                   ],
                                 ),
                               ),
@@ -217,10 +231,16 @@ class RequestCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: (request?.status ??
-                              RequestStatus.accepted != RequestStatus.waiting)
-                          ? null
-                          : () => print("hello"),
+                      onPressed: (request != null)
+                          ? ((request.status != null)
+                              ? ((request.status != RequestStatus.accepted &&
+                                      request.status != RequestStatus.denied)
+                                  ? () {
+                                      onDeniedPressed(this.request);
+                                    }
+                                  : null)
+                              : null)
+                          : null,
                       child: Text(
                         "Từ chối",
                         style: GoogleFonts.nunitoSans(
@@ -229,7 +249,16 @@ class RequestCard extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: (request != null)
+                          ? ((request.status != null)
+                              ? ((request.status != RequestStatus.accepted &&
+                                      request.status != RequestStatus.denied)
+                                  ? () {
+                                      onApprovePressed(this.request);
+                                    }
+                                  : null)
+                              : null)
+                          : null,
                       child: Text(
                         "Đồng ý",
                         style: GoogleFonts.nunitoSans(
