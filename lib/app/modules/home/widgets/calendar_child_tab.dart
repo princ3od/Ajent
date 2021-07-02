@@ -1,7 +1,9 @@
+import 'package:ajent/app/data/services/notification_service.dart';
 import 'package:ajent/app/modules/home/calendar_content/study_calendar_event.dart';
 import 'package:ajent/app/modules/home/calendar_content/teaching_calendar_event.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class CalendarChildTab extends StatelessWidget {
@@ -45,7 +47,21 @@ class CalendarChildTab extends StatelessWidget {
           ),
         ),
         StudyCalendarEventCard(),
-        TeachingCalendarEventCard()
+        TeachingCalendarEventCard(),
+        ElevatedButton(
+            onPressed: () {
+              FirebaseMessaging.instance.subscribeToTopic('princ3');
+            },
+            child: Text('subcrice')),
+        ElevatedButton(
+            onPressed: () async {
+              await Future.delayed(Duration(seconds: 3));
+              NotificationService.sendToTopic(
+                  title: "Thong bao tu Ajent",
+                  body: "Test thu thong bao, day la noi dung",
+                  topic: "princ3");
+            },
+            child: Text('send notification')),
       ],
     );
   }

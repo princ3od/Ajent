@@ -243,10 +243,7 @@ class MyCourseDetailController extends GetxController {
                                       .unfocus(),
                                   child: ShareableUserItem(
                                     user: user,
-                                    onShare: () {
-                                      ChatController.sendInvitation(
-                                          course.value.id, user.uid);
-                                    },
+                                    course: course.value,
                                   ));
                             },
                           );

@@ -1,38 +1,69 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
+import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
+import 'package:ajent/app/modules/chat/chat_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
-class ShareableUserItem extends StatelessWidget {
+class ShareableUserItem extends StatefulWidget {
   final AjentUser user;
-  final VoidCallback onShare;
+  final Course course;
   const ShareableUserItem({
     Key key,
     @required this.user,
-    @required this.onShare,
+    @required this.course,
   }) : super(key: key);
 
+  @override
+  _ShareableUserItemState createState() => _ShareableUserItemState();
+}
+
+class _ShareableUserItemState extends State<ShareableUserItem> {
+  bool isSharing = false;
+  bool isShared = false;
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        user.name,
+        widget.user.name,
         style: GoogleFonts.nunitoSans(
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
       ),
-      leading: UserAvatar(user: user, size: 20),
+      leading: UserAvatar(user: widget.user, size: 20),
       trailing: OutlinedButton(
-        onPressed: onShare,
-        child: Text(
-          'Share',
-          style: GoogleFonts.nunitoSans(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        onPressed: () async {
+          if (isShared) {
+            return;
+          }
+          setState(() {
+            isSharing = true;
+          });
+          print('start share');
+          var m =
+              ChatController.sendInvitation(widget.course.id, widget.user.uid);
+          print('end');
+          Get.snackbar("Gửi thành công",
+              "Khoá học này đã được chia sẻ đến ${widget.user.name}",
+              snackPosition: SnackPosition.BOTTOM);
+          setState(() {
+            isSharing = false;
+            isShared = (m != null);
+          });
+        },
+        child: (isSharing)
+            ? SizedBox(
+                height: 15, width: 15, child: CircularProgressIndicator())
+            : Text(
+                (isShared) ? 'shared'.tr : 'share'.tr,
+                style: GoogleFonts.nunitoSans(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
         style: outlinedButtonStyle,
       ),
     );
