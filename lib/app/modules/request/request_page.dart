@@ -145,6 +145,9 @@ class _RequestPageState extends State<RequestPage> {
                                       onDenied: (value) {
                                         controller.onStatusDenied(value);
                                       },
+                                      onContact: (value) {
+                                        controller.onStatusContact(value);
+                                      },
                                     );
                                   },
                                 ),

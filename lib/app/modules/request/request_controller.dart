@@ -1,14 +1,11 @@
-import 'dart:ffi';
-
+import 'package:ajent/routes/pages.dart';
 import 'package:ajent/app/data/models/Request.dart';
-import 'package:ajent/app/data/models/course.dart';
-import 'package:ajent/app/data/models/evaluation.dart';
+import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/requestCardData.dart';
 import 'package:ajent/app/data/models/requestStatusCardData.dart';
-import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/request_service.dart';
+import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RequestController extends GetxController {
@@ -65,6 +62,11 @@ class RequestController extends GetxController {
     } else {
       Get.snackbar("Cảnh báo", "Có lỗi xảy ra, vui lòng thử lại sau.");
     }
+  }
+
+  Future<void> onStatusContact(Request item) async {
+    AjentUser user = await UserService.instance.getUser(item.receiverUid);
+    Get.toNamed(Routes.CHATTING, arguments: user);
   }
 
   @override

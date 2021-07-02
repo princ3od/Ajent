@@ -12,12 +12,14 @@ class RequestStatusCard extends StatelessWidget {
   final Course course;
   final Request request;
   final ValueChanged<Request> onDenied;
+  final ValueChanged<Request> onContact;
 
   const RequestStatusCard({
     Key key,
     @required this.course,
     @required this.request,
     @required this.onDenied,
+    @required this.onContact,
   }) : super(key: key);
 
   @override
@@ -179,7 +181,7 @@ class RequestStatusCard extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => onContact(this.request),
                       child: Text(
                         "Liên hệ",
                         style: GoogleFonts.nunitoSans(
