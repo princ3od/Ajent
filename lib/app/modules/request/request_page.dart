@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RequestPage extends StatelessWidget {
-  RequestPage({Key key}) : super(key: key);
   final RequestController controller = Get.put(RequestController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +42,7 @@ class RequestPage extends StatelessWidget {
               child: TabBar(
                   onTap: (value) async {
                     controller.tabIndex.value = value;
-                    if (value == 0) {
+                    if (value == 0 && controller.isLoading.value == true) {
                       await controller.getRequestItems();
                     }
                   },
@@ -67,21 +67,32 @@ class RequestPage extends StatelessWidget {
                 children: [
                   if (controller.tabIndex.value == 0)
                     Container(
-                      height: Get.height - 168,
-                      child: Obx(
-                        () => ListView.builder(
-                          itemCount: controller.requestItems.length,
-                          itemBuilder: (context, index) {
-                            return RequestCard(
-                              request: controller.requestItems[index].request,
-                              requestor:
-                                  controller.requestItems[index].requestor,
-                              course: controller.requestItems[index].course,
-                            );
-                          },
-                        ),
-                      ),
-                    )
+                        height: Get.height - 168,
+                        child: Obx(() => (controller.isLoading.value == true)
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView.builder(
+                                itemCount: controller.requestItems.length,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return RequestCard(
+                                      onApprovePressed: (value) async {
+                                        await controller
+                                            .onApproveButtonPress(value);
+                                      },
+                                      request: controller
+                                          .requestItems[index].request,
+                                      star: controller.requestItems[index].star,
+                                      requestor: controller
+                                          .requestItems[index].requestor,
+                                      course:
+                                          controller.requestItems[index].course,
+                                      onDeniedPressed: (value) async {
+                                        await controller
+                                            .onDeniedButtonPress(value);
+                                      });
+                                })))
                   else
                     RequestStatusCard(),
                 ],

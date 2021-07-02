@@ -1,6 +1,7 @@
 import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/data/models/evaluation.dart';
 import 'package:ajent/app/data/models/requestCardData.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:ajent/app/data/services/course_service.dart';
@@ -81,12 +82,97 @@ class RequestService implements CollectionInterface {
             await CourseService.instance.getCourse(request.courseId);
         AjentUser requestor =
             await UserService.instance.getUser(request.requestorUid);
+        double stars = await getEvaluations(request.requestorUid);
+
         RequestCardData requestCardData = RequestCardData(
-            course: course, request: request, requestor: requestor);
+            course: course,
+            request: request,
+            requestor: requestor,
+            star: stars);
         requestItems.add(requestCardData);
       }
     });
 
     return requestItems;
+  }
+
+  Future<double> getEvaluations(String uid) async {
+    var averageStar = (-2.0);
+    var reviewNum = (-1);
+    List<Course> teachingCourses = [];
+    double totalStar = 0;
+    double total5 = 0, total4 = 0, total3 = 0, total2 = 0, total1 = 0;
+    Map<String, Evaluation> evaluations = Map();
+    diviceIntoGroup(int star) {
+      switch (star) {
+        case 5:
+          total5 += 1;
+          break;
+        case 4:
+          total4 += 1;
+          break;
+        case 3:
+          total3 += 1;
+          break;
+        case 2:
+          total2 += 1;
+          break;
+        case 1:
+          total1 += 1;
+          break;
+        default:
+          break;
+      }
+    }
+
+    teachingCourses = await CourseService.instance.getUserTeachingCourse(uid);
+    for (var course in teachingCourses) {
+      evaluations
+          .addAll(await CourseService.instance.getEvaluations(course.id));
+    }
+    for (var evaluation in evaluations.values) {
+      totalStar += evaluation.star;
+      diviceIntoGroup(evaluation.star);
+    }
+    reviewNum = evaluations.length;
+    averageStar =
+        (evaluations.length > 0) ? (totalStar / evaluations.length) : -1.0;
+    return averageStar;
+  }
+
+  Future<bool> onDeniedButtonPress(Request requestItem) async {
+    bool isSuccess = true;
+    await database
+        .collection(collectionName)
+        .doc('${requestItem.id}')
+        .update({'status': 'denied'}).catchError((error) {
+      isSuccess = false;
+    });
+    isSuccess = true;
+    return isSuccess;
+  }
+
+  Future<bool> onApproveButtonPress(Request requestItem) async {
+    bool isSuccess = true;
+    await database
+        .collection(collectionName)
+        .doc('${requestItem.id}')
+        .update({'status': 'accepted'}).then((value) async {
+      await database
+          .collection(collectionName)
+          .where('courseId', isEqualTo: requestItem.courseId)
+          .get()
+          .then((value) async {
+        for (var item in value.docs) {
+          if (item.id != requestItem.id)
+            await database
+                .collection(collectionName)
+                .doc(item.id)
+                .update({'status': 'denied'});
+        }
+      });
+    });
+    isSuccess = true;
+    return isSuccess;
   }
 }

@@ -9,6 +9,7 @@ class Request {
   RequestStatus status;
   Request();
   Request.fromJson(String id, Map<String, dynamic> data) {
+    this.id = id;
     requestorUid = data['requestorUid'];
     courseId = data['courseId'];
     receiverUid = data['receiverUid'];
