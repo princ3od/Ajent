@@ -17,6 +17,8 @@ abstract class Routes {
   static const TEXTING = '/texting';
   static const CHATTING = '/chatting';
   static const SETTINGS = '/settings';
-  static const TERMS ='/regulations_and_policies';
-  static const VIEWRATING='/ratings_view';
+  static const TERMS = '/regulations_and_policies';
+  static const VIEWRATING = '/ratings_view';
+  static const REQUEST_VIEW = '/request_view';
+  static const ONBOARDINTRO = '/onboard_intro';
 }

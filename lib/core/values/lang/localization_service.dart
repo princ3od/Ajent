@@ -49,4 +49,8 @@ class LocalizationService extends Translations {
     }
     return Get.locale;
   }
+
+  static String getLocaleString() {
+    return '${locale.languageCode}_${locale.countryCode}';
+  }
 }

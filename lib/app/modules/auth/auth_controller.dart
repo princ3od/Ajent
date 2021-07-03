@@ -4,6 +4,7 @@ import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/Person.dart';
 
 import 'package:ajent/app/data/services/authenctic_service.dart';
+import 'package:ajent/app/data/services/subscribe_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/routes/pages.dart';
@@ -11,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   var isSigningIn = false.obs;
@@ -27,6 +29,14 @@ class AuthController extends GetxController {
     User user = await AuthenticService.instance.signInWithGoogle();
     if (user != null) {
       await loadUser(user);
+      loginType = LoginType.withGoogle;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isFirst = prefs.getBool('isFirst') ?? true;
+      if (isFirst) {
+        await prefs.setBool('isFirst', false);
+        Get.offNamed(Routes.ONBOARDINTRO);
+        return;
+      }
       Get.offAllNamed(Routes.HOME);
       isSigningIn.value = false;
       HomeController.checkUserUpdateInfo();
@@ -37,8 +47,8 @@ class AuthController extends GetxController {
   }
 
   static Future loadUser(User user) async {
-    loginType = LoginType.withGoogle;
     bool isExist = await UserService.instance.isUserExisted(user);
+    await SubscribeService.instance.subscribeOnLogin(user.uid);
     if (!isExist) {
       AjentUser ajentUser = AjentUser(
         user.uid,
@@ -60,7 +70,7 @@ class AuthController extends GetxController {
     }
   }
 
-  static signOut() {
+  static signOut() async {
     switch (loginType) {
       case LoginType.withGoogle:
         _signOutGoogle();
@@ -74,6 +84,8 @@ class AuthController extends GetxController {
       default:
         break;
     }
+    await SubscribeService.instance
+        .unsubscribeOnLogout(HomeController.mainUser.uid);
     Get.offAllNamed(Routes.WELCOME);
   }
 
@@ -88,6 +100,13 @@ class AuthController extends GetxController {
     if (user != null) {
       await loadUser(user);
       loginType = LoginType.withFacebook;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isFirst = prefs.getBool('isFirst') ?? true;
+      if (isFirst) {
+        await prefs.setBool('isFirst', false);
+        Get.offNamed(Routes.ONBOARDINTRO);
+        return;
+      }
       await Get.offAllNamed(Routes.HOME);
       isSigningIn.value = false;
       HomeController.checkUserUpdateInfo();
@@ -148,7 +167,15 @@ class AuthController extends GetxController {
     User user = await AuthenticService.instance
         .signInByPhone(verificationID.value, txtCode.text);
     if (user != null) {
+      loginType = LoginType.byPhone;
       await loadUser(user);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isFirst = prefs.getBool('isFirst') ?? true;
+      if (isFirst) {
+        await prefs.setBool('isFirst', false);
+        Get.offNamed(Routes.ONBOARDINTRO);
+        return;
+      }
       await Get.offAllNamed(Routes.HOME);
       isVerifing.value = false;
       HomeController.checkUserUpdateInfo();

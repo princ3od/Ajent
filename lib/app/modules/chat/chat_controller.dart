@@ -6,12 +6,14 @@ import 'package:ajent/app/data/models/chat_group.dart';
 import 'package:ajent/app/data/models/message.dart';
 import 'package:ajent/app/data/services/chat_group_service.dart';
 import 'package:ajent/app/data/services/message_service.dart';
+import 'package:ajent/app/data/services/notification_service.dart';
 import 'package:ajent/app/data/services/storage_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:ajent/core/utils/file_utils.dart';
 
 class ChatController extends GetxController {
   AjentUser user = HomeController.mainUser;
@@ -66,11 +68,9 @@ class ChatController extends GetxController {
     chatGroup =
         await ChatGroupService.instance.getChatGroup(user.uid, partner.uid);
     if (chatGroup == null) {
-      print("new user");
       isNewUser.value = true;
       listenChatGroup();
     } else {
-      print("olde");
       await fetchMessages();
     }
     if (reload) isLoading.value = false;
@@ -101,14 +101,28 @@ class ChatController extends GetxController {
       ..type = MessageType.text;
     message = await MessageService.instance.sendMessage(message);
     txtContent.clear();
+    if (message != null) {
+      var rp = await NotificationService.instance
+          .notifyNewMessage(user, message.content, partner.uid);
+      print(rp.statusCode);
+    }
   }
 
   sendImage() async {
-    File image = await _getImage();
+    File image = await FileUtilitiy.getImage();
 
     if (image == null) return;
 
     try {
+      if (chatGroup == null) {
+        chatGroup = ChatGroup()..people = [user.uid, partner.uid];
+        chatGroup = await ChatGroupService.instance.createChatGroup(chatGroup);
+        if (chatGroup == null) {
+          return;
+        }
+        isNewUser.value = false;
+        listenNewMessage();
+      }
       String imageUrl = await StorageService.instance.uploadMessageImage(image);
       Message message = Message()
         ..content = imageUrl
@@ -117,9 +131,41 @@ class ChatController extends GetxController {
         ..timeStamp = DateTime.now().millisecondsSinceEpoch
         ..type = MessageType.image;
       message = await MessageService.instance.sendMessage(message);
+      if (message != null) {
+        await NotificationService.instance.notifyNewMessage(
+            user, "${user.name} send you an image", partner.uid);
+      }
     } catch (e) {
       print(e);
     }
+  }
+
+  static Future<Message> sendInvitation(
+      String courseId, String partnerUid) async {
+    ChatGroup chatGroup = await ChatGroupService.instance
+        .getChatGroup(HomeController.mainUser.uid, partnerUid);
+    if (chatGroup == null) {
+      chatGroup = ChatGroup()
+        ..people = [HomeController.mainUser.uid, partnerUid];
+      chatGroup = await ChatGroupService.instance.createChatGroup(chatGroup);
+      if (chatGroup == null) {
+        return null;
+      }
+    }
+    Message message = Message()
+      ..content = courseId
+      ..groupID = chatGroup.id
+      ..senderUid = HomeController.mainUser.uid
+      ..timeStamp = DateTime.now().millisecondsSinceEpoch
+      ..type = MessageType.invitation;
+    message = await MessageService.instance.sendMessage(message);
+    if (message != null) {
+      await NotificationService.instance.notifyNewMessage(
+          HomeController.mainUser,
+          "${HomeController.mainUser.name} send you a course",
+          partnerUid);
+    }
+    return message;
   }
 
   bool needShowTime(int index) {
@@ -129,7 +175,7 @@ class ChatController extends GetxController {
     final lastTime =
         DateTime.fromMillisecondsSinceEpoch(messages[index + 1].timeStamp)
             .toLocal();
-    if (time.difference(lastTime).inMinutes > 15) return true;
+    if (time.difference(lastTime).inMinutes > 5) return true;
     return false;
   }
 
@@ -141,17 +187,6 @@ class ChatController extends GetxController {
       return true;
     } else {
       return false;
-    }
-  }
-
-  Future<File> _getImage() async {
-    final pickedFile =
-        await ImagePicker().getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      return File(pickedFile.path);
-    } else {
-      print('No image selected.');
-      return null;
     }
   }
 

@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import 'package:ajent/app/data/models/chat_group.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TextingController extends GetxController {
   bool firstFetch = true;
@@ -20,6 +21,7 @@ class TextingController extends GetxController {
   var chatGroups = <ChatGroup>[].obs;
 
   StreamSubscription<QuerySnapshot> _listenNewChat;
+  RefreshController refreshController = RefreshController();
   var _listenLastMessage = <StreamSubscription<QuerySnapshot>>[];
   @override
   void onInit() async {
@@ -30,6 +32,8 @@ class TextingController extends GetxController {
 
   fetchChatGroup() async {
     isLoadingGroup.value = true;
+    firstFetch = true;
+    fetchGroup = false;
     chatGroups.value = await ChatGroupService.instance.getChatGroups(user.uid);
     chatGroups.sort(
         (a, b) => b.lastMessage.timeStamp.compareTo(a.lastMessage.timeStamp));
@@ -39,22 +43,22 @@ class TextingController extends GetxController {
       _listenLastMessage[i] = MessageService.instance
           .subcribeListenMessage(chatGroups[i].id, (data) {
         if (firstFetch) {
-          print(firstFetch);
           if (i == chatGroups.length - 1) {
             firstFetch = false;
           }
           return;
         }
-        print("update last msg");
         if (data.docChanges.length > 0) {
           chatGroups[i].lastMessage = Message.fromJson(
               data.docChanges.first.doc.id, data.docChanges.first.doc.data());
+          chatGroups.insert(0, chatGroups.removeAt(i));
           if (chatGroups[i].lastMessage.senderUid != user.uid)
             chatGroups[i].seen = false;
           chatGroups.refresh();
         }
       });
     }
+    refreshController.refreshCompleted();
     fetchGroup = true;
     isLoadingGroup.value = false;
   }
@@ -65,7 +69,6 @@ class TextingController extends GetxController {
       if (!fetchGroup) {
         return;
       }
-      print("new chat");
       for (var item in data.docChanges) {
         if (item.doc.data()['people']?.contains(user.uid) ?? false) {
           ChatGroup chatGroup =

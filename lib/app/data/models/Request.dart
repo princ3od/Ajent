@@ -1,9 +1,31 @@
+import 'package:ajent/core/utils/enum_converter.dart';
+
 class Request {
   String id;
   String requestorUid;
-  String requestorName;
+  String courseId;
+  String receiverUid;
+  int postDate;
   RequestStatus status;
-  RequestType requestType;
+  Request();
+  Request.fromJson(String id, Map<String, dynamic> data) {
+    this.id = id;
+    requestorUid = data['requestorUid'];
+    courseId = data['courseId'];
+    receiverUid = data['receiverUid'];
+    status = EnumConverter.stringToRequestStatus(data['status']);
+    postDate = data['postDate'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'requestorUid': requestorUid,
+      'courseId': courseId,
+      'receiverUid': receiverUid,
+      'status': EnumConverter.requestStatusToString(status),
+      'postDate': DateTime.now().millisecondsSinceEpoch,
+    };
+  }
 }
 
 enum RequestStatus {
@@ -11,8 +33,4 @@ enum RequestStatus {
   waiting,
   denied,
   canceled,
-}
-enum RequestType {
-  requestToJoin,
-  requestToTeach,
 }

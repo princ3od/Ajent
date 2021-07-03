@@ -2,6 +2,7 @@ import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/message.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/chat/chat_controller.dart';
+import 'package:ajent/app/modules/chat/widgets/invitation_course_card.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
@@ -106,9 +107,9 @@ class MessageItem extends StatelessWidget {
                   ? MainAxisAlignment.start
                   : MainAxisAlignment.end,
               children: [
-                if (showAvatar)
+                if (showAvatar && fromPartner)
                   UserAvatar(user: partner, size: 18)
-                else
+                else if (fromPartner)
                   SizedBox(
                     height: 18,
                     width: 18,
@@ -148,7 +149,35 @@ class MessageItem extends StatelessWidget {
         );
         break;
       case MessageType.invitation:
-        return Container();
+        return Column(
+          children: [
+            (showTime)
+                ? buildTimeText(message.timeStamp)
+                : Container(height: 0),
+            SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: (fromPartner)
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.end,
+              children: [
+                if (showAvatar && fromPartner)
+                  UserAvatar(user: partner, size: 18)
+                else if (fromPartner)
+                  SizedBox(
+                    height: 18,
+                    width: 18,
+                  ),
+                Flexible(
+                  child: InvitationCourseCard(
+                    courseId: message.content,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+        break;
       default:
         return Container();
     }
@@ -160,7 +189,7 @@ class MessageItem extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10, bottom: 5),
         child: Text(
           DateConverter.getTime(timeStamp),
-          style: GoogleFonts.nunitoSans(fontSize: 12.5),
+          style: GoogleFonts.nunitoSans(fontSize: 12),
         ),
       ),
     );

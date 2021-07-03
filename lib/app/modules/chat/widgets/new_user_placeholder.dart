@@ -8,24 +8,26 @@ class NewUserPlaceHolder extends StatelessWidget {
   NewUserPlaceHolder(this.user);
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          UserAvatar(user: user, size: 50),
-          SizedBox(height: 10),
-          Text(
-            user.name,
-            style: GoogleFonts.nunitoSans(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+    return IgnorePointer(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            UserAvatar(user: user, size: 50),
+            SizedBox(height: 10),
+            Text(
+              user.name,
+              style: GoogleFonts.nunitoSans(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Text('Start new chat with ${user.name} now!'),
-          SizedBox(height: 100),
-        ],
+            Text('Start new chat with ${user.name} now!'),
+            SizedBox(height: 100),
+          ],
+        ),
       ),
     );
   }

@@ -1,10 +1,9 @@
 import 'package:ajent/app/data/models/Degree.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
+import 'package:ajent/app/data/models/requestCardData.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ajent/app/data/models/Student.dart';
-import 'package:flutter/material.dart';
 import 'dart:io';
 import 'storage_service.dart';
 
@@ -107,24 +106,6 @@ class UserService implements CollectionInterface {
     return success;
   }
 
-  Future<List<Student>> getStudents(String uid) async {
-    List<Student> students = [];
-    await database
-        .collection(collectionName)
-        .doc(uid)
-        .collection('students')
-        .get()
-        .then((value) {
-      value.docs.forEach((element) {
-        print('${element.id}');
-        Student student =
-            Student.fromJson(id: element.id, data: element.data());
-        students.add(student);
-      });
-    }).catchError((error) => print(error));
-    return students;
-  }
-
   Future<bool> delStudent(String uid, String studentId) async {
     bool success = false;
     await database
@@ -154,27 +135,6 @@ class UserService implements CollectionInterface {
     return avatarUrl;
   }
 
-  Future<bool> addStudent(String uid, Student student) async {
-    bool success = false;
-    try {
-      await database
-          .collection(collectionName)
-          .doc(uid)
-          .collection('students')
-          .add(student.toJson())
-          .then((value) {
-        print('$value' + ' student data have been added');
-        success = true;
-      }).catchError((error) {
-        print('$error');
-        success = false;
-      });
-    } catch (exception) {
-      return false;
-    }
-    return success;
-  }
-
   Future<double> getAverageEvaluationStar(String userUid) async {
     int totalEvaluation = 0;
     double totalStar = 0.0;
@@ -194,5 +154,13 @@ class UserService implements CollectionInterface {
     });
     if (totalEvaluation == 0) return -1.0;
     return (totalStar / totalEvaluation);
+  }
+
+  Stream<QuerySnapshot> searchUser({String keyword}) {
+    return database
+        .collection(collectionName)
+        .where('indexList', arrayContains: keyword)
+        .orderBy('name')
+        .snapshots();
   }
 }

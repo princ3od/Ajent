@@ -18,9 +18,12 @@ class DegreesTab extends StatelessWidget {
         () => (controller.loadDegree.value)
             ? ListView.builder(
                 physics: BouncingScrollPhysics(),
-                itemCount: controller.ajentUser.value.degrees.length,
+                itemCount: controller.ajenDegree.length,
                 itemBuilder: (context, index) {
                   return DegreeItem(
+                      onLongPress: (value) async {
+                        await controller.onLongPressDegreeCard(value);
+                      },
                       degree: controller.ajentUser.value.degrees[index]);
                 },
               )

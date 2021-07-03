@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DegreeItem extends StatelessWidget {
+  final ValueChanged<Degree> onLongPress;
   final Degree degree;
-  DegreeItem({@required this.degree});
+
+  const DegreeItem({Key key, @required this.onLongPress, @required this.degree})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,6 +19,9 @@ class DegreeItem extends StatelessWidget {
         child: InkWell(
           onTap: () {
             //
+          },
+          onLongPress: () {
+            onLongPress(degree);
           },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),

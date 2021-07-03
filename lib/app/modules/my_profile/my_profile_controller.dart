@@ -1,19 +1,15 @@
 import 'dart:io';
 import 'package:ajent/app/data/models/Degree.dart';
-import 'package:ajent/app/data/models/Student.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/services/storage_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
-import 'package:ajent/app/global_widgets/user_avatar.dart';
-import 'package:ajent/app/modules/chat/widgets/full_image_page.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:ajent/core/utils/file_utils.dart';
 
 class MyProfileController extends GetxController {
   var tabIndex = 0.obs;
@@ -21,6 +17,7 @@ class MyProfileController extends GetxController {
   var dropdownValue = ''.obs;
   var startDate = DateTime.now().obs;
   var ajenGender = HomeController.mainUser.gender.obs;
+  var ajenDegree = HomeController.mainUser.degrees.obs;
 
   TextEditingController txtName = TextEditingController();
   TextEditingController txtMail = TextEditingController();
@@ -29,6 +26,9 @@ class MyProfileController extends GetxController {
   TextEditingController txtMajor = TextEditingController();
   TextEditingController txtBio = TextEditingController();
 
+  TextEditingController txtTitle;
+  TextEditingController txtDescription;
+
   UserService userService = UserService.instance;
   StorageService storageService = StorageService.instance;
 
@@ -36,6 +36,10 @@ class MyProfileController extends GetxController {
   var loadStudent = false.obs;
   var isUpdatingAvatar = false.obs;
   var isUpdatingInfo = false.obs;
+
+  var isUploadDegreeImage;
+  var imageDegreeUrl;
+  var imageDegreeFile;
   @override
   onInit() {
     super.onInit();
@@ -50,19 +54,43 @@ class MyProfileController extends GetxController {
 
   loadUserDegree() async {
     ajentUser.value.degrees = await userService.getDegrees(ajentUser.value.uid);
+    ajenDegree.value = ajentUser.value.degrees;
     loadDegree.value = true;
   }
 
-  // loadUserStudent() async {
-  //   ajentUser.value.students =
-  //       await userService.getStudents(ajentUser.value.uid);
-  //   loadStudent.value = true;
-  // }
+  Future<void> onLongPressDegreeCard(Degree degree) async {
+    await Get.defaultDialog(
+      title: "Thông baó ",
+      content: Text(
+        "Bạn xác nhận muốn xóa?",
+      ),
+      cancel: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: primaryColor,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+        child: Text('Cancel'),
+      ),
+      confirm: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: primaryColor,
+        ),
+        onPressed: () async {
+          await userService.delDegree(HomeController.mainUser.uid, degree.id);
+          await loadUserDegree();
+          Get.back();
+          Get.snackbar("Thông báo ", "Thao tác xóa thành công");
+        },
+        child: Text('Confirm'),
+      ),
+    );
+  }
 
   Future<void> onChangeAvatar() async {
     isUpdatingAvatar.value = true;
-    final picker = ImagePicker();
-    var file = await _getImage(picker);
+    File file = await FileUtilitiy.getImage();
     String returnUrl;
     if (file != null) {
       returnUrl =
@@ -79,21 +107,46 @@ class MyProfileController extends GetxController {
     isUpdatingAvatar.value = false;
   }
 
-  Future<File> _getImage(ImagePicker picker) async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      return File(pickedFile.path);
+  Future<void> _onTakeImage() async {
+    imageDegreeFile.value = await FileUtilitiy.getImage();
+  }
+
+  Future<void> _onUploadImage() async {
+    isUploadDegreeImage.value = true;
+
+    if (imageDegreeFile.value != null) {
+      imageDegreeUrl.value = await storageService.uploadImage(
+          imageDegreeFile.value, HomeController.mainUser.uid);
+    }
+    isUploadDegreeImage.value = false;
+  }
+
+  Future<void> _onUpdateUserDegree(BuildContext context) async {
+    bool success = false;
+    var _title = txtTitle.text;
+    var _description = txtDescription.text;
+    var _imageDegreeUrl = imageDegreeUrl.value;
+    if (_title == "" || _description == "" || _imageDegreeUrl == "") {
+      Get.snackbar("Lỗi", "Kiểm tra dữ liệu đã nhập,và thử lại!");
+      return;
+    }
+    var degree = Degree(
+        imageUrl: _imageDegreeUrl, title: _title, description: _description);
+    success = await userService.addDegree(HomeController.mainUser.uid, degree);
+    if (!success) {
+      Get.snackbar("Lỗi", "Sever hiện tại đang bận, vui lòng thử lại sau.");
     } else {
-      print('No image selected.');
-      return null;
+      loadDegree.value = false;
+      await loadUserDegree();
+
+      Navigator.pop(context);
+      Get.snackbar("Thông báo", "Hồ sơ của bạn, đã được cập nhật.");
     }
   }
 
-  Future<void> onClosedDiplomaOverlay(BuildContext context) async {
-    // image.value = File('');
-    // degrees.value =
-    //     await this.userService.getDegrees(HomeController.mainUser.uid);
-    // Navigator.of(context).pop();
+  Future<void> onPressSave(BuildContext context) async {
+    await _onUploadImage();
+    await _onUpdateUserDegree(context);
   }
 
   Future<bool> updateInformation() async {
@@ -117,235 +170,159 @@ class MyProfileController extends GetxController {
   }
 
   showAddDegreeSheet(BuildContext context) async {
+    resetDegreeBottomSheet();
     showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20.0),
+        topRight: Radius.circular(20.0),
+      )),
       context: context,
       builder: (context) {
-        return SingleChildScrollView(
-          child: Container(
-            height: Get.height * 0.7,
-            child: Center(
-              child: Stack(
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, bottom: 0),
-                        child: Center(
-                            child: CircleAvatar(
-                          backgroundColor: Colors.white54,
-                          radius: 60 * 1.0,
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              height: Get.height * 0.7,
+              child: Center(
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 0),
+                          child: Center(
+                              child: CircleAvatar(
+                            backgroundColor: Colors.white54,
+                            radius: 60 * 1.0,
+                            child: ClipOval(
+                              child: Obx(
+                                () => imageDegreeFile.value.path == ""
+                                    ? Image.asset(
+                                        'assets/images/ajent_logo.png',
+                                        width: 85,
+                                        height: 85,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.file(
+                                        imageDegreeFile.value,
+                                        width: 85,
+                                        height: 85,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                            ),
+                          )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5),
+                          child: Text('Ảnh chụp',
+                              style: GoogleFonts.nunitoSans(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text('Tiểu đề',
+                              style: GoogleFonts.nunitoSans(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                        ),
+                        TextField(
+                          controller: txtTitle,
+                          decoration: primaryTextFieldDecoration,
+                          cursorColor: primaryColor,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text('Thông tin chi tiết',
+                              style: GoogleFonts.nunitoSans(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                        ),
+                        TextField(
+                          controller: txtDescription,
+                          decoration: primaryTextFieldDecoration,
+                          cursorColor: primaryColor,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                await onPressSave(context);
+                              },
+                              child: Text("Save"),
+                              style: ElevatedButton.styleFrom(
+                                primary: primaryColor,
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Cancel"),
+                              style: ElevatedButton.styleFrom(
+                                primary: primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 15),
+                        width: 95,
+                        height: 100,
+                        child: Align(
+                          alignment: Alignment.bottomRight,
                           child: ClipOval(
-                            child: FadeInImage.assetNetwork(
-                              fadeInDuration: Duration(milliseconds: 200),
-                              fadeOutDuration: Duration(milliseconds: 180),
-                              placeholder: "assets/images/ajent_logo.png",
-                              image:
-                                  "https://khamphamoingay.com/wp-content/uploads/2019/07/nhung-hinh-anh-hoat-hinh-doremon-de-thuong-nhat-1.png",
-                              width: 85,
-                              height: 85,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: Text('Ảnh chụp',
-                            style: GoogleFonts.nunitoSans(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text('Tiểu đề',
-                            style: GoogleFonts.nunitoSans(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
-                      ),
-                      TextField(
-                        decoration: primaryTextFieldDecoration,
-                        cursorColor: primaryColor,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text('Thông tin chi tiết',
-                            style: GoogleFonts.nunitoSans(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
-                      ),
-                      TextField(
-                        decoration: primaryTextFieldDecoration,
-                        cursorColor: primaryColor,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Save"),
-                            style: ElevatedButton.styleFrom(
-                              primary: primaryColor,
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Cancel"),
-                            style: ElevatedButton.styleFrom(
-                              primary: primaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 15),
-                      width: 95,
-                      height: 100,
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: ClipOval(
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            color: Colors.grey.shade400.withAlpha(220),
-                            child: InkWell(
-                              splashColor: primaryColor,
-                              customBorder: CircleBorder(),
-                              onTap: () {},
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                                size: 20,
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              color: Colors.grey.shade400.withAlpha(220),
+                              child: InkWell(
+                                splashColor: primaryColor,
+                                customBorder: CircleBorder(),
+                                onTap: () async {
+                                  await _onTakeImage();
+                                },
+                                child: Obx(
+                                  () => isUploadDegreeImage.value == false
+                                      ? Icon(
+                                          Icons.camera_alt_outlined,
+                                          size: 20,
+                                        )
+                                      : CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  Color(0xff01BCD4)),
+                                        ),
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         );
       },
     );
-  }
-
-  bool isAvailableInputInfo() {
-    // List<String> items = [
-    //   name.value,
-    //   email.value,
-    //   bio.value,
-    //   school.value,
-    //   educationLevel.value,
-    //   major.value,
-    //   phone.value,
-    //   dropdownValue.value,
-    // ];
-    // for (int i = 0; i < items.length; i++) {
-    //   if (items[i] == null || items[i] == '') {
-    //     return false;
-    //   }
-    // }
-    return true;
-  }
-
-  bool isAvaiableDegreeInfo() {
-    // List<String> items = [
-    //   image.value.path,
-    //   description.value,
-    //   title.value,
-    // ];
-
-    // for (int i = 0; i < items.length; i++) {
-    //   if (items[i] == null || items[i] == '') {
-    //     return false;
-    //   }
-    // }
-    // return true;
-  }
-
-  bool isStudentInfoAvailable() {
-    // var items = [
-    //   studentName.value,
-    //   studentGender.value,
-    //   studentAddress.value,
-    //   studentPhone.value,
-    //   studentMail.value,
-    // ];
-    // bool isAvailable = true;
-    // items.forEach((element) {
-    //   if (element == null || element == '') {
-    //     isAvailable = false;
-    //   }
-    //   if (studentBirthDay.value.isBefore(DateTime(2018))) {
-    //     isAvailable = false;
-    //   }
-    //   if (isAvailable) return;
-    // });
-    // print('$isAvailable' + '______line153');
-    // return isAvailable;
-  }
-
-  Future<void> onPressedStudentConfirm(BuildContext context) async {
-    // if (isStudentInfoAvailable()) {
-    //   var student = Student(
-    //     name: studentName.value,
-    //     gender: EnumConverter.stringToGender(studentGender.value),
-    //     birthDay: studentBirthDay.value,
-    //     address: studentAddress.value,
-    //     phone: studentPhone.value,
-    //     mail: studentMail.value,
-    //   );
-    //   bool result = await userService.addStudent(ajentUser.value.uid, student);
-    //   if (result) {
-    //     Navigator.of(context).pop();
-    //   } else {
-    //     _showMyDialog(
-    //       context: context,
-    //       title: Text('Message!'),
-    //       children: [
-    //         Text('This is the message demo'),
-    //         Text('Line 1'),
-    //         Text('Line 2'),
-    //       ],
-    //       actions: [
-    //         TextButton(
-    //           onPressed: () {},
-    //           child: Text('OK'),
-    //         ),
-    //       ],
-    //     );
-    //   }
-    // } else {
-    //   _showMyDialog(
-    //     context: context,
-    //     title: Text('Warning!'),
-    //     children: [
-    //       Text('Some student input information have something wrong'),
-    //       Text('Please check and try again.'),
-    //     ],
-    //     actions: [
-    //       TextButton(
-    //         onPressed: () {
-    //           Navigator.of(context).pop();
-    //         },
-    //         child: Text('OK'),
-    //       ),
-    //     ],
-    //   );
-    // }
   }
 
   void onPressedStudentCancel(BuildContext context) {
@@ -398,5 +375,13 @@ class MyProfileController extends GetxController {
     });
     tags.removeWhere((element) => (element == "" || element == " "));
     return tags;
+  }
+
+  void resetDegreeBottomSheet() {
+    isUploadDegreeImage = false.obs;
+    txtTitle = TextEditingController();
+    txtDescription = TextEditingController();
+    imageDegreeUrl = "".obs;
+    imageDegreeFile = File("").obs;
   }
 }

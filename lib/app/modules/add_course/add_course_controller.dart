@@ -6,6 +6,7 @@ import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/Period.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/storage_service.dart';
+import 'package:ajent/app/data/services/subscribe_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
 import 'package:ajent/app/modules/my_course_detail/my_course_detail_page.dart';
@@ -18,11 +19,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddCourseController extends GetxController {
-  var topics = ['Toán', 'Tiếng anh'];
-  var selectedTopic = 'Toán'.obs;
-
-  var courseTypes = ['Học nhóm'];
-  var selectedType = 'Học nhóm'.obs;
+  List<String> subjects = [];
 
   var timeTypes = [TimeType.fixedTime, TimeType.periodTime];
   var selectedTimeType = TimeType.fixedTime.obs;
@@ -81,7 +78,8 @@ class AddCourseController extends GetxController {
           ..address = txtCourseAddress.text
           ..timeType = selectedTimeType.value
           ..requirements = txtCourseRequirements.text
-          ..photoUrl = imageUrl;
+          ..photoUrl = imageUrl
+          ..subjects = subjects;
       } catch (e) {
         Get.snackbar(
             "Lỗi dữ liệu", "Vui lòng kiểm tra lại thông tin khoá học.");
@@ -110,6 +108,7 @@ class AddCourseController extends GetxController {
       }
       course = await CourseService.instance.addCourse(course);
       if (course != null) {
+        await SubscribeService.instance.subcribeOnAddCourse(course.id);
         course.status = CourseStatus.upcoming;
         if (pageIndex == 1) {
           Get.find<LearningController>().onTabChanged(course.status.index);

@@ -1,10 +1,15 @@
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/modules/search/widgets/empty_search.dart';
 import 'package:ajent/app/modules/search/widgets/joinable_course_card.dart';
+import 'package:ajent/app/modules/search/widgets/search_course_card.dart';
 import 'package:ajent/app/modules/search/widgets/teachable_teaching_card.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
+import 'package:ajent/core/values/colors.dart';
+import 'package:chips_choice/chips_choice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,9 +23,39 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final SearchController controller = Get.put(SearchController());
 
+  final scrollControler = ScrollController();
+
+  @override
+  void initState() {
+    scrollControler.addListener(() {
+      if (scrollControler.position.atEdge) {
+        if (scrollControler.position.pixels == 0)
+          print('ListView scrolled to top');
+        else if (controller.loadMore) {
+          if (controller.previousLength != controller.currentLength) {
+            print('ListView scrolled to bottom');
+            controller.previousLength = controller.currentLength;
+            controller.loadMore = true;
+          } else {
+            setState(() {
+              controller.loadMore = false;
+              return;
+            });
+          }
+          setState(() {
+            controller.length += 10;
+            controller.search();
+          });
+        }
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
@@ -39,59 +74,108 @@ class _SearchScreenState extends State<SearchScreen> {
           decoration: searchTextfieldDecoration,
           style: GoogleFonts.nunitoSans(fontSize: 14),
           onChanged: (value) {
-            if (value.trim().isEmpty) return;
-            controller.search();
-            setState(() {});
+            setState(() {
+              if (value.isEmpty) {
+                return;
+              }
+              controller.resetSearch();
+              controller.search();
+            });
           },
         ),
-      ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                  padding: EdgeInsets.fromLTRB(210, 0, 10, 10),
-                  child: IconButton(
-                    icon: Icon(Icons.filter_list),
-                    onPressed: () {},
-                  ))
-            ],
-          ),
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: controller.result,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting)
-                  return Center(
-                    child: SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator()),
-                  );
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data.docs.length,
-                    itemBuilder: (context, index) {
-                      Course course = Course.fromJson(
-                          snapshot.data.docs[index].id,
-                          snapshot.data.docs[index].data());
-                      if (course.teacher == null || course.teacher.isEmpty)
-                        return TeachalbeTeachingCard(course: course);
-                      else
-                        return JoinableCourseCard(course: course);
-                    },
-                  );
-                } else {
-                  return SizedBox();
-                }
-              },
-            ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.filter_list),
+            color: Colors.black,
+            onPressed: () {
+              controller.showFilter(context);
+            },
           ),
         ],
       ),
+      body: Stack(
+        // mainAxisSize: MainAxisSize.min,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: AnimatedOpacity(
+              opacity: (controller.txtSearch.text.isEmpty) ? 1 : 0,
+              duration: Duration(milliseconds: 300),
+              child: EmptySearch(),
+            ),
+          ),
+          AnimatedOpacity(
+            opacity: (controller.txtSearch.text.isEmpty) ? 0 : 1,
+            duration: Duration(milliseconds: 280),
+            child: StreamBuilder<QuerySnapshot>(
+              stream: controller.result,
+              builder: (context, snapshot) {
+                if (controller.txtSearch.text.isEmpty) {
+                  return Container();
+                }
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: ListTileShimmer(),
+                  );
+                }
+                return ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  controller: scrollControler,
+                  itemCount: snapshot.data.docs.length +
+                      ((snapshot.connectionState == ConnectionState.waiting)
+                          ? 2
+                          : 0) +
+                      ((controller.loadMore) ? 0 : 1),
+                  itemBuilder: (context, index) {
+                    if (snapshot.data.docs == null) {
+                      return SizedBox();
+                    }
+                    if (controller.currentLength != snapshot.data.docs.length) {
+                      controller.currentLength = snapshot.data.docs.length;
+                    }
+                    if ((snapshot.connectionState == ConnectionState.waiting) &&
+                        index > snapshot.data.docs.length - 1)
+                      return ProfileShimmer();
+                    if (!controller.loadMore &&
+                        index == snapshot.data.docs.length) {
+                      return ListTile(
+                          title: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text("--End of result--"),
+                        ),
+                      ));
+                    }
+                    if (index > snapshot.data.docs.length - 1)
+                      return SizedBox();
+                    Course course = Course.fromJson(
+                        snapshot.data.docs[index].id,
+                        snapshot.data.docs[index].data());
+                    var isFilter = (course.timeType == TimeType.fixedTime &&
+                            !controller.fixedTimeFilter.value) ||
+                        (course.timeType == TimeType.periodTime &&
+                            !controller.flexibleTimeFilter.value) ||
+                        (!course.price.isBetween(controller.priceValues.value));
+                    if (isFilter) {
+                      return SizedBox();
+                    }
+                    return Listener(
+                        onPointerDown: (e) =>
+                            FocusManager.instance.primaryFocus.unfocus(),
+                        child: SearchCourseCard(course: course));
+                  },
+                );
+              },
+            ),
+          )
+        ],
+      ),
     );
+  }
+}
+
+extension Range on int {
+  bool isBetween(RangeValues values) {
+    return values.start <= this && this <= values.end;
   }
 }
