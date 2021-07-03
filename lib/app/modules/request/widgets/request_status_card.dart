@@ -1,5 +1,7 @@
 import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/data/models/requestCardData.dart';
+import 'package:ajent/app/data/models/requestStatusCardData.dart';
 import 'package:ajent/app/modules/request/widgets/request_status_badge.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/utils/date_converter.dart';
@@ -9,15 +11,16 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RequestStatusCard extends StatelessWidget {
-  final Course course;
-  final Request request;
-  final RequestStatus status;
-  const RequestStatusCard(
-      {Key key,
-      @required this.course,
-      @required this.request,
-      @required this.status})
-      : super(key: key);
+  final RequestStatusCardData data;
+  final ValueChanged<RequestStatusCardData> onDenied;
+  final ValueChanged<Request> onContact;
+
+  const RequestStatusCard({
+    Key key,
+    @required this.data,
+    @required this.onDenied,
+    @required this.onContact,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,7 @@ class RequestStatusCard extends StatelessWidget {
                                             Duration(milliseconds: 180),
                                         placeholder:
                                             'assets/images/ajent_logo.png',
-                                        image: course?.photoUrl ?? "",
+                                        image: data.course?.photoUrl ?? "",
                                         width: 100,
                                         fit: BoxFit.fitWidth,
                                       ),
@@ -77,7 +80,7 @@ class RequestStatusCard extends StatelessWidget {
                                   SizedBox(
                                     width: Get.width - 100,
                                     child: Text(
-                                      course?.name ?? "Course's name",
+                                      data.course?.name ?? "Course's name",
                                       textAlign: TextAlign.left,
                                       maxLines: 1,
                                       overflow: TextOverflow.fade,
@@ -127,8 +130,8 @@ class RequestStatusCard extends StatelessWidget {
                                 ),
                               ),
                               RequestStatusBadege(
-                                  status:
-                                      request?.status ?? RequestStatus.waiting),
+                                  status: data.request?.status ??
+                                      RequestStatus.waiting),
                             ],
                           ),
                           Expanded(
@@ -169,7 +172,7 @@ class RequestStatusCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => onDenied(data),
                       child: Text(
                         "Huỷ yêu cầu",
                         style: GoogleFonts.nunitoSans(
@@ -178,7 +181,7 @@ class RequestStatusCard extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => onContact(this.data.request),
                       child: Text(
                         "Liên hệ",
                         style: GoogleFonts.nunitoSans(

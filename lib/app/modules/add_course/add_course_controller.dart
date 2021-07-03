@@ -6,6 +6,7 @@ import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/Period.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/storage_service.dart';
+import 'package:ajent/app/data/services/subscribe_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
 import 'package:ajent/app/modules/my_course_detail/my_course_detail_page.dart';
@@ -107,6 +108,7 @@ class AddCourseController extends GetxController {
       }
       course = await CourseService.instance.addCourse(course);
       if (course != null) {
+        await SubscribeService.instance.subcribeOnAddCourse(course.id);
         course.status = CourseStatus.upcoming;
         if (pageIndex == 1) {
           Get.find<LearningController>().onTabChanged(course.status.index);

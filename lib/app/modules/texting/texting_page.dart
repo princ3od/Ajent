@@ -15,9 +15,8 @@ class TextingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0.5,
         backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
-        toolbarHeight: 70.0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_rounded,
@@ -33,15 +32,6 @@ class TextingPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.add_circle,
-                color: Colors.black,
-                size: 24,
-              ),
-              onPressed: () {}),
-        ],
       ),
       body: Stack(
         children: [
@@ -98,13 +88,7 @@ class TextingPage extends StatelessWidget {
           ),
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
-                child: TextField(
-                  autofocus: false,
-                  decoration: searchTextfieldDecoration,
-                ),
-              ),
+              SizedBox(height: 10),
               Obx(() => Expanded(
                     child: SmartRefresher(
                       physics: BouncingScrollPhysics(),

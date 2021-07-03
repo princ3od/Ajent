@@ -69,33 +69,6 @@ class SearchCourseCard extends StatelessWidget {
                             radius: 24.0,
                           ),
                         ),
-                        Row(
-                          children: [
-                            Material(
-                              color: Colors.transparent,
-                              child: Text(
-                                course.name,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.nunitoSans(
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.5),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              course.getRelativeAddress(),
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.nunitoSans(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 13,
-                                  color: textColor.withOpacity(0.8)),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                     Expanded(
@@ -123,6 +96,39 @@ class SearchCourseCard extends StatelessWidget {
                         ],
                       ),
                     )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Material(
+                      color: Colors.transparent,
+                      child: SizedBox(
+                        width: Get.width * 0.8,
+                        child: Text(
+                          course.name,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.nunitoSans(
+                              color: textColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.5),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: Get.width * 0.7,
+                      child: Text(
+                        course.getRelativeAddress(),
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.nunitoSans(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: textColor.withOpacity(0.8)),
+                      ),
+                    ),
                   ],
                 ),
                 if (course.subjects.length > 0)

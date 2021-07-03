@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       title: "Ajent",
       getPages: AppPages.pages,
       //initialRoute: Routes.SPLASH,
-      initialRoute: Routes.ONBOARDINTRO,
+      initialRoute: Routes.SPLASH,
       initialBinding: SplashBinding(),
       theme: ThemeData(
         fontFamily:

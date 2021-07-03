@@ -38,136 +38,128 @@ class AddCoursePage extends StatelessWidget {
               color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Obx(
-              () => Stack(
+      body: Obx(
+        () => Stack(
+          children: [
+            PageView.builder(
+              scrollDirection: Axis.horizontal,
+              controller: _pageController,
+              itemCount: _page.length,
+              onPageChanged: (index) {
+                _currentPage.value = index;
+              },
+              itemBuilder: (context, index) {
+                return _page[index];
+              },
+            ),
+            Visibility(
+              visible: MediaQuery.of(context).viewInsets.bottom == 0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  PageView.builder(
-                    scrollDirection: Axis.horizontal,
-                    controller: _pageController,
-                    itemCount: _page.length,
-                    onPageChanged: (index) {
-                      _currentPage.value = index;
-                    },
-                    itemBuilder: (context, index) {
-                      return _page[index];
-                    },
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children:
-                            List<Widget>.generate(_page.length, (int index) {
-                          return AnimatedContainer(
-                            duration: Duration(milliseconds: 300),
-                            height: 10,
-                            width: (index == _currentPage.value) ? 30 : 10,
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 3),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: (index == _currentPage.value)
-                                  ? primaryColor
-                                  : primaryColor.withOpacity(0.5),
-                            ),
-                          );
-                        }),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 60, top: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                _pageController.previousPage(
-                                    duration: Duration(milliseconds: 800),
-                                    curve: Curves.easeInOutQuint);
-                              },
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 300),
-                                height: 40,
-                                alignment: Alignment.center,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Icon(
-                                  Icons.navigate_before,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 100,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                _pageController.nextPage(
-                                    duration: Duration(milliseconds: 800),
-                                    curve: Curves.easeInOutQuint);
-                                if (_currentPage == _page.length - 1) {
-                                  controller.onAddCourse();
-                                }
-                              },
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 300),
-                                height: 40,
-                                alignment: Alignment.center,
-                                width:
-                                    (_currentPage.value == (_page.length - 1))
-                                        ? 100
-                                        : 40,
-                                decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(35),
-                                ),
-                                child: (_currentPage.value ==
-                                        (_page.length - 1))
-                                    ? Obx(
-                                        () => (controller.isAddingCourse.value)
-                                            ? SizedBox(
-                                                height: 20,
-                                                width: 20,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(Colors.white),
-                                                ),
-                                              )
-                                            : Text(
-                                                "Mở lớp",
-                                                style: GoogleFonts.nunitoSans(
-                                                    color: Colors.white,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
-                                      )
-                                    : Icon(
-                                        Icons.navigate_next,
-                                        color: Colors.white,
-                                      ),
-                              ),
-                            )
-                          ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(_page.length, (int index) {
+                      return AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        height: 10,
+                        width: (index == _currentPage.value) ? 30 : 10,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: (index == _currentPage.value)
+                              ? primaryColor
+                              : primaryColor.withOpacity(0.5),
                         ),
-                      )
-                    ],
+                      );
+                    }),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 20, top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            _pageController.previousPage(
+                                duration: Duration(milliseconds: 800),
+                                curve: Curves.easeInOutQuint);
+                          },
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 300),
+                            height: 40,
+                            alignment: Alignment.center,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Icon(
+                              Icons.navigate_before,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 100,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            _pageController.nextPage(
+                                duration: Duration(milliseconds: 800),
+                                curve: Curves.easeInOutQuint);
+                            if (_currentPage == _page.length - 1) {
+                              controller.onAddCourse();
+                            }
+                          },
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 300),
+                            height: 40,
+                            alignment: Alignment.center,
+                            width: (_currentPage.value == (_page.length - 1))
+                                ? 100
+                                : 40,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(35),
+                            ),
+                            child: (_currentPage.value == (_page.length - 1))
+                                ? Obx(
+                                    () => (controller.isAddingCourse.value)
+                                        ? SizedBox(
+                                            height: 20,
+                                            width: 20,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Colors.white),
+                                            ),
+                                          )
+                                        : Text(
+                                            "Mở lớp",
+                                            style: GoogleFonts.nunitoSans(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                  )
+                                : Icon(
+                                    Icons.navigate_next,
+                                    color: Colors.white,
+                                  ),
+                          ),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
-            ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -3,28 +3,29 @@ import 'dart:math';
 import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/data/models/requestCardData.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/request/widgets/request_status_badge.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RequestCard extends StatelessWidget {
-  final Course course;
-  final Request request;
-  final AjentUser requestor;
-  final double star;
+  final RequestCardData data;
+  final ValueChanged<RequestCardData> onApprovePressed;
+  final ValueChanged<RequestCardData> onDeniedPressed;
+
   const RequestCard(
       {Key key,
-      @required this.course,
-      @required this.request,
-      @required this.requestor,
-      this.star = -2})
+      @required this.data,
+      this.onApprovePressed,
+      this.onDeniedPressed})
       : super(key: key);
 
   @override
@@ -74,7 +75,7 @@ class RequestCard extends StatelessWidget {
                                             Duration(milliseconds: 180),
                                         placeholder:
                                             'assets/images/ajent_logo.png',
-                                        image: course?.photoUrl ?? "",
+                                        image: data.course?.photoUrl ?? "",
                                         width: 100,
                                         fit: BoxFit.fitWidth,
                                       ),
@@ -85,7 +86,7 @@ class RequestCard extends StatelessWidget {
                                   SizedBox(
                                     width: Get.width - 100,
                                     child: Text(
-                                      course?.name ?? "Course's name",
+                                      data.course?.name ?? "Course's name",
                                       textAlign: TextAlign.left,
                                       maxLines: 1,
                                       overflow: TextOverflow.fade,
@@ -112,7 +113,7 @@ class RequestCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
                                 child: UserAvatar(
-                                  user: HomeController.mainUser,
+                                  user: data.requestor,
                                   size: 16,
                                 ),
                               ),
@@ -121,27 +122,36 @@ class RequestCard extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      (requestor.uid ==
+                                      (data.requestor.uid ==
                                               HomeController.mainUser.uid)
                                           ? 'you'.tr
-                                          : requestor.name,
+                                          : data.requestor.name,
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.w700,
                                           fontSize: 14,
                                           color: Colors.black),
                                     ),
-                                    RatingBar.builder(
-                                      itemSize: 15,
-                                      ignoreGestures: true,
-                                      itemCount: 5,
-                                      initialRating: 2,
-                                      itemBuilder: (context, index) => Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (value) {},
-                                    ),
+                                    (data.star != -1)
+                                        ? RatingBar.builder(
+                                            itemSize: 15,
+                                            ignoreGestures: true,
+                                            itemCount: 5,
+                                            initialRating: (data.star != null)
+                                                ? data.star
+                                                : 2.0,
+                                            itemBuilder: (context, index) =>
+                                                Icon(
+                                              Icons.star_rounded,
+                                              color: Colors.amber,
+                                            ),
+                                            onRatingUpdate: (value) {},
+                                          )
+                                        : Text(
+                                            'Chưa có đánh giá',
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 14),
+                                          ),
                                   ],
                                 ),
                               ),
@@ -155,7 +165,7 @@ class RequestCard extends StatelessWidget {
                                 child: SizedBox(
                                   width: Get.width - 60,
                                   child: Text(
-                                    "${requestor.name} muốn trở thành giảng viên của khoá học này.",
+                                    "${data.requestor.name} muốn trở thành giảng viên của khoá học này.",
                                     maxLines: 2,
                                     style: GoogleFonts.nunitoSans(
                                         fontWeight: FontWeight.w700,
@@ -206,7 +216,8 @@ class RequestCard extends StatelessWidget {
                     child: Transform.rotate(
                       angle: pi / 180 * 25,
                       child: RequestStatusBadege(
-                          status: request?.status ?? RequestStatus.accepted),
+                          status:
+                              data.request?.status ?? RequestStatus.accepted),
                     ),
                   ),
                 ],
@@ -217,10 +228,18 @@ class RequestCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: (request?.status ??
-                              RequestStatus.accepted != RequestStatus.waiting)
-                          ? null
-                          : () => print("hello"),
+                      onPressed: (data.request != null)
+                          ? ((data.request.status != null)
+                              ? ((data.request.status !=
+                                          RequestStatus.accepted &&
+                                      data.request.status !=
+                                          RequestStatus.denied)
+                                  ? () {
+                                      onDeniedPressed(this.data);
+                                    }
+                                  : null)
+                              : null)
+                          : null,
                       child: Text(
                         "Từ chối",
                         style: GoogleFonts.nunitoSans(
@@ -229,7 +248,18 @@ class RequestCard extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: (data.request != null)
+                          ? ((data.request.status != null)
+                              ? ((data.request.status !=
+                                          RequestStatus.accepted &&
+                                      data.request.status !=
+                                          RequestStatus.denied)
+                                  ? () {
+                                      onApprovePressed(this.data);
+                                    }
+                                  : null)
+                              : null)
+                          : null,
                       child: Text(
                         "Đồng ý",
                         style: GoogleFonts.nunitoSans(

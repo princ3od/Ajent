@@ -56,14 +56,14 @@ class ChatGroupItem extends StatelessWidget {
       txt += message.content;
     } else if (message.type == MessageType.image) {
       if (message.senderUid == HomeController.mainUser.uid) {
-        txt += "You sent an image.";
+        txt += "You sent an image";
       } else
-        txt += "${partner.name} sent an image.";
+        txt += "${partner.name} sent an image";
     } else {
       if (message.senderUid == HomeController.mainUser.uid) {
-        txt += "You sent a course.";
+        txt += "You sent a course";
       } else
-        txt += "${partner.name} sent a course.";
+        txt += "${partner.name} sent a course";
     }
     return Row(
       children: [
@@ -79,7 +79,7 @@ class ChatGroupItem extends StatelessWidget {
           ),
         ),
         Flexible(
-          flex: 2,
+          flex: 1,
           child: Text(
             " - " + DateConverter.getTime(message.timeStamp, true),
             overflow: TextOverflow.clip,
