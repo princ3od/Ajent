@@ -59,14 +59,13 @@ class AddCoursePage extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children:
-                        List<Widget>.generate(_page.length, (int index) {
+                    children: List<Widget>.generate(_page.length, (int index) {
                       return AnimatedContainer(
                         duration: Duration(milliseconds: 300),
                         height: 10,
                         width: (index == _currentPage.value) ? 30 : 10,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 3),
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: (index == _currentPage.value)
@@ -120,26 +119,23 @@ class AddCoursePage extends StatelessWidget {
                             duration: Duration(milliseconds: 300),
                             height: 40,
                             alignment: Alignment.center,
-                            width:
-                                (_currentPage.value == (_page.length - 1))
-                                    ? 100
-                                    : 40,
+                            width: (_currentPage.value == (_page.length - 1))
+                                ? 100
+                                : 40,
                             decoration: BoxDecoration(
                               color: primaryColor,
                               borderRadius: BorderRadius.circular(35),
                             ),
-                            child: (_currentPage.value ==
-                                    (_page.length - 1))
+                            child: (_currentPage.value == (_page.length - 1))
                                 ? Obx(
                                     () => (controller.isAddingCourse.value)
                                         ? SizedBox(
                                             height: 20,
                                             width: 20,
-                                            child:
-                                                CircularProgressIndicator(
+                                            child: CircularProgressIndicator(
                                               valueColor:
-                                                  AlwaysStoppedAnimation<
-                                                      Color>(Colors.white),
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Colors.white),
                                             ),
                                           )
                                         : Text(
@@ -147,8 +143,7 @@ class AddCoursePage extends StatelessWidget {
                                             style: GoogleFonts.nunitoSans(
                                                 color: Colors.white,
                                                 fontSize: 14,
-                                                fontWeight:
-                                                    FontWeight.w700),
+                                                fontWeight: FontWeight.w700),
                                           ),
                                   )
                                 : Icon(

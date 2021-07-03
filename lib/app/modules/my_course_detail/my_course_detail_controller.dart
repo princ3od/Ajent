@@ -2,7 +2,9 @@ import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/services/course_service.dart';
+import 'package:ajent/app/data/services/notification_service.dart';
 import 'package:ajent/app/data/services/request_service.dart';
+import 'package:ajent/app/data/services/subscribe_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/chat/chat_controller.dart';
@@ -81,12 +83,18 @@ class MyCourseDetailController extends GetxController {
         !requestors.contains(user.uid) &&
         course.value.maxLearner > course.value.learners.length &&
         !course.value.learners.contains(HomeController.mainUser.uid));
+    if (joinable.value) {
+      joinable.value = (course.value.hasTeacher())
+          ? (course.value.teacher != HomeController.mainUser.uid)
+          : joinable.value;
+    }
     unEnrollable.value = (course.value.status == CourseStatus.upcoming &&
-        course.value.learners.contains(HomeController.mainUser.uid));
+        (course.value.learners.contains(HomeController.mainUser.uid) &&
+            course.value.owner != HomeController.mainUser.uid));
     requestable.value = (joinable.value &&
         course.value.owner != HomeController.mainUser.uid &&
         !requestors.contains(user.uid) &&
-        (course.value.teacher == null || course.value.teacher.isEmpty));
+        (!course.value.hasTeacher()));
     editable.value = (HomeController.mainUser.uid == course.value.owner &&
         course.value.status == CourseStatus.upcoming);
     evaluable.value = (course.value.status == CourseStatus.fininished &&
@@ -115,6 +123,8 @@ class MyCourseDetailController extends GetxController {
     await CourseService.instance.updateLearnners(course.value);
     var user = await UserService.instance.getUser(HomeController.mainUser.uid);
     learners.insert(0, user);
+    await SubscribeService.instance.subcribeOnJoinCourse(course.value.id);
+    await NotificationService.instance.notifyJoinCourse(course.value, user);
     isJoining.value = false;
     joinable.value = false;
     unEnrollable.value = true;
@@ -133,6 +143,8 @@ class MyCourseDetailController extends GetxController {
     requestable.value = (joinable.value &&
         course.value.owner != HomeController.mainUser.uid &&
         (course.value.teacher == null || course.value.teacher.isEmpty));
+    await SubscribeService.instance.unsubscribeOnLeaveCourse(course.value.id);
+    await NotificationService.instance.notifyLeaveCourse(course.value, user);
     isLeaving.value = false;
     userRelation.value = UserRelation.noRelation;
   }
@@ -147,6 +159,9 @@ class MyCourseDetailController extends GetxController {
       ..postDate = DateTime.now().millisecondsSinceEpoch;
     request = await RequestService.instance.addRequest(request);
     Get.snackbar('Thông báo', 'Yêu cầu ứng tuyển dạy được gửi thành công!');
+    await SubscribeService.instance
+        .subcribeOnRequestCourse(course.value.id, request.id);
+    await NotificationService.instance.notifyRequestCourse(course.value, user);
     requestable.value = false;
     joinable.value = false;
     isRequesting.value = false;

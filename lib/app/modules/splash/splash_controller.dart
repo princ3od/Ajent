@@ -14,6 +14,7 @@ class SplashController extends GetxController {
 
   intilizeFirebase() async {
     await AuthenticService.instance.initializeFirebase();
+
     final user = AuthenticService.instance.getCurrentUser();
     if (user == null) {
       Get.offNamed(Routes.WELCOME);

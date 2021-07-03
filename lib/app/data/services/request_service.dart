@@ -75,6 +75,8 @@ class RequestService implements CollectionInterface {
     await database
         .collection(collectionName)
         .where('receiverUid', isEqualTo: uid)
+        .orderBy('postDate')
+        .orderBy('courseId')
         .get()
         .then((value) async {
       for (var item in value.docs) {

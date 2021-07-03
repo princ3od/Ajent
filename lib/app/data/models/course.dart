@@ -67,7 +67,7 @@ class Course {
       'learners': this.learners,
       'subjects': this.subjects,
       'requirements': this.requirements,
-      'postDate': this.postDate,
+      'postDate': DateTime.now().millisecondsSinceEpoch,
       'firstPeriod': getFirstPeriod(),
       'lastPeriod': getLastPeriod(),
       'indexList': getIndexList(),

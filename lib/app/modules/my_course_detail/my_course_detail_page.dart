@@ -109,11 +109,14 @@ class MyCourseDetailPage extends StatelessWidget {
               tag: '${course.id} name',
               child: Material(
                 color: Colors.transparent,
-                child: Text(
-                  course.name,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.nunitoSans(
-                      fontWeight: FontWeight.w700, fontSize: 18),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Text(
+                    course.name,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.nunitoSans(
+                        fontWeight: FontWeight.w700, fontSize: 18),
+                  ),
                 ),
               ),
             ),

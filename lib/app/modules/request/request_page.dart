@@ -91,71 +91,50 @@ class _RequestPageState extends State<RequestPage> {
                   ]),
             ),
           ),
-          Obx(
-            () => SingleChildScrollView(
-              child: Column(
-                children: [
-                  if (controller.tabIndex.value == 0)
-                    Container(
-                        height: Get.height - 168,
-                        child: Obx(() => (controller.isLoading.value == true)
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ListView.builder(
-                                itemCount: controller.requestItems.length,
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return RequestCard(
-                                      onApprovePressed: (value) async {
-                                        await controller
-                                            .onApproveButtonPress(value);
-                                      },
-                                      request: controller
-                                          .requestItems[index].request,
-                                      star: controller.requestItems[index].star,
-                                      requestor: controller
-                                          .requestItems[index].requestor,
-                                      course:
-                                          controller.requestItems[index].course,
-                                      onDeniedPressed: (value) async {
-                                        await controller
-                                            .onDeniedButtonPress(value);
-                                      });
-                                })))
-                  else
-                    Container(
-                      height: Get.height - 168,
-                      child: Obx(
-                        () => controller.isLoadingStatus.value == true
-                            ? Center(child: CircularProgressIndicator())
-                            : SmartRefresher(
-                                controller: _refreshController,
-                                onRefresh: _onRefresh,
-                                onLoading: _onLoading,
-                                child: ListView.builder(
-                                  itemCount:
-                                      controller.requestStatusItems.length,
-                                  itemBuilder: (context, index) {
-                                    return RequestStatusCard(
-                                      course: controller
-                                          .requestStatusItems[index].course,
-                                      request: controller
-                                          .requestStatusItems[index].request,
-                                      onDenied: (value) {
-                                        controller.onStatusDenied(value);
-                                      },
-                                      onContact: (value) {
-                                        controller.onStatusContact(value);
-                                      },
-                                    );
-                                  },
-                                ),
+          Expanded(
+            child: Obx(
+              () => (controller.tabIndex.value == 0)
+                  ? Obx(() => (controller.isLoading.value == true)
+                      ? Center(
+                          child: Center(child: CircularProgressIndicator()),
+                        )
+                      : ListView.builder(
+                          itemCount: controller.requestItems.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (BuildContext context, int index) {
+                            return RequestCard(
+                                onApprovePressed: (value) async {
+                                  await controller.onApproveButtonPress(value);
+                                },
+                                data: controller.requestItems[index],
+                                onDeniedPressed: (value) async {
+                                  await controller.onDeniedButtonPress(value);
+                                });
+                          }))
+                  : Obx(
+                      () => controller.isLoadingStatus.value == true
+                          ? Center(child: CircularProgressIndicator())
+                          : SmartRefresher(
+                              controller: _refreshController,
+                              onRefresh: _onRefresh,
+                              onLoading: _onLoading,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: controller.requestStatusItems.length,
+                                itemBuilder: (context, index) {
+                                  return RequestStatusCard(
+                                    data: controller.requestStatusItems[index],
+                                    onDenied: (value) {
+                                      controller.onStatusDenied(value);
+                                    },
+                                    onContact: (value) {
+                                      controller.onStatusContact(value);
+                                    },
+                                  );
+                                },
                               ),
-                      ),
+                            ),
                     ),
-                ],
-              ),
             ),
           ),
         ],
@@ -167,8 +146,8 @@ class _RequestPageState extends State<RequestPage> {
           Request item1 = Request()
             ..courseId = "xwyGhwII3KvktyUgX6IS"
             ..postDate = 1625055976480
-            ..receiverUid = "d2p60WbiJ0O6rZFKsmstwgbZc6v2"
-            ..requestorUid = "niiNz6UNPDf8k0ThiX2BfBw7Acp1"
+            ..receiverUid = HomeController.mainUser.uid
+            ..requestorUid = HomeController.mainUser.uid
             ..status = RequestStatus.waiting;
           Request item = await RequestService.instance.addRequest(item1);
           controller.isLoadingStatus.value = true;

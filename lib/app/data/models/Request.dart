@@ -23,7 +23,7 @@ class Request {
       'courseId': courseId,
       'receiverUid': receiverUid,
       'status': EnumConverter.requestStatusToString(status),
-      'postDate': postDate,
+      'postDate': DateTime.now().millisecondsSinceEpoch,
     };
   }
 }

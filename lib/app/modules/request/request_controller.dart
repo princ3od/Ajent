@@ -1,3 +1,5 @@
+import 'package:ajent/app/data/services/notification_service.dart';
+import 'package:ajent/app/data/services/subscribe_service.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
@@ -20,21 +22,24 @@ class RequestController extends GetxController {
   Future<void> getRequestItems() async {
     requestItems = await requestService.getRequestItems(ajentUser.uid);
     isLoading.value = false;
-    Get.snackbar("Thông báo", "Dữ liệu mới đã được cập nhật");
   }
 
-  Future<void> onDeniedButtonPress(Request requestItem) async {
-    var result = await requestService.onDeniedButtonPress(requestItem);
+  Future<void> onDeniedButtonPress(RequestCardData requestItem) async {
+    var result = await requestService.onDeniedButtonPress(requestItem.request);
     if (result) {
       isLoading.value = true;
+      await NotificationService.instance
+          .notifyDenyRequest(requestItem.course, requestItem.request);
       await getRequestItems();
     } else {
       Get.snackbar("Cảnh báo", "Đã cập nhật các yêu cầu thất bại.");
     }
   }
 
-  Future<void> onApproveButtonPress(Request requestItem) async {
-    var result = await requestService.onApproveButtonPress(requestItem);
+  Future<void> onApproveButtonPress(RequestCardData requestItem) async {
+    var result = await requestService.onApproveButtonPress(requestItem.request);
+    await NotificationService.instance
+        .notifyApproveCourse(requestItem.course, requestItem.request);
     if (result) {
       isLoading.value = true;
       await getRequestItems();
@@ -50,11 +55,12 @@ class RequestController extends GetxController {
     requestStatusItems =
         await requestService.getRequestStatusItems(ajentUser.uid);
     isLoadingStatus.value = false;
-    Get.snackbar("Thông báo", "Dữ liệu mới đã được cập nhật");
   }
 
-  Future<void> onStatusDenied(Request item) async {
-    bool result = await requestService.delRequest(item);
+  Future<void> onStatusDenied(RequestStatusCardData item) async {
+    bool result = await requestService.delRequest(item.request);
+    await NotificationService.instance
+        .notifyCancelRequest(item.course, HomeController.mainUser);
     if (result) {
       Get.snackbar("Thông báo", "Huỷ yêu cầu thành công");
       isLoadingStatus.value = true;
@@ -74,6 +80,5 @@ class RequestController extends GetxController {
     super.onInit();
     await getRequestStatusItems();
     await getRequestItems();
-    Get.snackbar("Thông báo", "Hoàn tất đồng bộ hoá dữ liệu");
   }
 }

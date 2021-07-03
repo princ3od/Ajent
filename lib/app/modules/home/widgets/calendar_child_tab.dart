@@ -56,10 +56,10 @@ class CalendarChildTab extends StatelessWidget {
         ElevatedButton(
             onPressed: () async {
               await Future.delayed(Duration(seconds: 3));
-              NotificationService.sendToTopic(
-                  title: "Thong bao tu Ajent",
-                  body: "Test thu thong bao, day la noi dung",
-                  topic: "princ3");
+              // NotificationService.sendToTopic(
+              //     title: "Thong bao tu Ajent",
+              //     body: "Test thu thong bao, day la noi dung",
+              //     topic: "princ3");
             },
             child: Text('send notification')),
       ],
