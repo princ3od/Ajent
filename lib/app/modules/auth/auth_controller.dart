@@ -34,7 +34,7 @@ class AuthController extends GetxController {
       bool isFirst = prefs.getBool('isFirst') ?? true;
       if (isFirst) {
         await prefs.setBool('isFirst', false);
-        Get.offNamed(Routes.ONBOARDINTRO);
+        Get.offAllNamed(Routes.ONBOARDINTRO);
         return;
       }
       Get.offAllNamed(Routes.HOME);
@@ -104,7 +104,7 @@ class AuthController extends GetxController {
       bool isFirst = prefs.getBool('isFirst') ?? true;
       if (isFirst) {
         await prefs.setBool('isFirst', false);
-        Get.offNamed(Routes.ONBOARDINTRO);
+        Get.offAllNamed(Routes.ONBOARDINTRO);
         return;
       }
       await Get.offAllNamed(Routes.HOME);
@@ -173,7 +173,7 @@ class AuthController extends GetxController {
       bool isFirst = prefs.getBool('isFirst') ?? true;
       if (isFirst) {
         await prefs.setBool('isFirst', false);
-        Get.offNamed(Routes.ONBOARDINTRO);
+        Get.offAllNamed(Routes.ONBOARDINTRO);
         return;
       }
       await Get.offAllNamed(Routes.HOME);

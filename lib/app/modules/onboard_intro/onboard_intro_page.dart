@@ -36,20 +36,7 @@ class OnboardIntroPage extends StatelessWidget {
         style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),
       ),
       onDone: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Center(
-                  child: SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: new CircularProgressIndicator())),
-            );
-          },
-        );
-        Get.offNamed(Routes.HOME);
+        Get.offAllNamed(Routes.HOME);
         HomeController.checkUserUpdateInfo();
       },
       showSkipButton: true,
