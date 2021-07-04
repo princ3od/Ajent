@@ -1,11 +1,7 @@
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/modules/search/widgets/empty_search.dart';
-import 'package:ajent/app/modules/search/widgets/joinable_course_card.dart';
 import 'package:ajent/app/modules/search/widgets/search_course_card.dart';
-import 'package:ajent/app/modules/search/widgets/teachable_teaching_card.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
-import 'package:ajent/core/values/colors.dart';
-import 'package:chips_choice/chips_choice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

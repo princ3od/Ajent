@@ -9,8 +9,6 @@ import 'package:ajent/app/data/services/storage_service.dart';
 import 'package:ajent/app/data/services/subscribe_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
-import 'package:ajent/app/modules/my_course_detail/my_course_detail_page.dart';
-import 'package:ajent/app/modules/my_teaching_detail/my_teaching_detail_page.dart';
 import 'package:ajent/app/modules/teaching/teaching_controller.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';

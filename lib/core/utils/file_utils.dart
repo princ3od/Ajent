@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 class FileUtilitiy {
   static Future<File> getImage() async {
-    ImageSource source = null;
+    ImageSource source;
     await Get.dialog(AlertDialog(
       title: Column(
         children: [

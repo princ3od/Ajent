@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:ajent/app/data/models/Request.dart';
-import 'package:ajent/app/data/models/ajent_user.dart';
-import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/requestCardData.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
@@ -10,7 +8,6 @@ import 'package:ajent/app/modules/request/widgets/request_status_badge.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';

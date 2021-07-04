@@ -33,7 +33,6 @@ class AuthController extends GetxController {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool isFirst = prefs.getBool('isFirst') ?? true;
       if (isFirst) {
-        await prefs.setBool('isFirst', false);
         Get.offAllNamed(Routes.ONBOARDINTRO);
         return;
       }
@@ -48,7 +47,6 @@ class AuthController extends GetxController {
 
   static Future loadUser(User user) async {
     bool isExist = await UserService.instance.isUserExisted(user);
-    await SubscribeService.instance.subscribeOnLogin(user.uid);
     if (!isExist) {
       AjentUser ajentUser = AjentUser(
         user.uid,
@@ -65,12 +63,15 @@ class AuthController extends GetxController {
         "",
       );
       HomeController.mainUser = await UserService.instance.addUser(ajentUser);
+      await SubscribeService.instance.subscribeOnLogin(user.uid);
     } else {
       HomeController.mainUser = await UserService.instance.getUser(user.uid);
+      await SubscribeService.instance.subcriceAll();
     }
   }
 
   static signOut() async {
+    await SubscribeService.instance.unsubcriceAll();
     switch (loginType) {
       case LoginType.withGoogle:
         _signOutGoogle();
@@ -103,7 +104,6 @@ class AuthController extends GetxController {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool isFirst = prefs.getBool('isFirst') ?? true;
       if (isFirst) {
-        await prefs.setBool('isFirst', false);
         Get.offAllNamed(Routes.ONBOARDINTRO);
         return;
       }
@@ -172,7 +172,6 @@ class AuthController extends GetxController {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool isFirst = prefs.getBool('isFirst') ?? true;
       if (isFirst) {
-        await prefs.setBool('isFirst', false);
         Get.offAllNamed(Routes.ONBOARDINTRO);
         return;
       }
