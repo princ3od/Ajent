@@ -2,6 +2,7 @@ import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/message.dart';
 import 'package:ajent/app/data/models/Person.dart';
+import 'package:ajent/app/data/models/notification_model.dart';
 
 class EnumConverter {
   static String genderToString(Gender gender) {
@@ -101,6 +102,37 @@ class EnumConverter {
         return RequestStatus.canceled;
       default:
         return RequestStatus.waiting;
+    }
+  }
+
+  static String notificationActionToString(
+      NotificationAction notificationAction) {
+    switch (notificationAction) {
+      case NotificationAction.openChatting:
+        return "openChatting";
+      case NotificationAction.openCourse:
+        return "openCourse";
+      case NotificationAction.openMyRequest:
+        return "openMyRequest";
+      case NotificationAction.openTheirRequest:
+        return "openTheirRequest";
+      default:
+        return "openCourse";
+    }
+  }
+
+  static NotificationAction stringToNotificationAction(String data) {
+    switch (data) {
+      case "openChatting":
+        return NotificationAction.openChatting;
+      case "openCourse":
+        return NotificationAction.openCourse;
+      case "openMyRequest":
+        return NotificationAction.openMyRequest;
+      case "openTheirRequest":
+        return NotificationAction.openTheirRequest;
+      default:
+        return NotificationAction.openCourse;
     }
   }
 }

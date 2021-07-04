@@ -1,4 +1,3 @@
-import 'package:ajent/app/modules/my_profile/widgets/drop_down_widget_customize.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 class SettingsPage extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +36,13 @@ class SettingsPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
                 child: Text(
-                  "Ngôn ngữ",style: GoogleFonts.nunitoSans(fontSize: 15,fontWeight: FontWeight.w800,color: primaryColor),
+                  "Ngôn ngữ",
+                  style: GoogleFonts.nunitoSans(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800,
+                      color: primaryColor),
                 ),
-
               ),
-
             ],
           ),
         ],

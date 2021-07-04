@@ -50,13 +50,17 @@ class DateConverter {
       return 'now'.tr;
     }
     if (timeDistance.inMinutes.abs() < 60)
-      return timeDistance.inMinutes.abs().toString() + 'mm'.tr + 'ago'.tr;
+      return timeDistance.inMinutes.abs().toStringAsFixed(0) +
+          'mm'.tr +
+          'ago'.tr;
     if (timeDistance.inHours.abs() < 24)
-      return timeDistance.inHours.abs().toString() + 'hh'.tr + 'ago'.tr;
+      return timeDistance.inHours.abs().toStringAsFixed(0) + 'hh'.tr + 'ago'.tr;
     if (timeDistance.inDays.abs() < 30)
-      return timeDistance.inDays.abs().toString() + 'dd'.tr + 'ago'.tr;
+      return timeDistance.inDays.abs().toStringAsFixed(0) + 'dd'.tr + 'ago'.tr;
     if (timeDistance.inDays.abs() < 365)
-      return (timeDistance.inDays.abs() / 30).toString() + 'mm'.tr + 'ago'.tr;
+      return (timeDistance.inDays.abs() / 30).toStringAsFixed(0) +
+          'mm'.tr +
+          'ago'.tr;
     return DateFormat("dd MMM, yyyy", LocalizationService.getLocaleString())
         .format(time);
   }

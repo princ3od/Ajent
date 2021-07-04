@@ -1,6 +1,4 @@
 import 'package:ajent/app/data/models/Request.dart';
-import 'package:ajent/app/data/models/course.dart';
-import 'package:ajent/app/data/models/requestCardData.dart';
 import 'package:ajent/app/data/models/requestStatusCardData.dart';
 import 'package:ajent/app/modules/request/widgets/request_status_badge.dart';
 import 'package:ajent/core/themes/widget_theme.dart';

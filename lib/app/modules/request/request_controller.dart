@@ -61,6 +61,8 @@ class RequestController extends GetxController {
     bool result = await requestService.delRequest(item.request);
     await NotificationService.instance
         .notifyCancelRequest(item.course, HomeController.mainUser);
+    await SubscribeService.instance
+        .unsubscribeOnCanelRequest(item.course.id, item.request.id);
     if (result) {
       Get.snackbar("Thông báo", "Huỷ yêu cầu thành công");
       isLoadingStatus.value = true;

@@ -1,3 +1,5 @@
+import 'package:ajent/app/data/services/user_service.dart';
+import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class SubscribeService {
@@ -10,22 +12,45 @@ class SubscribeService {
   subcribeOnAddCourse(String courseId) async {
     await firebaseMessaging.subscribeToTopic('$courseId-public');
     await firebaseMessaging.subscribeToTopic('$courseId-request');
+    if (!HomeController.mainUser.topics.contains('$courseId-public'))
+      HomeController.mainUser.topics.add('$courseId-public');
+    if (!HomeController.mainUser.topics.contains('$courseId-request'))
+      HomeController.mainUser.topics.add('$courseId-request');
+    await UserService.instance.updateSubsciption(HomeController.mainUser);
+    print(HomeController.mainUser.topics);
   }
 
   subcribeOnJoinCourse(String courseId) async {
     await firebaseMessaging.subscribeToTopic('$courseId-public');
+    if (!HomeController.mainUser.topics.contains('$courseId-public'))
+      HomeController.mainUser.topics.add('$courseId-public');
+    await UserService.instance.updateSubsciption(HomeController.mainUser);
+    print(HomeController.mainUser.topics);
   }
 
   unsubscribeOnLeaveCourse(String courseId) async {
     await firebaseMessaging.unsubscribeFromTopic('$courseId-public');
+    if (HomeController.mainUser.topics.contains('$courseId-public'))
+      HomeController.mainUser.topics.remove('$courseId-public');
+    await UserService.instance.updateSubsciption(HomeController.mainUser);
+    print(HomeController.mainUser.topics);
   }
 
   subcribeOnRequestCourse(String courseId, String requestId) async {
     await firebaseMessaging.subscribeToTopic('$courseId-request-$requestId');
+    if (!HomeController.mainUser.topics
+        .contains('$courseId-request-$requestId'))
+      HomeController.mainUser.topics.add('$courseId-request-$requestId');
+    await UserService.instance.updateSubsciption(HomeController.mainUser);
+    print(HomeController.mainUser.topics);
   }
 
   subscribeOnLogin(String userUid) async {
     await firebaseMessaging.subscribeToTopic('$userUid');
+    if (!HomeController.mainUser.topics.contains('$userUid'))
+      HomeController.mainUser.topics.add('$userUid');
+    await UserService.instance.updateSubsciption(HomeController.mainUser);
+    print(HomeController.mainUser.topics);
   }
 
   unsubscribeOnLogout(String userUid) async {
@@ -35,5 +60,21 @@ class SubscribeService {
   unsubscribeOnCanelRequest(String courseId, String requestId) async {
     await firebaseMessaging
         .unsubscribeFromTopic('$courseId-request-$requestId');
+    if (HomeController.mainUser.topics.contains('$courseId-request-$requestId'))
+      HomeController.mainUser.topics.remove('$courseId-request-$requestId');
+    await UserService.instance.updateSubsciption(HomeController.mainUser);
+    print(HomeController.mainUser.topics);
+  }
+
+  subcriceAll() async {
+    for (var item in HomeController.mainUser.topics) {
+      await firebaseMessaging.subscribeToTopic(item);
+    }
+  }
+
+  unsubcriceAll() async {
+    for (var item in HomeController.mainUser.topics) {
+      await firebaseMessaging.unsubscribeFromTopic(item);
+    }
   }
 }

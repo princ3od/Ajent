@@ -1,5 +1,3 @@
-import 'package:ajent/app/data/services/authenctic_service.dart';
-import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
@@ -8,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardIntroPage extends StatelessWidget {
   @override
@@ -36,20 +35,9 @@ class OnboardIntroPage extends StatelessWidget {
         style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),
       ),
       onDone: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Center(
-                  child: SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: new CircularProgressIndicator())),
-            );
-          },
-        );
-        Get.offNamed(Routes.HOME);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isFirst', false);
+        Get.offAllNamed(Routes.HOME);
         HomeController.checkUserUpdateInfo();
       },
       showSkipButton: true,
