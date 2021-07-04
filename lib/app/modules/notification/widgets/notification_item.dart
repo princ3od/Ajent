@@ -36,7 +36,7 @@ class _NotificationItemState extends State<NotificationItem>
                 child: FadeInImage.assetNetwork(
                   fadeInDuration: Duration(milliseconds: 200),
                   fadeOutDuration: Duration(milliseconds: 180),
-                  placeholder: 'assets/images/no_img.png',
+                  placeholder: 'assets/images/ajent_logo.png',
                   image: widget.notificationData?.imageUrl ?? "",
                   width: 60,
                   fit: BoxFit.fitWidth,
@@ -71,6 +71,7 @@ class _NotificationItemState extends State<NotificationItem>
             ),
             trailing: IconButton(
               icon: Icon(Icons.delete),
+              iconSize: 20,
               onPressed: widget.onDelete,
             ),
           ),

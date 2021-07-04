@@ -29,6 +29,9 @@ class LearningController extends GetxController {
 
   onTabChanged(int index) {
     currentIndex.value = index;
+    if (isFetching.value) {
+      return;
+    }
     showCourses();
   }
 

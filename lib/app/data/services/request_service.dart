@@ -101,27 +101,20 @@ class RequestService implements CollectionInterface {
 
   Future<double> getEvaluations(String uid) async {
     var averageStar = (-2.0);
-    var reviewNum = (-1);
     List<Course> teachingCourses = [];
     double totalStar = 0;
-    double total5 = 0, total4 = 0, total3 = 0, total2 = 0, total1 = 0;
     Map<String, Evaluation> evaluations = Map();
     diviceIntoGroup(int star) {
       switch (star) {
         case 5:
-          total5 += 1;
           break;
         case 4:
-          total4 += 1;
           break;
         case 3:
-          total3 += 1;
           break;
         case 2:
-          total2 += 1;
           break;
         case 1:
-          total1 += 1;
           break;
         default:
           break;
@@ -137,7 +130,6 @@ class RequestService implements CollectionInterface {
       totalStar += evaluation.star;
       diviceIntoGroup(evaluation.star);
     }
-    reviewNum = evaluations.length;
     averageStar =
         (evaluations.length > 0) ? (totalStar / evaluations.length) : -1.0;
     return averageStar;
