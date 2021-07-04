@@ -1,6 +1,5 @@
 import 'package:ajent/app/data/models/Degree.dart';
 import 'package:ajent/app/data/models/ajent_user.dart';
-import 'package:ajent/app/data/models/requestCardData.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,8 +44,18 @@ class UserService implements CollectionInterface {
     await database
         .collection(collectionName)
         .doc(ajentUser.uid)
-        .set(ajentUser.toJson())
+        .set(ajentUser.toJson(), SetOptions(merge: true))
         .whenComplete(() {
+      success = true;
+    }).catchError((error) => print('Occured error $error'));
+    return success;
+  }
+
+  Future<bool> updateSubsciption(AjentUser ajentUser) async {
+    bool success = false;
+    await database.collection(collectionName).doc(ajentUser.uid).set({
+      'topcis': ajentUser.topics,
+    }, SetOptions(merge: true)).whenComplete(() {
       success = true;
     }).catchError((error) => print('Occured error $error'));
     return success;
@@ -122,7 +131,7 @@ class UserService implements CollectionInterface {
   }
 
   Future<String> updateUserAvatar(AjentUser ajentUser, File fileAvatar) async {
-    String avatarUrl = null;
+    String avatarUrl;
     try {
       StorageService storeInstance = StorageService.instance;
       avatarUrl = await storeInstance.uploadImage(fileAvatar, ajentUser.uid);

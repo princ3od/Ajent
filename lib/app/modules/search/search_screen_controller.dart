@@ -1,6 +1,4 @@
-import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/services/course_service.dart';
-import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';

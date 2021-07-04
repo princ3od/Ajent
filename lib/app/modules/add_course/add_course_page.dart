@@ -2,7 +2,6 @@ import 'package:ajent/app/modules/add_course/add_course_controller.dart';
 import 'package:ajent/app/modules/add_course/widgets/AdditionalPage.dart';
 import 'package:ajent/app/modules/add_course/widgets/DetailPage.dart';
 import 'package:ajent/app/modules/add_course/widgets/OverviewPage.dart';
-import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +109,7 @@ class AddCoursePage extends StatelessWidget {
                             _pageController.nextPage(
                                 duration: Duration(milliseconds: 800),
                                 curve: Curves.easeInOutQuint);
-                            if (_currentPage == _page.length - 1) {
+                            if (_currentPage.value == _page.length - 1) {
                               controller.onAddCourse();
                             }
                           },

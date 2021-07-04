@@ -56,7 +56,7 @@ class InvitationCourseCard extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.fromLTRB(10, 10, 5, 10),
                                 child: Hero(
-                                  tag: '${courseId} avatar',
+                                  tag: '$courseId avatar',
                                   child: CircleAvatar(
                                     child: ClipOval(
                                       child: FadeInImage.assetNetwork(

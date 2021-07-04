@@ -1,7 +1,6 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/message.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
-import 'package:ajent/app/modules/chat/chat_controller.dart';
 import 'package:ajent/app/modules/chat/widgets/invitation_course_card.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';

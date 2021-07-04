@@ -183,12 +183,7 @@ class MyCourseDetailController extends GetxController {
   }
 
   showShareBottomSheet(BuildContext context) {
-    final titleStyle =
-        GoogleFonts.nunitoSans(fontSize: 14, fontWeight: FontWeight.bold);
-    final contentStyle = GoogleFonts.nunitoSans(
-        fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white);
     TextEditingController txtSearch = TextEditingController();
-    var scrollControler;
 
     showModalBottomSheet(
       shape: RoundedRectangleBorder(

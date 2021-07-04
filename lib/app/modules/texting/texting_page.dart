@@ -1,5 +1,4 @@
 import 'package:ajent/app/modules/texting/widgets/chat_group_item.dart';
-import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
