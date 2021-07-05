@@ -12,35 +12,20 @@ import 'core/values/colors.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting();
+  //forced potrait orientation only
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(MyApp());
   });
 }
 
-const MaterialColor jetblack =
-    const MaterialColor(0xff000000, const <int, Color>{
-  50: const Color(0xff000000),
-  100: const Color(0xff000000),
-  200: const Color(0xff000000),
-  300: const Color(0xff000000),
-  400: const Color(0xff000000),
-  500: const Color(0xff000000),
-  600: const Color(0xff000000),
-  700: const Color(0xff000000),
-  800: const Color(0xff000000),
-  900: const Color(0xff000000),
-});
-
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Ajent",
       getPages: AppPages.pages,
-      //initialRoute: Routes.SPLASH,
       initialRoute: Routes.SPLASH,
       initialBinding: SplashBinding(),
       theme: ThemeData(

@@ -8,8 +8,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TeachingTab extends StatelessWidget {
-  final TeachingController controller =
-      Get.put<TeachingController>(TeachingController());
+  final TeachingController controller = Get.find<TeachingController>();
   @override
   Widget build(BuildContext context) {
     return Column(

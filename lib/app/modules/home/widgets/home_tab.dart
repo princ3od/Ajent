@@ -30,7 +30,6 @@ class HomeTab extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     SizedBox(width: 5),
                     Text("Lịch"),
                   ],
@@ -38,7 +37,6 @@ class HomeTab extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     SizedBox(width: 5),
                     Text("Dành cho tôi"),
                   ],
@@ -46,7 +44,7 @@ class HomeTab extends StatelessWidget {
               ]),
         ),
         Obx(() => (controller.childTabIndex.value == 0)
-            ? CalendarChildTab()
+            ? Expanded(child: CalendarChildTab())
             : SuggestionChildTab()),
       ],
     );

@@ -7,14 +7,14 @@ import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/modules/learning/learning_controlller.dart';
 import 'package:ajent/app/modules/notification/notification_controller.dart';
 import 'package:ajent/app/modules/request/request_controller.dart';
+import 'package:ajent/app/modules/teaching/teaching_controller.dart';
 import 'package:ajent/core/utils/enum_converter.dart';
 import 'package:ajent/routes/pages.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeController extends GetxController {
   var tabpageIndex = 0.obs;
@@ -25,11 +25,19 @@ class HomeController extends GetxController {
   var newNotification = false.obs;
   var newMessage = false.obs;
   PageController pageController = PageController();
-  PanelController panelController = PanelController();
+  final RefreshController refreshController = RefreshController();
+
+  LearningController _learningController;
+  TeachingController _teachingController;
+  var courses = <Course>[].obs;
+  var isFetching = false.obs;
+  var weekTabIndex = 0.obs;
+  List<Course> allCourses = [];
   static AjentUser mainUser;
   @override
-  onInit() {
+  onInit() async {
     super.onInit();
+    isFetching.value = true;
     NotificationService.instance.onNotificationOpenApp((message) async {
       NotificationAction action =
           EnumConverter.stringToNotificationAction(message.data['action']);
@@ -63,6 +71,39 @@ class HomeController extends GetxController {
         newMessage.value = true;
       }
     });
+    weekTabIndex.value = DateTime.now().weekday - 1;
+    _learningController = Get.find<LearningController>();
+    _teachingController = Get.find<TeachingController>();
+    await _learningController.fetchCourses();
+    await _teachingController.fetchCourses();
+    allCourses.addAll(_learningController.allCourses);
+    allCourses.addAll(_teachingController.allCourses);
+    allCourses.removeWhere((element) => element.status != CourseStatus.ongoing);
+    courses.removeWhere((element) => !element.isInCalendar(weekTabIndex.value));
+    loadCourses();
+    isFetching.value = false;
+  }
+
+  fetch() async {
+    isFetching.value = true;
+    await _learningController.fetchCourses();
+    await _teachingController.fetchCourses();
+    allCourses.clear();
+    allCourses.addAll(_learningController.allCourses);
+    allCourses.addAll(_teachingController.allCourses);
+    allCourses.removeWhere((element) => element.status != CourseStatus.ongoing);
+    refreshController.refreshCompleted();
+    loadCourses();
+    isFetching.value = false;
+  }
+
+  loadCourses() {
+    courses.clear();
+    courses.addAll(allCourses);
+    courses.removeWhere((element) => !element.isInCalendar(weekTabIndex.value));
+    courses.sort((a, b) =>
+        a.timeInCalendar.startTime.compareTo(b.timeInCalendar.startTime));
+    courses.refresh();
   }
 
   oncChildTabChanged(int index) {
@@ -92,9 +133,10 @@ class HomeController extends GetxController {
     );
     switch (index) {
       case 1:
-        Get.find<LearningController>().showCourses();
+        _learningController.showCourses();
         break;
       case 2:
+        _teachingController.showCourses();
         break;
       case 3:
         newNotification.value = false;
@@ -122,5 +164,15 @@ class HomeController extends GetxController {
         ],
       ));
     }
+  }
+}
+
+extension TimeOfDayExtension on TimeOfDay {
+  int compareTo(TimeOfDay other) {
+    if (this.hour < other.hour) return -1;
+    if (this.hour > other.hour) return 1;
+    if (this.minute < other.minute) return -1;
+    if (this.minute > other.minute) return 1;
+    return 0;
   }
 }

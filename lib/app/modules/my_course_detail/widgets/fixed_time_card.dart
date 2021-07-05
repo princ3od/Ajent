@@ -1,4 +1,4 @@
-import 'package:ajent/app/data/models/FixedTime.dart';
+import 'package:ajent/app/data/models/fixed_time.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';

@@ -14,7 +14,6 @@ class TeachingController extends GetxController {
   @override
   onInit() async {
     super.onInit();
-    await fetchCourses();
   }
 
   fetchCourses() async {

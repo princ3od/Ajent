@@ -42,46 +42,48 @@ class TextingPage extends StatelessWidget {
                       ? 0
                       : 1,
               duration: Duration(milliseconds: 500),
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ConstrainedBox(
-                            constraints: BoxConstraints(
-                              maxWidth: Get.width - 60,
-                              maxHeight: Get.width - 20,
+              child: IgnorePointer(
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: Get.width - 60,
+                                maxHeight: Get.width - 20,
+                              ),
+                              child: Image.asset(
+                                'assets/images/empty_conversation.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                            child: Image.asset(
-                              'assets/images/empty_conversation.png',
-                              fit: BoxFit.cover,
+                            Text(
+                              'You have no conversations.',
+                              style: GoogleFonts.nunitoSans(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'You have no conversations.',
-                            style: GoogleFonts.nunitoSans(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              "All your conversations you made appeear here.",
+                              style: GoogleFonts.nunitoSans(
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                          Text(
-                            "All your conversations you made appeear here.",
-                            style: GoogleFonts.nunitoSans(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                ],
+                    Expanded(
+                      flex: 1,
+                      child: SizedBox(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

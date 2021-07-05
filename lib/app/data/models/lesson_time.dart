@@ -22,4 +22,9 @@ class LessonTime {
         (startTime.hour + (startTime.minute / 60));
     return totalTime.abs();
   }
+
+  @override
+  String toString() {
+    return "${DateConverter.timeToString(startTime)} - ${DateConverter.timeToString(endTime)}";
+  }
 }

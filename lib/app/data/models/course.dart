@@ -1,9 +1,11 @@
+import 'package:ajent/app/data/models/lesson_time.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/utils/enum_converter.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'Period.dart';
-import 'FixedTime.dart';
+import 'fixed_time.dart';
 import 'evaluation.dart';
 
 class Course {
@@ -25,14 +27,23 @@ class Course {
   String requirements;
   CourseStatus status;
   int postDate;
-  // Course(this.id, this.name, this.description, this.photoUrl, this.timeType,
-  //     this.address, this.owner, this.teacher, this.price, this.requirements,
-  //     [this.subjects,
-  //     this.students,
-  //     this.periods,
-  //     this.fixedTime,
-  //     this.evaluation]);
-  Course();
+  LessonTime timeInCalendar;
+  Course(
+      {this.id,
+      this.name,
+      this.description,
+      this.photoUrl,
+      this.timeType,
+      this.address,
+      this.owner,
+      this.teacher,
+      this.price,
+      this.requirements,
+      this.subjects,
+      this.maxLearner,
+      this.periods,
+      this.fixedTime,
+      this.evaluations});
   Course.fromJson(this.id, Map<String, dynamic> data) {
     description = data['description'];
     photoUrl = data['photoUrl'];
@@ -200,6 +211,33 @@ class Course {
       if (i < addressPart.length - 1) result += ", ";
     }
     return result;
+  }
+
+  bool isInCalendar(int selectedDay) {
+    var date = DateTime.now()
+        .add(Duration(days: selectedDay + 1 - DateTime.now().weekday));
+    if (timeType == TimeType.fixedTime) {
+      if (fixedTime.day[date.weekday - 1]) {
+        timeInCalendar = fixedTime.lessonTime;
+        return true;
+      }
+    } else {
+      for (var period in periods) {
+        if (period.date.isSameDate(date)) {
+          timeInCalendar = period.lessonTime;
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+}
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.year == other.year &&
+        this.month == other.month &&
+        this.day == other.day;
   }
 }
 

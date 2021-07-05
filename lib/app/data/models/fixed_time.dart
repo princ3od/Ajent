@@ -2,7 +2,7 @@ import 'package:ajent/core/utils/date_converter.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
-import 'LessonTime.dart';
+import 'lesson_time.dart';
 
 class FixedTime {
   List<bool> day = List.generate(7, (_) => false);

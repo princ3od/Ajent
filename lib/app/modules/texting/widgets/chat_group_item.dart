@@ -68,7 +68,7 @@ class ChatGroupItem extends StatelessWidget {
     return Row(
       children: [
         Flexible(
-          flex: 3,
+          flex: 4,
           child: Text(
             txt,
             overflow: TextOverflow.ellipsis,
@@ -79,7 +79,7 @@ class ChatGroupItem extends StatelessWidget {
           ),
         ),
         Flexible(
-          flex: 1,
+          flex: 2,
           child: Text(
             " - " + DateConverter.getTime(message.timeStamp, true),
             overflow: TextOverflow.clip,

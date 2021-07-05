@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:ajent/app/data/models/FixedTime.dart';
-import 'package:ajent/app/data/models/LessonTime.dart';
+import 'package:ajent/app/data/models/fixed_time.dart';
+import 'package:ajent/app/data/models/lesson_time.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/Period.dart';
 import 'package:ajent/app/data/services/course_service.dart';

@@ -1,6 +1,6 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
-import 'package:ajent/app/data/models/FixedTime.dart';
+import 'package:ajent/app/data/models/fixed_time.dart';
 import 'package:ajent/app/data/models/Period.dart';
 import 'package:ajent/app/data/models/evaluation.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';

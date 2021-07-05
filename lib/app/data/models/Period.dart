@@ -1,7 +1,7 @@
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:intl/intl.dart';
 
-import 'LessonTime.dart';
+import 'lesson_time.dart';
 
 class Period {
   DateTime date;
