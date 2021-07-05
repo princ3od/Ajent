@@ -6,8 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 class NotificationItem extends StatefulWidget {
   final NotificationModel notificationData;
   final Function onDelete;
+  final Function onOpen;
   NotificationItem(
-      {Key key, @required this.notificationData, @required this.onDelete})
+      {Key key,
+      @required this.notificationData,
+      @required this.onDelete,
+      @required this.onOpen})
       : super(key: key);
 
   @override
@@ -24,7 +28,7 @@ class _NotificationItemState extends State<NotificationItem>
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: widget.onOpen,
           onLongPress: () {
             setState(() {
               _isExpand = !_isExpand;

@@ -31,6 +31,9 @@ class NotificationTab extends StatelessWidget {
                             controller.notifications[index].id);
                         controller.fetch();
                       },
+                      onOpen: () {
+                        controller.open(controller.notifications[index]);
+                      },
                     );
                   },
                 ),

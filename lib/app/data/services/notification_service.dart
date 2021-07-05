@@ -4,7 +4,10 @@ import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/notification_model.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
+import 'package:ajent/app/data/services/course_service.dart';
+import 'package:ajent/core/utils/enum_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:ajent/app/data/models/Request.dart' as AjentRequest;
 import 'package:http/http.dart';
@@ -18,6 +21,18 @@ class NotificationService implements CollectionInterface {
 
   final String _serverKey =
       'AAAA2KfeVtQ:APA91bHaLAeRw6vYkdSMuuXiLvbWdx0nAwWlYjTeljDi-sBSZbJjM_iwDouVsGC5lFtwJht6Bwzhe3z8C5hizNy_-yEyBlJJBaDYe4AmsIcA88AO6T0xK8jKcvw2Kuzvc-uAlM3uF4FZ';
+
+  onNotificationOpenApp(Function(RemoteMessage) func) {
+    FirebaseMessaging.onMessageOpenedApp.listen(func);
+  }
+
+  onNotication(Function(RemoteMessage) func) {
+    FirebaseMessaging.onMessage.listen(func);
+  }
+
+  Future<RemoteMessage> getInitialNotification() async {
+    return await FirebaseMessaging.instance.getInitialMessage();
+  }
 
   Future<NotificationModel> storeNotication(
       NotificationModel notificationModel) async {
@@ -65,7 +80,7 @@ class NotificationService implements CollectionInterface {
     NotificationModel data = NotificationModel()
       ..action = NotificationAction.openCourse
       ..content = _body
-      ..receivers = course.learners
+      ..receivers = List.from(course.learners)
       ..courseId = course.id
       ..postDate = DateTime.now().millisecondsSinceEpoch
       ..imageUrl = joiner.avatarUrl;
@@ -91,7 +106,7 @@ class NotificationService implements CollectionInterface {
     NotificationModel data = NotificationModel()
       ..action = NotificationAction.openCourse
       ..content = _body
-      ..receivers = course.learners
+      ..receivers = List.from(course.learners)
       ..courseId = course.id
       ..postDate = DateTime.now().millisecondsSinceEpoch
       ..imageUrl = joiner.avatarUrl;

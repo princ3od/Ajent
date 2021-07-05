@@ -26,16 +26,10 @@ class _RequestPageState extends State<RequestPage> {
   void _onRefresh() async {
     controller.isLoadingStatus.value = true;
     await controller.getRequestStatusItems();
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
   void _onLoading() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-
     if (mounted) setState(() {});
     _refreshController.loadComplete();
   }
@@ -138,21 +132,6 @@ class _RequestPageState extends State<RequestPage> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: primaryColor,
-        child: Icon(Icons.add),
-        onPressed: () async {
-          Request item1 = Request()
-            ..courseId = "xwyGhwII3KvktyUgX6IS"
-            ..postDate = 1625055976480
-            ..receiverUid = HomeController.mainUser.uid
-            ..requestorUid = HomeController.mainUser.uid
-            ..status = RequestStatus.waiting;
-          Request item = await RequestService.instance.addRequest(item1);
-          controller.isLoadingStatus.value = true;
-          await controller.getRequestStatusItems();
-        },
       ),
     );
   }

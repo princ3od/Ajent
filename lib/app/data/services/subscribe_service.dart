@@ -17,7 +17,6 @@ class SubscribeService {
     if (!HomeController.mainUser.topics.contains('$courseId-request'))
       HomeController.mainUser.topics.add('$courseId-request');
     await UserService.instance.updateSubsciption(HomeController.mainUser);
-    print(HomeController.mainUser.topics);
   }
 
   subcribeOnJoinCourse(String courseId) async {
@@ -25,7 +24,6 @@ class SubscribeService {
     if (!HomeController.mainUser.topics.contains('$courseId-public'))
       HomeController.mainUser.topics.add('$courseId-public');
     await UserService.instance.updateSubsciption(HomeController.mainUser);
-    print(HomeController.mainUser.topics);
   }
 
   unsubscribeOnLeaveCourse(String courseId) async {
@@ -33,7 +31,6 @@ class SubscribeService {
     if (HomeController.mainUser.topics.contains('$courseId-public'))
       HomeController.mainUser.topics.remove('$courseId-public');
     await UserService.instance.updateSubsciption(HomeController.mainUser);
-    print(HomeController.mainUser.topics);
   }
 
   subcribeOnRequestCourse(String courseId, String requestId) async {
@@ -42,7 +39,6 @@ class SubscribeService {
         .contains('$courseId-request-$requestId'))
       HomeController.mainUser.topics.add('$courseId-request-$requestId');
     await UserService.instance.updateSubsciption(HomeController.mainUser);
-    print(HomeController.mainUser.topics);
   }
 
   subscribeOnLogin(String userUid) async {
@@ -50,7 +46,6 @@ class SubscribeService {
     if (!HomeController.mainUser.topics.contains('$userUid'))
       HomeController.mainUser.topics.add('$userUid');
     await UserService.instance.updateSubsciption(HomeController.mainUser);
-    print(HomeController.mainUser.topics);
   }
 
   unsubscribeOnLogout(String userUid) async {
@@ -63,7 +58,6 @@ class SubscribeService {
     if (HomeController.mainUser.topics.contains('$courseId-request-$requestId'))
       HomeController.mainUser.topics.remove('$courseId-request-$requestId');
     await UserService.instance.updateSubsciption(HomeController.mainUser);
-    print(HomeController.mainUser.topics);
   }
 
   subcriceAll() async {

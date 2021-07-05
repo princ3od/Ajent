@@ -147,7 +147,7 @@ class RequestCard extends StatelessWidget {
                                         : Text(
                                             'Chưa có đánh giá',
                                             style: GoogleFonts.nunito(
-                                                fontSize: 14),
+                                                fontSize: 12),
                                           ),
                                   ],
                                 ),
@@ -182,7 +182,7 @@ class RequestCard extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 15, bottom: 5),
                                     child: Text(
-                                      "đã gửi ${DateConverter.getTimeInAgo(1624536554094)}",
+                                      "đã gửi ${DateConverter.getTimeInAgo(data.request.postDate)}",
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.w600,

@@ -65,6 +65,7 @@ class MyCourseDetailController extends GetxController {
     setUserRelationBadge();
     settingBottomButton();
     getTimeInDetail();
+
     isLoading.value = false;
   }
 
@@ -123,8 +124,8 @@ class MyCourseDetailController extends GetxController {
     await CourseService.instance.updateLearnners(course.value);
     var user = await UserService.instance.getUser(HomeController.mainUser.uid);
     learners.insert(0, user);
-    await SubscribeService.instance.subcribeOnJoinCourse(course.value.id);
     await NotificationService.instance.notifyJoinCourse(course.value, user);
+    await SubscribeService.instance.subcribeOnJoinCourse(course.value.id);
     isJoining.value = false;
     joinable.value = false;
     unEnrollable.value = true;

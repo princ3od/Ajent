@@ -56,7 +56,10 @@ class HomePage extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 label: "Thông báo",
-                icon: Icon(Icons.notifications_outlined),
+                icon: (controller.newNotification.value)
+                    ? Icon(Icons.notifications_active_rounded,
+                        color: primaryColor)
+                    : Icon(Icons.notifications_outlined),
                 activeIcon: Icon(Icons.notifications_rounded),
               ),
             ],
@@ -90,13 +93,17 @@ class HomePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.chat_rounded,
-              color: Colors.black,
-              size: 25,
+            icon: Obx(
+              () => Icon(
+                Icons.chat_rounded,
+                color:
+                    (controller.newMessage.value) ? Colors.lime : Colors.black,
+                size: 25,
+              ),
             ),
             onPressed: () {
               Get.toNamed(Routes.TEXTING);
+              controller.newMessage.value = false;
             },
           ),
         ],

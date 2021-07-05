@@ -115,7 +115,7 @@ class AddCourseController extends GetxController {
         } else {
           Get.find<TeachingController>().onTabChanged(course.status.index);
           Get.find<TeachingController>().fetchCourses();
-          Get.offNamed(Routes.MYTEACHINGDETAIL, arguments: course);
+          Get.offNamed(Routes.MYCOURSEDETAIL, arguments: course);
         }
         isAddingCourse.value = false;
       } else {
