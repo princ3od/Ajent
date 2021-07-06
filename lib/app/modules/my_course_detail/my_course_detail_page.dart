@@ -31,7 +31,7 @@ class MyCourseDetailPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Course detail',
+          'Course detail'.tr,
           overflow: TextOverflow.fade,
           style: GoogleFonts.nunitoSans(
               color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
@@ -351,7 +351,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(left: 20, top: 10),
                                   child: Text(
-                                    'Yêu cầu',
+                                    'Requirement'.tr,
                                     style: titleStyle,
                                   ),
                                 ),
