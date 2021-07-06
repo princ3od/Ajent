@@ -167,6 +167,10 @@ class RequestService implements CollectionInterface {
         }
       });
     });
+    await database
+        .collection('courses')
+        .doc('${requestItem.courseId}')
+        .update({'teacher': '${requestItem.requestorUid}'});
     isSuccess = true;
     return isSuccess;
   }
