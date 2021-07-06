@@ -3,7 +3,7 @@ import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 class FixedTimeCard extends StatelessWidget {
   final FixedTime fixedTime;
   FixedTimeCard({@required this.fixedTime});
@@ -36,13 +36,13 @@ class FixedTimeCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Thời gian",
+                        Text("time_label_on_add".tr,
                             style: GoogleFonts.nunitoSans(
                                 color: Colors.white, fontSize: 10)),
                         RichText(
                           text: TextSpan(children: [
                             TextSpan(
-                                text: 'Từ ',
+                                text: 'From'.tr,
                                 style: GoogleFonts.nunitoSans(
                                     color: Colors.white, fontSize: 14)),
                             TextSpan(
@@ -53,7 +53,7 @@ class FixedTimeCard extends StatelessWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.bold)),
                             TextSpan(
-                                text: ' đến ',
+                                text: 'to'.tr,
                                 style: GoogleFonts.nunitoSans(
                                     color: Colors.white, fontSize: 14)),
                             TextSpan(
@@ -68,7 +68,7 @@ class FixedTimeCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(children: [
                             TextSpan(
-                                text: 'Giờ học: ',
+                                text: 'Study time:'.tr,
                                 style: GoogleFonts.nunitoSans(
                                     color: Colors.white, fontSize: 14)),
                             TextSpan(
@@ -93,7 +93,7 @@ class FixedTimeCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Ngày học trong tuần",
+                        Text("Study day in a week".tr,
                             style: GoogleFonts.nunitoSans(
                                 color: Colors.black, fontSize: 10)),
                         SizedBox(height: 4),

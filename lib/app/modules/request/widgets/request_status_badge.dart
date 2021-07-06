@@ -1,14 +1,14 @@
 import 'package:ajent/app/data/models/Request.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 class RequestStatusBadege extends StatelessWidget {
   final RequestStatus status;
   RequestStatusBadege({Key key, @required this.status}) : super(key: key);
   final Map<RequestStatus, String> texts = {
-    RequestStatus.accepted: 'Đã chấp nhận',
-    RequestStatus.waiting: 'Đợi phản hồi',
-    RequestStatus.denied: 'Đã từ chối',
+    RequestStatus.accepted: 'Accepted'.tr,
+    RequestStatus.waiting: 'Waiting to response'.tr,
+    RequestStatus.denied: 'Declined'.tr,
   };
   final Map<RequestStatus, Color> colors = {
     RequestStatus.accepted: Colors.green,

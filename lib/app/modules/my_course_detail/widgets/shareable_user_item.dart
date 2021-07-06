@@ -46,8 +46,8 @@ class _ShareableUserItemState extends State<ShareableUserItem> {
           var m =
               ChatController.sendInvitation(widget.course.id, widget.user.uid);
           print('end');
-          Get.snackbar("Gửi thành công",
-              "Khoá học này đã được chia sẻ đến ${widget.user.name}",
+          Get.snackbar("Send successfully".tr,
+              "This course has been sent to".tr+ " ${widget.user.name}",
               snackPosition: SnackPosition.BOTTOM);
           setState(() {
             isSharing = false;

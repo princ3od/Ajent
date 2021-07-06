@@ -106,7 +106,7 @@ class MyCourseDetailController extends GetxController {
     if (course.value.timeType == TimeType.periodTime) {
       timeOverall = course.value.getTotalHours().toStringAsFixed(1) +
           'hh'.tr +
-          ' (${course.value.periods.length} buổi)';
+          ' (${course.value.periods.length} '+'period'.tr+')';
     } else {
       timeOverall = course.value.getTotalHours().toStringAsFixed(1) +
           'hh'.tr +
@@ -159,7 +159,7 @@ class MyCourseDetailController extends GetxController {
       ..status = RequestStatus.waiting
       ..postDate = DateTime.now().millisecondsSinceEpoch;
     request = await RequestService.instance.addRequest(request);
-    Get.snackbar('Thông báo', 'Yêu cầu ứng tuyển dạy được gửi thành công!');
+    Get.snackbar('Send successfully'.tr, 'Your teaching request have been sent'.tr);
     await SubscribeService.instance
         .subcribeOnRequestCourse(course.value.id, request.id);
     await NotificationService.instance.notifyRequestCourse(course.value, user);
@@ -293,7 +293,7 @@ class MyCourseDetailController extends GetxController {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, top: 10),
                   child: Text(
-                    'Thông tin thêm',
+                    'Extra infomation'.tr,
                     style: GoogleFonts.nunitoSans(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
@@ -303,7 +303,7 @@ class MyCourseDetailController extends GetxController {
                   child: Row(
                     children: [
                       Text(
-                        'Mã khoá học: ',
+                        'Course ID: '.tr,
                         style: titleStyle,
                       ),
                       Container(
@@ -324,7 +324,7 @@ class MyCourseDetailController extends GetxController {
                   child: Row(
                     children: [
                       Text(
-                        'Ngày tạo: ',
+                        'Date created: '.tr,
                         style: titleStyle,
                       ),
                       Container(
@@ -347,7 +347,7 @@ class MyCourseDetailController extends GetxController {
                   child: Row(
                     children: [
                       Text(
-                        'Người tạo: ',
+                        'Creator: '.tr,
                         style: titleStyle,
                       ),
                       GestureDetector(

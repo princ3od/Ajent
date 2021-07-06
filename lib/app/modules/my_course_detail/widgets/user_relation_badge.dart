@@ -1,15 +1,15 @@
 import 'package:ajent/app/data/models/course.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 class UserRelationBadge extends StatelessWidget {
   final UserRelation relation;
   UserRelationBadge({Key key, @required this.relation}) : super(key: key);
   final Map<UserRelation, String> texts = {
     UserRelation.noRelation: "",
-    UserRelation.joining: "Bạn là học viên của khoá học này",
-    UserRelation.requesting: "Bạn đang ứng tuyển dạy khoá học này",
-    UserRelation.teaching: "Bạn là giáo viên của khoá học này"
+    UserRelation.joining: "You're the student of this course".tr,
+    UserRelation.requesting: "You're requesting to be a teacher of this course".tr,
+    UserRelation.teaching:"You're the teacher of this course".tr
   };
   @override
   Widget build(BuildContext context) {

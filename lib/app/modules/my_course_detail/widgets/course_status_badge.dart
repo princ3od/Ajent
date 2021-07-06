@@ -1,14 +1,14 @@
 import 'package:ajent/app/data/models/course.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 class CourseStatusBadge extends StatelessWidget {
   final CourseStatus status;
   CourseStatusBadge({Key key, @required this.status}) : super(key: key);
   final Map<CourseStatus, String> texts = {
-    CourseStatus.fininished: 'Đã kết thúc',
-    CourseStatus.ongoing: 'Đang diễn ra',
-    CourseStatus.upcoming: 'Chưa bắt đầu',
+    CourseStatus.fininished: 'Ended'.tr,
+    CourseStatus.ongoing: 'Ongoing'.tr,
+    CourseStatus.upcoming: 'Upcoming'.tr,
   };
   final Map<CourseStatus, Color> colors = {
     CourseStatus.fininished: Colors.red,

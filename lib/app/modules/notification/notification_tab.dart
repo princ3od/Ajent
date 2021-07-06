@@ -14,10 +14,14 @@ class NotificationTab extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
       child: Column(
         children: [
-          Text(
-            'Thông báo',
-            style: GoogleFonts.nunitoSans(
-                fontSize: 18, fontWeight: FontWeight.bold),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0,10,0,0),
+            child: Text(
+              'notification'.tr,
+              style: GoogleFonts.nunitoSans(
+                  fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ),
           Flexible(
             child: Obx(
@@ -73,14 +77,14 @@ class NotificationTab extends StatelessWidget {
                                       height: 10,
                                     ),
                                     Text(
-                                      'Yay! Your notification is clear. 😗',
+                                      'Yay! Your notification is clear. 😗'.tr,
                                       style: GoogleFonts.nunitoSans(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
-                                      "All your notification appeear here.",
+                                      "All of your notification will appear here.".tr,
                                       style: GoogleFonts.nunitoSans(
                                         fontSize: 12,
                                       ),

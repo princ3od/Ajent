@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'settings_title_label'.tr,
+          'Language'.tr,
           style: GoogleFonts.nunitoSans(
             color: Colors.black,
             fontSize: 18,
@@ -36,7 +36,7 @@ class SettingsPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
                 child: Text(
-                  "Ngôn ngữ",
+                  "Language".tr,
                   style: GoogleFonts.nunitoSans(
                       fontSize: 15,
                       fontWeight: FontWeight.w800,

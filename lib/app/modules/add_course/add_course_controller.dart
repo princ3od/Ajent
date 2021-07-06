@@ -80,7 +80,7 @@ class AddCourseController extends GetxController {
           ..subjects = subjects;
       } catch (e) {
         Get.snackbar(
-            "Lỗi dữ liệu", "Vui lòng kiểm tra lại thông tin khoá học.");
+            "data_error".tr, "check_course_info_warning".tr);
         isAddingCourse.value = false;
         return;
       }
@@ -119,7 +119,7 @@ class AddCourseController extends GetxController {
         }
         isAddingCourse.value = false;
       } else {
-        Get.snackbar("Lỗi", "Thêm khoá học thất bại!");
+        Get.snackbar("error".tr, "add_course_fail".tr);
         isAddingCourse.value = false;
       }
     }
@@ -144,7 +144,6 @@ class AddCourseController extends GetxController {
     if (pickedFile != null) {
       return pickedFile.path;
     } else {
-      print('No image selected.');
       return null;
     }
   }

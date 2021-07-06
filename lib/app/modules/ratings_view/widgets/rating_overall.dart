@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 class RatingOverall extends StatelessWidget {
   final double averageStar;
   final int total;
@@ -42,7 +42,7 @@ class RatingOverall extends StatelessWidget {
               onRatingUpdate: (value) {},
             ),
             Text(
-              '$total đánh giá',
+              '$total '+"ratings".tr,
               style: GoogleFonts.nunitoSans(fontSize: 12),
             ),
           ],
