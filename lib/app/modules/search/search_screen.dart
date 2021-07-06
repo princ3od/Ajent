@@ -1,5 +1,6 @@
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/modules/search/widgets/empty_search.dart';
+import 'package:ajent/app/modules/search/widgets/no_result.dart';
 import 'package:ajent/app/modules/search/widgets/search_course_card.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -114,6 +115,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: ListTileShimmer(),
                   );
                 }
+                if (snapshot.data.docs.length == 0) {
+                  return Center(child: NoResult());
+                }
                 return ListView.builder(
                   physics: AlwaysScrollableScrollPhysics(),
                   controller: scrollControler,
@@ -124,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ((controller.loadMore) ? 0 : 1),
                   itemBuilder: (context, index) {
                     if (snapshot.data.docs == null) {
-                      return SizedBox();
+                      return Center(child: NoResult());
                     }
                     if (controller.currentLength != snapshot.data.docs.length) {
                       controller.currentLength = snapshot.data.docs.length;
