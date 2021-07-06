@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   bubble_tab_indicator: ^0.1.6
+  carousel_slider: ^4.0.0
   chips_choice: ^2.0.1
   cloud_firestore: ^2.2.0
   cupertino_icons: ^1.0.2
@@ -32,6 +33,7 @@ dependencies:
   firebase_core: ^1.2.0
   firebase_messaging: ^10.0.3
   firebase_storage: ^8.1.0
+  flip_card: ^0.5.0
   flutter_date_picker_timeline: ^0.3.2
   flutter_datetime_picker: ^1.5.1
   flutter_facebook_auth: ^3.3.3+1

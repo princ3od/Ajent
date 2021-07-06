@@ -62,7 +62,7 @@ class CalendarChildTab extends StatelessWidget {
                     tabBarIndicatorSize: TabBarIndicatorSize.label,
                     insets: const EdgeInsets.symmetric(horizontal: 2.0),
                     padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: -1.0),
                   ),
                   tabs: [
                     for (var day in DateConverter.weekDays()) Tab(text: day),

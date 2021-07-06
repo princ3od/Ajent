@@ -102,20 +102,7 @@ class SideMenu extends StatelessWidget {
             SideMenuButton(
               text: "Giới thiệu",
               onPressed: () {
-                showAboutDialog(
-                  context: context,
-                  applicationVersion: '1.0.0',
-                  applicationIcon: Container(
-                    child: Image.asset("assets/images/ajent_logo.png"),
-                    width: 50,
-                    height: 50,
-                  ),
-                  applicationLegalese: 'Copyright 2021 Ajent',
-                  children: [
-                    SizedBox(height: 10),
-                    Text("Tutor searching app"),
-                  ],
-                );
+                Get.toNamed(Routes.ABOUT);
               },
             ),
             Expanded(

@@ -202,6 +202,7 @@ class MyCourseDetailController extends GetxController {
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
                       autofocus: true,
