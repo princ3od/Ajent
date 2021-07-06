@@ -44,8 +44,6 @@ class AjentUser extends Person {
     educationLevel = data['educationLevel'];
     bio = data['bio'];
     topics = List.from(data['topics']);
-    print(topics.length);
-    // topics.removeWhere((element) => element.isEmpty);
   }
   AjentUser.cloneWith(AjentUser ajentUser)
       : super(

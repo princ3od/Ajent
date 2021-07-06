@@ -34,6 +34,7 @@ class HomeController extends GetxController {
   var weekTabIndex = 0.obs;
   List<Course> allCourses = [];
   static AjentUser mainUser;
+  static String langCode;
   @override
   onInit() async {
     super.onInit();

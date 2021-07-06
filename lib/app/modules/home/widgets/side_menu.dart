@@ -1,6 +1,7 @@
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
+import 'package:ajent/app/modules/home/widgets/language_button.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
@@ -75,16 +76,11 @@ class SideMenu extends StatelessWidget {
                 ],
               ),
             ),
+            LanguageButton(),
             SideMenuButton(
               text: "Yêu cầu",
               onPressed: () {
                 Get.toNamed(Routes.REQUEST_VIEW);
-              },
-            ),
-            SideMenuButton(
-              text: "Cài đặt",
-              onPressed: () {
-                Get.toNamed(Routes.SETTINGS);
               },
             ),
             SideMenuButton(
@@ -128,7 +124,7 @@ class SideMenu extends StatelessWidget {
                   SizedBox(height: 5),
                   Text(
                     "© Ajent",
-                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w100),
+                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 20),
                 ],

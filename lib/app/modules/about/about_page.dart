@@ -163,6 +163,9 @@ class AboutPage extends StatelessWidget {
                   height: 200,
                   aspectRatio: 2.0,
                   enlargeCenterPage: true,
+                  autoPlay: true,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  autoPlayAnimationDuration: Duration(seconds: 1),
                 ),
                 items: members.map((member) {
                   return Builder(
@@ -179,7 +182,12 @@ class AboutPage extends StatelessWidget {
                     },
                   );
                 }).toList(),
-              )
+              ),
+              SizedBox(height: 20),
+              Text(
+                "© Ajent 2021",
+                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.normal),
+              ),
             ],
           ),
         ),
