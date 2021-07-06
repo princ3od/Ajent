@@ -95,8 +95,8 @@ class CalendarChildTab extends StatelessWidget {
                                     children: [
                                       ConstrainedBox(
                                         constraints: BoxConstraints(
-                                          maxWidth: Get.width - 100,
-                                          maxHeight: Get.width - 100,
+                                          maxWidth: Get.width - 75,
+                                          maxHeight: Get.width - 75,
                                         ),
                                         child: Image.asset(
                                           'assets/images/break_day.png',

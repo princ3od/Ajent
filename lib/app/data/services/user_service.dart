@@ -54,7 +54,7 @@ class UserService implements CollectionInterface {
   Future<bool> updateSubsciption(AjentUser ajentUser) async {
     bool success = false;
     await database.collection(collectionName).doc(ajentUser.uid).set({
-      'topcis': ajentUser.topics,
+      'topics': ajentUser.topics,
     }, SetOptions(merge: true)).whenComplete(() {
       success = true;
     }).catchError((error) => print('Occured error $error'));
