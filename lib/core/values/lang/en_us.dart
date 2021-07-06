@@ -120,6 +120,6 @@ const Map<String, String> en = {
   'data_error':'Input Error',
   'check_course_info_warning':"Please check course's information",
   'add_course_fail':"Add course failed",
-  'create_new_course':"Create new course",
+  'create_new_course':"Create",
 
 };

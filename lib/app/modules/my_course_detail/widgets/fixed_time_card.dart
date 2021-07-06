@@ -47,7 +47,7 @@ class FixedTimeCard extends StatelessWidget {
                                     color: Colors.white, fontSize: 14)),
                             TextSpan(
                                 text:
-                                    '${DateConverter.getTimeInDate(fixedTime.startDate.millisecondsSinceEpoch)}',
+                                    ' ${DateConverter.getTimeInDate(fixedTime.startDate.millisecondsSinceEpoch)} ',
                                 style: GoogleFonts.nunitoSans(
                                     color: Colors.white,
                                     fontSize: 13,
@@ -58,7 +58,7 @@ class FixedTimeCard extends StatelessWidget {
                                     color: Colors.white, fontSize: 14)),
                             TextSpan(
                                 text:
-                                    '${DateConverter.getTimeInDate(fixedTime.endDate.millisecondsSinceEpoch)}',
+                                    ' ${DateConverter.getTimeInDate(fixedTime.endDate.millisecondsSinceEpoch)}',
                                 style: GoogleFonts.nunitoSans(
                                     color: Colors.white,
                                     fontSize: 13,
