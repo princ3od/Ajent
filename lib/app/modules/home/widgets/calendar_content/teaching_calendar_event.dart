@@ -3,7 +3,7 @@ import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 class TeachingCalendarEventCard extends StatelessWidget {
   final Course course;
 
@@ -37,7 +37,7 @@ class TeachingCalendarEventCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Text(
-                              "Dạy",
+                              "teach".tr,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.nunitoSans(
                                   fontWeight: FontWeight.w800,
@@ -77,7 +77,7 @@ class TeachingCalendarEventCard extends StatelessWidget {
                       child: Row(
                         children: [
                           Flexible(
-                            child: Text(course.maxLearner.toString(),
+                            child: Text(course.maxLearner.toString()+"students".tr,
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700,

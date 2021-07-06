@@ -138,7 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           title: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Center(
-                          child: Text("--End of result--"),
+                          child: Text("--End of result--".tr),
                         ),
                       ));
                     }

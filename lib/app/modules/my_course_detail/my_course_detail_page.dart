@@ -31,7 +31,7 @@ class MyCourseDetailPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Chi tiết khoá học',
+          'Course detail',
           overflow: TextOverflow.fade,
           style: GoogleFonts.nunitoSans(
               color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
@@ -190,7 +190,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(left: 20, top: 10),
                                   child: Text(
-                                    'Mô tả',
+                                    'Description'.tr,
                                     style: titleStyle,
                                   ),
                                 ),
@@ -209,7 +209,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                                 .isNotEmpty
                                             ? (controller
                                                 .course.value.description)
-                                            : "Không có",
+                                            : "Not available".tr,
                                         style: contentStyle(controller
                                                 .course.value.description
                                                 .trim()
@@ -228,7 +228,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(left: 20, top: 10),
                                   child: Text(
-                                    'Địa chỉ',
+                                    'Address'.tr,
                                     style: titleStyle,
                                   ),
                                 ),
@@ -279,7 +279,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(left: 20, top: 5),
                                   child: Text(
-                                    'Thời gian cụ thể',
+                                    'Specific time'.tr,
                                     style: titleStyle,
                                   ),
                                 ),
@@ -324,7 +324,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 20, top: 10),
                                     child: Text(
-                                      'Chủ đề',
+                                      'Topics'.tr,
                                       style: titleStyle,
                                     ),
                                   ),
@@ -363,7 +363,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                             .trim()
                                             .isNotEmpty
                                         ? controller.course.value.requirements
-                                        : "Không có",
+                                        : "Not available".tr,
                                     style: contentStyle(controller
                                             .course.value.requirements
                                             .trim()
@@ -414,7 +414,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                                       Colors.white),
                                             ),
                                           )
-                                        : Text("Ứng tuyển dạy",
+                                        : Text("Request to teach".tr,
                                             style: GoogleFonts.nunitoSans(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w700)),
@@ -440,7 +440,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                                           : Colors.white),
                                             ),
                                           )
-                                        : Text("Tham gia",
+                                        : Text("Join".tr,
                                             style: GoogleFonts.nunitoSans(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w700)),
@@ -486,7 +486,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                                       Colors.white),
                                             ),
                                           )
-                                        : Text("Rời khoá học",
+                                        : Text("Leave course".tr,
                                             style: GoogleFonts.nunitoSans(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w700)),
@@ -509,8 +509,8 @@ class MyCourseDetailPage extends StatelessWidget {
                                             (controller.course.value.evaluations
                                                     .containsKey(
                                                         controller.user.uid))
-                                                ? "Xem đánh giá của bạn"
-                                                : "Đánh giá",
+                                                ? "See your ratings".tr
+                                                : "Rate".tr,
                                             style: GoogleFonts.nunitoSans(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w700)),

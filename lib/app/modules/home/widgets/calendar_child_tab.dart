@@ -107,14 +107,14 @@ class CalendarChildTab extends StatelessWidget {
                                         height: 10,
                                       ),
                                       Text(
-                                        'A break-day! 🤩',
+                                        'A break-day! 🤩'.tr,
                                         style: GoogleFonts.nunitoSans(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
-                                        "Your day-shedule should sit all here.",
+                                        "Enjoy yourself, have a nice day".tr,
                                         style: GoogleFonts.nunitoSans(
                                           fontSize: 12,
                                         ),

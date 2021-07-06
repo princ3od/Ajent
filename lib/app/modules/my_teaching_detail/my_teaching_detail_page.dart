@@ -23,7 +23,7 @@ class MyTeachingDetailPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Chi tiết khoá học",
+            "Course detail".tr,
             //course.name,
             overflow: TextOverflow.fade,
             style: GoogleFonts.nunitoSans(
@@ -117,7 +117,7 @@ class MyTeachingDetailPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Mã khóa",
+                                  Text("Course ID".tr,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12)),
@@ -154,7 +154,7 @@ class MyTeachingDetailPage extends StatelessWidget {
                                   //         fontSize: 12),
                                   //   ),
                                   // ),
-                                  Text("Địa điểm dạy",
+                                  Text("Address".tr,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12)),
@@ -178,7 +178,7 @@ class MyTeachingDetailPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Text("Thời gian học",
+                                  Text("Study time".tr,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12)),
@@ -194,7 +194,7 @@ class MyTeachingDetailPage extends StatelessWidget {
                                         fontSize: 12),
                                   ),
                                   SizedBox(height: 8),
-                                  Text("Chi phí khóa",
+                                  Text('tuition_label'.tr,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12)),
@@ -212,7 +212,7 @@ class MyTeachingDetailPage extends StatelessWidget {
                                         fontSize: 12),
                                   ),
                                   SizedBox(height: 8),
-                                  Text("Số lượng học viên",
+                                  Text('number_of_student_label'.tr,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12)),
@@ -228,7 +228,7 @@ class MyTeachingDetailPage extends StatelessWidget {
                                         fontSize: 12),
                                   ),
                                   SizedBox(height: 8),
-                                  Text("Thông tin học viên",
+                                  Text("Students' information".tr,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12)),
@@ -289,7 +289,7 @@ class MyTeachingDetailPage extends StatelessWidget {
                                                         Color>(Colors.white),
                                               ),
                                             )
-                                          : Text("Tham gia",
+                                          : Text("Join".tr,
                                               style: GoogleFonts.nunitoSans(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w700)),

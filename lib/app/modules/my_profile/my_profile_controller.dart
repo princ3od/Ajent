@@ -60,9 +60,9 @@ class MyProfileController extends GetxController {
 
   Future<void> onLongPressDegreeCard(Degree degree) async {
     await Get.defaultDialog(
-      title: "Thông baó ",
+      title: "Warning".tr,
       content: Text(
-        "Bạn xác nhận muốn xóa?",
+        "Do you want to delete?".tr,
       ),
       cancel: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -81,9 +81,9 @@ class MyProfileController extends GetxController {
           await userService.delDegree(HomeController.mainUser.uid, degree.id);
           await loadUserDegree();
           Get.back();
-          Get.snackbar("Thông báo ", "Thao tác xóa thành công");
+          Get.snackbar("Success".tr, "Successfully deleted".tr);
         },
-        child: Text('Confirm'),
+        child: Text('Confirm'.tr),
       ),
     );
   }
@@ -127,20 +127,20 @@ class MyProfileController extends GetxController {
     var _description = txtDescription.text;
     var _imageDegreeUrl = imageDegreeUrl.value;
     if (_title == "" || _description == "" || _imageDegreeUrl == "") {
-      Get.snackbar("Lỗi", "Kiểm tra dữ liệu đã nhập,và thử lại!");
+      Get.snackbar("error".tr, "check_course_info_warning".tr);
       return;
     }
     var degree = Degree(
         imageUrl: _imageDegreeUrl, title: _title, description: _description);
     success = await userService.addDegree(HomeController.mainUser.uid, degree);
     if (!success) {
-      Get.snackbar("Lỗi", "Sever hiện tại đang bận, vui lòng thử lại sau.");
+      Get.snackbar("error".tr, "Server is busy, please try again later".tr);
     } else {
       loadDegree.value = false;
       await loadUserDegree();
 
       Navigator.pop(context);
-      Get.snackbar("Thông báo", "Hồ sơ của bạn, đã được cập nhật.");
+      Get.snackbar("Success".tr, "Your profile has been updated".tr);
     }
   }
 
@@ -160,7 +160,7 @@ class MyProfileController extends GetxController {
     ajentUser.bio = txtBio.text;
     bool success = await this.userService.updateInfo(ajentUser);
     if (success) {
-      Get.snackbar("Thông báo", "Đã cập nhật thông tin thành công!");
+      Get.snackbar("Success".tr, "Infomation updated".tr);
     } else {
       print("updating infor failed!");
       Get.snackbar("Lỗi", "Cập nhật thất bại, vui lòng thử lại sau!");
@@ -216,7 +216,7 @@ class MyProfileController extends GetxController {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5),
-                          child: Text('Ảnh chụp',
+                          child: Text('Photo'.tr,
                               style: GoogleFonts.nunitoSans(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -227,7 +227,7 @@ class MyProfileController extends GetxController {
                         ),
                         Align(
                           alignment: Alignment.topLeft,
-                          child: Text('Tiểu đề',
+                          child: Text('Title'.tr,
                               style: GoogleFonts.nunitoSans(
                                   fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
@@ -241,7 +241,7 @@ class MyProfileController extends GetxController {
                         ),
                         Align(
                           alignment: Alignment.topLeft,
-                          child: Text('Thông tin chi tiết',
+                          child: Text('Detail infomation'.tr,
                               style: GoogleFonts.nunitoSans(
                                   fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
@@ -260,7 +260,7 @@ class MyProfileController extends GetxController {
                               onPressed: () async {
                                 await onPressSave(context);
                               },
-                              child: Text("Save"),
+                              child: Text("Save".tr),
                               style: ElevatedButton.styleFrom(
                                 primary: primaryColor,
                               ),
@@ -269,7 +269,7 @@ class MyProfileController extends GetxController {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: Text("Cancel"),
+                              child: Text("Cancel".tr),
                               style: ElevatedButton.styleFrom(
                                 primary: primaryColor,
                               ),
@@ -326,21 +326,21 @@ class MyProfileController extends GetxController {
   }
 
   void onPressedStudentCancel(BuildContext context) {
-    _showMyDialog(context: context, title: Text('Warning!'), children: [
-      Text('Are you sure to quit?')
+    _showMyDialog(context: context, title: Text('Warning'.tr), children: [
+      Text('Are you sure to quit?'.tr)
     ], actions: [
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
           Navigator.of(context).pop();
         },
-        child: Text('Yes'),
+        child: Text('yes'.tr),
       ),
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: Text('No'),
+        child: Text('no'.tr),
       )
     ]);
   }

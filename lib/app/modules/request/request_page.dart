@@ -41,7 +41,7 @@ class _RequestPageState extends State<RequestPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Tất cả yêu cầu',
+          'All requests'.tr,
           style: GoogleFonts.nunitoSans(
               color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
         ),
@@ -80,8 +80,8 @@ class _RequestPageState extends State<RequestPage> {
                         EdgeInsets.symmetric(vertical: 8.0, horizontal: -8.0),
                   ),
                   tabs: [
-                    Tab(text: "Từ người khác"),
-                    Tab(text: "Của bạn"),
+                    Tab(text: "From others".tr),
+                    Tab(text: "Yours".tr),
                   ]),
             ),
           ),

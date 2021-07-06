@@ -22,7 +22,7 @@ class CoursePersonnel extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Giảng viên",
+                    "Teacher".tr,
                     style: GoogleFonts.nunitoSans(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
@@ -55,7 +55,7 @@ class CoursePersonnel extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
                       child: Text(
-                        "Chưa có",
+                        "Not available".tr,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.nunitoSans(
                             color: Colors.grey,
@@ -75,7 +75,7 @@ class CoursePersonnel extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Học viên (${learners.length})",
+                    "Student "+"(${learners.length})",
                     style: GoogleFonts.nunitoSans(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),

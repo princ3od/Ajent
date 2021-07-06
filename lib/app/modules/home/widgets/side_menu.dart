@@ -61,7 +61,7 @@ class SideMenu extends StatelessWidget {
                                     arguments: HomeController.mainUser);
                               },
                               child: Text(
-                                "Thông tin cá nhân",
+                                "Personal infomation".tr,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700, fontSize: 13),
                               ),
@@ -76,31 +76,31 @@ class SideMenu extends StatelessWidget {
               ),
             ),
             SideMenuButton(
-              text: "Yêu cầu",
+              text: "Request".tr,
               onPressed: () {
                 Get.toNamed(Routes.REQUEST_VIEW);
               },
             ),
             SideMenuButton(
-              text: "Cài đặt",
+              text: "Language".tr,
               onPressed: () {
                 Get.toNamed(Routes.SETTINGS);
               },
             ),
             SideMenuButton(
-              text: "Tùy chỉnh thông tin cá nhân",
+              text: "Edit profile page".tr,
               onPressed: () {
                 Get.toNamed(Routes.PROFILE);
               },
             ),
             SideMenuButton(
-              text: "Quy định & chính sách",
+              text: 'terms_title_label'.tr,
               onPressed: () {
                 Get.toNamed(Routes.TERMS);
               },
             ),
             SideMenuButton(
-              text: "Giới thiệu",
+              text: "About us".tr,
               onPressed: () {
                 showAboutDialog(
                   context: context,
@@ -133,7 +133,7 @@ class SideMenu extends StatelessWidget {
                             AuthController.signOut();
                           },
                           child: Text(
-                            "Đăng xuất",
+                            "Logout".tr,
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ),

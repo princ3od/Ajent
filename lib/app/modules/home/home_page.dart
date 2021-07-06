@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                     arguments: controller.tabpageIndex.value);
               },
               tooltip: 'Increment',
-              label: Text('Thêm lớp +'),
+              label: Text('Add course +'.tr),
               //icon: new Icon(Icons.add, size: 40),
             ),
           )),
@@ -41,21 +41,21 @@ class HomePage extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
-                  label: "Trang chủ",
+                  label: "Home".tr,
                   icon: Icon(Icons.home_outlined),
                   activeIcon: Icon(Icons.home_rounded)),
               BottomNavigationBarItem(
-                label: "Học tập",
+                label: "Courses".tr,
                 icon: Icon(Icons.school_outlined),
                 activeIcon: Icon(Icons.school_rounded),
               ),
               BottomNavigationBarItem(
-                label: "Giảng dạy",
+                label: "Teachings".tr,
                 icon: Icon(Icons.history_edu_outlined),
                 activeIcon: Icon(Icons.history_edu_rounded),
               ),
               BottomNavigationBarItem(
-                label: "Thông báo",
+                label: "Notifications".tr,
                 icon: (controller.newNotification.value)
                     ? Icon(Icons.notifications_active_rounded,
                         color: primaryColor)
@@ -65,6 +65,7 @@ class HomePage extends StatelessWidget {
             ],
           )),
       appBar: AppBar(
+        toolbarHeight: 65,
         backgroundColor: primaryColor,
         shadowColor: Colors.transparent,
         leading: Builder(

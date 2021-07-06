@@ -51,19 +51,19 @@ class ChatGroupItem extends StatelessWidget {
 
     if (message.type == MessageType.text) {
       if (message.senderUid == HomeController.mainUser.uid) {
-        txt += "You: ";
+        txt += "You: ".tr;
       }
       txt += message.content;
     } else if (message.type == MessageType.image) {
       if (message.senderUid == HomeController.mainUser.uid) {
-        txt += "You sent an image";
+        txt += "You sent an image".tr;
       } else
-        txt += "${partner.name} sent an image";
+        txt += "${partner.name} "+ "sent an image".tr;
     } else {
       if (message.senderUid == HomeController.mainUser.uid) {
-        txt += "You sent a course";
+        txt += "You sent a course".tr;
       } else
-        txt += "${partner.name} sent a course";
+        txt += "${partner.name} "+ "sent a course".tr;
     }
     return Row(
       children: [

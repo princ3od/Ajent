@@ -46,7 +46,7 @@ class OverviewPage extends StatelessWidget {
                         onPressed: () {
                           controller.onChangeCouseImage();
                         },
-                        child: Text("Đổi ảnh"),
+                        child: Text("change_img".tr),
                         style: whiteButtonStyle,
                       ),
                     ],
@@ -58,7 +58,7 @@ class OverviewPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Tên khóa học",
+                            "course's_name_label".tr,
                             style: GoogleFonts.nunitoSans(),
                           ),
                           TextField(
@@ -70,7 +70,7 @@ class OverviewPage extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            "Mô tả",
+                            "description_label".tr,
                             style: GoogleFonts.nunitoSans(),
                           ),
                           TextField(
@@ -88,7 +88,7 @@ class OverviewPage extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Đề tài khóa học",
+                "subject_field_label".tr,
                 style: GoogleFonts.nunitoSans(),
               ),
               SizedBox(
@@ -134,7 +134,7 @@ class OverviewPage extends StatelessWidget {
                 },
                 validator: (String tag) {
                   if (tag.length > 10) {
-                    return "hey that is too much";
+                    return "too_long_tag_warning".tr;
                   }
                   return null;
                 },

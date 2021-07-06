@@ -101,7 +101,7 @@ class JoinableCourseCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "đã gửi ${DateConverter.getTimeInAgo(course.postDate)}",
+                        "Sent ".tr+"${DateConverter.getTimeInAgo(course.postDate)}",
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.end,
                         style: GoogleFonts.nunitoSans(

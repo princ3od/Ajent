@@ -148,14 +148,14 @@ class MyProfilePage extends StatelessWidget {
                   0: Padding(
                       padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                       child: Text(
-                        "Thông tin",
+                        "Infomation".tr,
                         style: GoogleFonts.nunitoSans(
                             fontWeight: FontWeight.w700, fontSize: 12),
                       )),
                   1: Padding(
                       padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                       child: Text(
-                        "Bằng cấp",
+                        "Degrees".tr,
                         style: GoogleFonts.nunitoSans(
                             fontWeight: FontWeight.w700, fontSize: 12),
                       )),

@@ -81,7 +81,7 @@ class ProfileViewPage extends StatelessWidget {
                         ),
                       )
                     else if (controller.averageStar.value == -1.0)
-                      Text('Chưa có')
+                      Text('Not available'.tr)
                     else
                       Text(controller.averageStar.value.toStringAsFixed(2)),
                     Icon(
@@ -103,15 +103,15 @@ class ProfileViewPage extends StatelessWidget {
                         () => Text(
                           (controller.reviewNum.value > -1)
                               ? (controller.reviewNum.value > 0)
-                                  ? "${controller.reviewNum.value} lượt đánh giá"
-                                  : "Chưa có đánh giá"
-                              : "-- lượt đánh giá",
+                                  ? "${controller.reviewNum.value} "+ "ratings".tr
+                                  : "No rating".tr
+                              : "-- ratings",
                           style: GoogleFonts.nunitoSans(
                               fontSize: 12, fontWeight: FontWeight.normal),
                         ),
                       ),
                       Text(
-                        "(tap vào để xem chi tiết)",
+                        "(tap to see detail)".tr,
                         style: GoogleFonts.nunitoSans(
                             fontSize: 10, fontWeight: FontWeight.w200),
                       )
@@ -127,7 +127,7 @@ class ProfileViewPage extends StatelessWidget {
                       icon: Icon(Icons.chat_rounded))),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-                child: Text("Thông tin liên lạc",
+                child: Text("Contact information".tr,
                     style: GoogleFonts.nunitoSans(
                         fontWeight: FontWeight.w800, fontSize: 17)),
               ),
@@ -148,9 +148,9 @@ class ProfileViewPage extends StatelessWidget {
                     }
                   },
                   initialValue: (user.mail == null)
-                      ? "Không có"
+                      ? "Not available".tr
                       : (user.mail.isEmpty)
-                          ? "Không có"
+                          ? "Not available".tr
                           : user.mail, //Get a link here to get to google maps.
                   decoration: primaryTextFieldDecoration,
                   readOnly: true,
@@ -174,9 +174,9 @@ class ProfileViewPage extends StatelessWidget {
                     }
                   },
                   initialValue: (user.phone == null)
-                      ? "Không có"
+                      ? "Not available".tr
                       : (user.phone.isEmpty)
-                          ? "Không có"
+                          ?  "Not available".tr
                           : user.phone, //Get a link here to get to google maps.
                   readOnly: true,
                   style: GoogleFonts.nunitoSans(
@@ -190,7 +190,7 @@ class ProfileViewPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 8),
-                child: Text("Trình độ chuyên môn",
+                child: Text("Qualification".tr,
                     style: GoogleFonts.nunitoSans(
                         fontWeight: FontWeight.w800, fontSize: 17)),
               ),
