@@ -81,6 +81,7 @@ const Map<String, String> en = {
   'teaching_empty_encourage': 'Hope you can spread out your knowledges. 😎',
   'settings_title_label': 'Setting',
   'terms_title_label': 'Terms & conditions',
+
   'see_ratings_label': 'See ratings',
   'ago': ' ago',
   'now': 'now',
@@ -96,7 +97,7 @@ const Map<String, String> en = {
   'day_5': 'T5',
   'day_6': 'T6',
   'day_7': 'T7',
-  'time_label_on_add':'Thời gian',
+  'time_label_on_add':"Class's length",
   'texting': 'Messages',
   'gallery': 'From gallery',
   'camera': 'From camera',

@@ -84,7 +84,7 @@ class CourseOverall extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "",
+                        'tuition_label'.tr,
                         style: titleStyle,
                       ),
                       Text(
