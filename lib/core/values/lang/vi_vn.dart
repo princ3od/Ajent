@@ -154,7 +154,7 @@ const Map<String, String> vi = {
   "Specific time": "Thởi gian cụ thể",
   'Description': 'Mô tả',
   'Topics': "Chủ đề",
-  "students": " học viên",
+  " students": " học viên",
   "Student ": "Học viên ",
   "Teacher": "Giảng viên",
   "Address": "Địa chỉ",
