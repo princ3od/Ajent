@@ -4,6 +4,7 @@ import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+
 class FixedTimeCard extends StatelessWidget {
   final FixedTime fixedTime;
   FixedTimeCard({@required this.fixedTime});
@@ -73,7 +74,7 @@ class FixedTimeCard extends StatelessWidget {
                                     color: Colors.white, fontSize: 14)),
                             TextSpan(
                                 text:
-                                    '${DateConverter.timeToString(fixedTime.lessonTime.startTime)} - ${DateConverter.timeToString(fixedTime.lessonTime.endTime)}',
+                                    ' ${DateConverter.timeToString(fixedTime.lessonTime.startTime)} - ${DateConverter.timeToString(fixedTime.lessonTime.endTime)}',
                                 style: GoogleFonts.nunitoSans(
                                     color: Colors.white,
                                     fontSize: 13,
