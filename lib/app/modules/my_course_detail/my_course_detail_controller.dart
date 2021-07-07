@@ -72,10 +72,10 @@ class MyCourseDetailController extends GetxController {
   setUserRelationBadge() {
     if (course.value.learners.contains(user.uid)) {
       userRelation.value = UserRelation.joining;
-    } else if (requestors.contains(user.uid)) {
-      userRelation.value = UserRelation.requesting;
     } else if (teacher != null && teacher.uid == user.uid) {
       userRelation.value = UserRelation.teaching;
+    } else if (requestors.contains(user.uid)) {
+      userRelation.value = UserRelation.requesting;
     }
   }
 
