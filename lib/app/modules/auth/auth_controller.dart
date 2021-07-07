@@ -63,6 +63,7 @@ class AuthController extends GetxController {
         "",
       );
       HomeController.mainUser = await UserService.instance.addUser(ajentUser);
+      HomeController.mainUser.degrees = [];
       await SubscribeService.instance.subscribeOnLogin(user.uid);
     } else {
       HomeController.mainUser = await UserService.instance.getUser(user.uid);

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+
 class TeachingCalendarEventCard extends StatelessWidget {
   final Course course;
 
@@ -77,7 +78,9 @@ class TeachingCalendarEventCard extends StatelessWidget {
                       child: Row(
                         children: [
                           Flexible(
-                            child: Text(course.maxLearner.toString()+"students".tr,
+                            child: Text(
+                                "${course.maxLearner.toString()} " +
+                                    "students".tr,
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700,

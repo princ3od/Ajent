@@ -117,12 +117,12 @@ class RequestCard extends StatelessWidget {
                                   size: 16,
                                 ),
                               ),
-                              InkWell(
-                                onTap: () async {
-                                  Get.toNamed(Routes.PROFILEVIEW,
-                                      arguments: data.requestor);
-                                },
-                                child: Flexible(
+                              Flexible(
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.toNamed(Routes.PROFILEVIEW,
+                                        arguments: data.requestor);
+                                  },
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

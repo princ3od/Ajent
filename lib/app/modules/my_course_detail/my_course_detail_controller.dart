@@ -97,7 +97,8 @@ class MyCourseDetailController extends GetxController {
     unEnrollable.value = (course.value.status == CourseStatus.upcoming &&
         (course.value.learners.contains(HomeController.mainUser.uid) &&
             course.value.owner != HomeController.mainUser.uid));
-    requestable.value = (joinable.value &&
+    requestable.value = (course.value.status == CourseStatus.upcoming &&
+        !course.value.learners.contains(HomeController.mainUser.uid) &&
         course.value.owner != HomeController.mainUser.uid &&
         !requestors.contains(user.uid) &&
         (!course.value.hasTeacher()));

@@ -15,7 +15,7 @@ class MyProfileController extends GetxController {
   var tabIndex = 0.obs;
   var ajentUser = HomeController.mainUser.obs;
   var dropdownValue = ''.obs;
-  var startDate = DateTime.now().obs;
+  var startDate = HomeController.mainUser.birthDay.obs;
   var ajenGender = HomeController.mainUser.gender.obs;
   var ajenDegree = HomeController.mainUser.degrees.obs;
 
@@ -152,6 +152,7 @@ class MyProfileController extends GetxController {
   Future<bool> updateInformation() async {
     isUpdatingInfo.value = true;
     AjentUser ajentUser = HomeController.mainUser;
+    ajentUser.birthDay = startDate.value;
     ajentUser.name = txtName.text;
     ajentUser.mail = txtMail.text;
     ajentUser.schoolName = txtSchool.text;

@@ -80,6 +80,11 @@ class EditCourseController extends GetxController {
         ..requirements = txtCourseRequirements.text
         ..photoUrl = course.photoUrl ?? ""
         ..subjects = subjects;
+      if (course.maxLearner < course.learners.length || course.price < 50000) {
+        Get.snackbar("data_error".tr, "check_course_info_warning".tr);
+        isUpdating.value = false;
+        return;
+      }
     } catch (e) {
       print(e);
       Get.snackbar("data_error".tr, "check_course_info_warning".tr);

@@ -1,4 +1,4 @@
-package com.tneja.ajent
+package com.example.ajent
 
 import io.flutter.embedding.android.FlutterActivity
 
