@@ -134,7 +134,7 @@ const Map<String, String> vi = {
   'From': 'từ',
   'begin_date_end_date_label': 'Ngày bắt đầu - kết thức dự kiến',
   'special_requirement_label': "Yêu cầu đặc biệt",
-  'number_of_student_label': "Tối đa",
+  'number_of_student_label': " Số học sinh tối đa",
   'tuition_label': "Học phí",
   'location_label': "Địa điểm học",
   'change_img': "Đổi ảnh",

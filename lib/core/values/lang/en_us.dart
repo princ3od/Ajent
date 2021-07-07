@@ -108,7 +108,7 @@ const Map<String, String> en = {
   'open_in_gg_map': 'Open in Google Map',
   'begin_date_end_date_label': 'Begin date - end date',
   'special_requirement_label': "Special requirement",
-  'number_of_student_label': "Tối đa",
+  'number_of_student_label': "Number of student",
   'tuition_label': "Tuition",
   'location_label': "Location",
   'change_img': "Change picture",
