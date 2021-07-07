@@ -84,12 +84,6 @@ class SideMenu extends StatelessWidget {
               },
             ),
             SideMenuButton(
-              text: "Language".tr,
-              onPressed: () {
-                Get.toNamed(Routes.SETTINGS);
-              },
-            ),
-            SideMenuButton(
               text: "Edit profile page".tr,
               onPressed: () {
                 Get.toNamed(Routes.PROFILE);

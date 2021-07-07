@@ -295,7 +295,7 @@ class MyCourseDetailPage extends StatelessWidget {
                                 ),
                                 if (course.timeType == TimeType.periodTime)
                                   SizedBox(
-                                    height: 75,
+                                    height: 80,
                                     child: ListView.builder(
                                       physics: BouncingScrollPhysics(),
                                       scrollDirection: Axis.horizontal,

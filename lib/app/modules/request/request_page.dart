@@ -2,6 +2,7 @@ import 'package:ajent/app/data/models/Request.dart';
 import 'package:ajent/app/data/services/request_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/request/request_controller.dart';
+import 'package:ajent/app/modules/request/widgets/empty_request.dart';
 import 'package:ajent/app/modules/request/widgets/request_card.dart';
 import 'package:ajent/app/modules/request/widgets/request_status_card.dart';
 import 'package:ajent/core/values/colors.dart';
@@ -92,19 +93,34 @@ class _RequestPageState extends State<RequestPage> {
                       ? Center(
                           child: Center(child: CircularProgressIndicator()),
                         )
-                      : ListView.builder(
-                          itemCount: controller.requestItems.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (BuildContext context, int index) {
-                            return RequestCard(
-                                onApprovePressed: (value) async {
-                                  await controller.onApproveButtonPress(value);
-                                },
-                                data: controller.requestItems[index],
-                                onDeniedPressed: (value) async {
-                                  await controller.onDeniedButtonPress(value);
-                                });
-                          }))
+                      : (controller.requestItems.length == 0)
+                          ? AnimatedOpacity(
+                              opacity: (controller.requestItems.length > 0 ||
+                                      controller.isLoading.value)
+                                  ? 0
+                                  : 1,
+                              duration: Duration(milliseconds: 500),
+                              child: Center(
+                                child: EmptyRequest(
+                                  index: controller.tabIndex.value,
+                                ),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: controller.requestItems.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (BuildContext context, int index) {
+                                return RequestCard(
+                                    onApprovePressed: (value) async {
+                                      await controller
+                                          .onApproveButtonPress(value);
+                                    },
+                                    data: controller.requestItems[index],
+                                    onDeniedPressed: (value) async {
+                                      await controller
+                                          .onDeniedButtonPress(value);
+                                    });
+                              }))
                   : Obx(
                       () => controller.isLoadingStatus.value == true
                           ? Center(child: CircularProgressIndicator())
@@ -112,21 +128,38 @@ class _RequestPageState extends State<RequestPage> {
                               controller: _refreshController,
                               onRefresh: _onRefresh,
                               onLoading: _onLoading,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: controller.requestStatusItems.length,
-                                itemBuilder: (context, index) {
-                                  return RequestStatusCard(
-                                    data: controller.requestStatusItems[index],
-                                    onDenied: (value) {
-                                      controller.onStatusDenied(value);
-                                    },
-                                    onContact: (value) {
-                                      controller.onStatusContact(value);
-                                    },
-                                  );
-                                },
-                              ),
+                              child: (controller.requestItems.length == 0)
+                                  ? AnimatedOpacity(
+                                      opacity: (controller.requestStatusItems
+                                                      .length >
+                                                  0 ||
+                                              controller.isLoading.value)
+                                          ? 0
+                                          : 1,
+                                      duration: Duration(milliseconds: 500),
+                                      child: Center(
+                                        child: EmptyRequest(
+                                          index: controller.tabIndex.value,
+                                        ),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          controller.requestStatusItems.length,
+                                      itemBuilder: (context, index) {
+                                        return RequestStatusCard(
+                                          data: controller
+                                              .requestStatusItems[index],
+                                          onDenied: (value) {
+                                            controller.onStatusDenied(value);
+                                          },
+                                          onContact: (value) {
+                                            controller.onStatusContact(value);
+                                          },
+                                        );
+                                      },
+                                    ),
                             ),
                     ),
             ),

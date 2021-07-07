@@ -71,7 +71,7 @@ class CourseOverall extends StatelessWidget {
                         style: titleStyle,
                       ),
                       Text(
-                        "${course.maxLearner} "+"students".tr,
+                        "${course.maxLearner}" + " students".tr,
                         style: contentStyle,
                       ),
                     ],

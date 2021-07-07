@@ -68,18 +68,21 @@ class _StudyCalendarEventCardState extends State<StudyCalendarEventCard> {
                         )
                       ],
                     ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Text(" ${widget.course.name}",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: GoogleFonts.nunitoSans(
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.black,
-                                  fontSize: 16)),
-                        )
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Text("${widget.course.name}",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: GoogleFonts.nunitoSans(
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.black,
+                                    fontSize: 16)),
+                          )
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),

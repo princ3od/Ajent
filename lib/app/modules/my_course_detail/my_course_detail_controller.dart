@@ -106,7 +106,9 @@ class MyCourseDetailController extends GetxController {
     if (course.value.timeType == TimeType.periodTime) {
       timeOverall = course.value.getTotalHours().toStringAsFixed(1) +
           'hh'.tr +
-          ' (${course.value.periods.length} '+'period'.tr+')';
+          ' (${course.value.periods.length} ' +
+          'period'.tr +
+          ')';
     } else {
       timeOverall = course.value.getTotalHours().toStringAsFixed(1) +
           'hh'.tr +
@@ -159,7 +161,8 @@ class MyCourseDetailController extends GetxController {
       ..status = RequestStatus.waiting
       ..postDate = DateTime.now().millisecondsSinceEpoch;
     request = await RequestService.instance.addRequest(request);
-    Get.snackbar('Send successfully'.tr, 'Your teaching request have been sent'.tr);
+    Get.snackbar(
+        'Send successfully'.tr, 'Your teaching request have been sent'.tr);
     await SubscribeService.instance
         .subcribeOnRequestCourse(course.value.id, request.id);
     await NotificationService.instance.notifyRequestCourse(course.value, user);
@@ -222,8 +225,8 @@ class MyCourseDetailController extends GetxController {
                       width: Get.width,
                       height: Get.height * 0.5,
                       child: StreamBuilder<QuerySnapshot>(
-                        stream: UserService.instance
-                            .searchUser(keyword: txtSearch.text),
+                        stream: UserService.instance.searchUser(
+                            keyword: txtSearch.text.trim().toLowerCase()),
                         builder: (context, snapshot) {
                           if (txtSearch.text.isEmpty) {
                             return Container();
