@@ -13,17 +13,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ChatGroupItem extends StatelessWidget {
   final ChatGroup chatGroup;
-  final AjentUser partner;
   final int index;
-  ChatGroupItem(
-      {@required this.chatGroup, @required this.partner, @required this.index});
+  ChatGroupItem({@required this.chatGroup, @required this.index});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       child: ListTile(
         dense: true,
         title: Text(
-          partner.name,
+          chatGroup.partner.name,
           style: GoogleFonts.nunitoSans(
               fontSize: 16,
               fontWeight: (chatGroup.seen) ? FontWeight.w600 : FontWeight.bold),
@@ -31,7 +29,7 @@ class ChatGroupItem extends StatelessWidget {
         subtitle: (chatGroup.lastMessage == null)
             ? Container()
             : lastMessage(chatGroup.lastMessage),
-        leading: UserAvatar(user: partner, size: 24),
+        leading: UserAvatar(user: chatGroup.partner, size: 24),
         trailing: AnimatedOpacity(
             opacity: (chatGroup.seen) ? 0 : 1,
             duration: Duration(milliseconds: 180),
@@ -41,7 +39,7 @@ class ChatGroupItem extends StatelessWidget {
         Get.find<TextingController>().chatGroups[index].seen = true;
         Get.find<TextingController>().chatGroups.refresh();
         FocusManager.instance.primaryFocus.unfocus();
-        Get.toNamed(Routes.CHATTING, arguments: partner);
+        Get.toNamed(Routes.CHATTING, arguments: chatGroup.partner);
       },
     );
   }
@@ -58,12 +56,12 @@ class ChatGroupItem extends StatelessWidget {
       if (message.senderUid == HomeController.mainUser.uid) {
         txt += "You sent an image".tr;
       } else
-        txt += "${partner.name} "+ "sent an image".tr;
+        txt += "${chatGroup.partner.name} " + "sent an image".tr;
     } else {
       if (message.senderUid == HomeController.mainUser.uid) {
         txt += "You sent a course".tr;
       } else
-        txt += "${partner.name} "+ "sent a course".tr;
+        txt += "${chatGroup.partner.name} " + "sent a course".tr;
     }
     return Row(
       children: [

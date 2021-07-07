@@ -217,7 +217,7 @@ class InformationTab extends StatelessWidget {
           Obx(
             () => MyDropDownWidget(
               items: dropDownMenuItems,
-              value: (controller.dropdownValue.value != '')
+              value: (controller.dropdownValue.value.isNotEmpty)
                   ? educationLevelReversal[controller.dropdownValue.value]
                   : null,
               onChanged: (newValue) {

@@ -69,7 +69,8 @@ class TextingPage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "All your conversations you made appeear here.".tr,
+                              "All your conversations you made appeear here."
+                                  .tr,
                               style: GoogleFonts.nunitoSans(
                                 fontSize: 12,
                               ),
@@ -105,7 +106,6 @@ class TextingPage extends StatelessWidget {
                             return ListTileShimmer();
                           return ChatGroupItem(
                             chatGroup: controller.chatGroups[index],
-                            partner: controller.chatGroups[index].partner,
                             index: index,
                           );
                         },

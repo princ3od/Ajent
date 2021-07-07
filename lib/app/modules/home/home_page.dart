@@ -95,16 +95,18 @@ class HomePage extends StatelessWidget {
         actions: [
           Stack(
             children: [
-              IconButton(
-                icon: Icon(
-                  Icons.chat_rounded,
-                  color: Colors.black,
-                  size: 28,
+              Center(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.chat_rounded,
+                    color: Colors.black,
+                    size: 28,
+                  ),
+                  onPressed: () {
+                    Get.toNamed(Routes.TEXTING);
+                    controller.newMessage.value = false;
+                  },
                 ),
-                onPressed: () {
-                  Get.toNamed(Routes.TEXTING);
-                  controller.newMessage.value = false;
-                },
               ),
               Obx(
                 () => Positioned(
