@@ -255,5 +255,6 @@ const Map<String, String> vi = {
   "All your conversations you made appeear here.":
       "Toàn bộ cuộc trò chuyện sẽ xuất hiện ở đây.",
   'You have no in-coming request': 'Bạn không có yêu cầu nào từ người khác',
-  'You have not requested any course': 'Bạn chưa yêu cầu dạy bất kì khoá nào'
+  'You have not requested any course': 'Bạn chưa yêu cầu dạy bất kì khoá nào',
+  'Delete request': 'Xoá yêu cầu',
 };

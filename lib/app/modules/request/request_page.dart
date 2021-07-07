@@ -128,7 +128,7 @@ class _RequestPageState extends State<RequestPage> {
                               controller: _refreshController,
                               onRefresh: _onRefresh,
                               onLoading: _onLoading,
-                              child: (controller.requestItems.length == 0)
+                              child: (controller.requestStatusItems.length == 0)
                                   ? AnimatedOpacity(
                                       opacity: (controller.requestStatusItems
                                                       .length >
@@ -148,6 +148,7 @@ class _RequestPageState extends State<RequestPage> {
                                       itemCount:
                                           controller.requestStatusItems.length,
                                       itemBuilder: (context, index) {
+                                        print('1');
                                         return RequestStatusCard(
                                           data: controller
                                               .requestStatusItems[index],

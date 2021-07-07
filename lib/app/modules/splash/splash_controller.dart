@@ -71,7 +71,6 @@ class SplashController extends GetxController {
             Get.toNamed(Routes.CHATTING, arguments: user);
             break;
         }
-        HomeController.checkUserUpdateInfo();
       }
     }
   }

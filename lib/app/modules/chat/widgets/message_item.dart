@@ -106,13 +106,10 @@ class MessageItem extends StatelessWidget {
                   ? MainAxisAlignment.start
                   : MainAxisAlignment.end,
               children: [
-                if (showAvatar && fromPartner)
-                  UserAvatar(user: partner, size: 18)
-                else if (fromPartner)
-                  SizedBox(
-                    height: 18,
-                    width: 18,
-                  ),
+                if (fromPartner) UserAvatar(user: partner, size: 18),
+                SizedBox(
+                  width: 5,
+                ),
                 Flexible(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
@@ -165,7 +162,7 @@ class MessageItem extends StatelessWidget {
                 else if (fromPartner)
                   SizedBox(
                     height: 18,
-                    width: 18,
+                    width: 35,
                   ),
                 Flexible(
                   child: InvitationCourseCard(

@@ -110,8 +110,8 @@ class HomePage extends StatelessWidget {
               ),
               Obx(
                 () => Positioned(
-                  top: 8.0,
-                  right: 8.0,
+                  top: 15.0,
+                  right: 10.0,
                   child: AnimatedOpacity(
                     duration: Duration(milliseconds: 280),
                     opacity: (controller.newMessage.value) ? 1 : 0,

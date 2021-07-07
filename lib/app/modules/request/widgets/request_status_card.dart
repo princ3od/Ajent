@@ -105,7 +105,8 @@ class RequestStatusCard extends StatelessWidget {
                             child: SizedBox(
                               width: Get.width,
                               child: Text(
-                                "You have requested to become a teacher of this course".tr,
+                                "You have requested to become a teacher of this course"
+                                    .tr,
                                 maxLines: 2,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700,
@@ -141,7 +142,8 @@ class RequestStatusCard extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 15, bottom: 5),
                                     child: Text(
-                                      "Sent "+"${DateConverter.getTimeInAgo(1624536554094)}",
+                                      "Sent " +
+                                          "${DateConverter.getTimeInAgo(data.request.postDate)}",
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.w600,
@@ -172,7 +174,9 @@ class RequestStatusCard extends StatelessWidget {
                     TextButton(
                       onPressed: () => onDenied(data),
                       child: Text(
-                        "Cancel request".tr,
+                        (data.request.status == RequestStatus.waiting)
+                            ? "Cancel request".tr
+                            : "Delete request".tr,
                         style: GoogleFonts.nunitoSans(
                             fontSize: 12.5, fontWeight: FontWeight.bold),
                       ),

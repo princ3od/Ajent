@@ -35,7 +35,7 @@ class ChatPage extends StatelessWidget {
               UserAvatar(user: partner, size: 18),
               SizedBox(width: 10),
               Text(
-                controller.partner.name,
+                partner.name,
                 style: GoogleFonts.nunitoSans(
                   color: Colors.black,
                   fontSize: 16,

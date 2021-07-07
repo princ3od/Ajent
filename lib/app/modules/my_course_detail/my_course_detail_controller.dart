@@ -201,43 +201,42 @@ class MyCourseDetailController extends GetxController {
         return Container(
           height: Get.height * 0.4,
           child: StatefulBuilder(
-            builder: (context, setShareBottomState) => SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextFormField(
-                      autofocus: true,
-                      controller: txtSearch,
-                      decoration: searchTextfieldDecoration,
-                      style: GoogleFonts.nunitoSans(fontSize: 14),
-                      onChanged: (value) {
-                        setShareBottomState(() {
-                          if (value.isEmpty) {
-                            return;
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: Get.width,
-                      height: Get.height * 0.5,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: UserService.instance.searchUser(
-                            keyword: txtSearch.text.trim().toLowerCase()),
-                        builder: (context, snapshot) {
-                          if (txtSearch.text.isEmpty) {
-                            return Container();
-                          }
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: ListTileShimmer(),
-                            );
-                          }
-                          return ListView.builder(
-                            physics: AlwaysScrollableScrollPhysics(),
+            builder: (context, setShareBottomState) => Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    autofocus: true,
+                    controller: txtSearch,
+                    decoration: searchTextfieldDecoration,
+                    style: GoogleFonts.nunitoSans(fontSize: 14),
+                    onChanged: (value) {
+                      setShareBottomState(() {
+                        if (value.isEmpty) {
+                          return;
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: Get.width,
+                    height: Get.height * 0.5,
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: UserService.instance.searchUser(
+                          keyword: txtSearch.text.trim().toLowerCase()),
+                      builder: (context, snapshot) {
+                        if (txtSearch.text.isEmpty) {
+                          return Container();
+                        }
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: ListTileShimmer(),
+                          );
+                        }
+                        return SingleChildScrollView(
+                          child: ListView.builder(
                             itemCount: snapshot.data.docs.length +
                                 ((snapshot.connectionState ==
                                         ConnectionState.waiting)
@@ -261,12 +260,12 @@ class MyCourseDetailController extends GetxController {
                                     course: course.value,
                                   ));
                             },
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
