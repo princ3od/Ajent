@@ -32,7 +32,7 @@ class AddCoursePage extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Mở lớp',
+          'create_new_course'.tr,
           style: GoogleFonts.nunitoSans(
               color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
         ),
@@ -138,7 +138,7 @@ class AddCoursePage extends StatelessWidget {
                                             ),
                                           )
                                         : Text(
-                                            "Mở lớp",
+                                            "create_new_course".tr,
                                             style: GoogleFonts.nunitoSans(
                                                 color: Colors.white,
                                                 fontSize: 14,

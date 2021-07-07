@@ -57,7 +57,7 @@ class RequestCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Khoá học",
+                              Text("Course".tr,
                                   style: GoogleFonts.nunitoSans(
                                       color: Colors.white, fontSize: 10)),
                               SizedBox(height: 3),
@@ -145,7 +145,7 @@ class RequestCard extends StatelessWidget {
                                             onRatingUpdate: (value) {},
                                           )
                                         : Text(
-                                            'Chưa có đánh giá',
+                                            'No rating'.tr,
                                             style: GoogleFonts.nunito(
                                                 fontSize: 12),
                                           ),
@@ -162,7 +162,7 @@ class RequestCard extends StatelessWidget {
                                 child: SizedBox(
                                   width: Get.width - 60,
                                   child: Text(
-                                    "${data.requestor.name} muốn trở thành giảng viên của khoá học này.",
+                                    "${data.requestor.name} "+"want to teach this course".tr,
                                     maxLines: 2,
                                     style: GoogleFonts.nunitoSans(
                                         fontWeight: FontWeight.w700,
@@ -182,7 +182,7 @@ class RequestCard extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 15, bottom: 5),
                                     child: Text(
-                                      "đã gửi ${DateConverter.getTimeInAgo(data.request.postDate)}",
+                                      "Sent ".tr +" ${DateConverter.getTimeInAgo(data.request.postDate)}",
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.w600,
@@ -238,7 +238,7 @@ class RequestCard extends StatelessWidget {
                               : null)
                           : null,
                       child: Text(
-                        "Từ chối",
+                        "Decline".tr,
                         style: GoogleFonts.nunitoSans(
                             fontSize: 12.5, fontWeight: FontWeight.bold),
                       ),
@@ -258,7 +258,7 @@ class RequestCard extends StatelessWidget {
                               : null)
                           : null,
                       child: Text(
-                        "Đồng ý",
+                        "Approve".tr,
                         style: GoogleFonts.nunitoSans(
                             fontSize: 12.5, fontWeight: FontWeight.bold),
                       ),

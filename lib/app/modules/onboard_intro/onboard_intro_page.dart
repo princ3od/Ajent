@@ -15,23 +15,23 @@ class OnboardIntroPage extends StatelessWidget {
         child: IntroductionScreen(
       pages: [
         PageViewModel(
-            title: 'Thuê gia sư',
-            body: 'Chinh phục mục tiêu học vấn',
+            title: 'Hire a tutor'.tr,
+            body: 'Archive you goal'.tr,
             image: buildImage('assets/images/hire_a_tutor.png'),
             decoration: getPageDecoration()),
         PageViewModel(
-            title: 'Hãy trở thành một gia sư',
-            body: 'Chia sẻ kiến thức, kiếm thêm thu nhập',
+            title: 'Become a tutor'.tr,
+            body: 'Share the knowledge, get more income'.tr,
             image: buildImage('assets/images/be_a_tutor.png'),
             decoration: getPageDecoration()),
         PageViewModel(
-            title: 'Và hơn thế nữa',
-            body: 'Cùng khám phá Ajent nào!',
+            title: 'And more'.tr,
+            body: 'Let discover Ajent!'.tr,
             image: buildImage('assets/images/and_more.png'),
             decoration: getPageDecoration()),
       ],
       done: Text(
-        'Bắt đầu',
+        'Begin'.tr,
         style: GoogleFonts.nunitoSans(fontWeight: FontWeight.bold),
       ),
       onDone: () async {
@@ -41,8 +41,8 @@ class OnboardIntroPage extends StatelessWidget {
         HomeController.checkUserUpdateInfo();
       },
       showSkipButton: true,
-      skip: Text('Bỏ qua'),
-      next: Text('Tiếp theo'),
+      skip: Text('Skip'.tr),
+      next: Text('Next'.tr),
       dotsDecorator: getDotDecoration(),
     ));
   }

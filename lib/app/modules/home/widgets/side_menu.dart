@@ -1,6 +1,7 @@
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
+import 'package:ajent/app/modules/home/widgets/language_button.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:ajent/routes/pages.dart';
@@ -61,7 +62,7 @@ class SideMenu extends StatelessWidget {
                                     arguments: HomeController.mainUser);
                               },
                               child: Text(
-                                "Thông tin cá nhân",
+                                "Personal infomation".tr,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700, fontSize: 13),
                               ),
@@ -75,47 +76,29 @@ class SideMenu extends StatelessWidget {
                 ],
               ),
             ),
+            LanguageButton(),
             SideMenuButton(
-              text: "Yêu cầu",
+              text: "Request".tr,
               onPressed: () {
                 Get.toNamed(Routes.REQUEST_VIEW);
               },
             ),
             SideMenuButton(
-              text: "Cài đặt",
-              onPressed: () {
-                Get.toNamed(Routes.SETTINGS);
-              },
-            ),
-            SideMenuButton(
-              text: "Tùy chỉnh thông tin cá nhân",
+              text: "Edit profile page".tr,
               onPressed: () {
                 Get.toNamed(Routes.PROFILE);
               },
             ),
             SideMenuButton(
-              text: "Quy định & chính sách",
+              text: 'terms_title_label'.tr,
               onPressed: () {
                 Get.toNamed(Routes.TERMS);
               },
             ),
             SideMenuButton(
-              text: "Giới thiệu",
+              text: "About us".tr,
               onPressed: () {
-                showAboutDialog(
-                  context: context,
-                  applicationVersion: '1.0.0',
-                  applicationIcon: Container(
-                    child: Image.asset("assets/images/ajent_logo.png"),
-                    width: 50,
-                    height: 50,
-                  ),
-                  applicationLegalese: 'Copyright 2021 Ajent',
-                  children: [
-                    SizedBox(height: 10),
-                    Text("Tutor searching app"),
-                  ],
-                );
+                Get.toNamed(Routes.ABOUT);
               },
             ),
             Expanded(
@@ -133,7 +116,7 @@ class SideMenu extends StatelessWidget {
                             AuthController.signOut();
                           },
                           child: Text(
-                            "Đăng xuất",
+                            "Logout".tr,
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ),
@@ -141,7 +124,7 @@ class SideMenu extends StatelessWidget {
                   SizedBox(height: 5),
                   Text(
                     "© Ajent",
-                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w100),
+                    style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 20),
                 ],

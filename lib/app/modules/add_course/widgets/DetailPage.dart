@@ -21,7 +21,7 @@ class DetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Số lượng học viên",
+                "number_of_student_label".tr,
                 style: GoogleFonts.nunitoSans(),
               ),
               TextField(
@@ -34,7 +34,7 @@ class DetailPage extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Giá tiền đề nghị (vnd)",
+                "tuition_label".tr,
                 style: GoogleFonts.nunitoSans(),
               ),
               TextField(
@@ -48,7 +48,7 @@ class DetailPage extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Địa điểm học",
+                "location_label".tr,
                 style: GoogleFonts.nunitoSans(),
               ),
               TextField(

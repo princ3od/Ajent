@@ -3,7 +3,7 @@ import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 class PeriodItem extends StatelessWidget {
   final textStyle = GoogleFonts.nunitoSans(
       color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600);
@@ -22,7 +22,7 @@ class PeriodItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Buổi ${index + 1}", style: textStyle),
+            Text("Period".tr+ " ${index + 1}", style: textStyle),
             Text(
                 "${DateConverter.timeToString(period.lessonTime.startTime)} - ${DateConverter.timeToString(period.lessonTime.endTime)} : ${DateConverter.getTimeInDate(period.date.millisecondsSinceEpoch)}",
                 style: textStyle),

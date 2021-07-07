@@ -32,7 +32,7 @@ class RequestController extends GetxController {
           .notifyDenyRequest(requestItem.course, requestItem.request);
       await getRequestItems();
     } else {
-      Get.snackbar("Cảnh báo", "Đã cập nhật các yêu cầu thất bại.");
+      Get.snackbar("Warning".tr, "Update failed".tr);
     }
   }
 
@@ -44,7 +44,7 @@ class RequestController extends GetxController {
       isLoading.value = true;
       await getRequestItems();
     } else {
-      Get.snackbar("Cảnh báo", "Đã cập nhật các yêu cầu thất bại.");
+      Get.snackbar("Warning".tr, "Update failed".tr);
     }
   }
 
@@ -64,11 +64,11 @@ class RequestController extends GetxController {
     await SubscribeService.instance
         .unsubscribeOnCanelRequest(item.course.id, item.request.id);
     if (result) {
-      Get.snackbar("Thông báo", "Huỷ yêu cầu thành công");
+      Get.snackbar("Success".tr, "Request canceled".tr);
       isLoadingStatus.value = true;
       getRequestStatusItems();
     } else {
-      Get.snackbar("Cảnh báo", "Có lỗi xảy ra, vui lòng thử lại sau.");
+      Get.snackbar("Warning".tr, "Server is busy, please try again later".tr);
     }
   }
 

@@ -38,9 +38,9 @@ class RatingController extends GetxController {
     course.evaluations[user.uid] = evaluation;
     isPosting.value = false;
     Get.dialog(AlertDialog(
-      title: Text("Đăng đánh giá"),
+      title: Text("Send rating".tr),
       content:
-          Text('Đánh giá của bạn đã được đăng, xin cảm ơn bạn vì đã đánh giá.'),
+          Text('Your rating is sent'.tr),
       actions: [
         TextButton(
             onPressed: () {

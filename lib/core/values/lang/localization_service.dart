@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/values/lang/en_us.dart';
 import 'package:ajent/core/values/lang/vi_vn.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class LocalizationService extends Translations {
   static final locale = _getLocaleFromLanguage();
 
 // fallbackLocale là locale default nếu locale được set không nằm trong những Locale support
-  static final fallbackLocale = Locale('vi', 'VN');
+  static final fallbackLocale = Locale('en', 'US');
 
 // language code của những locale được support
   static final langCodes = [
@@ -51,6 +52,7 @@ class LocalizationService extends Translations {
   }
 
   static String getLocaleString() {
-    return '${locale.languageCode}_${locale.countryCode}';
+    var _locale = _getLocaleFromLanguage(langCode: HomeController.langCode);
+    return '${_locale.languageCode}_${_locale.countryCode}';
   }
 }

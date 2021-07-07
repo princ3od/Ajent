@@ -17,13 +17,12 @@ class SearchController extends GetxController {
   var priceValues = RangeValues(100000, 50000000).obs;
   Stream<QuerySnapshot> result;
   List<String> options = [
-    "Chưa có giáo viên",
-    "Đã có giáo viên",
-    "dsaafsadsad"
+    "No teacher".tr,
+    "Teacher acquired".tr,
   ];
   List<dynamic> tags = [
-    "Chưa có giáo viên",
-    "Đã có giáo viên",
+    "No teacher".tr,
+    "Teacher acquired".tr,
   ];
   @override
   onInit() {
@@ -63,7 +62,7 @@ class SearchController extends GetxController {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Bộ lọc',
+                        'Filter'.tr,
                         style: GoogleFonts.nunitoSans(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
@@ -72,7 +71,7 @@ class SearchController extends GetxController {
                   Row(
                     children: [
                       Text(
-                        'Thời gian',
+                        'Study time'.tr,
                         style: GoogleFonts.nunitoSans(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -83,13 +82,13 @@ class SearchController extends GetxController {
                       children: [
                         SizedBox(width: 10),
                         ChoiceChip(
-                          label: Text('Cố định'),
+                          label: Text('fixedTime'.tr),
                           selected: fixedTimeFilter.value,
                           onSelected: (value) => fixedTimeFilter.value = value,
                         ),
                         SizedBox(width: 10),
                         ChoiceChip(
-                          label: Text('Linh hoạt'),
+                          label: Text('periodTime'.tr),
                           selected: flexibleTimeFilter.value,
                           onSelected: (value) =>
                               flexibleTimeFilter.value = value,
@@ -100,7 +99,7 @@ class SearchController extends GetxController {
                   Row(
                     children: [
                       Text(
-                        'Giá tiền',
+                        'tuition_label'.tr,
                         style: GoogleFonts.nunitoSans(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),

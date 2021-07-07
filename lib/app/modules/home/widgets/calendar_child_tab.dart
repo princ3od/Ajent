@@ -62,7 +62,7 @@ class CalendarChildTab extends StatelessWidget {
                     tabBarIndicatorSize: TabBarIndicatorSize.label,
                     insets: const EdgeInsets.symmetric(horizontal: 2.0),
                     padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: -1.0),
                   ),
                   tabs: [
                     for (var day in DateConverter.weekDays()) Tab(text: day),
@@ -95,8 +95,8 @@ class CalendarChildTab extends StatelessWidget {
                                     children: [
                                       ConstrainedBox(
                                         constraints: BoxConstraints(
-                                          maxWidth: Get.width - 100,
-                                          maxHeight: Get.width - 100,
+                                          maxWidth: Get.width - 80,
+                                          maxHeight: Get.width - 80,
                                         ),
                                         child: Image.asset(
                                           'assets/images/break_day.png',
@@ -107,14 +107,14 @@ class CalendarChildTab extends StatelessWidget {
                                         height: 10,
                                       ),
                                       Text(
-                                        'A break-day! 🤩',
+                                        'A break-day! 🤩'.tr,
                                         style: GoogleFonts.nunitoSans(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
-                                        "Your day-shedule should sit all here.",
+                                        "Enjoy yourself, have a nice day".tr,
                                         style: GoogleFonts.nunitoSans(
                                           fontSize: 12,
                                         ),

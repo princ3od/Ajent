@@ -191,11 +191,11 @@ class ChatController extends GetxController {
   }
 
   @override
-  void onClose() {
-    if (chatGroup == null) {
-      _listenChatGroup.cancel();
-    } else
-      _listenNewMessage.cancel();
+  void onClose() async {
     super.onClose();
+    if (chatGroup == null) {
+      await _listenChatGroup.cancel();
+    } else
+      await _listenNewMessage.cancel();
   }
 }

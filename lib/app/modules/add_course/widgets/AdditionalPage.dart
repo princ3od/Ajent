@@ -35,7 +35,7 @@ class AdditionalPage extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "Thời gian",
+                    "time_label_on_add".tr,
                     style: GoogleFonts.nunitoSans(),
                   ),
                   Expanded(
@@ -149,7 +149,7 @@ class AdditionalPage extends StatelessWidget {
                         children: [
                           Expanded(
                               child: TextCheckBox(
-                            content: 'T2',
+                            content: 'day_2'.tr,
                             onPressed: (val) {
                               controller.days[0] = val;
                             },
@@ -157,42 +157,42 @@ class AdditionalPage extends StatelessWidget {
                           )),
                           Expanded(
                               child: TextCheckBox(
-                                  content: 'T3',
+                                  content: 'day_3'.tr,
                                   onPressed: (val) {
                                     controller.days[1] = val;
                                   },
                                   value: controller.days[1])),
                           Expanded(
                               child: TextCheckBox(
-                                  content: 'T4',
+                                  content: 'day_4'.tr,
                                   onPressed: (val) {
                                     controller.days[2] = val;
                                   },
                                   value: controller.days[2])),
                           Expanded(
                               child: TextCheckBox(
-                                  content: 'T5',
+                                  content: 'day_5'.tr,
                                   onPressed: (val) {
                                     controller.days[3] = val;
                                   },
                                   value: controller.days[3])),
                           Expanded(
                               child: TextCheckBox(
-                                  content: 'T6',
+                                  content: 'day_6'.tr,
                                   onPressed: (val) {
                                     controller.days[4] = val;
                                   },
                                   value: controller.days[4])),
                           Expanded(
                               child: TextCheckBox(
-                                  content: 'T7',
+                                  content: 'day_7'.tr,
                                   onPressed: (val) {
                                     controller.days[5] = val;
                                   },
                                   value: controller.days[5])),
                           Expanded(
                               child: TextCheckBox(
-                                  content: 'CN',
+                                  content: 'day_1'.tr,
                                   onPressed: (val) {
                                     controller.days[6] = val;
                                   },
@@ -231,7 +231,7 @@ class AdditionalPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'đến',
+                              'to'.tr,
                               style: GoogleFonts.nunitoSans(),
                             ),
                           ),
@@ -262,7 +262,7 @@ class AdditionalPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        "Ngày bắt đầu - kết thúc dự kiến",
+                        "begin_date_end_date_label".tr,
                         style: GoogleFonts.nunitoSans(),
                       ),
                       SizedBox(
@@ -290,7 +290,7 @@ class AdditionalPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'đến',
+                              'to'.tr,
                               style: GoogleFonts.nunitoSans(),
                             ),
                           ),
@@ -358,7 +358,7 @@ class AdditionalPage extends StatelessWidget {
                     )),
               ),
               Text(
-                "Yêu cầu đặc biệt",
+                "special_requirement_label".tr,
                 style: GoogleFonts.nunitoSans(),
               ),
               TextField(

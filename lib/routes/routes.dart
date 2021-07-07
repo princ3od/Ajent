@@ -21,4 +21,5 @@ abstract class Routes {
   static const VIEWRATING = '/ratings_view';
   static const REQUEST_VIEW = '/request_view';
   static const ONBOARDINTRO = '/onboard_intro';
+  static const ABOUT = '/about';
 }

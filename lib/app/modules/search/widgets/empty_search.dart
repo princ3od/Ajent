@@ -17,7 +17,7 @@ class EmptySearch extends StatelessWidget {
                   maxHeight: Get.width - kBottomNavigationBarHeight),
               child: Image.asset("assets/images/search_empty.png")),
           Text(
-            "Let's find some new courses! 😉",
+            "Let's find some new courses! 😉".tr,
             style: GoogleFonts.nunitoSans(
               fontSize: 16,
               fontWeight: FontWeight.bold,

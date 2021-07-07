@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 final primaryColor = Color(0xffe74b32);
 
+final whiteAccentColor = Color(0xffFAFAFA);
+
 const MaterialColor jetblack =
     const MaterialColor(0xff000000, const <int, Color>{
   50: const Color(0xff000000),

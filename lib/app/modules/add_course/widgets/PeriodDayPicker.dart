@@ -1,7 +1,7 @@
 import 'package:ajent/core/values/colors.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 class PeriodDayPicker extends StatelessWidget {
 
   PeriodDayPicker({void Function(int) onAddButtonPress})
@@ -39,13 +39,13 @@ class PeriodDayPicker extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: -6.0),
                   ),
                   tabs: [
-                    Text("T2"),
-                    Text("T3"),
-                    Text("T4"),
-                    Text("T5"),
-                    Text("T6"),
-                    Text("T7"),
-                    Text("CN"),
+                    Text("day_2".tr),
+                    Text("day_3".tr),
+                    Text("day_4".tr),
+                    Text("day_5".tr),
+                    Text("day_6".tr),
+                    Text("day_7".tr),
+                    Text("day_1".tr),
                   ],
                 ),
                 SizedBox(

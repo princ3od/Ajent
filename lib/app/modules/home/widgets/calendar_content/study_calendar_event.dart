@@ -3,6 +3,7 @@ import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -48,7 +49,7 @@ class _StudyCalendarEventCardState extends State<StudyCalendarEventCard> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Text(
-                            "Học",
+                            "study".tr,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.nunitoSans(
                                 fontWeight: FontWeight.w800,
@@ -67,18 +68,21 @@ class _StudyCalendarEventCardState extends State<StudyCalendarEventCard> {
                         )
                       ],
                     ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Text(" ${widget.course.name}",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: GoogleFonts.nunitoSans(
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.black,
-                                  fontSize: 16)),
-                        )
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Text("${widget.course.name}",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: GoogleFonts.nunitoSans(
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.black,
+                                    fontSize: 16)),
+                          )
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),

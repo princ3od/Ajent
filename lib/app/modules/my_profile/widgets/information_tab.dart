@@ -71,7 +71,7 @@ class InformationTab extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Text('Ngày sinh',
+          Text('Date of birth'.tr,
               style: GoogleFonts.nunitoSans(
                   fontWeight: FontWeight.bold, fontSize: 12)),
           Padding(
@@ -95,7 +95,7 @@ class InformationTab extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Text('Giới tính',
+          Text('Gender'.tr,
               style: GoogleFonts.nunitoSans(
                   fontWeight: FontWeight.bold, fontSize: 12)),
           Padding(
@@ -198,7 +198,7 @@ class InformationTab extends StatelessWidget {
             },
             validator: (String tag) {
               if (tag.length > 10) {
-                return "hey that is too much";
+                return 'too_long_tag_warning'.tr;
               }
               return null;
             },
@@ -217,7 +217,7 @@ class InformationTab extends StatelessWidget {
           Obx(
             () => MyDropDownWidget(
               items: dropDownMenuItems,
-              value: (controller.dropdownValue.value != '')
+              value: (controller.dropdownValue.value.isNotEmpty)
                   ? educationLevelReversal[controller.dropdownValue.value]
                   : null,
               onChanged: (newValue) {

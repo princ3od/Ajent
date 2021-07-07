@@ -52,7 +52,7 @@ class RequestStatusCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Khoá học",
+                              Text("Course".tr,
                                   style: GoogleFonts.nunitoSans(
                                       color: Colors.white, fontSize: 10)),
                               SizedBox(height: 3),
@@ -105,7 +105,7 @@ class RequestStatusCard extends StatelessWidget {
                             child: SizedBox(
                               width: Get.width,
                               child: Text(
-                                "Bạn đã yêu cầu trở thành giảng viên của khoá học này.",
+                                "You have requested to become a teacher of this course".tr,
                                 maxLines: 2,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700,
@@ -120,7 +120,7 @@ class RequestStatusCard extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.only(left: 15, right: 5),
                                 child: Text(
-                                  "Tình trạng: ",
+                                  "State: ".tr,
                                   style: GoogleFonts.nunitoSans(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 13,
@@ -141,7 +141,7 @@ class RequestStatusCard extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 15, bottom: 5),
                                     child: Text(
-                                      "đã gửi ${DateConverter.getTimeInAgo(1624536554094)}",
+                                      "Sent "+"${DateConverter.getTimeInAgo(1624536554094)}",
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.w600,
@@ -172,7 +172,7 @@ class RequestStatusCard extends StatelessWidget {
                     TextButton(
                       onPressed: () => onDenied(data),
                       child: Text(
-                        "Huỷ yêu cầu",
+                        "Cancel request".tr,
                         style: GoogleFonts.nunitoSans(
                             fontSize: 12.5, fontWeight: FontWeight.bold),
                       ),
@@ -181,7 +181,7 @@ class RequestStatusCard extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () => onContact(this.data.request),
                       child: Text(
-                        "Liên hệ",
+                        "Contact".tr,
                         style: GoogleFonts.nunitoSans(
                             fontSize: 12.5, fontWeight: FontWeight.bold),
                       ),

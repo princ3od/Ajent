@@ -76,7 +76,7 @@ class SearchCourseCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            "đã đăng ${DateConverter.getTimeInAgo(course.postDate)}",
+                            "Posted".tr+" ${DateConverter.getTimeInAgo(course.postDate)}",
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.end,
                             style: GoogleFonts.nunitoSans(

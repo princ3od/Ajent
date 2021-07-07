@@ -31,14 +31,14 @@ class HomeTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(width: 5),
-                    Text("Lịch"),
+                    Text("Schedule".tr),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(width: 5),
-                    Text("Dành cho tôi"),
+                    Text("For you".tr),
                   ],
                 ),
               ]),

@@ -32,7 +32,7 @@ class CourseOverall extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Thời gian",
+                        "time_label_on_add".tr,
                         style: titleStyle,
                       ),
                       Row(
@@ -67,11 +67,11 @@ class CourseOverall extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Số lượng dự kiến",
+                        "number_of_student_label".tr,
                         style: titleStyle,
                       ),
                       Text(
-                        "${course.maxLearner} người",
+                        "${course.maxLearner}" + " students".tr,
                         style: contentStyle,
                       ),
                     ],
@@ -84,7 +84,7 @@ class CourseOverall extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Giá tiền đề nghị",
+                        'tuition_label'.tr,
                         style: titleStyle,
                       ),
                       Text(

@@ -9,9 +9,11 @@ import 'package:ajent/app/modules/auth/auth_controller.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/request/request_controller.dart';
 import 'package:ajent/core/utils/enum_converter.dart';
+import 'package:ajent/core/values/lang/localization_service.dart';
 import 'package:ajent/routes/pages.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
   var isLoading = true.obs;
@@ -25,6 +27,14 @@ class SplashController extends GetxController {
     await AuthenticService.instance.initializeFirebase();
 
     final user = AuthenticService.instance.getCurrentUser();
+    var _pref = await SharedPreferences.getInstance();
+    HomeController.langCode = _pref.getString('lang');
+    if (HomeController.langCode == null) {
+      HomeController.langCode = LocalizationService.locale.languageCode;
+      await _pref.setString('lang', LocalizationService.locale.languageCode);
+    } else {
+      LocalizationService.changeLocale(HomeController.langCode);
+    }
     if (user == null) {
       Get.offNamed(Routes.WELCOME);
     } else {

@@ -1,4 +1,5 @@
 import 'package:ajent/core/utils/enum_converter.dart';
+import 'package:get/get.dart';
 
 import 'Person.dart';
 import 'Degree.dart';
@@ -8,7 +9,7 @@ class AjentUser extends Person {
   String avatarUrl;
   String schoolName;
   String major;
-  String educationLevel;
+  String educationLevel = "";
   List<String> subjects = [];
   String bio;
   List<Degree> degrees = [];
@@ -44,8 +45,6 @@ class AjentUser extends Person {
     educationLevel = data['educationLevel'];
     bio = data['bio'];
     topics = List.from(data['topics']);
-    print(topics.length);
-    // topics.removeWhere((element) => element.isEmpty);
   }
   AjentUser.cloneWith(AjentUser ajentUser)
       : super(
@@ -79,6 +78,16 @@ class AjentUser extends Person {
       'indexList': getIndexList(),
       'topics': this.topics,
     };
+  }
+
+  bool isInfoUpdated() {
+    return (name != null &&
+        name.isNotEmpty &&
+        name != 'default_name'.tr &&
+        (phone != null && phone.isNotEmpty) &&
+        (mail != null && mail.isNotEmpty) &&
+        (bio != null && bio.isNotEmpty) &&
+        (educationLevel.isNotEmpty));
   }
 
   List<String> getIndexList() {

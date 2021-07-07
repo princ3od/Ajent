@@ -28,9 +28,9 @@ class LearningTab extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: -8.0),
               ),
               tabs: [
-                Tab(text: "Đã học"),
-                Tab(text: "Đang học"),
-                Tab(text: "Đang chờ"),
+                Tab(text: "Studied".tr),
+                Tab(text: "Studying".tr),
+                Tab(text: "Waiting".tr),
               ]),
         ),
         Flexible(

@@ -62,14 +62,15 @@ class TextingPage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'You have no conversations.',
+                              'You have no conversations.'.tr,
                               style: GoogleFonts.nunitoSans(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              "All your conversations you made appeear here.",
+                              "All your conversations you made appeear here."
+                                  .tr,
                               style: GoogleFonts.nunitoSans(
                                 fontSize: 12,
                               ),
@@ -105,7 +106,6 @@ class TextingPage extends StatelessWidget {
                             return ListTileShimmer();
                           return ChatGroupItem(
                             chatGroup: controller.chatGroups[index],
-                            partner: controller.chatGroups[index].partner,
                             index: index,
                           );
                         },

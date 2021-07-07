@@ -24,7 +24,6 @@ class UserService implements CollectionInterface {
   Future<AjentUser> addUser(AjentUser ajentUser, [String fbToken = ""]) async {
     await database.collection(collectionName).doc(ajentUser.uid).set(
           ajentUser.toJson(),
-          SetOptions(merge: true),
         );
     return ajentUser;
   }
@@ -54,7 +53,7 @@ class UserService implements CollectionInterface {
   Future<bool> updateSubsciption(AjentUser ajentUser) async {
     bool success = false;
     await database.collection(collectionName).doc(ajentUser.uid).set({
-      'topcis': ajentUser.topics,
+      'topics': ajentUser.topics,
     }, SetOptions(merge: true)).whenComplete(() {
       success = true;
     }).catchError((error) => print('Occured error $error'));
@@ -112,21 +111,6 @@ class UserService implements CollectionInterface {
       success = false;
       print("Failed to add user: $onError");
     });
-    return success;
-  }
-
-  Future<bool> delStudent(String uid, String studentId) async {
-    bool success = false;
-    await database
-        .collection(collectionName)
-        .doc(uid)
-        .collection('students')
-        .doc(studentId)
-        .delete()
-        .then((value) {
-      print('Student $studentId Have Been Deleted');
-      success = true;
-    }).catchError((error) => print('$error'));
     return success;
   }
 

@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                     arguments: controller.tabpageIndex.value);
               },
               tooltip: 'Increment',
-              label: Text('Thêm lớp +'),
+              label: Text('Add course +'.tr),
               //icon: new Icon(Icons.add, size: 40),
             ),
           )),
@@ -41,21 +41,21 @@ class HomePage extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
-                  label: "Trang chủ",
+                  label: "Home".tr,
                   icon: Icon(Icons.home_outlined),
                   activeIcon: Icon(Icons.home_rounded)),
               BottomNavigationBarItem(
-                label: "Học tập",
+                label: "Courses".tr,
                 icon: Icon(Icons.school_outlined),
                 activeIcon: Icon(Icons.school_rounded),
               ),
               BottomNavigationBarItem(
-                label: "Giảng dạy",
+                label: "Teachings".tr,
                 icon: Icon(Icons.history_edu_outlined),
                 activeIcon: Icon(Icons.history_edu_rounded),
               ),
               BottomNavigationBarItem(
-                label: "Thông báo",
+                label: "Notifications".tr,
                 icon: (controller.newNotification.value)
                     ? Icon(Icons.notifications_active_rounded,
                         color: primaryColor)
@@ -65,6 +65,7 @@ class HomePage extends StatelessWidget {
             ],
           )),
       appBar: AppBar(
+        toolbarHeight: 65,
         backgroundColor: primaryColor,
         shadowColor: Colors.transparent,
         leading: Builder(
@@ -92,19 +93,34 @@ class HomePage extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Obx(
-              () => Icon(
-                Icons.chat_rounded,
-                color:
-                    (controller.newMessage.value) ? Colors.lime : Colors.black,
-                size: 25,
+          Stack(
+            children: [
+              Center(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.chat_rounded,
+                    color: Colors.black,
+                    size: 28,
+                  ),
+                  onPressed: () {
+                    Get.toNamed(Routes.TEXTING);
+                    controller.newMessage.value = false;
+                  },
+                ),
               ),
-            ),
-            onPressed: () {
-              Get.toNamed(Routes.TEXTING);
-              controller.newMessage.value = false;
-            },
+              Obx(
+                () => Positioned(
+                  top: 8.0,
+                  right: 8.0,
+                  child: AnimatedOpacity(
+                    duration: Duration(milliseconds: 280),
+                    opacity: (controller.newMessage.value) ? 1 : 0,
+                    child: new Icon(Icons.brightness_1,
+                        size: 12.0, color: Colors.green),
+                  ),
+                ),
+              )
+            ],
           ),
         ],
       ),

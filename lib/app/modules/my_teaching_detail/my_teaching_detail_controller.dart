@@ -43,7 +43,7 @@ class MyTeachingDetailController extends GetxController {
 
   String getLearners() {
     String result = "";
-    if (learners.length == 0) return "Chưa có";
+    if (learners.length == 0) return "Not available".tr;
     for (var learner in learners.values) {
       result += learner.name + "; ";
     }
