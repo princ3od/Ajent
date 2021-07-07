@@ -1,13 +1,16 @@
 import 'dart:math';
 
 import 'package:ajent/app/data/models/Request.dart';
+import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/requestCardData.dart';
+import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/request/widgets/request_status_badge.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
+import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -114,42 +117,49 @@ class RequestCard extends StatelessWidget {
                                   size: 16,
                                 ),
                               ),
-                              Flexible(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      (data.requestor.uid ==
-                                              HomeController.mainUser.uid)
-                                          ? 'you'.tr
-                                          : data.requestor.name,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.nunitoSans(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 14,
-                                          color: Colors.black),
-                                    ),
-                                    (data.star != -1)
-                                        ? RatingBar.builder(
-                                            itemSize: 15,
-                                            ignoreGestures: true,
-                                            itemCount: 5,
-                                            initialRating: (data.star != null)
-                                                ? data.star
-                                                : 2.0,
-                                            itemBuilder: (context, index) =>
-                                                Icon(
-                                              Icons.star_rounded,
-                                              color: Colors.amber,
+                              InkWell(
+                                onTap: () async {
+                                  Get.toNamed(Routes.PROFILEVIEW,
+                                      arguments: data.requestor);
+                                },
+                                child: Flexible(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        (data.requestor.uid ==
+                                                HomeController.mainUser.uid)
+                                            ? 'you'.tr
+                                            : data.requestor.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.nunitoSans(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 14,
+                                            color: Colors.black),
+                                      ),
+                                      (data.star != -1)
+                                          ? RatingBar.builder(
+                                              itemSize: 15,
+                                              ignoreGestures: true,
+                                              itemCount: 5,
+                                              initialRating: (data.star != null)
+                                                  ? data.star
+                                                  : 2.0,
+                                              itemBuilder: (context, index) =>
+                                                  Icon(
+                                                Icons.star_rounded,
+                                                color: Colors.amber,
+                                              ),
+                                              onRatingUpdate: (value) {},
+                                            )
+                                          : Text(
+                                              'No rating'.tr,
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 12),
                                             ),
-                                            onRatingUpdate: (value) {},
-                                          )
-                                        : Text(
-                                            'No rating'.tr,
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 12),
-                                          ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -162,7 +172,8 @@ class RequestCard extends StatelessWidget {
                                 child: SizedBox(
                                   width: Get.width - 60,
                                   child: Text(
-                                    "${data.requestor.name} "+"want to teach this course".tr,
+                                    "${data.requestor.name} " +
+                                        "want to teach this course".tr,
                                     maxLines: 2,
                                     style: GoogleFonts.nunitoSans(
                                         fontWeight: FontWeight.w700,
@@ -182,7 +193,8 @@ class RequestCard extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 15, bottom: 5),
                                     child: Text(
-                                      "Sent ".tr +" ${DateConverter.getTimeInAgo(data.request.postDate)}",
+                                      "Sent ".tr +
+                                          " ${DateConverter.getTimeInAgo(data.request.postDate)}",
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.nunitoSans(
                                           fontWeight: FontWeight.w600,

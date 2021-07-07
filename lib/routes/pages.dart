@@ -24,6 +24,7 @@ import 'package:ajent/app/modules/splash/splash_page.dart';
 import 'package:ajent/app/modules/texting/texting_page.dart';
 import 'package:ajent/app/modules/texting/texting_binding.dart';
 import 'package:ajent/app/modules/chat/chat_page.dart';
+import 'package:ajent/app/modules/edit_course/edit_course_page.dart';
 
 import 'package:get/get.dart';
 
@@ -73,5 +74,6 @@ abstract class AppPages {
     GetPage(name: Routes.REQUEST_VIEW, page: () => RequestPage()),
     GetPage(name: Routes.ONBOARDINTRO, page: () => OnboardIntroPage()),
     GetPage(name: Routes.ABOUT, page: () => AboutPage()),
+    GetPage(name: Routes.EDIT_COURSE, page: () => EditCoursePage()),
   ];
 }

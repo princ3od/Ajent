@@ -48,6 +48,11 @@ class MyCourseDetailController extends GetxController {
   @override
   onInit() async {
     super.onInit();
+    await fetch();
+  }
+
+  Future fetch() async {
+    isLoading.value = true;
     course.value = await CourseService.instance.getCourse(course.value.id);
     if (course.value.teacher != null && course.value.teacher.isNotEmpty)
       teacher = await UserService.instance.getUser(course.value.teacher);
@@ -222,7 +227,7 @@ class MyCourseDetailController extends GetxController {
                   SizedBox(height: 10),
                   Container(
                     width: Get.width,
-                    height: Get.height * 0.5,
+                    height: Get.height * 0.28,
                     child: StreamBuilder<QuerySnapshot>(
                       stream: UserService.instance.searchUser(
                           keyword: txtSearch.text.trim().toLowerCase()),
@@ -235,32 +240,30 @@ class MyCourseDetailController extends GetxController {
                             child: ListTileShimmer(),
                           );
                         }
-                        return SingleChildScrollView(
-                          child: ListView.builder(
-                            itemCount: snapshot.data.docs.length +
-                                ((snapshot.connectionState ==
-                                        ConnectionState.waiting)
-                                    ? 2
-                                    : 0),
-                            itemBuilder: (context, index) {
-                              if ((snapshot.connectionState ==
-                                      ConnectionState.waiting) &&
-                                  index > snapshot.data.docs.length - 1)
-                                return ProfileShimmer();
+                        return ListView.builder(
+                          itemCount: snapshot.data.docs.length +
+                              ((snapshot.connectionState ==
+                                      ConnectionState.waiting)
+                                  ? 2
+                                  : 0),
+                          itemBuilder: (context, index) {
+                            if ((snapshot.connectionState ==
+                                    ConnectionState.waiting) &&
+                                index > snapshot.data.docs.length - 1)
+                              return ProfileShimmer();
 
-                              AjentUser user = AjentUser.fromJson(
-                                  snapshot.data.docs[index].id,
-                                  snapshot.data.docs[index].data());
-                              return Listener(
-                                  onPointerDown: (e) => FocusManager
-                                      .instance.primaryFocus
-                                      .unfocus(),
-                                  child: ShareableUserItem(
-                                    user: user,
-                                    course: course.value,
-                                  ));
-                            },
-                          ),
+                            AjentUser user = AjentUser.fromJson(
+                                snapshot.data.docs[index].id,
+                                snapshot.data.docs[index].data());
+                            return Listener(
+                                onPointerDown: (e) => FocusManager
+                                    .instance.primaryFocus
+                                    .unfocus(),
+                                child: ShareableUserItem(
+                                  user: user,
+                                  course: course.value,
+                                ));
+                          },
                         );
                       },
                     ),

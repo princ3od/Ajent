@@ -33,6 +33,38 @@ class CourseService implements CollectionInterface {
     return course;
   }
 
+  Future<Course> editCourse(Course course) async {
+    await database
+        .collection(collectionName)
+        .doc(course.id)
+        .set(course.toJson(), SetOptions(merge: true));
+    if (course.timeType == TimeType.fixedTime) {
+      await database
+          .collection(collectionName)
+          .doc(course.id)
+          .collection('fixedTime')
+          .doc('fixedTime')
+          .set(course.fixedTime.toJson());
+    } else {
+      final collectionRef = database
+          .collection(collectionName)
+          .doc(course.id)
+          .collection('periods');
+      await collectionRef.get().then((value) => value.docs.forEach((element) {
+            element.reference.delete();
+          }));
+      for (var period in course.periods) {
+        await database
+            .collection(collectionName)
+            .doc(course.id)
+            .collection('periods')
+            .doc()
+            .set(period.toJson());
+      }
+    }
+    return course;
+  }
+
   Future<Course> getCourse(String id) async {
     Course course;
     await database.collection(collectionName).doc(id).get().then((value) async {

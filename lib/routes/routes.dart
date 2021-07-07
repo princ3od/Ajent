@@ -22,4 +22,5 @@ abstract class Routes {
   static const REQUEST_VIEW = '/request_view';
   static const ONBOARDINTRO = '/onboard_intro';
   static const ABOUT = '/about';
+  static const EDIT_COURSE = '/edit_course';
 }

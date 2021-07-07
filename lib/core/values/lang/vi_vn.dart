@@ -257,4 +257,6 @@ const Map<String, String> vi = {
   'You have no in-coming request': 'Bạn không có yêu cầu nào từ người khác',
   'You have not requested any course': 'Bạn chưa yêu cầu dạy bất kì khoá nào',
   'Delete request': 'Xoá yêu cầu',
+  'Update': 'Cập nhật',
+  'Update course info': 'Cập nhật thông tin khoá học',
 };

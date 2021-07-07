@@ -7,6 +7,7 @@ import 'package:ajent/app/modules/my_course_detail/widgets/fixed_time_card.dart'
 import 'package:ajent/app/modules/my_course_detail/widgets/period_item.dart';
 import 'package:ajent/app/modules/my_course_detail/widgets/user_relation_badge.dart';
 import 'package:ajent/core/values/colors.dart';
+import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,13 +58,16 @@ class MyCourseDetailPage extends StatelessWidget {
               }),
           Obx(
             () => Visibility(
-              visible: controller.editable.value,
+              visible: controller.editable.value && !controller.isLoading.value,
               child: IconButton(
                   icon: Icon(
                     Icons.edit,
                     color: Colors.black,
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Get.offAndToNamed(Routes.EDIT_COURSE,
+                        arguments: controller.course.value);
+                  }),
             ),
           ),
           Obx(
