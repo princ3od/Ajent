@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:930529302228:android:58d3ab0afbcf701c6acd41",
         "android_client_info": {
-          "package_name": "com.tneja.ajent"
+          "package_name": "com.example.ajent"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "930529302228-1u2aafi0m55q6ugbng4l7n2tvc0c0ta6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.tneja.ajent",
+            "package_name": "com.example.ajent",
             "certificate_hash": "c804d02a70569e8eb3734d57e0cd51638beaf452"
           }
         },

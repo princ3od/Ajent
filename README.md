@@ -47,7 +47,7 @@ An app bridges the Gap between Tutors and Learners ./
 - Enjoy!  
 
 ---
-- Or get the **[APK](https://apkfab.com/ajent/com.tneja.ajent/apk)**
+- Or get the **[APK](https://apkfab.com/ajent/com.example.ajent/apk)**
 ## Authors
 
 - [Dương Bình Trọng - 19521056](https://www.github.com/princ3od)

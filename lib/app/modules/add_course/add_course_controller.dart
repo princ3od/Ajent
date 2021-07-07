@@ -78,9 +78,13 @@ class AddCourseController extends GetxController {
           ..requirements = txtCourseRequirements.text
           ..photoUrl = imageUrl
           ..subjects = subjects;
+        if (course.maxLearner < 1 || course.price < 50000) {
+          Get.snackbar("data_error".tr, "check_course_info_warning".tr);
+          isAddingCourse.value = false;
+          return;
+        }
       } catch (e) {
-        Get.snackbar(
-            "data_error".tr, "check_course_info_warning".tr);
+        Get.snackbar("data_error".tr, "check_course_info_warning".tr);
         isAddingCourse.value = false;
         return;
       }
