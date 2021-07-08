@@ -3,6 +3,9 @@
 
 An app bridges the Gap between Tutors and Learners ./
 
+## Promotion Video
+
+[![INTRO VIDEO](https://img.youtube.com/vi/1e7YgQerrK8/0.jpg)](https://www.youtube.com/watch?v=1e7YgQerrK8)
 
 ## Features
 
