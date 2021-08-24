@@ -53,10 +53,10 @@ An app bridges the Gap between Tutors and Learners ./
 - Or get the **[APK](https://apkfab.com/ajent/com.example.ajent/apk)**
 ## Authors
 
-- [Dương Bình Trọng - 19521056](https://www.github.com/princ3od)
-- [Phạm Đức Hoàng - 19521542](https://www.github.com/Duc-Hoang-UIT)  
-- [Trần Đặng Hoàng Anh - 19521213](https://github.com/TranDangHoangAnh)
-- [Nguyễn Văn Huấn - 19521556](https://github.com/Yud-Bet)
+- [Dương Bình Trọng](https://www.github.com/princ3od)
+- [Phạm Đức Hoàng](https://www.github.com/Duc-Hoang-UIT)  
+- [Trần Đặng Hoàng Anh](https://github.com/TranDangHoangAnh)
+- [Nguyễn Văn Huấn](https://github.com/Yud-Bet)
 
   
 ## Screenshots
