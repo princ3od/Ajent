@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ajent">
+    package="com.famereani.tutor_time">
    <application
         android:label="Ajent"
         android:icon="@mipmap/ic_launcher">
