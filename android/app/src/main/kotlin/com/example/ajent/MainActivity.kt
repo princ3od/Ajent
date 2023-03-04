@@ -1,4 +1,4 @@
-package com.famereani.tutor_time
+package com.example.ajent
 
 import io.flutter.embedding.android.FlutterActivity
 

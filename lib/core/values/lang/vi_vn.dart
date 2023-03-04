@@ -259,4 +259,7 @@ const Map<String, String> vi = {
   'Delete request': 'Xoá yêu cầu',
   'Update': 'Cập nhật',
   'Update course info': 'Cập nhật thông tin khoá học',
+  'Tags should be separated by commas':
+      'Các thẻ nên được phân cách bởi dấu phẩy',
+  'Tags': 'Thẻ',
 };

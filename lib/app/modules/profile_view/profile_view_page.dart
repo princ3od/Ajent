@@ -54,6 +54,12 @@ class ProfileViewPage extends StatelessWidget {
                           image: user.avatarUrl,
                           width: 100,
                           fit: BoxFit.fitWidth,
+                          imageErrorBuilder: (context, error, stackTrace) =>
+                              Image.asset(
+                            'assets/images/ajent_logo.png',
+                            width: 100,
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                       ),
                       radius: 40.0,
@@ -103,7 +109,8 @@ class ProfileViewPage extends StatelessWidget {
                         () => Text(
                           (controller.reviewNum.value > -1)
                               ? (controller.reviewNum.value > 0)
-                                  ? "${controller.reviewNum.value} "+ "ratings".tr
+                                  ? "${controller.reviewNum.value} " +
+                                      "ratings".tr
                                   : "No rating".tr
                               : "-- ratings",
                           style: GoogleFonts.nunitoSans(
@@ -176,7 +183,7 @@ class ProfileViewPage extends StatelessWidget {
                   initialValue: (user.phone == null)
                       ? "Not available".tr
                       : (user.phone.isEmpty)
-                          ?  "Not available".tr
+                          ? "Not available".tr
                           : user.phone, //Get a link here to get to google maps.
                   readOnly: true,
                   style: GoogleFonts.nunitoSans(
@@ -213,7 +220,6 @@ class ProfileViewPage extends StatelessWidget {
                 style: GoogleFonts.nunitoSans(
                     fontWeight: FontWeight.w600, fontSize: 12),
               ),
-
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                 child: TextFormField(

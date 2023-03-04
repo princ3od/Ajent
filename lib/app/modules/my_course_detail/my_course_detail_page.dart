@@ -96,13 +96,18 @@ class MyCourseDetailPage extends StatelessWidget {
                   () => CircleAvatar(
                     child: ClipOval(
                       child: FadeInImage.assetNetwork(
-                        fadeInDuration: Duration(milliseconds: 200),
-                        fadeOutDuration: Duration(milliseconds: 180),
-                        placeholder: 'assets/images/ajent_logo.png',
-                        image: course.photoUrl,
-                        width: 100,
-                        fit: BoxFit.fitWidth,
-                      ),
+                          fadeInDuration: Duration(milliseconds: 200),
+                          fadeOutDuration: Duration(milliseconds: 180),
+                          placeholder: 'assets/images/ajent_logo.png',
+                          image: course.photoUrl,
+                          width: 100,
+                          fit: BoxFit.fitWidth,
+                          imageErrorBuilder: (context, error, stackTrace) =>
+                              Image.asset(
+                                'assets/images/ajent_logo.png',
+                                width: 100,
+                                fit: BoxFit.fitWidth,
+                              )),
                     ),
                     radius: 50.0 - controller.scrollOffset.value,
                   ),
@@ -179,6 +184,7 @@ class MyCourseDetailPage extends StatelessWidget {
                             return true;
                           },
                           child: SingleChildScrollView(
+                            physics: BouncingScrollPhysics(),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,

@@ -64,6 +64,14 @@ class SearchCourseCard extends StatelessWidget {
                                 image: course.photoUrl,
                                 width: 80,
                                 fit: BoxFit.fitWidth,
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                    'assets/images/ajent_logo.png',
+                                    width: 80,
+                                    fit: BoxFit.fitWidth,
+                                  );
+                                },
                               ),
                             ),
                             radius: 24.0,
@@ -76,7 +84,8 @@ class SearchCourseCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            "Posted".tr+" ${DateConverter.getTimeInAgo(course.postDate)}",
+                            "Posted".tr +
+                                " ${DateConverter.getTimeInAgo(course.postDate)}",
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.end,
                             style: GoogleFonts.nunitoSans(

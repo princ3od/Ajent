@@ -12,6 +12,7 @@ import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:textfield_tags/textfield_tags.dart';
 
 class EditCourseController extends GetxController {
   var subjects = <String>[].obs;
@@ -38,6 +39,7 @@ class EditCourseController extends GetxController {
   TextEditingController txtCoursePrice = TextEditingController();
   TextEditingController txtCourseAddress = TextEditingController();
   TextEditingController txtCourseRequirements = TextEditingController();
+  TextfieldTagsController tagsController = TextfieldTagsController();
 
   var isUpdating = false.obs;
 
@@ -79,7 +81,7 @@ class EditCourseController extends GetxController {
         ..timeType = selectedTimeType.value
         ..requirements = txtCourseRequirements.text
         ..photoUrl = course.photoUrl ?? ""
-        ..subjects = subjects;
+        ..subjects = tagsController.getTags;
       if (course.maxLearner < course.learners.length || course.price < 50000) {
         Get.snackbar("data_error".tr, "check_course_info_warning".tr);
         isUpdating.value = false;
