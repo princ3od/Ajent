@@ -88,7 +88,7 @@ class Course {
   String getTimeAsString() {
     String result = "";
     if (timeType == TimeType.fixedTime) {
-      var dateText = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+      var dateText = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       for (var i = 0; i < fixedTime.day.length; i++) {
         if (fixedTime.day[i]) {
           result += dateText[i];

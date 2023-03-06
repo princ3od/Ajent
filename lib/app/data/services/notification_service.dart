@@ -90,7 +90,7 @@ class NotificationService implements CollectionInterface {
     data.receivers.remove(joiner.uid);
     await storeNotication(data);
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-public",
         image: course.photoUrl,
@@ -116,7 +116,7 @@ class NotificationService implements CollectionInterface {
     data.receivers.remove(joiner.uid);
     await storeNotication(data);
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-public",
         image: course.photoUrl,
@@ -141,7 +141,7 @@ class NotificationService implements CollectionInterface {
     data.receivers.remove(requestor.uid);
     await storeNotication(data);
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-request",
         image: requestor.avatarUrl,
@@ -165,7 +165,7 @@ class NotificationService implements CollectionInterface {
       ..imageUrl = course.photoUrl;
     await storeNotication(data);
     await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-request-${request.id}",
         image: course.photoUrl,
@@ -180,7 +180,7 @@ class NotificationService implements CollectionInterface {
       ..imageUrl = course.photoUrl;
     await storeNotication(data);
     return _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-public",
         image: course.photoUrl,
@@ -204,7 +204,7 @@ class NotificationService implements CollectionInterface {
       ..imageUrl = course.photoUrl;
     await storeNotication(data);
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-request-${request.id}",
         image: course.photoUrl,
@@ -220,7 +220,7 @@ class NotificationService implements CollectionInterface {
       'courseId': '${course.id}',
     };
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-request",
         image: requestor.avatarUrl,
