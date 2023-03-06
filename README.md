@@ -1,5 +1,5 @@
 
-# Ajent 
+# Tutor Time 
 
 An app bridges the Gap between Tutors and Learners ./
 
@@ -40,6 +40,20 @@ An app bridges the Gap between Tutors and Learners ./
 - Clone the project
 
 - Setup Firebase for project
+
+- Build the project the first time
+
+- Generate the fingerprint key
+
+  ```bash
+  cd android
+  .\gradlew signingReport
+
+  ```
+
+- Add generated key (SHA-1 or SHA-256) to your Firebase project
+
+- Enable Authentication (Google provider), Firestore, Storage and Cloud Messaging
 
 - Go to the project directory and run these commands:
 ```bash

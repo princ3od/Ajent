@@ -25,40 +25,41 @@ dependencies:
     sdk: flutter
   bubble_tab_indicator: ^0.1.6
   carousel_slider: ^4.0.0
-  chips_choice: ^2.0.1
-  cloud_firestore: ^2.2.0
+  chips_choice: ^3.0.0
+  cloud_firestore: ^4.4.3
   cupertino_icons: ^1.0.2
   date_picker_timeline: ^1.2.3
-  firebase_auth: ^1.2.0
-  firebase_core: ^1.2.0
-  firebase_messaging: ^10.0.3
-  firebase_storage: ^8.1.0
-  flip_card: ^0.5.0
+  firebase_auth: ^4.2.9
+  firebase_core: ^2.7.0
+  firebase_messaging: ^14.2.5
+  firebase_storage: ^11.0.14
+  flip_card: ^0.7.0
   flutter_date_picker_timeline: ^0.3.2
   flutter_datetime_picker: ^1.5.1
-  flutter_facebook_auth: ^3.3.3+1
-  flutter_launcher_icons: ^0.9.0
-  flutter_native_splash: ^1.1.8+4
+  flutter_facebook_auth: ^5.0.8
+  flutter_launcher_icons: ^0.12.0
+  flutter_native_splash: ^2.2.18
   flutter_rating_bar: ^4.0.0
-  flutter_shimmer: ^1.3.0
+  flutter_shimmer: ^2.1.2
   get: ^4.1.4
-  google_fonts: ^2.1.0
-  google_sign_in: ^5.0.2
+  google_fonts: ^4.0.3
+  google_sign_in: ^6.0.2
   http: ^0.13.3
   image_picker: ^0.8.0+1
   intl: ^0.17.0
-  introduction_screen: ^2.1.0
+  introduction_screen: ^3.1.4
   multi_select_flutter: ^4.0.0
   number_slide_animation: ^0.2.1
-  photo_view: ^0.11.1
+  photo_view: ^0.14.0
   pin_code_fields: ^7.2.0
   pull_to_refresh: ^2.0.0
   shared_preferences: ^2.0.6
   sliding_up_panel: ^2.0.0+1
-  textfield_tags: ^1.3.1
+  textfield_tags: ^2.0.2
   url_launcher: ^6.0.6
 
 dev_dependencies:
+  change_app_package_name: ^1.1.0
   flutter_test:
     sdk: flutter
 
