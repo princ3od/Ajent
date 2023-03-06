@@ -123,7 +123,7 @@ class SideMenu extends StatelessWidget {
                       )),
                   SizedBox(height: 5),
                   Text(
-                    "© Ajent",
+                    "© Tutor Time",
                     style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 20),

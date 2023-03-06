@@ -24,7 +24,7 @@ class TeachingCard extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [primaryColor, Color.fromARGB(255, 255, 128, 64)])),
+                    colors: [primaryColor, Color.fromARGB(255, 97, 159, 205)])),
             child: InkWell(
                 onTap: () {
                   Get.toNamed(Routes.MYCOURSEDETAIL, arguments: course);
@@ -46,6 +46,14 @@ class TeachingCard extends StatelessWidget {
                                 image: course.photoUrl,
                                 width: 100,
                                 fit: BoxFit.fitWidth,
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                    'assets/images/ajent_logo.png',
+                                    width: 100,
+                                    fit: BoxFit.fitWidth,
+                                  );
+                                },
                               ),
                             ),
                             radius: 30.0,

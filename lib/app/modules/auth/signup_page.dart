@@ -92,7 +92,7 @@ class SignupPage extends StatelessWidget {
                                     controller.loginWithPhone(),
                                 controller: controller.txtPhoneNumber,
                                 style: GoogleFonts.nunitoSans(),
-                                maxLength: 12,
+                                maxLength: 13,
                                 decoration: InputDecoration(
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide:
@@ -100,7 +100,7 @@ class SignupPage extends StatelessWidget {
                                   labelText: 'phone_number'.tr,
                                   labelStyle: GoogleFonts.nunitoSans(
                                       color: primaryColor),
-                                  hintText: "+84",
+                                  hintText: "+966",
                                 ),
                                 keyboardType: TextInputType.phone,
                               ),

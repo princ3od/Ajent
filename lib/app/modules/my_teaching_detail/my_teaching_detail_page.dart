@@ -72,11 +72,16 @@ class MyTeachingDetailPage extends StatelessWidget {
                         child: CircleAvatar(
                           child: ClipOval(
                             child: FadeInImage.assetNetwork(
-                              placeholder: 'assets/images/ajent_logo.png',
-                              image: course.photoUrl,
-                              width: 100,
-                              fit: BoxFit.fitWidth,
-                            ),
+                                placeholder: 'assets/images/ajent_logo.png',
+                                image: course.photoUrl,
+                                width: 100,
+                                fit: BoxFit.fitWidth,
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) => Image.asset(
+                                          'assets/images/ajent_logo.png',
+                                          width: 100,
+                                          fit: BoxFit.fitWidth,
+                                        )),
                           ),
                           radius: 40.0,
                         ),
@@ -246,7 +251,7 @@ class MyTeachingDetailPage extends StatelessWidget {
                                     child: Align(
                                       alignment: FractionalOffset.bottomCenter,
                                       child: Center(
-                                          child: Text("© Ajent ",
+                                          child: Text("© Tutor Time ",
                                               style: GoogleFonts.nunitoSans(
                                                   fontWeight: FontWeight.w100,
                                                   fontSize: 12))),

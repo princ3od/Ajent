@@ -42,7 +42,7 @@ class LoginPage extends StatelessWidget {
                     Material(
                       color: Colors.transparent,
                       child: Text(
-                        "Ajent",
+                        "Tutor Time",
                         style: GoogleFonts.suezOne(
                           color: Colors.white,
                           fontSize: 32,

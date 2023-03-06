@@ -16,7 +16,7 @@ class ChatPage extends StatelessWidget {
     final ChatController controller = Get.put(ChatController(partner));
     return Scaffold(
       appBar: AppBar(
-        //backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,

@@ -23,7 +23,7 @@ class HomeBackground extends StatelessWidget {
                 Material(
                   color: Colors.transparent,
                   child: Text(
-                    "Ajent",
+                    "Tutor Time",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 32,

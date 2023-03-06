@@ -74,7 +74,7 @@ class AboutPage extends StatelessWidget {
               Material(
                 color: Colors.transparent,
                 child: Text(
-                  "Ajent",
+                  "Tutor Time",
                   style: GoogleFonts.suezOne(
                     fontSize: 32,
                     fontWeight: FontWeight.normal,
@@ -106,7 +106,7 @@ class AboutPage extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: Text(
-                    'Ajent is an app bridges the gap between Tutors and Learners.'
+                    'Tutor Time is an app bridges the gap between Tutors and Learners.'
                         .tr
                         .tr,
                     textAlign: TextAlign.center,
@@ -136,7 +136,7 @@ class AboutPage extends StatelessWidget {
                             width: 50,
                             height: 50,
                           ),
-                          applicationLegalese: 'Copyright 2021 Ajent',
+                          applicationLegalese: 'Copyright 2023 Tutor Time',
                           children: [
                             SizedBox(height: 10),
                             Text("Tutor searching app"),
@@ -185,7 +185,7 @@ class AboutPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                "© Ajent 2021",
+                "© Tutor Time 2023",
                 style: GoogleFonts.nunitoSans(fontWeight: FontWeight.normal),
               ),
             ],

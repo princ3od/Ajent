@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:textfield_tags/textfield_tags.dart';
 
 class AddCourseController extends GetxController {
   List<String> subjects = [];
@@ -41,6 +42,8 @@ class AddCourseController extends GetxController {
   TextEditingController txtCoursePrice = TextEditingController();
   TextEditingController txtCourseAddress = TextEditingController();
   TextEditingController txtCourseRequirements = TextEditingController();
+  TextfieldTagsController tagsController = TextfieldTagsController();
+
   var imagePath = ''.obs;
 
   var isAddingCourse = false.obs;
@@ -77,8 +80,8 @@ class AddCourseController extends GetxController {
           ..timeType = selectedTimeType.value
           ..requirements = txtCourseRequirements.text
           ..photoUrl = imageUrl
-          ..subjects = subjects;
-        if (course.maxLearner < 1 || course.price < 50000) {
+          ..subjects = tagsController.getTags;
+        if (course.maxLearner < 1 || course.price < 0) {
           Get.snackbar("data_error".tr, "check_course_info_warning".tr);
           isAddingCourse.value = false;
           return;
