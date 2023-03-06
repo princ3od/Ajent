@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final primaryColor = Color(0xffe74b32);
+final primaryColor = Color.fromARGB(255, 97, 159, 205);
 
 final whiteAccentColor = Color(0xffFAFAFA);
 

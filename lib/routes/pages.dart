@@ -1,4 +1,4 @@
-import 'package:ajent/app/modules/%20regulations_and_policies/regulations_and_policies_page.dart';
+import 'package:ajent/app/modules/regulations_and_policies/regulations_and_policies_page.dart';
 import 'package:ajent/app/modules/about/about_page.dart';
 import 'package:ajent/app/modules/add_course/add_course_page.dart';
 import 'package:ajent/app/modules/auth/otp_verification_page.dart';

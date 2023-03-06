@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Ajent",
+      title: "Tutor Time",
       getPages: AppPages.pages,
       initialRoute: Routes.SPLASH,
       initialBinding: SplashBinding(),
