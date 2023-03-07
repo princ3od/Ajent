@@ -17,7 +17,7 @@ class AboutPage extends StatelessWidget {
         'img': 'assets/images/FM.jpg',
         'github': 'fmereani',
         'facebook': 'Fawaz Mereani',
-        'id': '19521213',
+        'id': '1',
         'quote':
             '"Don\'t cry because it\'s over smile because it happened" - Dr. Seuss',
       },
@@ -27,7 +27,7 @@ class AboutPage extends StatelessWidget {
         'img': 'assets/images/trong.jpg',
         'github': 'princ3od',
         'facebook': 'princ3od',
-        'id': '19521056',
+        'id': '2',
         'quote': '"Life is not fair; get used to it." - Bill Gates',
       },
       {
@@ -36,8 +36,8 @@ class AboutPage extends StatelessWidget {
         'img': 'assets/images/default_avatar_female.png',
         //'github': 'Duc-Hoang-UIT',
         //'facebook': 'JameBorn.N0',
-        //'id': '19521542',
-        'quote': '“Being on the edge is worth the view”',
+        'id': '3',
+        'quote': 'Being on the edge is worth the view',
       },
     ];
 

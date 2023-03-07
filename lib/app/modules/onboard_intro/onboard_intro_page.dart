@@ -16,7 +16,7 @@ class OnboardIntroPage extends StatelessWidget {
       pages: [
         PageViewModel(
             title: 'Hire a tutor'.tr,
-            body: 'Achieve you goal'.tr,
+            body: 'Achieve your goal'.tr,
             image: buildImage('assets/images/hire_a_tutor.png'),
             decoration: getPageDecoration()),
         PageViewModel(

@@ -56,7 +56,7 @@ class RegulationsAndPoliciesPage extends StatelessWidget {
                   //TextSpan(text: "\nĐiều 10. Điều khoản chung",style:GoogleFonts.nunitoSans(fontWeight: FontWeight.bold)),
                   //TextSpan(text: "\nTrường hợp có bất kỳ điều khoản nào của Điều khoản sử dụng này hết hiệu lực hoặc không thể thi hành vì bất cứ lý do gì sẽ chỉ ảnh hưởng đến điều khoản đã xác định hết hiệu lực đó và không ảnh hưởng đến hiệu lực của các điều khoản còn lại. Nếu có sự khác biệt giữa Điều khoản sử dụng này và các Thỏa thuận sử dụng Dịch vụ thì quy định nào mới nhất sẽ có hiệu lực",style: GoogleFonts.nunitoSans(fontWeight: FontWeight.normal)),
                   TextSpan(
-                      text: "Coming Soon!",
+                      text: "\n Coming Soon!",
                       style: GoogleFonts.nunitoSans(
                           fontWeight: FontWeight.normal)),
                 ]),
