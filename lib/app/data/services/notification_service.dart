@@ -272,7 +272,7 @@ class NotificationService implements CollectionInterface {
             'body': '$body',
             'title': '$title',
             'icon': 'ic_stat_ajent',
-            'color': '#e74b32',
+            'color': '#619FCD',
           },
           'priority': 'high',
           'data': data,

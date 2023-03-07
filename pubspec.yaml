@@ -103,7 +103,7 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_native_splash:
-  color: "#e74b32"
+  color: "#619FCD"
   image: "assets/images/ajent_logo.png"
 flutter_icons:
   android: true
