@@ -160,7 +160,7 @@ class Course {
 
   String getReadablePrice() {
     if (price == null) price = 0;
-    return NumberFormat.currency(locale: "vi_VN", symbol: "vnd").format(price);
+    return NumberFormat.currency(locale: "vi_VN", symbol: "sar").format(price);
   }
 
   CourseStatus getCourseStatus() {
