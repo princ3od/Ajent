@@ -38,7 +38,7 @@ final ButtonStyle orangeButtonStyle = ElevatedButton.styleFrom(
 );
 
 final InputDecoration searchTextfieldDecoration = InputDecoration(
-  hintText: "Tìm kiếm",
+  hintText: "Search for Courses",
   contentPadding: EdgeInsets.fromLTRB(5, 2, 10, 2),
   fillColor: Colors.grey.shade200,
   filled: true,

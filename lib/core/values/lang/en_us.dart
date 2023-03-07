@@ -1,5 +1,5 @@
 const Map<String, String> en = {
-  'default_name': 'Ajent user',
+  'default_name': 'Tutor Time user',
   'login': 'Login',
   'sign_up': 'First time to Tutor Time? Signup!',
   'login_google': 'Continue with Google',

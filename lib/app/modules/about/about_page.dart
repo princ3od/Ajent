@@ -12,6 +12,16 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var members = <Map<String, String>>[
       {
+        'name': 'Dr. Fawaz A. Mereani',
+        'bio': 'Assistant Professor of Information Security',
+        'img': 'assets/images/FM.jpg',
+        'github': 'fmereani',
+        'facebook': 'Fawaz Mereani',
+        'id': '19521213',
+        'quote':
+            '"Don\'t cry because it\'s over smile because it happened" - Dr. Seuss',
+      },
+      {
         'name': 'Dương Bình Trọng',
         'bio': 'Intern at Tisoha',
         'img': 'assets/images/trong.jpg',
@@ -21,32 +31,13 @@ class AboutPage extends StatelessWidget {
         'quote': '"Life is not fair; get used to it." - Bill Gates',
       },
       {
-        'name': 'Trần Đặng Hoàng Anh',
-        'bio': 'Faculty of Software Engineering',
-        'img': 'assets/images/hoang_anh.jpg',
-        'github': 'TranDangHoangAnh',
-        'facebook': 'AndrewAnhTran',
-        'id': '19521213',
-        'quote':
-            '"Don\'t cry because it\'s over smile because it happened" - Dr. Seuss',
-      },
-      {
-        'name': 'Phạm Đức Hoàng',
-        'bio': 'Faculty of Software Engineering',
-        'img': 'assets/images/hoang.jpg',
-        'github': 'Duc-Hoang-UIT',
-        'facebook': 'JameBorn.N0',
-        'id': '19521542',
-        'quote': '“Hoa rơi cửa Phật, vạn sự tùy duyên”',
-      },
-      {
-        'name': 'Nguyễn Văn Huấn',
-        'bio': 'Encouragement Scholarship in 2020',
-        'img': 'assets/images/huan.jpg',
-        'facebook': 'huan.nguyen123654',
-        'github': 'Yud-Bet',
-        'id': '19521556',
-        'quote': '“L’homme est condamné à être libre" - Jean-Paul Sartre',
+        'name': 'Toleen F. Mereani',
+        'bio': 'AlBatool Student',
+        'img': 'assets/images/default_avatar_female.png',
+        //'github': 'Duc-Hoang-UIT',
+        //'facebook': 'JameBorn.N0',
+        //'id': '19521542',
+        'quote': '“Being on the edge is worth the view”',
       },
     ];
 
@@ -122,7 +113,7 @@ class AboutPage extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () {
-                        launch("https://github.com/princ3od/Ajent");
+                        launch("https://github.com/fmereani");
                       },
                       icon: Image.asset('assets/images/github.png')),
                   SizedBox(width: 10),
