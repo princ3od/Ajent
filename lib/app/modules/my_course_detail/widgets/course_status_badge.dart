@@ -2,6 +2,7 @@ import 'package:ajent/app/data/models/course.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+
 class CourseStatusBadge extends StatelessWidget {
   final CourseStatus status;
   CourseStatusBadge({Key key, @required this.status}) : super(key: key);
@@ -11,7 +12,7 @@ class CourseStatusBadge extends StatelessWidget {
     CourseStatus.upcoming: 'Upcoming'.tr,
   };
   final Map<CourseStatus, Color> colors = {
-    CourseStatus.fininished: Colors.red,
+    CourseStatus.fininished: Color.fromARGB(255, 97, 159, 205),
     CourseStatus.ongoing: Colors.green,
     CourseStatus.upcoming: Colors.amber.shade700,
   };
