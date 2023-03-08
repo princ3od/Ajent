@@ -58,7 +58,7 @@ class OnboardIntroPage extends StatelessWidget {
         pageColor: Colors.white,
       );
   DotsDecorator getDotDecoration() => DotsDecorator(
-        color: Color.fromARGB(205, 241, 116, 77),
+        color: Color.fromARGB(179, 97, 158, 205),
         activeColor: primaryColor,
         size: Size(10, 10),
         activeSize: Size(22, 10),

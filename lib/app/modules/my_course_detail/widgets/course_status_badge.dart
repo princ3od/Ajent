@@ -12,7 +12,7 @@ class CourseStatusBadge extends StatelessWidget {
     CourseStatus.upcoming: 'Upcoming'.tr,
   };
   final Map<CourseStatus, Color> colors = {
-    CourseStatus.fininished: Color.fromARGB(255, 97, 159, 205),
+    CourseStatus.fininished: Colors.red,
     CourseStatus.ongoing: Colors.green,
     CourseStatus.upcoming: Colors.amber.shade700,
   };
