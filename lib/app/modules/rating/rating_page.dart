@@ -16,7 +16,7 @@ class RatingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Đánh giá",
+          "Evaluation",
           style: GoogleFonts.nunitoSans(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 14),
         ),
