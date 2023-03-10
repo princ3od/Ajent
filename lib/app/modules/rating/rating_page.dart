@@ -105,12 +105,12 @@ class RatingPage extends StatelessWidget {
                 maxLength: 200,
                 controller: controller.contentController,
                 decoration: InputDecoration(
-                  labelText: "Đánh giá",
+                  labelText: "Evaluate",
                   labelStyle: GoogleFonts.nunitoSans(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
                       color: Colors.black),
-                  hintText: "Hãy để lại phần đánh giá",
+                  hintText: "Please leave a review",
                   hintStyle: GoogleFonts.nunitoSans(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
@@ -142,7 +142,7 @@ class RatingPage extends StatelessWidget {
                                       Colors.white),
                                 ),
                               )
-                            : Text("Đăng tải đánh giá",
+                            : Text("Post a review",
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700, fontSize: 14)),
                         onPressed: () => controller.postEvaluation(course.id),
