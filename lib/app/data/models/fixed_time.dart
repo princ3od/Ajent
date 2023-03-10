@@ -38,6 +38,19 @@ class FixedTime {
     return learnDay * baseLessonTime * (diff.inDays / 7).floor();
   }
 
+  double getTutoredTime() {
+    int learnDay = day.where((element) => element).length;
+    double baseLessonTime = lessonTime.getTotalTime();
+
+    var diff = DateTime.now().difference(startDate);
+    int count = (diff.inDays / 7).round() * learnDay; // Full week
+    int remain = diff.inDays % 7; // Remain day
+    for (int i = 0; i < remain; i++) {
+      if (day[(endDate.weekday + i - 1) % 7]) count += 1; // Count remain day
+    }
+    return count * baseLessonTime;
+  }
+
   String getTimeDetail() {
     var diff = endDate.difference(startDate);
     if (diff.inDays < 45) {

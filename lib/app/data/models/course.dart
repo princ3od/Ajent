@@ -202,6 +202,24 @@ class Course {
     return result;
   }
 
+  double getTutoredHours() {
+    double result = 0;
+    if (timeType == TimeType.periodTime) {
+      for (var period in periods) {
+        period.date = period.date.copyWith(
+          hour: period.lessonTime.startTime.hour,
+          minute: period.lessonTime.startTime.minute,
+        );
+        if (period.date.isBefore(DateTime.now())) {
+          result += period.lessonTime.getTotalTime();
+        }
+      }
+    } else {
+      result = fixedTime.getTutoredTime();
+    }
+    return result;
+  }
+
   String getRelativeAddress() {
     var addressPart = address.split(',');
     int startPart = addressPart.length > 2 ? addressPart.length - 2 : 0;

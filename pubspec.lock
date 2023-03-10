@@ -696,6 +696,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1"
+  odometer:
+    dependency: "direct main"
+    description:
+      name: odometer
+      sha256: "0e8ae51818670d7386ff0f05aa5fcb0b4f10023ab7533b365c420047d5a1667d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   path:
     dependency: transitive
     description:

@@ -14,6 +14,7 @@ class AjentUser extends Person {
   String bio;
   List<Degree> degrees = [];
   List<String> topics = [];
+  int uploadedResourceCount = 0;
   AjentUser(
       this.uid,
       String name,
@@ -45,6 +46,7 @@ class AjentUser extends Person {
     educationLevel = data['educationLevel'];
     bio = data['bio'];
     topics = List.from(data['topics']);
+    uploadedResourceCount = data['uploadedResourceCount'] ?? 0;
   }
   AjentUser.cloneWith(AjentUser ajentUser)
       : super(
@@ -77,6 +79,7 @@ class AjentUser extends Person {
       'bio': this.bio,
       'indexList': getIndexList(),
       'topics': this.topics,
+      'uploadedResourceCount': this.uploadedResourceCount,
     };
   }
 
