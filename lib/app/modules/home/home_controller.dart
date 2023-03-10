@@ -11,7 +11,6 @@ import 'package:ajent/app/modules/teaching/teaching_controller.dart';
 import 'package:ajent/core/utils/enum_converter.dart';
 import 'package:ajent/routes/pages.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -24,6 +23,9 @@ class HomeController extends GetxController {
   var needChangeNavigator = true;
   var newNotification = false.obs;
   var newMessage = false.obs;
+  var totalTutoringHours = 0.obs;
+  var tutoredHours = 0.obs;
+  var uploadedCount = 0.obs;
   PageController pageController = PageController();
   final RefreshController refreshController = RefreshController();
 
@@ -77,6 +79,14 @@ class HomeController extends GetxController {
     _teachingController = Get.find<TeachingController>();
     await _learningController.fetchCourses();
     await _teachingController.fetchCourses();
+    await _learningController.fetchCourses();
+    await _teachingController.fetchCourses();
+    for (var course in _teachingController.allCourses) {
+      tutoredHours.value += course.getTutoredHours().round();
+      print(course.getTutoredHours().round());
+    }
+    uploadedCount.value = mainUser.uploadedResourceCount;
+    totalTutoringHours.value = tutoredHours.value + uploadedCount.value;
     allCourses.addAll(_learningController.allCourses);
     allCourses.addAll(_teachingController.allCourses);
     allCourses.removeWhere((element) => element.status != CourseStatus.ongoing);
@@ -87,8 +97,6 @@ class HomeController extends GetxController {
 
   fetch() async {
     isFetching.value = true;
-    await _learningController.fetchCourses();
-    await _teachingController.fetchCourses();
     allCourses.clear();
     allCourses.addAll(_learningController.allCourses);
     allCourses.addAll(_teachingController.allCourses);
