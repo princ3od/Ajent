@@ -16,17 +16,17 @@ class OnboardIntroPage extends StatelessWidget {
       pages: [
         PageViewModel(
             title: 'Hire a tutor'.tr,
-            body: 'Archive you goal'.tr,
+            body: 'Achieve your goal'.tr,
             image: buildImage('assets/images/hire_a_tutor.png'),
             decoration: getPageDecoration()),
         PageViewModel(
             title: 'Become a tutor'.tr,
-            body: 'Share the knowledge, get more income'.tr,
+            body: 'Share the knowledge'.tr,
             image: buildImage('assets/images/be_a_tutor.png'),
             decoration: getPageDecoration()),
         PageViewModel(
             title: 'And more'.tr,
-            body: 'Let discover Ajent!'.tr,
+            body: 'Let us discover Tutor Time!'.tr,
             image: buildImage('assets/images/and_more.png'),
             decoration: getPageDecoration()),
       ],
@@ -58,7 +58,7 @@ class OnboardIntroPage extends StatelessWidget {
         pageColor: Colors.white,
       );
   DotsDecorator getDotDecoration() => DotsDecorator(
-        color: Color.fromARGB(205, 241, 116, 77),
+        color: Color.fromARGB(179, 97, 158, 205),
         activeColor: primaryColor,
         size: Size(10, 10),
         activeSize: Size(22, 10),

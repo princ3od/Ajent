@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/core/values/lang/en_us.dart';
-import 'package:ajent/core/values/lang/vi_vn.dart';
+//import 'package:ajent/core/values/lang/vi_vn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,19 +16,19 @@ class LocalizationService extends Translations {
 // language code của những locale được support
   static final langCodes = [
     'en',
-    'vi',
+    //'vi',
   ];
 
 // các Locale được support
   static final locales = [
     Locale('en', 'US'),
-    Locale('vi', 'VN'),
+    //Locale('vi', 'VN'),
   ];
 
 // cái này là Map các language được support đi kèm với mã code của lang đó: cái này dùng để đổ data vào Dropdownbutton và set language mà không cần quan tâm tới language của hệ thống
   static final langs = LinkedHashMap.from({
     'en': 'English',
-    'vi': 'Tiếng Việt',
+    //'vi': 'Tiếng Việt',
   });
 
 // function change language nếu bạn không muốn phụ thuộc vào ngôn ngữ hệ thống
@@ -40,7 +40,7 @@ class LocalizationService extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': en,
-        'vi_VN': vi,
+        //'vi_VN': vi,
       };
 
   static Locale _getLocaleFromLanguage({String langCode}) {

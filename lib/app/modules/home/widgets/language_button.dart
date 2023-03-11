@@ -16,11 +16,11 @@ class _LanguageButtonState extends State<LanguageButton> {
   @override
   Widget build(BuildContext context) {
     var langText = {
-      'vi': 'Tiếng Việt',
+      //'vi': 'Tiếng Việt',
       'en': 'English (US)',
     };
     var langImage = {
-      'vi': 'assets/images/vi.png',
+      //'vi': 'assets/images/vi.png',
       'en': 'assets/images/en.png',
     };
     return SizedBox(

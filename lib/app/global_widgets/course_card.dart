@@ -49,6 +49,14 @@ class CourseCard extends StatelessWidget {
                                 image: course.photoUrl,
                                 width: 100,
                                 fit: BoxFit.fitWidth,
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                    'assets/images/ajent_logo.png',
+                                    width: 100,
+                                    fit: BoxFit.fitWidth,
+                                  );
+                                },
                               ),
                             ),
                             radius: 30.0,

@@ -24,8 +24,8 @@ class SplashPage extends StatelessWidget {
                     children: [
                       Container(
                         child: Image.asset("assets/images/ajent_logo.png"),
-                        width: 100,
-                        height: 100,
+                        width: 200,
+                        height: 200,
                       ),
                       Material(
                         color: Colors.transparent,
@@ -59,8 +59,8 @@ class SplashPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Obx(() => SizedBox(
-                        width: 40,
-                        height: 40,
+                        width: 100,
+                        height: 100,
                         child: (controller.isLoading.value)
                             ? CircularProgressIndicator()
                             : CircularProgressIndicator(

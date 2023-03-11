@@ -1,5 +1,5 @@
 
-# Ajent 
+# Tutor Time 
 
 An app bridges the Gap between Tutors and Learners ./
 
@@ -41,6 +41,20 @@ An app bridges the Gap between Tutors and Learners ./
 
 - Setup Firebase for project
 
+- Build the project the first time
+
+- Generate the fingerprint key
+
+  ```bash
+  cd android
+  .\gradlew signingReport
+
+  ```
+
+- Add generated key (SHA-1 or SHA-256) to your Firebase project
+
+- Enable Authentication (Google provider), Firestore, Storage and Cloud Messaging
+
 - Go to the project directory and run these commands:
 ```bash
   flutter pub get
@@ -54,9 +68,9 @@ An app bridges the Gap between Tutors and Learners ./
 ## Authors
 
 - [Dương Bình Trọng](https://www.github.com/princ3od)
-- [Phạm Đức Hoàng](https://www.github.com/Duc-Hoang-UIT)  
-- [Trần Đặng Hoàng Anh](https://github.com/TranDangHoangAnh)
-- [Nguyễn Văn Huấn](https://github.com/Yud-Bet)
+- [Dr. Fawaz A. Mereani](https://github.com/fmereani)  
+- [Toleen F. Mereani](https://github.com/fmereani)
+<!--- [Nguyễn Văn Huấn](https://github.com/Yud-Bet) -->
 
   
 ## Screenshots

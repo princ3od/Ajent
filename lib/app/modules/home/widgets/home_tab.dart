@@ -1,4 +1,3 @@
-import 'package:ajent/app/global_widgets/course_card.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/home/widgets/calendar_child_tab.dart';
 import 'package:ajent/app/modules/home/widgets/suggestion_child_tab.dart';
@@ -14,7 +13,7 @@ class HomeTab extends StatelessWidget {
       children: [
         SizedBox(height: 30),
         DefaultTabController(
-          initialIndex: 0,
+          initialIndex: controller.childTabIndex.value,
           length: 2,
           child: TabBar(
               onTap: controller.oncChildTabChanged,

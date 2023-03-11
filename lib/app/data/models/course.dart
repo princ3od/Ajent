@@ -88,7 +88,7 @@ class Course {
   String getTimeAsString() {
     String result = "";
     if (timeType == TimeType.fixedTime) {
-      var dateText = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+      var dateText = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       for (var i = 0; i < fixedTime.day.length; i++) {
         if (fixedTime.day[i]) {
           result += dateText[i];
@@ -160,7 +160,7 @@ class Course {
 
   String getReadablePrice() {
     if (price == null) price = 0;
-    return NumberFormat.currency(locale: "vi_VN", symbol: "vnd").format(price);
+    return NumberFormat.currency(locale: "vi_VN", symbol: "sar").format(price);
   }
 
   CourseStatus getCourseStatus() {
@@ -198,6 +198,24 @@ class Course {
       }
     } else {
       result = fixedTime.getTotalTime();
+    }
+    return result;
+  }
+
+  double getTutoredHours() {
+    double result = 0;
+    if (timeType == TimeType.periodTime) {
+      for (var period in periods) {
+        period.date = period.date.copyWith(
+          hour: period.lessonTime.startTime.hour,
+          minute: period.lessonTime.startTime.minute,
+        );
+        if (period.date.isBefore(DateTime.now())) {
+          result += period.lessonTime.getTotalTime();
+        }
+      }
+    } else {
+      result = fixedTime.getTutoredTime();
     }
     return result;
   }

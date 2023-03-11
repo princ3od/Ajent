@@ -125,8 +125,8 @@ class AuthController extends GetxController {
     isSendingOTP.value = true;
     if (txtPhoneNumber.text.startsWith("0"))
       txtPhoneNumber.text = txtPhoneNumber.text.substring(1);
-    if (!txtPhoneNumber.text.contains("+84"))
-      txtPhoneNumber.text = "+84" + txtPhoneNumber.text;
+    if (!txtPhoneNumber.text.contains("+966"))
+      txtPhoneNumber.text = "+966" + txtPhoneNumber.text;
     await AuthenticService.instance.verifyPhoneNumber(
       txtPhoneNumber.text,
       _onPhoneVerified,

@@ -60,16 +60,23 @@ class InvitationCourseCard extends StatelessWidget {
                                   child: CircleAvatar(
                                     child: ClipOval(
                                       child: FadeInImage.assetNetwork(
-                                        fadeInDuration:
-                                            Duration(milliseconds: 200),
-                                        fadeOutDuration:
-                                            Duration(milliseconds: 180),
-                                        placeholder:
-                                            'assets/images/ajent_logo.png',
-                                        image: course?.photoUrl ?? "",
-                                        width: 80,
-                                        fit: BoxFit.fitWidth,
-                                      ),
+                                          fadeInDuration:
+                                              Duration(milliseconds: 200),
+                                          fadeOutDuration:
+                                              Duration(milliseconds: 180),
+                                          placeholder:
+                                              'assets/images/ajent_logo.png',
+                                          image: course?.photoUrl ?? "",
+                                          width: 80,
+                                          fit: BoxFit.fitWidth,
+                                          imageErrorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Image.asset(
+                                              'assets/images/ajent_logo.png',
+                                              width: 80,
+                                              fit: BoxFit.fitWidth,
+                                            );
+                                          }),
                                     ),
                                     radius: 20,
                                   ),

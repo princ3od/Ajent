@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ajent">
+    package="com.famereani.tutor_time">
    <application
-        android:label="Ajent"
+        android:label="Tutor Time"
         android:icon="@mipmap/ic_launcher">
         <meta-data 
             android:name="com.google.firebase.messaging.default_notification_icon"

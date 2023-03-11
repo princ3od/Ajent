@@ -133,6 +133,9 @@ class MessageItem extends StatelessWidget {
                             image: message.content,
                             fadeInDuration: Duration(milliseconds: 300),
                             fadeOutDuration: Duration(milliseconds: 300),
+                            imageErrorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/images/no_img.png');
+                            },
                           ),
                         ),
                       ),

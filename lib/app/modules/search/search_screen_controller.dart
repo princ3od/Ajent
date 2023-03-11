@@ -113,13 +113,13 @@ class SearchController extends GetxController {
                           children: [
                             Text(
                                 NumberFormat.currency(
-                                        locale: "vi_VN", symbol: "vnd")
+                                        locale: "vi_VN", symbol: "sar")
                                     .format(priceValues.value.start),
                                 style: GoogleFonts.nunitoSans(
                                     fontSize: 12, color: Colors.grey)),
                             Text(
                               NumberFormat.currency(
-                                      locale: "vi_VN", symbol: "vnd")
+                                      locale: "vi_VN", symbol: "sar")
                                   .format(priceValues.value.end),
                               style: GoogleFonts.nunitoSans(
                                   fontSize: 12, color: Colors.grey),
@@ -135,10 +135,10 @@ class SearchController extends GetxController {
                               inactiveColor: Colors.grey,
                               labels: RangeLabels(
                                   NumberFormat.currency(
-                                          locale: "vi_VN", symbol: "vnd")
+                                          locale: "vi_VN", symbol: "sar")
                                       .format(priceValues.value.start),
                                   NumberFormat.currency(
-                                          locale: "vi_VN", symbol: "vnd")
+                                          locale: "vi_VN", symbol: "sar")
                                       .format(priceValues.value.end)),
                               divisions: 500,
                               max: 50000000,

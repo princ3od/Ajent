@@ -72,7 +72,7 @@ class NotificationService implements CollectionInterface {
   }
 
   Future<Response> notifyJoinCourse(Course course, AjentUser joiner) async {
-    String _body = "${joiner.name} vừa tham gia khoá học ${course.name}.";
+    String _body = "${joiner.name} Just took the course ${course.name}.";
     Map<String, dynamic> _data = {
       'action': 'openCourse',
       'courseId': '${course.id}',
@@ -90,7 +90,7 @@ class NotificationService implements CollectionInterface {
     data.receivers.remove(joiner.uid);
     await storeNotication(data);
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-public",
         image: course.photoUrl,
@@ -98,7 +98,7 @@ class NotificationService implements CollectionInterface {
   }
 
   Future<Response> notifyLeaveCourse(Course course, AjentUser joiner) async {
-    String _body = "${joiner.name} vừa rời khỏi khoá học ${course.name}.";
+    String _body = "${joiner.name} just left the course ${course.name}.";
     Map<String, dynamic> _data = {
       'action': 'openCourse',
       'courseId': '${course.id}',
@@ -116,7 +116,7 @@ class NotificationService implements CollectionInterface {
     data.receivers.remove(joiner.uid);
     await storeNotication(data);
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-public",
         image: course.photoUrl,
@@ -126,7 +126,7 @@ class NotificationService implements CollectionInterface {
   Future<Response> notifyRequestCourse(
       Course course, AjentUser requestor) async {
     String _body =
-        "${requestor.name} vừa ứng tuyển trờ thành giảng viên của khoá học ${course.name}.";
+        "${requestor.name} Just applied to become a lecturer of the course ${course.name}.";
     Map<String, dynamic> _data = {
       'action': 'openTheirRequest',
       'courseId': '${course.id}',
@@ -141,7 +141,7 @@ class NotificationService implements CollectionInterface {
     data.receivers.remove(requestor.uid);
     await storeNotication(data);
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-request",
         image: requestor.avatarUrl,
@@ -151,7 +151,7 @@ class NotificationService implements CollectionInterface {
   Future<Response> notifyApproveCourse(
       Course course, AjentRequest.Request request) async {
     String _body =
-        "Chúc mừng! Bạn vừa trờ thành giảng viên của khoá học ${course.name}. 🥳";
+        "Congratulations! You have just become a teacher of the course ${course.name}. 🥳";
     Map<String, dynamic> _data = {
       'action': 'openCourse',
       'courseId': '${course.id}',
@@ -165,12 +165,12 @@ class NotificationService implements CollectionInterface {
       ..imageUrl = course.photoUrl;
     await storeNotication(data);
     await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-request-${request.id}",
         image: course.photoUrl,
         data: _data);
-    _body = "Khoá học ${course.name} đã có giáo viên.";
+    _body = "Courses ${course.name} already have a teacher.";
     data = NotificationModel()
       ..action = NotificationAction.openCourse
       ..content = _body
@@ -180,7 +180,7 @@ class NotificationService implements CollectionInterface {
       ..imageUrl = course.photoUrl;
     await storeNotication(data);
     return _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-public",
         image: course.photoUrl,
@@ -190,7 +190,7 @@ class NotificationService implements CollectionInterface {
   Future<Response> notifyDenyRequest(
       Course course, AjentRequest.Request request) async {
     String _body =
-        "Yêu cầu ứng tuyển giảng dạy khoá học ${course.name} của bạn đã bị từ chối. 😥";
+        "Requirements to apply to teach the course ${course.name} Yours has been rejected. 😥";
     Map<String, dynamic> _data = {
       'action': 'openMyRequest',
       'courseId': '${course.id}',
@@ -204,7 +204,7 @@ class NotificationService implements CollectionInterface {
       ..imageUrl = course.photoUrl;
     await storeNotication(data);
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-request-${request.id}",
         image: course.photoUrl,
@@ -214,13 +214,13 @@ class NotificationService implements CollectionInterface {
   Future<Response> notifyCancelRequest(
       Course course, AjentUser requestor) async {
     String _body =
-        "${requestor.name} đã huỷ ứng tuyển giảng dạy khoá học ${course.name}.";
+        "${requestor.name} Canceled the application to teach the course ${course.name}.";
     Map<String, dynamic> _data = {
       'action': 'openTheirRequest',
       'courseId': '${course.id}',
     };
     return await _sendToTopic(
-        title: "Ajent",
+        title: "Tutor Time",
         body: _body,
         topic: "${course.id}-request",
         image: requestor.avatarUrl,
@@ -272,7 +272,7 @@ class NotificationService implements CollectionInterface {
             'body': '$body',
             'title': '$title',
             'icon': 'ic_stat_ajent',
-            'color': '#e74b32',
+            'color': '#619FCD',
           },
           'priority': 'high',
           'data': data,

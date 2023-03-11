@@ -16,7 +16,7 @@ class RatingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Đánh giá",
+          "Evaluation",
           style: GoogleFonts.nunitoSans(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 14),
         ),
@@ -47,6 +47,13 @@ class RatingPage extends StatelessWidget {
                     image: course.photoUrl,
                     width: 100,
                     fit: BoxFit.fitWidth,
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/ajent_logo.png',
+                        width: 100,
+                        fit: BoxFit.fitWidth,
+                      );
+                    },
                   ),
                 ),
                 radius: 50.0,
@@ -98,12 +105,12 @@ class RatingPage extends StatelessWidget {
                 maxLength: 200,
                 controller: controller.contentController,
                 decoration: InputDecoration(
-                  labelText: "Đánh giá",
+                  labelText: "Evaluate",
                   labelStyle: GoogleFonts.nunitoSans(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
                       color: Colors.black),
-                  hintText: "Hãy để lại phần đánh giá",
+                  hintText: "Please leave a review",
                   hintStyle: GoogleFonts.nunitoSans(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
@@ -135,7 +142,7 @@ class RatingPage extends StatelessWidget {
                                       Colors.white),
                                 ),
                               )
-                            : Text("Đăng tải đánh giá",
+                            : Text("Post a review",
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700, fontSize: 14)),
                         onPressed: () => controller.postEvaluation(course.id),

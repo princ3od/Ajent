@@ -19,7 +19,7 @@ class MyButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(90),
         ),
         onPrimary: Colors.black,
-        primary: Colors.deepOrange,
+        primary: Color.fromRGBO(97, 159, 205, 1),
       ),
       onPressed: onPressed,
       icon: icon,
