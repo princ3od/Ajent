@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../resources/resources_tab.dart';
 import 'widgets/home_tab.dart';
 import 'widgets/side_menu.dart';
 import '../learning/learning_tab.dart';
 import '../teaching/teaching_tab.dart';
-import '../notification/notification_tab.dart';
 
 class HomePage extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
@@ -55,12 +55,9 @@ class HomePage extends StatelessWidget {
                 activeIcon: Icon(Icons.history_edu_rounded),
               ),
               BottomNavigationBarItem(
-                label: "Notifications".tr,
-                icon: (controller.newNotification.value)
-                    ? Icon(Icons.notifications_active_rounded,
-                        color: primaryColor)
-                    : Icon(Icons.notifications_outlined),
-                activeIcon: Icon(Icons.notifications_rounded),
+                label: "Resources".tr,
+                icon: Icon(Icons.inventory_2_outlined),
+                activeIcon: Icon(Icons.inventory_2_rounded),
               ),
             ],
           )),
@@ -93,6 +90,22 @@ class HomePage extends StatelessWidget {
           ),
         ),
         actions: [
+          IconButton(
+            icon: (controller.newNotification.value)
+                ? Icon(
+                    Icons.notifications_active_rounded,
+                    color: Colors.black,
+                    size: 28,
+                  )
+                : Icon(
+                    Icons.notifications_outlined,
+                    color: Colors.black,
+                    size: 28,
+                  ),
+            onPressed: () {
+              Get.toNamed(Routes.notifications);
+            },
+          ),
           Stack(
             children: [
               Center(
@@ -150,7 +163,7 @@ class HomePage extends StatelessWidget {
               HomeTab(),
               LearningTab(),
               TeachingTab(),
-              NotificationTab(),
+              ResoucesTab(),
             ],
           ),
         ),

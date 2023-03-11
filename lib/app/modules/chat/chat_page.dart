@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/values/colors.dart';
 import 'chat_controller.dart';
 
 class ChatPage extends StatelessWidget {
@@ -16,7 +17,7 @@ class ChatPage extends StatelessWidget {
     final ChatController controller = Get.put(ChatController(partner));
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: primaryColor,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,

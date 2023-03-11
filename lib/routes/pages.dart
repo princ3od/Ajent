@@ -1,3 +1,4 @@
+import 'package:ajent/app/modules/notification/notification_tab.dart';
 import 'package:ajent/app/modules/regulations_and_policies/regulations_and_policies_page.dart';
 import 'package:ajent/app/modules/about/about_page.dart';
 import 'package:ajent/app/modules/add_course/add_course_page.dart';
@@ -17,6 +18,7 @@ import 'package:ajent/app/modules/profile_view/profile_view_page.dart';
 import 'package:ajent/app/modules/rating/rating_page.dart';
 import 'package:ajent/app/modules/ratings_view/ratings_view_page.dart';
 import 'package:ajent/app/modules/request/request_page.dart';
+import 'package:ajent/app/modules/resources/resouces_upload_page.dart';
 import 'package:ajent/app/modules/search/search_screen.dart';
 import 'package:ajent/app/modules/settings/setting_page.dart';
 import 'package:ajent/app/modules/splash/splash_binding.dart';
@@ -75,5 +77,7 @@ abstract class AppPages {
     GetPage(name: Routes.ONBOARDINTRO, page: () => OnboardIntroPage()),
     GetPage(name: Routes.ABOUT, page: () => AboutPage()),
     GetPage(name: Routes.EDIT_COURSE, page: () => EditCoursePage()),
+    GetPage(name: Routes.notifications, page: () => NotificationTab()),
+    GetPage(name: Routes.resourcesUpload, page: () => ResourcesUploadPage()),
   ];
 }

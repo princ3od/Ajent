@@ -23,4 +23,6 @@ abstract class Routes {
   static const ONBOARDINTRO = '/onboard_intro';
   static const ABOUT = '/about';
   static const EDIT_COURSE = '/edit_course';
+  static const notifications = '/notifications';
+  static const resourcesUpload = '/resources_upload';
 }
