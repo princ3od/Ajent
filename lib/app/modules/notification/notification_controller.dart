@@ -3,7 +3,6 @@ import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/notification_model.dart';
 import 'package:ajent/app/data/services/course_service.dart';
 import 'package:ajent/app/data/services/notification_service.dart';
-import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
 import 'package:ajent/app/modules/request/request_controller.dart';
 import 'package:ajent/routes/pages.dart';
