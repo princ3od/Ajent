@@ -15,6 +15,9 @@ class ResourceService implements CollectionInterface {
   Future<Resource> createResouce(Resource resource) async {
     DocumentReference documentReference =
         await database.collection(collectionName).add(resource.toJson());
+    await database.collection("users").doc(resource.owner).update({
+      "uploadedResourceCount": FieldValue.increment(1),
+    });
     return resource.copyWith(id: documentReference.id);
   }
 

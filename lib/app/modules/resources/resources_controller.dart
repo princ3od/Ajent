@@ -65,6 +65,8 @@ class ResoucesController extends GetxController {
       type: file.path.split('.').last,
     );
     final result = await ResourceService.instance.createResouce(resource);
+    Get.find<HomeController>().uploadedCount.value++;
+    Get.find<HomeController>().totalTutoringHours.value++;
     resouces.insert(0, result);
     isUploading.value = false;
     Navigator.maybePop(context);
