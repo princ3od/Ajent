@@ -94,9 +94,9 @@ class AuthenticService {
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        print("lỗi 1");
+        print("error 1");
       } else if (e.code == 'invalid-credential') {
-        print("lỗi 2");
+        print("error 2");
       }
     } catch (e) {}
 

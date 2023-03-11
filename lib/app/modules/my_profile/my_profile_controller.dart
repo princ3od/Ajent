@@ -167,7 +167,7 @@ class MyProfileController extends GetxController {
       Get.snackbar("Success".tr, "Infomation updated".tr);
     } else {
       print("updating infor failed!");
-      Get.snackbar("Lỗi", "Cập nhật thất bại, vui lòng thử lại sau!");
+      Get.snackbar("Error", "Update failed, please try again later!");
     }
     isUpdatingInfo.value = false;
     return success;

@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=C:\Development\Pro\flutter"
-export "FLUTTER_APPLICATION_PATH=D:\Finals\Ajent-refactor-maintain-03-2023"
+export "FLUTTER_APPLICATION_PATH=D:\Finals\Tutor-Time"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"
