@@ -88,7 +88,7 @@ class CourseOverall extends StatelessWidget {
                         style: titleStyle,
                       ),
                       Text(
-                        NumberFormat.currency(locale: "vi_VN", symbol: "sar")
+                        NumberFormat.currency(locale: "vi_VN", symbol: "SAR")
                             .format(course?.price ?? 0),
                         style: contentStyle,
                       ),

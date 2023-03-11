@@ -29,7 +29,7 @@ class _StudyCalendarEventCardState extends State<StudyCalendarEventCard> {
       padding: const EdgeInsets.all(10.0),
       child: Card(
           elevation: 0,
-          color: Color.fromARGB(255, 246, 245, 244),
+          color: Color.fromARGB(255, 97, 159, 205),
           child: Container(
               child: Row(
             children: [

@@ -16,7 +16,7 @@ class TeachingCalendarEventCard extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: Card(
           elevation: 0,
-          color: Color.fromARGB(255, 244, 225, 221),
+          color: Color.fromARGB(255, 97, 159, 205),
           child: Container(
               child: Row(
             children: [
@@ -52,7 +52,7 @@ class TeachingCalendarEventCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700,
-                                    color: Color.fromARGB(255, 180, 156, 156))),
+                                    color: Color.fromARGB(255, 255, 255, 255))),
                           )
                         ],
                       ),
@@ -67,7 +67,7 @@ class TeachingCalendarEventCard extends StatelessWidget {
                                 maxLines: 3,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w900,
-                                    color: Colors.black,
+                                    color: Color.fromARGB(255, 22, 81, 190),
                                     fontSize: 16)),
                           )
                         ],
@@ -84,7 +84,7 @@ class TeachingCalendarEventCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700,
-                                    color: Color.fromARGB(255, 180, 156, 156))),
+                                    color: Color.fromARGB(255, 248, 244, 244))),
                           )
                         ],
                       ),
@@ -98,7 +98,7 @@ class TeachingCalendarEventCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.w700,
-                                    color: Color.fromARGB(255, 180, 156, 156))),
+                                    color: Color.fromARGB(255, 252, 252, 252))),
                           )
                         ],
                       ),

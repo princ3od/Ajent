@@ -14,7 +14,7 @@ class SearchController extends GetxController {
   bool loadMore = true;
   var fixedTimeFilter = true.obs;
   var flexibleTimeFilter = true.obs;
-  var priceValues = RangeValues(100000, 50000000).obs;
+  var priceValues = RangeValues(0, 10000).obs;
   Stream<QuerySnapshot> result;
   List<String> options = [
     "No teacher".tr,
@@ -113,13 +113,13 @@ class SearchController extends GetxController {
                           children: [
                             Text(
                                 NumberFormat.currency(
-                                        locale: "vi_VN", symbol: "sar")
+                                        locale: "vi_VN", symbol: "SAR")
                                     .format(priceValues.value.start),
                                 style: GoogleFonts.nunitoSans(
                                     fontSize: 12, color: Colors.grey)),
                             Text(
                               NumberFormat.currency(
-                                      locale: "vi_VN", symbol: "sar")
+                                      locale: "vi_VN", symbol: "SAR")
                                   .format(priceValues.value.end),
                               style: GoogleFonts.nunitoSans(
                                   fontSize: 12, color: Colors.grey),
@@ -135,10 +135,10 @@ class SearchController extends GetxController {
                               inactiveColor: Colors.grey,
                               labels: RangeLabels(
                                   NumberFormat.currency(
-                                          locale: "vi_VN", symbol: "sar")
+                                          locale: "vi_VN", symbol: "SAR")
                                       .format(priceValues.value.start),
                                   NumberFormat.currency(
-                                          locale: "vi_VN", symbol: "sar")
+                                          locale: "vi_VN", symbol: "SAR")
                                       .format(priceValues.value.end)),
                               divisions: 500,
                               max: 50000000,
