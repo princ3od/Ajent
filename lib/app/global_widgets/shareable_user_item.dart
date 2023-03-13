@@ -1,5 +1,6 @@
 import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
+import 'package:ajent/app/data/models/message.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/chat/chat_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
@@ -9,11 +10,13 @@ import 'package:get/get.dart';
 
 class ShareableUserItem extends StatefulWidget {
   final AjentUser user;
-  final Course course;
+  final String attachmentId;
+  final MessageType type;
   const ShareableUserItem({
     Key key,
     @required this.user,
-    @required this.course,
+    @required this.attachmentId,
+    this.type = MessageType.invitation,
   }) : super(key: key);
 
   @override
@@ -42,13 +45,14 @@ class _ShareableUserItemState extends State<ShareableUserItem> {
           setState(() {
             isSharing = true;
           });
-          print('start share');
-          var m =
-              ChatController.sendInvitation(widget.course.id, widget.user.uid);
-          print('end');
+          var m = ChatController.sendInvitation(
+            widget.attachmentId,
+            widget.user.uid,
+            type: widget.type,
+          );
           Get.snackbar("Send successfully".tr,
-              "This course has been sent to".tr+ " ${widget.user.name}",
-              snackPosition: SnackPosition.BOTTOM);
+              "This attachment has been sent to".tr + " ${widget.user.name}",
+              snackPosition: SnackPosition.TOP);
           setState(() {
             isSharing = false;
             isShared = (m != null);

@@ -8,6 +8,7 @@ import 'package:ajent/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:thumbnailer/thumbnailer.dart';
 
@@ -64,12 +65,18 @@ class ResoucesTab extends StatelessWidget {
                               horizontalTitleGap: 12,
                               onTap: () {
                                 if (resource.fileType == 'pdf') {
-                                  Get.to(() => PdfFullPage(resource: resource));
+                                  Get.to(() => CupertinoScaffold(
+                                        body: PdfFullPage(resource: resource),
+                                      ));
                                 } else {
                                   Get.to(
-                                    () => FullImageScreen(
-                                      imageURL: resource.url,
-                                      name: resource.name,
+                                    () => CupertinoScaffold(
+                                      body: FullImageScreen(
+                                        imageURL: resource.url,
+                                        name: resource.name,
+                                        showShareButton: true,
+                                        resource: resource,
+                                      ),
                                     ),
                                   );
                                 }

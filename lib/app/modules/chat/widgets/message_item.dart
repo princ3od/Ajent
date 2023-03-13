@@ -2,6 +2,7 @@ import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/message.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
 import 'package:ajent/app/modules/chat/widgets/invitation_course_card.dart';
+import 'package:ajent/app/modules/chat/widgets/resource_card.dart';
 import 'package:ajent/core/utils/date_converter.dart';
 import 'package:ajent/core/values/colors.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,98 @@ class MessageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (message.type) {
+      case MessageType.image:
+        return Column(
+          children: [
+            (showTime)
+                ? buildTimeText(message.timeStamp)
+                : Container(height: 0),
+            SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: (fromPartner)
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.end,
+              children: [
+                if (fromPartner) UserAvatar(user: partner, size: 18),
+                SizedBox(
+                  width: 5,
+                ),
+                Flexible(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                        maxWidth: Get.width / 2 - 20,
+                        maxHeight: Get.height / 2 - 40,
+                        minHeight: 50,
+                        minWidth: 100),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => FullImageScreen(
+                              imageURL: message.content,
+                              name: partner.name,
+                            ));
+                      },
+                      child: Hero(
+                        tag: message.content,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(18.0),
+                          child: FadeInImage.assetNetwork(
+                            placeholder: 'assets/images/no_img.png',
+                            image: message.content,
+                            fadeInDuration: Duration(milliseconds: 300),
+                            fadeOutDuration: Duration(milliseconds: 300),
+                            imageErrorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/images/no_img.png');
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+        break;
+      case MessageType.invitation:
+      case MessageType.resource:
+        return Column(
+          children: [
+            (showTime)
+                ? buildTimeText(message.timeStamp)
+                : Container(height: 0),
+            SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: (fromPartner)
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.end,
+              children: [
+                if (showAvatar && fromPartner)
+                  UserAvatar(user: partner, size: 18)
+                else if (fromPartner)
+                  SizedBox(
+                    height: 18,
+                    width: 35,
+                  ),
+                Flexible(
+                  child: (message.type == MessageType.invitation)
+                      ? InvitationCourseCard(
+                          courseId: message.content,
+                        )
+                      : ResourceCard(
+                          resourceId: message.content,
+                        ),
+                ),
+              ],
+            ),
+          ],
+        );
+        break;
+
       case MessageType.text:
+      default:
         {
           if (!fromPartner) {
             return Column(
@@ -91,94 +183,7 @@ class MessageItem extends StatelessWidget {
               ],
             );
           }
-          break;
         }
-      case MessageType.image:
-        return Column(
-          children: [
-            (showTime)
-                ? buildTimeText(message.timeStamp)
-                : Container(height: 0),
-            SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: (fromPartner)
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.end,
-              children: [
-                if (fromPartner) UserAvatar(user: partner, size: 18),
-                SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxWidth: Get.width / 2 - 20,
-                        maxHeight: Get.height / 2 - 40,
-                        minHeight: 50,
-                        minWidth: 100),
-                    child: InkWell(
-                      onTap: () {
-                        Get.to(() => FullImageScreen(
-                              imageURL: message.content,
-                              name: partner.name,
-                            ));
-                      },
-                      child: Hero(
-                        tag: message.content,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(18.0),
-                          child: FadeInImage.assetNetwork(
-                            placeholder: 'assets/images/no_img.png',
-                            image: message.content,
-                            fadeInDuration: Duration(milliseconds: 300),
-                            fadeOutDuration: Duration(milliseconds: 300),
-                            imageErrorBuilder: (context, error, stackTrace) {
-                              return Image.asset('assets/images/no_img.png');
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        );
-        break;
-      case MessageType.invitation:
-        return Column(
-          children: [
-            (showTime)
-                ? buildTimeText(message.timeStamp)
-                : Container(height: 0),
-            SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: (fromPartner)
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.end,
-              children: [
-                if (showAvatar && fromPartner)
-                  UserAvatar(user: partner, size: 18)
-                else if (fromPartner)
-                  SizedBox(
-                    height: 18,
-                    width: 35,
-                  ),
-                Flexible(
-                  child: InvitationCourseCard(
-                    courseId: message.content,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        );
-        break;
-      default:
-        return Container();
     }
   }
 

@@ -57,6 +57,8 @@ class EnumConverter {
         return "image";
       case MessageType.invitation:
         return "invitation";
+      case MessageType.resource:
+        return "resource";
       default:
         return "text";
     }
@@ -64,12 +66,13 @@ class EnumConverter {
 
   static MessageType stringToMessageType(String data) {
     switch (data) {
-      case "text":
-        return MessageType.text;
+      case "resource":
+        return MessageType.resource;
       case "image":
         return MessageType.image;
       case "invitation":
         return MessageType.invitation;
+      case "text":
       default:
         return MessageType.text;
     }

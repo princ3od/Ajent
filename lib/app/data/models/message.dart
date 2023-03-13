@@ -31,4 +31,5 @@ enum MessageType {
   text,
   image,
   invitation,
+  resource,
 }
