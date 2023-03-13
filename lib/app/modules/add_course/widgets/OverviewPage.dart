@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:ajent/app/modules/add_course/add_course_controller.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/values/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +9,9 @@ import 'package:textfield_tags/textfield_tags.dart';
 
 class OverviewPage extends StatelessWidget {
   OverviewPage({Key key}) : super(key: key);
-  final AddCourseController controller = Get.put(AddCourseController(Get.arguments));
+  final AddCourseController controller =
+      Get.put(AddCourseController(Get.arguments));
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -30,15 +31,15 @@ class OverviewPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Obx(
-                                () => (controller.imagePath.isEmpty)
+                            () => (controller.imagePath.isEmpty)
                                 ? Image(
-                              image: AssetImage(
-                                  'assets/images/no_img.png'),
-                            )
+                                    image:
+                                        AssetImage('assets/images/no_img.png'),
+                                  )
                                 : Image.file(
-                              File(controller.imagePath.value),
-                              fit: BoxFit.cover,
-                            ),
+                                    File(controller.imagePath.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -95,48 +96,78 @@ class OverviewPage extends StatelessWidget {
                 height: 10,
               ),
               TextFieldTags(
-                tagsStyler: TagsStyler(
-                  showHashtag: true,
-                  tagMargin: const EdgeInsets.only(right: 4.0),
-                  tagCancelIcon:
-                  Icon(Icons.cancel, size: 15.0, color: Colors.white),
-                  tagCancelIconPadding: EdgeInsets.only(left: 4.0, top: 2.0),
-                  tagPadding:
-                  EdgeInsets.only(top: 2.0, bottom: 4.0, left: 8.0, right: 4.0),
-                  tagDecoration: BoxDecoration(
-                    color: primaryColor,
-                    border: Border.all(
-                      color: Colors.white,
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20.0),
-                    ),
-                  ),
-                  tagTextStyle:
-                  TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
-                ),
-                textFieldStyler: TextFieldStyler(
-                  helperText: null,
-                  hintText: "Tags",
-                  textStyle: GoogleFonts.nunitoSans(),
-                  isDense: false,
-                  textFieldBorder: null,
-                  textFieldFocusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: primaryColor, width: 1.0),
-                  ),
-                ),
-                onDelete: (tag) {
-                  controller.subjects.remove(tag);
-                  print(controller.subjects);
-                },
-                onTag: (tag) {
-                  controller.subjects.add(tag);
-                },
+                textfieldTagsController: controller.tagsController,
                 validator: (String tag) {
                   if (tag.length > 10) {
                     return "too_long_tag_warning".tr;
                   }
                   return null;
+                },
+                textSeparators: const [','],
+                inputfieldBuilder: (context, txtController, focusNode, error,
+                    onChanged, onSubmitted) {
+                  return ((context, scrollController, tags, onTagDelete) {
+                    return TextField(
+                      controller: txtController,
+                      focusNode: focusNode,
+                      decoration: InputDecoration(
+                        helperText: "Tags should be separated by commas".tr,
+                        hintText: tags.isEmpty ? "Tags".tr : "",
+                        errorText: error,
+                        prefixIcon: tags.isNotEmpty
+                            ? SingleChildScrollView(
+                                controller: scrollController,
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                    children: tags.map((String tag) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20.0),
+                                      ),
+                                      color: primaryColor,
+                                    ),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0, vertical: 5.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          child: Text(
+                                            '#$tag',
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                          onTap: () {
+                                            print("$tag selected");
+                                          },
+                                        ),
+                                        const SizedBox(width: 4.0),
+                                        InkWell(
+                                          child: const Icon(
+                                            Icons.cancel,
+                                            size: 14.0,
+                                            color: Color.fromARGB(
+                                                255, 233, 233, 233),
+                                          ),
+                                          onTap: () {
+                                            onTagDelete(tag);
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }).toList()),
+                              )
+                            : null,
+                      ),
+                      onChanged: onChanged,
+                      onSubmitted: onSubmitted,
+                    );
+                  });
                 },
               ),
             ],

@@ -150,21 +150,21 @@ class HomeController extends GetxController {
   }
 
   static checkUserUpdateInfo() {
-    if (!HomeController.mainUser.isInfoUpdated()) {
-      print("cc");
-      Get.dialog(AlertDialog(
-        title: Text('update_info_dialog_title'.tr),
-        content: Text('update_info_dialog_content'.tr),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Get.back();
-                Get.toNamed(Routes.PROFILE);
-              },
-              child: Text('update_info_dialog_button'.tr)),
-        ],
-      ));
-    }
+    // if (!HomeController.mainUser.isInfoUpdated()) {
+    //   print("cc");
+    //   Get.dialog(AlertDialog(
+    //     title: Text('update_info_dialog_title'.tr),
+    //     content: Text('update_info_dialog_content'.tr),
+    //     actions: [
+    //       TextButton(
+    //           onPressed: () {
+    //             // Get.back();
+    //             Get.toNamed(Routes.PROFILE);
+    //           },
+    //           child: Text('update_info_dialog_button'.tr)),
+    //     ],
+    //   ));
+    // }
   }
 }
 

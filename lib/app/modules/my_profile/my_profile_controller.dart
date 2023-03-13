@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ajent/core/utils/file_utils.dart';
+import 'package:textfield_tags/textfield_tags.dart';
 
 class MyProfileController extends GetxController {
   var tabIndex = 0.obs;
@@ -25,6 +26,7 @@ class MyProfileController extends GetxController {
   TextEditingController txtPhone = TextEditingController();
   TextEditingController txtMajor = TextEditingController();
   TextEditingController txtBio = TextEditingController();
+  TextfieldTagsController tagsController = TextfieldTagsController();
 
   TextEditingController txtTitle;
   TextEditingController txtDescription;
@@ -159,6 +161,7 @@ class MyProfileController extends GetxController {
     ajentUser.phone = txtPhone.text;
     ajentUser.educationLevel = dropdownValue.value;
     ajentUser.bio = txtBio.text;
+    ajentUser.major = tagsController.getTags.join(",");
     bool success = await this.userService.updateInfo(ajentUser);
     if (success) {
       Get.snackbar("Success".tr, "Infomation updated".tr);
@@ -366,16 +369,6 @@ class MyProfileController extends GetxController {
         );
       },
     );
-  }
-
-  List<String> createTags() {
-    List<String> tags = [];
-    var container = HomeController.mainUser.major.split(" ");
-    container.forEach((item) {
-      tags.add(item.replaceAll(new RegExp(r"\s+\b|\b\s"), ""));
-    });
-    tags.removeWhere((element) => (element == "" || element == " "));
-    return tags;
   }
 
   void resetDegreeBottomSheet() {
