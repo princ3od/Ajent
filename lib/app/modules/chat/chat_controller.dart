@@ -140,8 +140,8 @@ class ChatController extends GetxController {
     }
   }
 
-  static Future<Message> sendInvitation(
-      String courseId, String partnerUid) async {
+  static Future<Message> sendInvitation(String attachmentId, String partnerUid,
+      {MessageType type = MessageType.invitation}) async {
     ChatGroup chatGroup = await ChatGroupService.instance
         .getChatGroup(HomeController.mainUser.uid, partnerUid);
     if (chatGroup == null) {
@@ -153,11 +153,11 @@ class ChatController extends GetxController {
       }
     }
     Message message = Message()
-      ..content = courseId
+      ..content = attachmentId
       ..groupID = chatGroup.id
       ..senderUid = HomeController.mainUser.uid
       ..timeStamp = DateTime.now().millisecondsSinceEpoch
-      ..type = MessageType.invitation;
+      ..type = type;
     message = await MessageService.instance.sendMessage(message);
     if (message != null) {
       await NotificationService.instance.notifyNewMessage(

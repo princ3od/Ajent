@@ -4,8 +4,6 @@ import 'package:ajent/app/data/models/ajent_user.dart';
 import 'package:ajent/app/data/models/course.dart';
 import 'package:ajent/app/data/models/notification_model.dart';
 import 'package:ajent/app/data/services/collection_interface.dart';
-import 'package:ajent/app/data/services/course_service.dart';
-import 'package:ajent/core/utils/enum_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +18,7 @@ class NotificationService implements CollectionInterface {
   final Client _client = Client();
 
   final String _serverKey =
-      'AAAA2KfeVtQ:APA91bHaLAeRw6vYkdSMuuXiLvbWdx0nAwWlYjTeljDi-sBSZbJjM_iwDouVsGC5lFtwJht6Bwzhe3z8C5hizNy_-yEyBlJJBaDYe4AmsIcA88AO6T0xK8jKcvw2Kuzvc-uAlM3uF4FZ';
-
+      'AAAAdIYYLh4:APA91bGjoIIJiTnwlpM1qhuoGAW_nyLuzsssHi9aIHWcszTPXpDylHOR2MU6wkqSIm9-z9dpbEnqXviT9gB5VyqI2SP-8U7gNmL7eRgBRhAcxSt-x8iiCb_VXp4JEKPXjcJn63-2ZSCo';
   onNotificationOpenApp(Function(RemoteMessage) func) {
     FirebaseMessaging.onMessageOpenedApp.listen(func);
   }

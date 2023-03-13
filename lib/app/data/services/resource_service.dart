@@ -32,4 +32,11 @@ class ResourceService implements CollectionInterface {
         .map((e) => Resource.fromJson(e.id, e.data()))
         .toList();
   }
+
+  Future<Resource> getResourceById(String id) async {
+    DocumentSnapshot documentSnapshot =
+        await database.collection(collectionName).doc(id).get();
+    if (!documentSnapshot.exists) return null;
+    return Resource.fromJson(documentSnapshot.id, documentSnapshot.data());
+  }
 }

@@ -62,6 +62,7 @@ dependencies:
   file_picker: ^5.2.5
   pdf_render: ^1.3.8
   path_provider: ^2.0.13
+  modal_bottom_sheet: ^3.0.0-pre
 
 dev_dependencies:
   change_app_package_name: ^1.1.0

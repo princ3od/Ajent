@@ -20,6 +20,7 @@ class UserAvatar extends StatelessWidget {
         child: FadeInImage.assetNetwork(
           fadeInDuration: Duration(milliseconds: 200),
           fadeOutDuration: Duration(milliseconds: 180),
+          imageErrorBuilder: (context, error, stackTrace) => Container(),
           placeholder: (this.user.gender == Gender.male)
               ? "assets/images/default_avatar_male.png"
               : "assets/images/default_avatar_female.png",

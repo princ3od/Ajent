@@ -47,21 +47,30 @@ class ChatGroupItem extends StatelessWidget {
   Widget lastMessage(Message message) {
     String txt = "";
 
-    if (message.type == MessageType.text) {
-      if (message.senderUid == HomeController.mainUser.uid) {
-        txt += "You: ".tr;
-      }
-      txt += message.content;
-    } else if (message.type == MessageType.image) {
-      if (message.senderUid == HomeController.mainUser.uid) {
-        txt += "You sent an image".tr;
-      } else
-        txt += "${chatGroup.partner.name} " + "sent an image".tr;
-    } else {
-      if (message.senderUid == HomeController.mainUser.uid) {
-        txt += "You sent a course".tr;
-      } else
-        txt += "${chatGroup.partner.name} " + "sent a course".tr;
+    switch (message.type) {
+      case MessageType.image:
+        if (message.senderUid == HomeController.mainUser.uid) {
+          txt += "You sent an image".tr;
+        } else
+          txt += "${chatGroup.partner.name} " + "sent an image".tr;
+        break;
+      case MessageType.resource:
+      case MessageType.invitation:
+        final attachmentName =
+            message.type == MessageType.resource ? "resource".tr : "course".tr;
+        if (message.senderUid == HomeController.mainUser.uid) {
+          txt += "You sent a $attachmentName".tr;
+        } else
+          txt += "${chatGroup.partner.name} " + "sent a $attachmentName".tr;
+
+        break;
+      case MessageType.text:
+      default:
+        if (message.senderUid == HomeController.mainUser.uid) {
+          txt += "You: ".tr;
+        }
+        txt += message.content;
+        break;
     }
     return Row(
       children: [

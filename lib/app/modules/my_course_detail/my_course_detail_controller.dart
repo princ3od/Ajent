@@ -7,9 +7,8 @@ import 'package:ajent/app/data/services/request_service.dart';
 import 'package:ajent/app/data/services/subscribe_service.dart';
 import 'package:ajent/app/data/services/user_service.dart';
 import 'package:ajent/app/global_widgets/user_avatar.dart';
-import 'package:ajent/app/modules/chat/chat_controller.dart';
 import 'package:ajent/app/modules/home/home_controller.dart';
-import 'package:ajent/app/modules/my_course_detail/widgets/shareable_user_item.dart';
+import 'package:ajent/app/global_widgets/shareable_user_item.dart';
 import 'package:ajent/app/modules/ratings_view/widgets/a_rating_card.dart';
 import 'package:ajent/core/themes/widget_theme.dart';
 import 'package:ajent/core/utils/date_converter.dart';
@@ -262,7 +261,7 @@ class MyCourseDetailController extends GetxController {
                                     .unfocus(),
                                 child: ShareableUserItem(
                                   user: user,
-                                  course: course.value,
+                                  attachmentId: course.value.id,
                                 ));
                           },
                         );
@@ -291,99 +290,101 @@ class MyCourseDetailController extends GetxController {
       )),
       context: context,
       builder: (context) {
-        return Container(
-          height: Get.height * 0.25,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 10),
-                  child: Text(
-                    'Extra infomation'.tr,
-                    style: GoogleFonts.nunitoSans(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+        return Scaffold(
+          resizeToAvoidBottomInset: true,
+          body: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 10),
+                    child: Text(
+                      'Extra infomation'.tr,
+                      style: GoogleFonts.nunitoSans(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 10, right: 5),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Course ID: '.tr,
-                        style: titleStyle,
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(course.value.id.toUpperCase(),
-                                style: contentStyle),
-                          )),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 10, right: 5),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Course ID: '.tr,
+                          style: titleStyle,
+                        ),
+                        Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(course.value.id.toUpperCase(),
+                                  style: contentStyle),
+                            )),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 10, right: 5),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Date created: '.tr,
-                        style: titleStyle,
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                                DateConverter.getTimeInDate(
-                                    course.value.postDate),
-                                style: contentStyle),
-                          )),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 10, right: 5),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Date created: '.tr,
+                          style: titleStyle,
+                        ),
+                        Container(
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                  DateConverter.getTimeInDate(
+                                      course.value.postDate),
+                                  style: contentStyle),
+                            )),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 10, right: 5),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Creator: '.tr,
-                        style: titleStyle,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.PROFILEVIEW, arguments: owner);
-                        },
-                        child: Row(
-                          children: [
-                            UserAvatar(user: owner, size: 16),
-                            SizedBox(width: 5),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  owner.name,
-                                  style: contentStyle,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 10, right: 5),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Creator: '.tr,
+                          style: titleStyle,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.PROFILEVIEW, arguments: owner);
+                          },
+                          child: Row(
+                            children: [
+                              UserAvatar(user: owner, size: 16),
+                              SizedBox(width: 5),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    owner.name,
+                                    style: contentStyle,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
