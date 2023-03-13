@@ -15,6 +15,7 @@ class _SuggestionChildTabState extends State<SuggestionChildTab> {
   int totalTutoringHours = 0;
   int tutoredHours = 0;
   int uploadedCount = 0;
+  int volunteeredHours = 0;
 
   @override
   void initState() {
@@ -23,6 +24,7 @@ class _SuggestionChildTabState extends State<SuggestionChildTab> {
         totalTutoringHours = controller.totalTutoringHours.value;
         tutoredHours = controller.tutoredHours.value;
         uploadedCount = controller.uploadedCount.value;
+        volunteeredHours = controller.volunteerHours.value;
       });
     });
     super.initState();
@@ -72,7 +74,7 @@ class _SuggestionChildTabState extends State<SuggestionChildTab> {
               ),
               const SizedBox(height: 20),
               Text(
-                '💪 You\'ve tutored for',
+                '🙌 You\'ve volunteered for',
                 style: GoogleFonts.nunitoSans(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -83,6 +85,39 @@ class _SuggestionChildTabState extends State<SuggestionChildTab> {
                 children: [
                   AnimatedSlideOdometerNumber(
                     duration: const Duration(milliseconds: 1400),
+                    curve: Curves.fastOutSlowIn,
+                    odometerNumber: OdometerNumber(volunteeredHours),
+                    numberTextStyle: GoogleFonts.nunitoSans(
+                      fontSize: 50,
+                      fontWeight: FontWeight.w900,
+                    ),
+                    letterWidth: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Text(
+                      ' hours',
+                      style: GoogleFonts.nunitoSans(
+                        fontSize: 18,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Text(
+                '💪 You\'ve tutored for',
+                style: GoogleFonts.nunitoSans(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  AnimatedSlideOdometerNumber(
+                    duration: const Duration(milliseconds: 1500),
                     curve: Curves.fastOutSlowIn,
                     odometerNumber: OdometerNumber(tutoredHours),
                     numberTextStyle: GoogleFonts.nunitoSans(

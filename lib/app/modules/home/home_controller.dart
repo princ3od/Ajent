@@ -24,6 +24,7 @@ class HomeController extends GetxController {
   var newNotification = false.obs;
   var newMessage = false.obs;
   var totalTutoringHours = 0.obs;
+  var volunteerHours = 0.obs;
   var tutoredHours = 0.obs;
   var uploadedCount = 0.obs;
   PageController pageController = PageController();
@@ -82,11 +83,14 @@ class HomeController extends GetxController {
     await _learningController.fetchCourses();
     await _teachingController.fetchCourses();
     for (var course in _teachingController.allCourses) {
-      tutoredHours.value += course.getTutoredHours().round();
-      print(course.getTutoredHours().round());
+      if (course.price == 0)
+        volunteerHours.value += course.getTutoredHours().round();
+      else
+        tutoredHours.value += course.getTutoredHours().round();
     }
     uploadedCount.value = mainUser.uploadedResourceCount;
-    totalTutoringHours.value = tutoredHours.value + uploadedCount.value;
+    totalTutoringHours.value =
+        tutoredHours.value + uploadedCount.value + volunteerHours.value;
     allCourses.addAll(_learningController.allCourses);
     allCourses.addAll(_teachingController.allCourses);
     allCourses.removeWhere((element) => element.status != CourseStatus.ongoing);
